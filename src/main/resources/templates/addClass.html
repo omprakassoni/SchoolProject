@@ -1,0 +1,82 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+  
+            
+    </head>
+    
+    <body>
+    
+     <div th:replace="common/header :: navbar-Admin"></div>
+            <!-- NAVBAR DATA TOP-MOST -->
+        
+       
+       <div class="container">
+       		<div class="header-child">
+       			<label>Add New Class</label> <hr/>
+       			<div class="status" th:text="${status}"></div>
+       		</div>
+       			<div class="row">
+       				<div class="col-sm-2">
+       				</div>
+       				
+       				<div class="col-sm-8 shadow-lg p-3 mb-5 bg-white rounded">
+       					<div class="content-child">
+       					<form th:action="@{addClass}" method="post">
+       						<div class="row">
+       							<div class="col-sm-6">
+       								<label class="header-left" for="class">Select new class</label> 
+       							</div>
+       							<div class="col-sm-6">
+       									<select class="form-control" name="classSelected">
+       										<option></option>
+       										<span th:each="classValue: ${classExist}">
+  											<option><span th:text="${classValue}"></span></option>
+  											</span>
+										</select>
+       							</div>
+       							
+       						</div>
+       						<br/>
+       						<div class="row">
+       							<div class="col-sm-4"></div>
+       							
+       							<div class="col-sm-4">
+       								<button class="btn btn-primary btn-action" type="submit">Add Class</button>
+       							</div>
+       						</div>
+       					</form>
+       					</div>
+       					
+       				</div>
+       				
+       				<div class="col-sm-2">
+       				</div>
+       			
+       			</div>
+       		
+       		
+       		
+       </div>
+       
+    	
+    		
+    		
+    		
+    	
+       
+   
+            
+     
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+        
+         <link rel="stylesheet" href="css/mdb.css" type="text/css"/> 
+		<script src="js/mdb.js"></script>
+
+
+        
+    </body>
+
+
+</html>

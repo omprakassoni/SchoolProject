@@ -1,0 +1,321 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+  	
+  	          
+            
+    </head>
+    
+    <body>
+            <!-- NAVBAR DATA TOP-MOST -->
+         <div th:replace="common/header :: navbar-Admin"></div>
+       
+       
+       <div class="header-child">
+       			<label>Available User</label> <hr/>
+       			<div class="status" th:text="${status}"></div>
+       	</div>
+       	<div style="text-align:right;padding-right:20px;">
+ 
+       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+       							<option>Filter By Role</option>
+  								<option>Learner</option>
+  								<option>Parent</option>
+  								<option>Teacher</option>
+  								<option>Admin</option>
+  								
+			</select></embed>
+	
+       	
+       	
+       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+   		</div>
+   		
+      	<form th:action="@{deleteUser}" method="post">
+      	<div class="table-responsive">
+				<table id="tablePreview" class="table table-hover table-striped">
+	
+				  <thead class="">
+				    <tr>
+				      <th>#</th>
+				      <th>First Name</th>
+				      <th>Last Name</th>
+				      <th>Sex</th>
+				      <th>E-mail</th>
+				      <th>Date Added</th>
+				      <th>Last Login</th>
+				      <th>Role</th>
+				      <th>Active</th>
+				      <th>Details</th>
+				    </tr>
+				  </thead>
+		
+				  <tbody>
+				  
+				  <span th:each="user:${User}">
+				    <tr class="clickable-row">
+				      <th scope="row"><input type="radio" th:value="${user.getId()}" th:id="${user.getId()}" name="radiocall" onchange="radioCall()"/></th>
+				      <td><span th:text="${user.getFname()}"></span></td>		
+				      <td><span th:text="${user.getLname()}"></span></td>
+				      <td><span th:text="${user.getSex()}"></span></td>
+				      <td><span th:text="${user.getEmail()}"></span></td>
+				      <td><span th:text="${user.getDateAdded()}"></span></td>
+				      <td><span th:text="${user.getLastLogin()}"></span></td>
+				      <td><span th:with="roles=${user.getUserRoles()}">
+				      	  <span th:each="role:${roles}">
+				      		<span th:text="${role.getRole().getRoleName()}"></span>
+				      		<br/>
+				      	  </span>
+				      	 </span>
+				      </td>
+				      
+				      <td><span th:if="${user.getRegistered()==1}"><div id="true"/></span>
+				      	  <span th:unless="${user.getRegistered()==1}"><div id="false"/></span>
+				      </td>
+				      
+				       <td><span th:with="roles=${user.getUserRoles()}">
+				      	  <span th:each="role:${roles}">
+				      		<span th:if="${role.getRole().getRoleId()==2}"></span>
+				      		<span th:unless="${role.getRole().getRoleId()==2}"><a class="btn btn-secondary detailUser" th:value="${user.getId()}" id="detailUser">Details</a></span>
+				      		<br/>
+				      	  </span>
+				      	 </span>
+				      </td>
+				     
+				    </tr>
+				    </span>
+				   
+				</tbody>
+			
+				</table>
+			
+			</div>
+			
+			<div class="container">
+				<center>
+					
+						
+					<button class="btn btn-danger" id="disableUser"  disabled >Disable</button>
+					
+					<button class="btn btn-primary" id="enableUser"  disabled >Enable</button>
+					
+					
+				</center>
+			
+			
+			</div>
+			
+			</form>
+			
+			<!-- Modal -->
+				<div class="modal fade" id="LearnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-lg " role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				      	<div class="row">
+				      		<div class="col-sm-6">
+				      			<div class="row ">
+				      				<label>First Name</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Last Name</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>E-mail </label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Sex</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Role</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Date of Birth</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>School Name</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>School Address</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Pincode</label>
+				      			</div>
+				      			
+				      		</div>
+				      		<div class="col-sm-6" style="font-size:18px">
+				      			<div class="row ">
+				      				 
+    								<input type="text" readonly class="form-control-plaintext" id="FirstName" value="">
+ 									
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="LastName" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Email" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Sex" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Role" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Dob" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="SchoolN" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="SchoolA" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Pincode" value="">
+				      				
+				      			</div>
+				      			
+				      		</div>
+				      	</div>
+				       <hr/>
+				      </div>
+				     
+				    </div>
+				  </div>
+				</div>
+
+
+
+		<!-- Modal -->
+				<div class="modal fade" id="TeacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-lg " role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				      	<div class="row">
+				      		<div class="col-sm-6">
+				      			<div class="row ">
+				      				<label>First Name</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Last Name</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>E-mail </label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Sex</label>
+				      			</div>
+				      			<div class="row">
+				      				<label>Role</label>
+				      			</div>
+				      		
+				      		</div>
+				      		<div class="col-sm-6" style="font-size:18px">
+				      			<div class="row ">
+				      				 
+    								<input type="text" readonly class="form-control-plaintext" id="FirstName" value="">
+ 									
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="LastName" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Email" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Sex" value="">
+				      				
+				      			</div>
+				      			<div class="row">
+				      			<input type="text" readonly class="form-control-plaintext" id="Role" value="">
+				      				
+				      		</div>
+				      	</div>
+				         <hr/>
+				      </div>
+				      
+				      
+				    </div>
+				  </div>
+				</div>
+  
+       
+       				
+       		
+       
+		<link rel="stylesheet" href="css/mdb.css" type="text/css"/>      
+      				
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+	   	<script src="js/mdb.js"></script> 
+	   	
+	   	<script>
+			function filterByName() {
+  				var input, filter, table, tr, td, i, txtValue;
+ 				 input = document.getElementById("myInput");
+ 				 filter = input.value.toUpperCase();
+ 				 table = document.getElementById("tablePreview");
+  				 tr = table.getElementsByTagName("tr");
+                 for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[0];
+                     if (td) {
+                      txtValue = td.textContent || td.innerText;
+      					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       						 tr[i].style.display = "";
+     					 } else {
+       							 tr[i].style.display = "none";
+      						}
+    					}       
+  				}
+			}
+			
+			
+			function filterByRole() {
+  				var input, filter, table, tr, td, i, txtValue;
+ 				 input = document.getElementById("roleSelected");
+ 				 filter = input.value.toUpperCase();
+ 				 table = document.getElementById("tablePreview");
+  				 tr = table.getElementsByTagName("tr");
+                 for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[6];
+                     if (td) {
+                      txtValue = td.textContent || td.innerText;
+      					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       						 tr[i].style.display = "";
+     					 } else {
+       							 tr[i].style.display = "none";
+      						}
+    					}       
+  				}
+			}
+</script> 
+	   	
+
+        
+    </body>
+
+
+</html>

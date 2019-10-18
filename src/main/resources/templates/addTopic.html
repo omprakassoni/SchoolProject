@@ -1,0 +1,132 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+  
+            
+    </head>
+    
+    <body>
+            <!-- NAVBAR DATA TOP-MOST -->
+         <div th:replace="common/header :: navbar-Admin"></div>
+       
+        <div class="container">
+       		<div class="header-child">
+       			<label>Add New Topic</label> <hr/>
+       			<div class="status" th:text="${status}"></div>
+       		</div>
+       			<div class="row">
+       				<div class="col-sm-2">
+       				</div>
+       				
+       				<div class="col-sm-8 shadow-lg p-3 mb-5 bg-white rounded">
+       					<div class="content-child">
+       					<form th:action="@{addTopic}" method="post" enctype="multipart/form-data">
+       						<div class="row">
+       							<div class="col-sm-6">
+       								<label class="header-left">Select Class</label> 
+       							</div>
+       							<div class="col-sm-6">
+       									<select class="form-control" name="classSelected" id="classSelected">
+       										<option></option>
+       										<span th:each="classValue: ${classExist}">
+  											<option><span th:text="${classValue.getClassName()}"></span></option>
+  											</span>
+										</select>
+										
+       							</div>
+       							
+       						</div>
+       						<br/>
+       						
+       						<div class="row">
+       							<div class="col-sm-6">
+       								<label class="header-left">Select Subject</label> 
+       							</div>
+       							<div class="col-sm-6">
+       									<select class="form-control" name="subjectSelected" id="subject" path="subject" disabled>
+       										<option value="0" label="Subject" />
+       										<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+  										
+										</select>
+       							</div>                                                                                                                                                                       
+       							
+       						</div>
+       						<br/>
+       						
+       						<div class="row">
+       							<div class="col-sm-6">
+       								<label class="header-left">Enter Topic Name</label> 
+       							</div>
+       							<div class="col-sm-6">
+       									<input type="text" class="form-control" placeholder="Enter Topic" name="topic" aria-label="TopicQ" aria-describedby="basic-addon1" id="topic" required disabled/>
+       							</div>
+       							
+       						</div>
+       						<br/>
+       						
+       						<div class="row">
+       							<div class="col-sm-6">
+       								<label for="description" class="header-left">Description</label> 
+       							</div>
+       							<div class="col-sm-6">
+       								
+    									<textarea class="form-control" placeholder="Enter Something" id="descriptionQ" name="descriptionQ" rows="3" required disabled></textarea>
+       							</div>
+       							
+       						</div>
+       						<br/>
+       						
+       						<div class="row">
+       							<div class="col-sm-6">
+       								<label for="poster" class="header-left">Poster</label> 
+       							</div>
+       							<div class="col-sm-6">
+       									 <input type="file" class="form-control-file" id="posterQ" name="posterQ" accept="image/*" required disabled/>
+       							</div>
+       							
+       						</div>
+       						<br/>
+       						
+       						
+       						<div class="row">
+       							<div class="col-sm-4"></div>
+       							
+       							<div class="col-sm-4">
+       								<button class="btn btn-primary btn-action" type="submit">Add Topic</button>
+       								<div id="ya"></div>
+       							</div>
+       						</div>
+       						
+       						
+       					</form>
+       					</div>
+       					
+       				</div>
+       			
+       				<div class="col-sm-2">
+       				
+       				</div>
+       			
+       			</div>
+       		
+       		
+       		
+       </div>
+       
+       
+     
+       
+       
+     
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+         <link rel="stylesheet" href="css/mdb.css" type="text/css"/> 
+		<script src="js/mdb.js"></script>
+
+
+        
+    </body>
+
+
+</html>

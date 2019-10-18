@@ -1,0 +1,578 @@
+body{
+	font-family:"Times New Roman", Times, serif;
+	background-image:url("/static/Images/backgroundStartup.jpg");
+}
+ 
+ /* DESIGN FOR INDEX PAGE */
+.section{
+	padding-top:70px;
+	text-align:center;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+  
+}
+
+.header{
+	padding-bottom:20px;
+	display:strong;
+	font-size:25px;
+}
+.input-group{
+	
+	text-align:center;
+	padding:5px 5px;
+	
+}
+
+.btn-login{
+	width:100%;
+	border-radius:6px;
+	margin-top:5px;
+	
+}
+
+
+/* -- END OF STYLEING FOR INDEX PAGE--   */
+
+
+/* Start of Styling for home page  */
+.sectionHome{
+	padding-top:70px;
+	padding-left:30px;
+	margin:10px 70px;
+	
+}
+
+.col-property{
+	font-size:16px;
+	padding:10px 40px;
+}
+
+.font-property-add{
+	padding-right:10px;
+	display:inline;
+	color:green;
+}
+
+.font-property-view{
+	padding-right:10px;
+	display:inline;
+	color:#a13598;
+}
+
+.font-property-task{
+	padding-right:10px;
+	display:inline;
+	color:#d11121;
+}
+
+.overflow-y{
+	 overflow-y: scroll;
+	 height:860px;
+}
+
+.Notify{
+	font-size:25px;
+	font-weight:bold;
+}
+
+/* -- End of Styling for Home Page -- */
+
+
+
+/* Start of child page styling ------ */
+
+.header-child{
+	padding-top:80px;
+	text-align:center;
+	display:strong;
+	font-size:25px;
+	
+}
+.row label{
+	font-size:22px;
+	padding-left:70px;
+}
+
+.btn-action{
+	width:100%;
+	
+}
+
+.status{
+	color:green;
+	font-size:19px;
+	padding-bottom:10px;
+}
+
+.form-check{
+	padding:20px;
+	margin:10px;
+	text-align:flex;
+}
+
+#imp-info{
+	color:red;
+	padding-left:20px;
+}
+
+#agree-property{
+	font-size:15px;
+	padding:15px;
+	
+}
+
+.terms-and-condition{
+	font-size:17px;
+	padding-top:5px;
+	padding-left:20px;
+	margin-top:10px;
+}
+.pad-extra{
+    margin: 10px;
+    
+}
+.pad-extra-submit{
+    margin: 20px;
+    
+}
+/* start  of  displaying part */
+
+#true{
+	height: 20px;
+  	width: 20px;
+  	background-color: green;
+  	border-radius: 50%;
+}
+
+#false{
+	height: 20px;
+  	width: 20px;
+  	background-color: red;
+  	border-radius: 50%;
+}
+
+.table-responsive{
+	padding:20px;
+}
+
+ /*----------------------START OF INDEX PAGE DESIGN-------------------------------------------------------------------------------------*/
+ 
+ 
+ #Home{
+    padding: 20px;
+}
+
+.pad-extra{
+    margin: 10px;
+    
+}
+.pad-extra-submit{
+    margin: 20px;
+    
+}
+
+ .w3agile_contact_left input[type="text"], .w3agile_contact_left input[type="email"], .w3agile_contact_left textarea {
+    outline: none;
+    border: none;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-bottom: 1px solid #212121;
+    padding-top: 5px;
+    width: 100%;
+    font-size: 14px;
+    color: #212121;
+    background: none;
+}
+
+.w3agile_contact_left input[type="email"] {
+    margin: 2em 0;
+}
+
+.w3agile_contact_left textarea {
+    min-height: 45px;
+    resize: none;
+}
+
+.w3agile_contact_left input[type="submit"] {
+    outline: none;
+    border: none;
+    padding: 10px 0;
+    width: 30%;
+    font-size: 14px;
+    color: #fff;
+    background: #4BC319;
+    margin: 3em 0 0;
+}
+
+
+
+.section-header{
+    padding: 87px 0 50px;
+    color: #454545;
+    background: #f1f1f1;
+}
+
+.section1{
+    margin-bottom: 70px;
+    text-align:left;
+}
+
+.section-title{
+    font-size: 33px;
+    color: #53626d;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 20px;
+    margin: 0 0 20px;
+    font-family: 'Roboto-medium';
+    font-weight: 500; 
+    font-weight: bold;
+}
+    
+
+.pad-extra-submit{
+    margin: 20px;
+    
+}
+
+
+.section-title::before{
+    content: "";
+    position: absolute;
+    width: 170px;
+    bottom: 0;
+    left: 49%;
+    margin-left: -70px;
+    height: 1px;
+    background: #CC2A41;
+}
+
+.section-title::after{
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    bottom: -11px;
+    left: 50.4%;
+    margin-left: -12px;
+    border: 5px solid #fff;
+    border-radius: 25px;
+    background: #CC2A41;
+}
+
+.address{
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.address a{
+    padding: 5px;
+}
+
+.section-title-except-contact-us{
+    font-size: 30px;
+    color: #53626d;
+    position: relative;
+    margin: 0 0 20px;
+    font-family: 'Roboto-medium';
+    font-weight: 500; 
+    font-weight: bold;
+    
+}
+
+.section-title-except-contact-us::before{
+
+    
+}
+
+.line{
+    border-top: 2px solid #CC2A41;
+    padding-left: 40px;
+    width: 5%;
+    margin-bottom: 2em;
+}
+
+.base-heading{
+    padding: 0em 0 2em;
+    font-family: 'Righteous', cursive;
+}
+
+.base-heading h4{
+    float: left;
+    color: #001c32;
+    font-size: 3em;
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+}
+
+.base-heading h4 span{
+    display: block;
+    font-size: 20px;
+}
+
+.base-heading h4::after{
+    content: '';
+    background: #FA620F;
+    display: block;
+    width: 89px;
+    height: 2px;
+    position: absolute;
+    left: 89%;
+    transform: rotate(118deg);
+    top: 53%;
+}
+
+.base-heading h6{
+    float: right;
+    font-size: 1.5em;
+    margin-top: 3%;
+    width: 77%;
+}
+
+.base-content p{
+    padding-top: 3px;
+   font-size: 14px;
+   line-height: 1.8em;
+   margin: 5em 0 3em; 
+   text-align: justify;
+}
+
+.view a{
+    color: #FA620F;
+    border: 1px solid #FA620F;
+    padding: 8px 25px;
+    font-size: 14px;
+    font-family: 'Righteous', cursive;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:20px;
+}
+
+#event{
+    background: #B3C9A4;
+}
+
+.testimonial{
+    text-align: justify;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.column-video-property{
+    padding: 10px;
+}
+
+.wrapper-carousel-fix p{
+    font-size:18px;
+}
+
+.bg-poster{
+    
+    background-image: url(/Images/maxresdefault.jpg);
+    min-height: 700px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+}
+
+/*---------------------------------------------------END--------------------------------------------------------------------------*/   
+
+
+/* ------------------------------------------------------Register Page Design------------------------------------------------------- *?
+/* vertical tabs */
+.vertical-tab {
+    color: #333;
+    display: block;
+    margin: auto;
+    position: relative;
+    float: center;
+ 
+    /* width: 70%; */
+}
+
+.vertical-tab input[name="sections"] {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+}
+
+.vertical-tab .section-w3ls {
+    display: block;
+}
+
+.vertical-tab .section-w3ls label {
+    background: #fff;
+    border-right: 1px solid #dcdcdc;
+    cursor: pointer;
+    display: block;
+    font-size: 17px;
+    padding: 33px 20px;
+    position: relative;
+    width: 189px;
+    z-index: 100;
+    color: #111;
+    text-align: center;
+}
+
+.vertical-tab .section-w3ls article {
+    display: none;
+    left: 230px;
+    min-width: 570px;
+    position: absolute;
+    top: 0;
+}
+
+.vertical-tab input[name="sections"]:checked+label {
+    background: #007bff;
+    border-right: 1px solid #000;
+    color: #fff;
+}
+
+.vertical-tab input[name="sections"]:checked~article {
+    display: block;
+}
+
+label.icon-left-w3pvt span {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 7.8px;
+}
+
+
+.input {
+    margin-bottom: 1em;
+    padding: 13px 15px;
+    border: 1px solid #eee;
+    background: #eee;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.input span {
+    font-size: 15px;
+    color: #464646;
+    margin-right: 10px;
+}
+
+.input input {
+    color: #000;
+    font-size: 14px;
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+}
+
+
+a.bottom-text-w3ls {
+    color: #757474;
+    font-size: 14px;
+    padding-left: 10px;
+    letter-spacing: 1px;
+    text-align: center;
+    
+}
+
+.login-end{
+    display: inherit;
+     margin-top: 1.2em;
+    text-align: center;
+}
+
+.errorClass{
+	color:red;
+}
+
+
+/* -----------------------------------------------------------Register Page Design -----------------------------------------------------------*/
+
+
+
+/*------------------------------------------------------------ Login Page Design ----------------------------------------------------------------*/
+
+.spk-login-form{
+    background: rgba(0, 0, 0, 0.4117647058823529);
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 3em;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.spk-form-group{
+    margin: 20px 0;
+}
+
+.forgot {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.btn-login {
+    width:100%;
+    text-transform: uppercase;
+    padding: 12px 60px;
+    border-radius: 6px;
+    
+}
+
+
+p.spk-register-p {
+    color: #eee;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 2em;
+}
+
+.card-inner{
+    margin-left: 4rem;
+}
+
+/*.backgroundImage{
+	background-image: url(/Images/loginBack.jpg);
+    min-height:900;
+  
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: cover;
+    position: relative;
+}*/
+
+
+.nav-link{
+	font-size:25px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: rgb(10,42,102);
+}
+
+/*********************************** event page **************************************/
+
+.center-all-over-side{
+	
+	padding-left:20%;
+	text-align:center;
+}
+
+
+
+
+/*---------------------------------------------------------------END----------------------------------------------------------------------*/

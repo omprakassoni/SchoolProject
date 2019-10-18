@@ -1,0 +1,177 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+  	
+  	          
+            
+    </head>
+    
+    <body>
+            <!-- NAVBAR DATA TOP-MOST -->
+         <div th:replace="common/header :: navbar-Admin"></div>
+       
+       
+       <div class="header-child">
+       			<label>Available Testimonial</label> <hr/>
+       			<div class="status" th:text="${status}"></div>
+       	</div>
+       	<div style="text-align:right;padding-right:20px;">
+ 
+       	
+       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+   		</div>
+   		
+      	<form th:action="@{deleteTesti}" method="post">
+      	<div class="table-responsive">
+				<table id="tablePreview" class="table table-hover table-striped">
+	
+				  <thead class="">
+				    <tr>
+				      <th>#</th>
+				      <th>Name</th>
+				      <th>Organization</th>
+				      <th>date added</th>
+				      <th>Description</th>
+				      <th> Operation</th>
+				    </tr>
+				  </thead>
+		
+				  <tbody>
+				  
+				  <span th:each="testi:${Testimonial}">
+				    <tr class="clickable-row">
+				      <th scope="row"><input type="radio" th:value="${testi.getTestimonialId()}" th:id="${testi.getTestimonialId()}" name="selectionRadio" onchange="radioCall()"/></th>
+				      <td><span th:text="${testi.getName()}"></span></td>		
+				      <td><span th:text="${testi.getOrganization()}"></span></td>
+				      <td><span th:text="${testi.getDateAdded() }"></span></td>
+				      <td style="width:400px"><span th:text="${testi.getDescription()}"></span></td>
+				      
+				      <td>
+				      		<a class="btn btn-secondary detailTestimonial" th:value="${testi.getTestimonialId()}" id="detailTestimonial">Update</a>
+				     		
+				     </td>
+				    </tr>
+				    </span>
+				   
+				</tbody>
+			
+				</table>
+			
+			</div>
+			
+			<div class="container">
+				<center>
+					
+						
+					<button class="btn btn-danger" id="deleteTesti"  disabled >Delete</button>
+						
+					
+				</center>
+			
+			
+			</div>
+			
+		
+</form>
+  	
+  	<!-- Modal for updating the data-->
+			
+			<div class="modal fade" id="TestimonialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			     
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Testimonial</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			
+			      <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Description</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="testimonialDesc" name="testimonialDesc" rows="4" cols="33" placeholder=""></textarea>
+				      			<input type="hidden" id="testiId" name="testiId" value="">
+				      			</div>
+				   </div>
+				   
+				      			<br/>
+				   <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Name</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" class="form-control-file" id="testimonialName" name="testimonialName" value=""/>
+				      			</div>
+				   </div>
+				   				<br/>
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Organization</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" class="form-control-file" id="testimonialOrg" name="testimonialOrg" value=""/>
+				      			</div>
+				   </div>
+				   	<div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateTestimonial" value="">Update</button>
+				    </div>
+				      			
+				    </div>
+				 
+				      
+				      </div>
+			    </div>
+			  </div>
+  	
+
+       
+       				
+       		
+       
+		<link rel="stylesheet" href="css/mdb.css" type="text/css"/>      
+      				
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+	   	<script src="js/mdb.js"></script> 
+	   	
+	   	<script>
+			function filterByName() {
+  				var input, filter, table, tr, td, i, txtValue;
+ 				 input = document.getElementById("myInput");
+ 				 filter = input.value.toUpperCase();
+ 				 table = document.getElementById("tablePreview");
+  				 tr = table.getElementsByTagName("tr");
+                 for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[0];
+                     if (td) {
+                      txtValue = td.textContent || td.innerText;
+      					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       						 tr[i].style.display = "";
+     					 } else {
+       							 tr[i].style.display = "none";
+      						}
+    					}       
+  				}
+			}
+			
+			
+			
+</script> 
+	   	
+
+        
+    </body>
+
+
+</html>

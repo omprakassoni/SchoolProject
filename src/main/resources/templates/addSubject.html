@@ -1,0 +1,109 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+ 
+            
+    </head>
+    
+    <body>
+            <!-- NAVBAR DATA TOP-MOST -->
+        <div th:replace="common/header :: navbar-Admin"></div>
+       
+       <div class="container">
+       		<div class="header-child">
+       			<label>Add New Subject</label> <hr/>
+       			<div class="status" th:text="${status}"></div>
+       		</div>
+       			<div class="row">
+       				<div class="col-sm-2">
+       				</div>
+       				
+       				<div class="col-sm-8 shadow-lg p-3 mb-5 bg-white rounded">
+       					<div class="content-child">
+       					  <form th:action="@{addSubject}" method="post">
+       						<div class="row">
+       							<div class="col-sm-6">
+       								<label class="header-left" for="class">Select new Subject</label> 
+       							</div>
+       							<div class="col-sm-6">
+       									<select class="form-control" name="SelectedSubject" onchange="myFunction()">
+       										<option></option>
+       										<span th:each="classValue: ${subjectExist}">
+  											<option><span th:text="${classValue}"></span></option>
+  											</span>
+										</select>
+       							</div>
+       							
+       						</div>
+       						<hr style="width:50%"/>
+       						<div class="row">
+       							
+       							<div class="col-sm-3">
+       							</div>
+       							
+       							<div class="col-sm-6">
+       								<div class="form-check">
+       									<span th:each="classValue:${classExist}">
+ 										 <input class="form-check-input" type="checkbox" name="SelectedClasses" id="checkboxClass" th:value="${classValue.getClassName()}" disabled >
+  											<label class="form-check-label" for="defaultCheck1"> <span th:text="${classValue.getClassName()}"></span>
+  											</label> <br/>
+										</span>
+									</div>
+									
+       							</div>
+       						</div>
+       						<div class="row">
+       							<div class="col-sm-4"></div>
+       							
+       							<div class="col-sm-4">
+       								<button class="btn btn-primary btn-action" type="submit">Add Subject</button>
+       							</div>
+       						</div>
+       					</form>
+       					</div>
+       					
+       				</div>
+       				
+       				<div class="col-sm-2">
+       				</div>
+       			
+       			</div>
+       		
+       		
+       		
+       </div>
+       
+    	
+    	
+    	
+    	<script>
+  				function myFunction() {
+  					
+  					var checkboxdata=document.getElementsByName("SelectedClasses");
+  					for(var i=0;i<checkboxdata.length;i++){
+  						checkboxdata[i].disabled=false;
+  						checkboxdata[i].checked=false;	
+  					}
+  					
+  				
+ 
+  				}
+  		</script>
+    		
+    		
+    	
+       
+   
+            
+     
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+         <link rel="stylesheet" href="css/mdb.css" type="text/css"/> 
+		<script src="js/mdb.js"></script>
+
+
+        
+    </body>
+
+
+</html>

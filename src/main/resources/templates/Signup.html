@@ -1,0 +1,199 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+        
+    </head>
+    
+    <body> 
+        
+        	<!--  CODE FOR NAVBAR -->
+        <div th:replace="common/header :: navbar"></div>
+        	<!--  /CODE FOR NAVBAR -->
+       
+        <div class="container">
+		<!-- title -->
+		<h1 style="text-align: center">Register Yourself</h1>
+		
+			<!-- vertical tabs -->
+			<div class="vertical-tab " >
+				<div id="section1" class="section-w3ls">
+					<input type="radio" name="sections" id="option1" th:checked="${checkedOptionLearner}">
+					<label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle" aria-hidden="true"><br/></span>Learner</label>
+				
+					<article class="shadow-lg p-3 mb-5 bg-white rounded">
+						<form th:action="@{/newUserL}" method="post" >
+
+				  		<h3 class="legend">Learner</h3>
+				  			<center><h6 class="errorClass"><span th:text="${FailureL}"></span></h6></center>
+							<div class="input"> 
+								
+								<input type="email" placeholder="Email" name="email" id="validateEmailL" required />
+								<div id="availableL" style="display:none;color:green">Available</div>
+								<div id="notAvailableL" style="display:none;color:red">No Available</div>
+
+							</div>
+							<div class="input">
+								
+								<input type="text" name="txtLearnersFirstname" placeholder="First Name" required />
+
+							</div>
+							<div class="input">
+								
+								<input type="text" name="txtLearnersLastname" placeholder="Last Name" required />
+							</div>
+							<div class="input">
+							
+								<input type="password" placeholder="Password" name="password1"  required/>
+							</div>
+							<div class="input">
+								
+								<input type="password" placeholder="Confirm Password" name="password2" required />
+							</div>
+							<div class="radio">
+								
+								<input type="radio" name="gender" value="Male" /> Male     
+								
+								
+								<input type="radio" name="gender" value="Female"/> Female
+								
+							</div>
+							
+							<div class="input">
+								
+								<input type="text" name="txtLearnersSchoolName" placeholder="Enter School Name" required />
+							</div>
+							<div class="input">
+								
+								<input type="text" name="txtLearnersSchoolAddress" placeholder="Enter School Address" required />
+
+							</div> 
+				
+							<div class="input">
+								
+								<input type="text" name="txtPincode"  class="calculator-input" placeholder="Enter Pincode" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required />
+
+							</div>
+							
+							
+							<div class="input">
+							
+								<input type="date" name="txtdate" required />     
+							</div>
+							
+							<button type="submit" class="btn btn-primary btn-login" onsubmit="" >Register </button>
+				
+								 
+                            <span class="login-end">Already Registered ?<a href="Login" class="bottom-text-w3ls">Login</a></span>
+						</form>
+					</article>
+				</div>
+				<div id="section2" class="section-w3ls">
+					<input type="radio" name="sections" id="option2" th:checked="${checkedOptionParent}">
+					<label for="option2" class="icon-left-w3pvt"><span class="fas fa-pen-square" aria-hidden="true"></span>Parent</label>
+					<article class="shadow-lg p-3 mb-5 bg-white rounded">
+						<form th:action="@{/newUserP}" method="post">
+							<h3 class="legend">Parent</h3>
+							<center><h6 class="errorClass"><span th:text="${FailureP}"></span></h6></center>
+							
+								<div class="input">
+								
+								<input type="email" placeholder="Email" name="email"  id="validateEmailP" required />
+								<div id="availableP" style="display:none;color:green">Available</div>
+								<div id="notAvailableP" style="display:none;color:red">No Available</div>
+
+							</div>	
+							<div class="input">
+								
+								<input type="text" name="txtParentsFirstname" placeholder="First Name" required />
+
+							</div>
+							<div class="input">
+								
+								<input type="text" name="txtParentsLastname" placeholder="Last Name" required />
+							</div>
+							<div class="radio">
+								
+								<input type="radio" name="gender" value="male" /> Male     
+								
+								
+								<input type="radio" name="gender" value="female"/> Female
+								
+							</div>
+						
+							<div class="input">
+								
+								<input type="password" placeholder="Password" name="password" required />
+							</div>
+							<div class="input">
+								
+								<input type="password" placeholder="Confirm Password" name="Confpassword" required />
+							</div>
+                          
+							<button type="submit" class="btn btn-primary btn-login">Register</button>		
+                            <span class="login-end">Already Registered ?<a href="Login" class="bottom-text-w3ls">Login</a></span>
+                        </form>
+					</article>
+				</div>
+				<div id="section3" class="section-w3ls">
+					<input type="radio" name="sections" id="option3" th:checked="${checkedOptionTeacher}">
+					<label for="option3" class="icon-left-w3pvt"><span class="fa fa-lock" aria-hidden="true"></span>Teacher</label>
+					<article class="shadow-lg p-3 mb-5 bg-white rounded">
+						<form th:action="@{/newUserT}" method="post" enctype="multipart/form-data">
+						
+							<h3 class="legend last">Teacher</h3>
+							<center><h6 class="errorClass"><span th:text="${FailureT}"></span></h6></center>
+						
+							<div class="input">
+								<input type="email" placeholder="Email" name="email" id="validateEmailT" required />
+								<div id="availableT" style="display:none;color:green">Available</div>
+								<div id="notAvailableT" style="display:none;color:red">No Available</div>
+							</div>
+								<div class="input">
+								<input type="text" name="txtTeacherFirstname" placeholder="First Name" required />
+							</div>
+							<div class="input">
+								
+								<input type="dropdown" name="txtTeacherLastname" placeholder="Last Name" required />
+							</div>
+							<div class="radio">
+								
+								<input type="radio" name="gender" value="male" required/> Male     
+								
+								<input type="radio" name="gender" value="female" required/> Female
+								
+							</div>
+						
+							<div class="input">
+								
+								<input type="password" placeholder="Password" name="password" required />
+							</div>
+							<div class="input">
+								
+								<input type="password" placeholder="Confirm Password" name="Confpassword" required />
+							</div>
+                            <div class="input">
+								
+								<input type="file" name="txtTeacherDocument" placeholder="upload Document" accept="image/*" required />
+							</div>
+							
+                           
+							<button type="submit" class="btn btn-primary btn-login" onsubmit="checkPassword()">Register</button>
+								<span class="login-end">Already Registered ?<a href="Login" class="bottom-text-w3ls">Login</a></span>
+                            
+						</form>
+					</article>
+				</div>
+			</div>
+			<!-- //vertical tabs -->
+			<div class="clear"></div>
+		</div>
+		
+		
+	
+    		<!--  COMMON CODE FOR LIBRARY ADDED -->
+		<div th:replace="common/header :: body-bottom-scripts"></div>
+    
+    
+    </body>
+    
+</html>

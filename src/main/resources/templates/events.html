@@ -1,0 +1,99 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="common/header :: common-header">
+  
+            
+    </head>
+    
+    <body >
+    
+            
+           
+            	<!--  CODE FOR NAVBAR -->			
+    <div th:replace="common/header :: navbar"></div>
+    
+    <div style="background-image: url(/Images/background.png); width:100%;height:100%">
+    	<div class="container">
+    		
+    		<div style="background-color:rgb(10,42,102)">
+    		
+    			<h1 style="color:white;padding-left:50px">Event List</h1>
+    		
+    		</div>
+    		<br/>
+    		<br/>
+    		
+    		<div class="row shadow-lg p-3 mb-5 bg-white rounded" th:each="event:${EventList}" >
+    			<div class="col-2" style="border-right:1px solid #333">
+    			<br/>
+    			<br/>
+    			<div class="row center-all-over-side">
+    				
+    				<h1 th:text="${#calendars.day(event.getDateToHappen())}"></h1>
+    			</div>
+    			
+    			<div class="row "style="padding-left:20%">
+    			
+    				<h2 th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></h2>
+    			</div>
+    				
+    			
+    			</div>
+    			
+    			<div class="col-1"></div>
+    			<div class="col-8">
+    				<div class="row">
+    					<strong><h2 th:text="${event.getHeadline()}"></h2></strong>
+    				</div>
+    				<hr/>
+    			
+    				<div class="row">
+    						<h4 th:text="${event.getDescription()}"></h4>
+    				</div>
+    			
+    			
+    			
+    			</div>
+    		
+    		
+    		
+    		</div>
+    	
+    	
+    	</div>
+    	
+    
+    
+    
+    </div>
+    
+    
+    	
+        					<div>
+                            <h6>Leave a reply</h6>
+                            <textarea id="comment2372" placeholder="Comment*" name="comment" class="col-md-12 "></textarea><br>
+                            <div class="col-12 text-right pr-0">
+                                <button type="button" class="btn btn-danger btn-sm text-white  p-1 my-2" onclick="showComment(2372)">Close</button>
+                                <button type="button" class="btn btn-warning btn-sm text-white  p-1 my-2" onclick="saveComment('6', 'course', 2372)">Submit</button>
+                            </div>
+                        
+       
+        
+        
+        
+            
+       
+    	
+            
+     	
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+        
+         
+
+
+        
+    </body>
+
+
+</html>

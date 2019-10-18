@@ -1,0 +1,2252 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="common/header :: common-header">
+    
+    
+    
+        
+    </head>
+    <body >
+    
+    	<!--  CODE FOR NAVBAR -->			
+    <div th:replace="common/header :: navbar"></div>
+    <hr/>
+    
+    <!--  CODE FOR DISPLAYING SUBJECTNAME AND CLASSNAME ALONG WITH TOPICNAME -->
+    
+    
+    
+  
+  <!--  CODE FOR ENTIRE CONTENT  LEARNER AND PARENT--> 
+  
+    <div class="container-fluid" style="padding:50px" th:if="${LoggedUserRole}=='Learner' or ${LoggedUserRole}=='Parent'">          
+		<div class="row">
+  			<div class="col-3">
+      			<label><h1>Account Info</h1></label>
+    			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Concept-map" role="tab" aria-controls="v-pills-home" aria-selected="true">Credential</a>
+				       
+    			</div>
+  			</div>
+  			<div class="col-1"></div>
+  			<div class="col-8">
+    			<div class="tab-content" id="v-pills-tabContent">
+    			
+      			
+      			<!--  CODE FOR PERSONAL INFO   -->
+      			
+      			<div class="tab-pane fade show" id="v-pills-Concept-map" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      			
+      			<ul class="nav nav-tabs" id="myTab" role="tablist">
+						  <li class="nav-item">
+						    <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#Personal" role="tab" aria-controls="home"
+						      aria-selected="true">Personal Information</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link" id="passwordChange-tab" data-toggle="tab" href="#passwordChange" role="tab" aria-controls="profile"
+						      aria-selected="false">Update Password</a>
+						  </li>
+						
+				</ul>
+						<div class="tab-content" id="myTabContent">
+						  <div class="tab-pane fade show active" id="Personal" role="tabpanel" aria-labelledby="Video-tab">
+						  
+						  	<div class="clearfix"></div>
+						  	
+						  	<div class="table-responsive">
+								  <table class="table">
+								    
+								    <tbody>
+								      <tr>
+								       
+								        <td>First Name</td>
+								        <td><span th:text="${LoggedUser.getFname()}"></span></td>
+								        <td>E-mail</td>
+								        <td><span th:text="${LoggedUser.getEmail()}"></span></td>
+								      
+								      </tr>
+								      <tr>
+								        
+								        <td>Last Name</td>
+								        <td><span th:text="${LoggedUser.getLname()}"></span></td>
+								        <td>Sex</td>
+								        <td><span th:text="${LoggedUser.getSex()}"></span></td>
+								      
+								      </tr>
+								      <tr th:if="${LoggedUser.getSchoolName()}">
+								       
+								        <td>School Name</td>
+								        <td><span th:text="${LoggedUser.getSchoolName()}"></span></td>
+								        <td>Address</td>
+								        <td><span th:text="${LoggedUser.getSchoolAddress()}"></span></td>
+								       
+								      </tr>
+								      
+								        <tr th:if="${LoggedUser.getSchoolName()}">
+								       
+								        <td>Pincode</td>
+								        <td><span th:text="${LoggedUser.getPincode()}"></span></td>
+								        <td>Date of Birth</td>
+								        <td><span th:text="${LoggedUser.getDateOfBirth()}"></span></td>
+								       
+								      </tr>
+								      
+								        <tr>
+								       
+								        <td>Joined On </td>
+								        <td><span th:text="${LoggedUser.getDateAdded()}"></span></td>
+								      
+								       
+								      </tr>
+								    </tbody>
+								  </table>
+								</div>
+
+
+			     			 
+						 
+						  
+						  </div>
+						  
+						  
+						  <div class="tab-pane fade" id="passwordChange" role="tabpanel" aria-labelledby="Links-tab">
+						  
+						 		<div class="clearfix"></div>
+						  	
+						  	<div class="table-responsive table-borderless">
+						  	<div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			     			<div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+								  <table class="table">
+								    
+								    <tbody>
+								      <tr>
+								       
+								       
+								        <td><label for="newPass">New Password</label></td>
+								        <td><input type="password" id="newPassLearnerParent" class="form-control">
+								        	<input type="hidden" name="userIdUpdateLearnerParent" id="userIdUpdateLearnerParent" th:value="${LoggedUser.getId()}"/></td>
+								      
+								      </tr>
+								      <tr>
+								        
+								     	<td><label for="confPass">Confirm Password</label></td>
+								        <td><input type="password" id="confPassLearnerParent" class="form-control"></span></td>
+								      
+								      </tr>
+								     
+								   
+								        <tr>
+								       
+								        <td colspan="2" style="text-align:center"><button type="button" class="btn btn-primary" id="updatePasswordLearnerParent">Change Password</button></td>
+								 
+								      
+								       
+								      </tr>
+								    </tbody>
+								  </table>
+								</div>
+
+						 	
+						 
+					
+						  
+						  </div>
+						
+						</div>
+        		
+        		
+        		
+      			</div>
+      			
+      		
+			      
+			    
+  			  
+  			  
+  			</div>
+		</div>
+       
+	</div> 
+	</div>
+	
+	<!-- CODE FOR TEACHER  -->
+	
+	<div class="container-fluid" style="padding:50px" th:if="${LoggedUserRole}=='Teacher'">          
+		<div class="row">
+  			<div class="col-3">
+      			<label><h1>Account Info</h1></label>
+    			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-credential" role="tab" aria-controls="v-pills-home" aria-selected="true">Credential</a>
+				      <label><h1>Operations</h1></label>
+				      <a class="nav-link " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Concept-map" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Concepts-Maps</a>
+				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Phets" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Phets</a>
+				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Article" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Article</a> 
+				       <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Lesson" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Lesson Plan</a>
+				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Document" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Document</a>
+				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Video" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Video</a>  
+    				   <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Quiz" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Quiz</a>
+    				     <label><h2>Status</h2></label>
+    				    <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Status" role="tab" aria-controls="v-pills-home" aria-selected="true">Status</a>
+				     
+    			</div>
+  			</div>
+  			<div class="col-1"></div>
+  			<div class="col-8">
+    			<div class="tab-content" id="v-pills-tabContent">
+    			
+    			<!--  CODE FOR COMMON THINGS TO DISPLAY -->
+    			
+    			<div class="tab-pane fade show active" id="" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        		
+        			<div style="color:red;text-align:center" th:if="${videoStatus}">
+        			<h3 th:text=${videoStatus}></h3>
+        			</div>
+        			
+        			<div style="color:red;text-align:center" th:if="${quizStatus}">
+        			<h3 th:text=${quizStatus}></h3>
+        			</div>
+        			
+        			<div style="color:red;text-align:center" th:if="${phetsStatus}">
+        			<h3 th:text=${phetsStatus}></h3>
+        			</div>
+        			
+        			<div style="color:red;text-align:center" th:if="${lessonStatus}">
+        			<h3 th:text=${lessonStatus}></h3>
+        			</div>
+        			
+        			<div style="color:red;text-align:center" th:if="${documentStatus}">
+        			<h3 th:text=${documentStatus}></h3>
+        			</div>
+        			
+        			<div style="color:red;text-align:center" th:if="${articleStatus}">
+        			<h3 th:text=${articleStatus}></h3>
+        			</div>
+          			
+      			</div>
+    			
+      			
+      			<!--  CODE FOR PERSONAL INFO   -->
+      			
+      			<div class="tab-pane fade show" id="v-pills-credential" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      			
+      			<ul class="nav nav-tabs" id="myTab" role="tablist">
+						  <li class="nav-item">
+						    <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#Personal" role="tab" aria-controls="home"
+						      aria-selected="true">Personal Information</a>
+						  </li>
+						  <li class="nav-item active">
+						    <a class="nav-link" id="passwordChange-tab" data-toggle="tab" href="#passwordChange" role="tab" aria-controls="profile"
+						      aria-selected="false">Update Password</a>
+						  </li>
+						
+				</ul>
+						<div class="tab-content" id="myTabContent">
+						  <div class="tab-pane fade show active" id="Personal" role="tabpanel" aria-labelledby="Video-tab">
+						  
+						  	<div class="clearfix"></div>
+						  	
+						  	<div class="table-responsive">
+								  <table class="table">
+								    
+								    <tbody>
+								      <tr>
+								       
+								        <td>First Name</td>
+								        <td><span th:text="${LoggedUser.getFname()}"></span></td>
+								        <td>E-mail</td>
+								        <td><span th:text="${LoggedUser.getEmail()}"></span></td>
+								      
+								      </tr>
+								      <tr>
+								        
+								        <td>Last Name</td>
+								        <td><span th:text="${LoggedUser.getLname()}"></span></td>
+								        <td>Sex</td>
+								        <td><span th:text="${LoggedUser.getSex()}"></span></td>
+								      
+								      </tr>
+								     
+								        <tr>
+								       
+								        <td>Joined On </td>
+								        <td><span th:text="${LoggedUser.getDateAdded()}"></span></td>
+								      
+								      
+								       
+								      </tr>
+								      
+								      <tr> <!--  teacher document to be uploaded here -->
+								      
+								      <td colspan="4" style="text-align:center">
+								      	</td>
+								      
+								      </tr>
+								    </tbody>
+								  </table>
+								</div>
+
+
+			     			 
+						 
+						  
+						  </div>
+						  
+						  
+						  <div class="tab-pane fade" id="passwordChange" role="tabpanel" aria-labelledby="Links-tab">
+						  
+						 		<div class="clearfix"></div>
+						  	
+						  	<div class="table-responsive table-borderless">
+						  	 <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			     			 <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+								  <table class="table">
+								    
+								    <tbody>
+								      <tr>
+								       
+								       
+								        <td><label for="newPass">New Password</label></td>
+								        <td><input type="password" id="newPassTeacher" class="form-control">
+								        	 	<input type="hidden" name="userIdUpdateTeacher" id="userIdUpdateTeacher" th:value="${LoggedUser.getId()}"/></td>
+								      
+								      </tr>
+								      <tr>
+								        
+								     	<td><label for="confPass">Confirm Password</label></td>
+								        <td><input type="password" id="confPassTeacher" class="form-control"></span></td>
+								      
+								      </tr>
+								     
+								   
+								        <tr>
+								       
+								        <td colspan="2" style="text-align:center"><button type="button" class="btn btn-primary" id="updatePasswordTeacher" disabled>Change Password</button></td>
+								 
+								      
+								       
+								      </tr>
+								    </tbody>
+								  </table>
+								</div>
+								
+
+						 	
+						 
+					
+						  
+						  </div>
+						
+						</div>
+        		
+        		
+        		
+      			</div>
+      			
+      				<div class="tab-pane fade show" id="v-pills-Concept-map" role="tabpanel" aria-labelledby="v-pills-home-tab"> concept-map</div>
+      				<div class="tab-pane fade show" id="v-pills-Phets" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      				
+      						<div class="container-fluid">
+					       		<div class="" style="text-align:center">
+					       			<label>Upload Phets</label> <hr/>
+					       			<div class="status" th:text="${status}"></div>
+					       		</div>
+					       		<div id="SuccessArticleReturnStatusPhet" style="display:none;color:green;font-size:18px;text-align:center">Data Uploaded Successfully</div>
+			      			 <div id="FailureArticleReturnStatusPhet" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+					       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+					       			<form action =""  method="post" enctype="multipart/form-data" id="uploadPhet" >
+					       				<div class="row">
+					       				<div class="col-sm-4">
+					       					<select class="form-control" name="classSelected" id="classSelectedPhet" >
+					       							<option>Select Class</option>
+					       							<span th:each="classValue: ${classfromDatabase}">
+					  								<option><span th:text="${classValue.getClassName()}"></span></option>
+					  								</span>
+											</select>
+					       				
+					       				</div>
+       				
+						       				<div class="col-sm-4">
+						       					<select class="form-control " name="subjectSelected" id="subjectPhet" path="subject" disabled>
+						       						<option value="0" >Select Subject</option>
+						       						<options items="${cities}" itemValue="id" itemLabel="name" />
+						  											
+												  </select>
+						       				
+						       				</div>
+						       				
+						       				<div class="col-sm-4">
+						       					<select class="form-control" name="topicSelected" id="topicPhet" path="topic" disabled>
+						       						<option value="0" >Select Topic</option>
+						       						<options items="${cities}" itemValue="id" itemLabel="name" />
+						  											
+												  </select>
+						       				
+						       				</div>
+						       				</div>
+						       				<hr/>
+						       				
+						       			
+						       				<br/>
+						       				
+						       				<div class="row">
+						       				
+						       					<div class="col-sm-2">
+						       					</div>
+						       				
+						       					<div class="col-sm-4" >
+						       							<label for="poster" class="header-right">Description</label> 
+						       					</div>
+						       					<div class="col-sm-4">
+						       							<textarea class="form-control" placeholder="Enter Something" id="descriptionPhet" name="description" rows="3" required disabled></textarea>
+						       								<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+						       					</div>
+						       					
+						       					<div class="col-sm-2">
+						       					</div>
+						       				</div>
+						       				<br/>
+						       				<div class="row">
+						       				
+						       					<div class="col-sm-2">
+						       					</div>
+						       				
+						       					<div class="col-sm-4" >
+						       							<label for="poster" class="header-right">Paste Embed Code</label> 
+						       					</div>
+						       					<div class="col-sm-4">
+						       							<textarea class="form-control" placeholder="Url to the Link" id="Embedphet" name="phet" rows="3" required disabled></textarea>
+						       					</div>
+						       					
+						       					<div class="col-sm-2">
+						       					</div>
+						       				</div>
+						       				
+						       				<br/>
+						       				
+						       				
+						       				<br/>
+						       				
+						       					<div class="row">
+						       					<div class="col-sm-2">
+						       					</div>
+						       					<div class="col-sm-4">
+						       						<label for="poster" class="header-right">Source</label> 
+						       					</div>
+						       					<div class="col-sm-4">
+						       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourcePhet" required disabled/>
+						       					</div>
+						       					<div class="col-sm-2">
+						       					</div>
+						       				</div>
+						       				
+						       				<div class="row">
+						       					<div class="col-sm-6">
+						       					</div>
+						       					<div class="col-sm-4">
+						       						<div class="terms-and-condition">
+						       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+						       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
+						  								<span id="agree-property">Agree to terms and conditions</span>
+													</button>
+						   							 
+						       						
+						       					</div>
+						       					<div class="col-sm-2">
+						       					</div>
+						       				</div>
+						       				
+						       				<br/>
+						       				
+						       				<div class="row">
+						       		
+						       						
+						       					<div class="col-sm-4">
+						       					</div>
+						       					
+						       							
+						       					<div class="col-sm-4">
+						       							<button class="btn btn-primary btn-action" type="submit" id="addPhetfromUser" disabled>Upload</button>
+						       					
+						       					</div>
+						       					<div class="col-sm-2">
+						       					</div>
+						       				</div>
+						       						
+						       				</form>		
+						       					
+						       			</div>
+						       					
+						       		</div>
+      				
+      				
+      				
+      				
+      				
+      				
+      				</div>
+      				<div class="tab-pane fade show" id="v-pills-Article" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      				
+      					 <div class="container">
+				       		<div class="" style="text-align:center">
+				       			<label>Upload Reference Article</label> <hr/>
+				       			<div class="status" th:text="${status}"></div>
+				       		</div>
+				       		 <div id="SuccessArticleReturnStatusArticle" style="display:none;color:green;font-size:18px;text-align:center">Data Uploaded Successfully</div>
+			      			 <div id="FailureArticleReturnStatusArticle" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+			       			<form action =""  method="post" enctype="multipart/form-data" id="uploadArticle" >
+			       				<div class="row">
+			       				<div class="col-sm-4">
+			       					<select class="form-control" name="classSelected" id="classSelectedArticle" >
+			       							<option>Select Class</option>
+			       							<span th:each="classValue: ${classfromDatabase}">
+			  								<option><span th:text="${classValue.getClassName()}"></span></option>
+			  								</span>
+									</select>
+			       				
+			       				</div>
+       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="subjectSelected" id="subjectArticle" path="subject" disabled>
+				       						<option value="0" >Select Subject</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="topicSelected" id="topicArticle" path="topic" disabled>
+				       						<option value="0" >Select Topic</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				</div>
+				       				<hr/>
+				       				
+				       			
+				       				<br/>
+				       				<div class="row">
+				       				
+				       					<div class="col-sm-3">
+				       					</div>
+				       				
+				       					<div class="col-sm-3" >
+				       							<label for="poster" class="header-right">Description</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       							<textarea class="form-control" placeholder="Enter Something" id="descriptionArticle" name="description" rows="3" required disabled></textarea>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       					</div>
+				       					
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<br/>
+				       				
+				       				<div class="row">
+				       					<div class="col-sm-3">
+				       					</div>
+				       					<div class="col-sm-3">
+				       						<label for="poster" class="header-right">URL</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<input type="text" class="form-control" placeholder="Enter Url" name="url" aria-label="url" aria-describedby="basic-addon1" id="urlArticle" required disabled/>
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<br/>
+				       				
+				       					<div class="row">
+				       					<div class="col-sm-3">
+				       					</div>
+				       					<div class="col-sm-3">
+				       						<label for="poster" class="header-right">Source</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceArticle" required disabled/>
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<div class="row">
+				       					<div class="col-sm-6">
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<div class="terms-and-condition">
+				       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+				       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
+				  								<span id="agree-property">Agree to terms and conditions</span>
+											</button>
+				   							 
+				       						
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<br/>
+				       				
+				       				<div class="row">
+				       		
+				       						
+				       					<div class="col-sm-4">
+				       					</div>
+				       					
+				       							
+				       					<div class="col-sm-4">
+				       							<button class="btn btn-primary btn-action" type="submit" id="addArticlefromUser" disabled>Upload</button>
+				       					
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       						
+				       				</form>		
+				       					
+				       			</div>
+				       					
+				       		</div>
+      				
+      				
+      				
+      				
+      				</div>
+      				<div class="tab-pane fade show" id="v-pills-Lesson" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      				
+				      		<div class="container-fluid">
+				       		<div class="" style="text-align:center">
+				       			<label>Upload Lesson Plan</label> <hr/>
+				       			<div class="status" th:text="${status}"></div>
+				       		</div>
+				       		<div id="SuccessArticleReturnStatusLesson" style="display:none;color:green;font-size:18px;text-align:center">Data Uploaded Successfully</div>
+			      			 <div id="FailureArticleReturnStatusLesson" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+				       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+				       			<form action =""  method="post" enctype="multipart/form-data" id="uploadLesson" >
+				       				<div class="row">
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="classSelected" id="classSelectedLesson" >
+				       							<option>Select Class</option>
+				       							<span th:each="classValue: ${classfromDatabase}">
+				  								<option><span th:text="${classValue.getClassName()}"></span></option>
+				  								</span>
+										</select>
+				       				
+				       				</div>
+				       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control " name="subjectSelected" id="subjectLesson" path="subject" disabled>
+				       						<option value="0" >Select Subject</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="topicSelected" id="topicLesson" path="topic" disabled>
+				       						<option value="0" >Select Topic</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				</div>
+				       				<hr/>
+				       				
+				       			
+				       				<br/>
+				       				<div class="row">
+				       				
+				       					<div class="col-sm-2">
+				       					</div>
+				       				
+				       					<div class="col-sm-4" style="text-align:center">
+				       							<label for="poster" class="header-right">Upload Lesson Plan</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       							<input type="file" class="form-control-file" accept="application/pdf" id="lesson" name="lesson" required disabled/>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       					</div>
+				       					
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<div class="row">
+				       					<div class="col-sm-6">
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<div class="terms-and-condition">
+				       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+				       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
+				  								<span id="agree-property">Agree to terms and conditions</span>
+											</button>
+				   							 
+				       						
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				
+				       				<br/>
+				       				
+				       				<div class="row">
+				       		
+				       						
+				       					<div class="col-sm-4">
+				       					</div>
+				       					
+				       							
+				       					<div class="col-sm-4">
+				       							<button class="btn btn-primary btn-action" type="submit" id="addLessonfromUser">Upload</button>
+				       					
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       						
+				       				</form>		
+				       					
+				       			</div>
+				       					
+				       		</div>
+       			
+      				
+      				
+      				
+      				
+      				</div>
+      				<div class="tab-pane fade show" id="v-pills-Document" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      				
+			      	 <div class="container-fluid">
+			       		<div class="" style="text-align:center">
+			       			<label>Upload Reference Document</label> <hr/>
+			       			<div class="status" th:text="${status}"></div>
+			       		</div>
+			       		<div id="SuccessArticleReturnStatusDocument" style="display:none;color:green;font-size:18px;text-align:center">Data Uploaded Successfully</div>
+			      		<div id="FailureArticleReturnStatusDocument" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+			       			<form action =""  method="post" enctype="multipart/form-data" id="uploadDocument" >
+			       				<div class="row">
+			       				<div class="col-sm-4">
+			       					<select class="form-control" name="classSelected" id="classSelectedDocument" >
+			       							<option>Select Class</option>
+			       							<span th:each="classValue: ${classfromDatabase}">
+			  								<option><span th:text="${classValue.getClassName()}"></span></option>
+			  								</span>
+									</select>
+			       				
+			       				</div>
+			       				
+			       				<div class="col-sm-4">
+			       					<select class="form-control" name="subjectSelected" id="subjectDocument" path="subject" disabled>
+			       						<option value="0" >Select Subject</option>
+			       						<options items="${cities}" itemValue="id" itemLabel="name" />
+			  											
+									  </select>
+			       				
+			       				</div>
+			       				
+			       				<div class="col-sm-4">
+			       					<select class="form-control" name="topicSelected" id="topicDocument" path="topic" disabled>
+			       						<option value="0" >Select Topic</option>
+			       						<options items="${cities}" itemValue="id" itemLabel="name" />
+			  											
+									  </select>
+			       				
+			       				</div>
+			       				</div>
+			       				<hr/>
+			       				
+			       			
+			       				<br/>
+			       				<div class="row">
+			       				
+			       					<div class="col-sm-3">
+			       					</div>
+			       				
+			       					<div class="col-sm-3" >
+			       							<label for="poster" class="header-right">Description</label> 
+			       					</div>
+			       					<div class="col-sm-4">
+			       							<textarea class="form-control" placeholder="Enter Something" id="descriptionDocument" name="description" rows="3" required disabled></textarea>
+			       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+			       					</div>
+			       					
+			       					<div class="col-sm-2">
+			       					</div>
+			       				</div>
+			       				
+			       				<br/>
+			       				
+			       				<div class="row">
+			       					<div class="col-sm-3">
+			       					</div>
+			       					<div class="col-sm-3">
+			       						<label for="poster" class="header-right">URL</label> 
+			       					</div>
+			       					<div class="col-sm-4">
+			       						<input type="file" class="form-control-file" id="UrlDocument" name="Question" accept="application/pdf" required disabled/>
+			       					</div>
+			       					<div class="col-sm-2">
+			       					</div>
+			       				</div>
+			       				
+			       				<br/>
+			       				
+			       					<div class="row">
+			       					<div class="col-sm-3">
+			       					</div>
+			       					<div class="col-sm-3">
+			       						<label for="poster" class="header-right">Source</label> 
+			       					</div>
+			       					<div class="col-sm-4">
+			       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceDocument" required disabled/>
+			       					</div>
+			       					<div class="col-sm-2">
+			       					</div>
+			       				</div>
+			       				
+			       				<div class="row">
+			       					<div class="col-sm-6">
+			       					</div>
+			       					<div class="col-sm-4">
+			       						<div class="terms-and-condition">
+			       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+			       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
+			  								<span id="agree-property">Agree to terms and conditions</span>
+										</button>
+			   							 
+			       						
+			       					</div>
+			       					<div class="col-sm-2">
+			       					</div>
+			       				</div>
+			       				
+			       				<br/>
+			       				
+			       				<div class="row">
+			       		
+			       						
+			       					<div class="col-sm-4">
+			       					</div>
+			       					
+			       							
+			       					<div class="col-sm-4">
+			       							<button class="btn btn-primary btn-action" type="submit" id="addDocumentfromUser">Upload</button>
+			       					
+			       					</div>
+			       					<div class="col-sm-2">
+			       					</div>
+			       				</div>
+			       						
+			       				</form>		
+			       					
+			       			</div>
+			       					
+			       		</div>
+			      				
+      				
+      				
+      				</div>
+      				<div class="tab-pane fade show" id="v-pills-Video" role="tabpanel" aria-labelledby="v-pills-home-tab">
+				      <div class="container-fluid">
+				       		<div class="" style="text-align:center">
+				       			<label>Upload Reference Video</label> <hr/>
+				       			<div class="status" th:text="${status}"></div>
+				       		</div>
+				       		<div id="SuccessArticleReturnStatusVideo" style="display:none;color:green;font-size:18px;text-align:center">Data Uploaded Successfully</div>
+			      			<div id="FailureArticleReturnStatusVideo" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+				       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+				       			<form action =""  method="post" enctype="multipart/form-data" id="uploadVideo" >
+				       				<div class="row">
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="classSelected" id="classSelectedVideo" >
+				       							<option>Select Class</option>
+				       							<span th:each="classValue: ${classfromDatabase}">
+				  								<option><span th:text="${classValue.getClassName()}"></span></option>
+				  								</span>
+										</select>
+				       				
+				       				</div>
+				       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="subjectSelected" id="subjectVideo" path="subject" disabled>
+				       						<option value="0" >Select Subject</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="topicSelected" id="topicVideo" path="topic" disabled>
+				       						<option value="0" >Select Topic</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				</div>
+				       				<hr/>
+				       				
+				       			
+				       				<br/>
+				       				<div class="row">
+				       				
+				       					<div class="col-sm-3">
+				       					</div>
+				       				
+				       					<div class="col-sm-3" >
+				       							<label for="poster" class="header-right">Description</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       							<textarea class="form-control" placeholder="Enter Something" id="descriptionVideo" name="description" rows="3" required disabled></textarea>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       					</div>
+				       					
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<br/>
+				       				
+				       				<div class="row">
+				       					<div class="col-sm-3">
+				       					</div>
+				       					<div class="col-sm-3">
+				       						<label for="poster" class="header-right">Paste Video Embed Url</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       						
+				       						<textarea class="form-control" placeholder="Url to the Link" id="urlVideo" name="url" rows="3" required disabled></textarea>
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<br/>
+				       				
+				       					<div class="row">
+				       					<div class="col-sm-3">
+				       					</div>
+				       					<div class="col-sm-3">
+				       						<label for="poster" class="header-right">Source</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceVideo" required disabled/>
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<div class="row">
+				       					<div class="col-sm-6">
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<div class="terms-and-condition">
+				       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+				       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
+				  								<span id="agree-property">Agree to terms and conditions</span>
+											</button>
+				   							 
+				       						
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<br/>
+				       				
+				       				<div class="row">
+				       		
+				       						
+				       					<div class="col-sm-4">
+				       					</div>
+				       					
+				       							
+				       					<div class="col-sm-4">
+				       							<button class="btn btn-primary btn-action" type="submit" id="addVideofromUser">Upload</button>
+				       					
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       						
+				       				</form>		
+				       					
+				       			</div>
+				       					
+				       		</div>
+      				
+      				
+      				
+      				
+      				
+      				</div>
+      				<div class="tab-pane fade show" id="v-pills-Quiz" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      				
+				      	<div class="container-fluid">
+				       		<div class="" style="text-align:center">
+				       			<label>Upload Questionaire</label> <hr/>
+				       			<div class="status" th:text="${status}"></div>
+				       		</div>
+				       		<div id="SuccessArticleReturnStatusQuiz" style="display:none;color:green;font-size:18px;text-align:center">Data Uploaded Successfully</div>
+			      			<div id="FailureArticleReturnStatusQuiz" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+				       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+				       			<form action =""  method="post" enctype="multipart/form-data" id="uploadQuiz" >
+				       				<div class="row">
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="classSelected" id="classSelectedQuiz" >
+				       							<option>Select Class</option>
+				       							<span th:each="classValue: ${classfromDatabase}">
+				  								<option><span th:text="${classValue.getClassName()}"></span></option>
+				  								</span>
+										</select>
+				       				
+				       				</div>
+				       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="subjectSelected" id="subjectQuiz" path="subject" disabled>
+				       						<option value="0" >Select Subject</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				
+				       				<div class="col-sm-4">
+				       					<select class="form-control" name="topicSelected" id="topicQuiz" path="topic" disabled>
+				       						<option value="0" >Select Topic</option>
+				       						<options items="${cities}" itemValue="id" itemLabel="name" />
+				  											
+										  </select>
+				       				
+				       				</div>
+				       				</div>
+				       				<hr/>
+				       				
+				       			
+				       				<br/>
+				       				
+				       				<div class="row">
+				       				
+				       					<div class="col-sm-3">
+				       					</div>
+				       				
+				       					<div class="col-sm-3" >
+				       							<label for="poster" class="header-right">Remarks</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       							<input type="text" class="form-control-file" id="remarksQuiz" name="remarks" required disabled/>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       					</div>
+				       					
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				<br/>
+				       				
+				       				<div class="row">
+				       				
+				       					<div class="col-sm-3">
+				       					</div>
+				       				
+				       					<div class="col-sm-3">
+				       							<label for="poster" class="header-right">Questions</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       							<input type="file" class="form-control-file" id="QuestionQuiz" accept="application/pdf" name="Question" required disabled/>
+				       					</div>
+				       					
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<br/>
+				       				
+				       				<div class="row">
+				       					<div class="col-sm-3">
+				       					</div>
+				       					<div class="col-sm-3" >
+				       						<label for="poster" class="header-right">Answers</label> 
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<input type="file" class="form-control-file" id="AnswerQuiz" accept="application/pdf"  name="Answer" required disabled/>
+				       					
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       					<div class="row">
+				       					<div class="col-sm-6">
+				       					</div>
+				       					<div class="col-sm-4">
+				       						<div class="terms-and-condition">
+				       						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				       						<button type="button" class="btn btn-link float-right" data-toggle="modal" data-target="#exampleModalScrollable">
+				  								<span id="">Agree to terms and conditions</span>
+											</button>
+				   							</div> 
+				       						
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       				
+				       				<div class="row">
+				       					<div class="col-sm-4">
+				       					</div>
+				       					<div class="col-sm-6">
+				       						<span id="imp-info">* Both Question and Answer has to be uploaded together</span> 
+				       					</div>
+				       					
+				       				</div>
+				       				<br/>
+				       				
+				       				<div class="row">
+				       		
+				       						
+				       					<div class="col-sm-4">
+				       					</div>
+				       					
+				       							
+				       					<div class="col-sm-4">
+				       							<button class="btn btn-primary btn-action" type="submit" id="addQuizfromUser">Upload</button>
+				       					
+				       					</div>
+				       					<div class="col-sm-2">
+				       					</div>
+				       				</div>
+				       						
+				       				</form>		
+				       					
+				       			</div>
+				       					
+				       		</div>
+      				
+      				
+      				</div>
+      				<div class="tab-pane fade show" id="v-pills-Status" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      				
+							      				
+						<ul class="nav nav-tabs" id="myTabMD" role="tablist">
+							  <li class="nav-item">
+							    <a class="nav-link active" id="home-tab-md" data-toggle="tab" href="#phets" role="tab" aria-controls="home-md"
+							      aria-selected="true">Phets</a>
+							  </li>
+							  <li class="nav-item">
+							    <a class="nav-link" id="profile-tab-md" data-toggle="tab" href="#concept-map" role="tab" aria-controls="profile-md"
+							      aria-selected="false">Concept-Maps</a>
+							  </li>
+							  <li class="nav-item">
+							    <a class="nav-link" id="contact-tab-md" data-toggle="tab" href="#video" role="tab" aria-controls="contact-md"
+							      aria-selected="false">Video</a>
+							  </li>
+							    <li class="nav-item">
+							    <a class="nav-link" id="contact-tab-md" data-toggle="tab" href="#article" role="tab" aria-controls="contact-md"
+							      aria-selected="false">Article</a>
+							  </li>
+							    <li class="nav-item">
+							    <a class="nav-link" id="contact-tab-md" data-toggle="tab" href="#document" role="tab" aria-controls="contact-md"
+							      aria-selected="false">Document</a>
+							  </li>
+							    <li class="nav-item">
+							    <a class="nav-link" id="contact-tab-md" data-toggle="tab" href="#lessonPlan" role="tab" aria-controls="contact-md"
+							      aria-selected="false">Lesson Plan</a>
+							  </li>
+							    <li class="nav-item">
+							    <a class="nav-link" id="contact-tab-md" data-toggle="tab" href="#quiz" role="tab" aria-controls="contact-md"
+							      aria-selected="false">Quiz</a>
+							  </li>
+						</ul>
+							<div class="tab-content card pt-5" id="myTabContentMD">
+							
+							  <div class="tab-pane fade show active" id="phets" role="tabpanel" aria-labelledby="home-tab-md">
+							  
+							  	
+									<div class="" style="text-align:center">
+							       			<label>Available Phets</label> <hr/>
+							       			<div class="status" th:text="${status}"></div>
+							       	</div>
+				<!--  			       	<div style="text-align:right;padding-right:20px;">
+							 
+							       	<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+							       							<option>Filter By Topic</option>
+							       					<span th:each="topic:${Topic}">		
+							  								<option><span th:text="${topic.getTopicName()}"></span></option>
+							  						</span>
+							  								
+							  								
+										</select>
+								
+							       	
+							       	
+							       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+							   		</div>
+			-->	
+							   		
+							      	<form th:action="@{deletePhet}" method="post">
+							      	<div class="table-responsive">
+											<table id="tablePreview" class="table table-hover table-striped">
+								
+											  <thead class="">
+											    <tr>
+											        <th>#</th>
+											      <th>Topic Name</th>
+											      <th>Description</th>
+											      <th>Date Added</th>
+											      <th>Source</th>
+											      <th>Link</th>
+											      <th>Status</th>
+											    
+											      <th>Operation</th>
+											    </tr>
+											  </thead>
+									
+											  <tbody>
+											  
+											  <span th:each="phet:${PhetOnUser}">
+											    <tr class="clickable-row">
+											      <th scope="row"><input type="radio" th:value="${phet.getPhetId()}" th:id="${phet.getPhetId()}" name="selectionRadio" onchange="radioCall()"/></th>
+											      <td><span th:text="${phet.getTopic().getTopicName()}"></span></td>		
+											      <td><span th:text="${phet.getDescription()}"></span></td>
+											      <td><span th:text="${phet.getDateAdded()}"></span></td>
+											      <td><span th:text="${phet.getSource()}"></span></td>
+											      <td><iframe th:src="${phet.getUrl()}" width="300" height="200" scrolling="no" allowfullscreen></iframe></td>
+											  
+											      
+											      <td><span th:if="${phet.isStatus()==1}"><div id="true"/></span>
+											      	  <span th:unless="${phet.isStatus()==1}"><div id="false"/></span>
+											      </td>
+											      
+											   
+											     <td><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a>
+									     
+											    </tr>
+											    </span>
+											   
+											</tbody>
+										
+											</table>
+										
+										</div>
+										
+										<div class="container">
+											<center>
+												
+													
+												<button class="btn btn-danger" id="deletePhet"  disabled >Delete</button>
+											
+											
+											</center>
+									.
+										
+										
+										</div>
+										
+											</form>
+							  	
+							
+							  </div>
+							  <div class="tab-pane fade" id="concept-map" role="tabpanel" aria-labelledby="profile-tab-md">
+							 
+							  </div>
+							  <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="contact-tab-md">
+							  
+							  
+												<div class="" style="text-align:center">
+										       			<label>Available Reference Video</label> <hr/>
+										       			<div class="status" th:text="${status}"></div>
+										       	</div>
+					<!--  					       	<div style="text-align:right;padding-right:20px;">
+										 
+										       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+										       							<option>Filter By Topic</option>
+										       					<span th:each="topic:${Topic}">		
+										  								<option><span th:text="${topic.getTopicName()}"></span></option>
+										  						</span>
+										  								
+										  								
+													</select>
+											
+										       	
+										       	
+										       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+										   		</div>
+					-->	
+										   		
+										      	<form th:action="@{deleteVideo}" method="post">
+										      	<div class="table-responsive">
+														<table id="tablePreview" class="table table-hover table-striped">
+											
+														  <thead class="">
+														    <tr>
+														      <th>#</th>
+														      <th>Topic Name</th>
+														      <th>Description</th>
+														      <th>Source</th>
+														      <th>Date Added</th>
+														      <th>Video</th>
+														      <th>Status</th>
+														  
+														      <th> Operation</th>
+														    </tr>
+														  </thead>
+												
+														  <tbody>
+														  
+														  <span th:each="video:${VideoOnUser}">
+														    <tr class="clickable-row">
+														      <th scope="row"><input type="radio" th:value="${video.getVideoId()}" th:id="${video.getVideoId()}" name="selectionRadio" onchange="radioCall()"/></th>
+														      <td><span th:text="${video.getTopic().getTopicName()}"></span></td>		
+														      <td><span th:text="${video.getDescription()}"></span></td>
+														      <td><span th:text="${video.getSource() }"></span></td>
+														      <td><span th:text="${video.getDateAdded()}"></span></td>
+														      <td><iframe th:src="${video.getUrl()}" width="300" height="200" scrolling="no" allowfullscreen></iframe></td>
+														      <td><span th:if="${video.isStatus()==1}"><div id="true"/></span>
+														      	  <span th:unless="${video.isStatus()==1}"><div id="false"/></span>
+														      </td>
+														      
+													
+														      <td><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a>
+														     
+														    </tr>
+														    </span>
+														   
+														</tbody>
+													
+														</table>
+													
+													</div>
+													
+													<div class="container">
+														<center>
+															
+																
+															<button class="btn btn-danger" id="deleteVideo"  disabled >Delete</button>
+																
+															
+														</center>
+													
+													
+													</div>
+													
+												
+										</form>
+			
+							  </div>
+							  
+							   <div class="tab-pane fade show " id="article" role="tabpanel" aria-labelledby="home-tab-md">
+							   
+									<div class="" style="text-align:center">
+							       			<label>Available Reference Article</label> <hr/>
+							       			<div class="status" th:text="${status}"></div>
+							       	</div>
+				<!--  		       	<div style="text-align:right;padding-right:20px;">
+							 
+							       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+							       							<option>Filter By Topic</option>
+							       					<span th:each="topic:${Topic}">		
+							  								<option><span th:text="${topic.getTopicName()}"></span></option>
+							  						</span>
+							  								
+							  								
+										</select>
+								
+							       	
+							       	
+							       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+							   		</div>
+				-->	
+							   		
+							      	<form th:action="@{deleteArticle}" method="post">
+							      	<div class="table-responsive">
+											<table id="tablePreview" class="table table-hover table-striped">
+								
+											  <thead class="">
+											    <tr>
+											      <th>#</th>
+											      <th>Topic Name</th>
+											      <th>Description</th>
+											      <th>Date Added</th>
+											      <th>Source</th>
+											      <th>Link</th>
+											      <th>Status</th>
+											      
+											      <th> Operation</th>
+											 
+											    </tr>
+											  </thead>
+									
+											  <tbody>
+											  
+											  <span th:each="article:${ArticleOnUser}">
+											    <tr class="clickable-row">
+											      <th scope="row"><input type="radio" th:value="${article.getArticleId()}" th:id="${article.getArticleId()}" name="selectionRadio" onchange="radioCall()"/></th>
+											      <td><span th:text="${article.getTopic().getTopicName()}"></span></td>		
+											      <td><span th:text="${article.getDescription()}"></span></td>
+											      <td><span th:text="${article.getDateAdded()}"></span></td>
+											      <td><span th:text="${article.getSource()}"></span></td>
+											      <td><a th:href="${article.getUrl()}"><span th:text="${article.getUrl()}"></span></a></td>
+											      
+											      <td><span th:if="${article.isStatus()==1}"><div id="true"/></span>
+											      	  <span th:unless="${article.isStatus()==1}"><div id="false"/></span>
+											      </td>
+											      
+											   
+											      <td><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a>
+											     
+											    </tr>
+											    </span>
+											   
+											</tbody>
+										
+											</table>
+										
+										</div>
+										
+										<div class="container">
+											<center>
+												
+													
+												<button class="btn btn-danger" id="deleteArticle"  disabled >Delete</button>
+													
+												
+											</center>
+										
+										
+										</div>
+										
+									</form>
+							
+							  </div>
+							  
+							   <div class="tab-pane fade show" id="document" role="tabpanel" aria-labelledby="home-tab-md">
+							   
+									<div class="" style="text-align:center">
+							       			<label>Available Reference Document</label> <hr/>
+							       			<div class="status" th:text="${status}"></div>
+							       	</div>
+			<!--  				       	<div style="text-align:right;padding-right:20px;">
+							 
+							       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+							       							<option>Filter By Topic</option>
+							       					<span th:each="topic:${Topic}">		
+							  								<option><span th:text="${topic.getTopicName()}"></span></option>
+							  						</span>
+							  								
+							  								
+										</select>
+								
+							       	
+							       	
+							       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+							   		</div>
+			-->	
+							   		
+							      	<form th:action="@{deleteDocument}" method="post">
+							      	<div class="table-responsive">
+											<table id="tablePreview" class="table table-hover table-striped">
+								
+											  <thead class="">
+											    <tr>
+											        <th>#</th>
+											      <th>Topic Name</th>
+											      <th>Description</th>
+											      <th>Date Added</th>
+											      <th>Source</th>
+											      <th>Link</th>
+											      <th>Status</th>
+											    
+											       <th> Operation</th>
+											    </tr>
+											  </thead>
+									
+											  <tbody>
+											  
+											  <span th:each="document:${DocumentOnUser}">
+											    <tr class="clickable-row">
+											      <th scope="row"><input type="radio" th:value="${document.getDocumentId()}" th:id="${document.getDocumentId()}" name="selectionRadio" onchange="radioCall()"/></th>
+											      <td><span th:text="${document.getTopic().getTopicName()}"></span></td>		
+											      <td><span th:text="${document.getDescription()}"></span></td>
+											      <td><span th:text="${document.getDateAdded()}"></span></td>
+											      <td><span th:text="${document.getSource()}"></span></td>
+											      <td><a th:href="'/'+${document.getUrl()}" target="_blank"><img id="pdfsource" th:src="${document.getUrl()}" alt="Document"></img></a></td>
+											      
+											      
+											      <td><span th:if="${document.isStatus()==1}"><div id="true"/></span>
+											      	  <span th:unless="${document.isStatus()==1}"><div id="false"/></span>
+											      </td>
+											      
+										
+											      
+											      <td><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a>
+											     
+											    </tr>
+											    </span>
+											   
+											</tbody>
+										
+											</table>
+										
+										</div>
+										
+										<div class="container">
+											<center>
+												
+													
+												<button class="btn btn-danger" id="deleteDocument"  disabled >Delete</button>
+													</form>
+											
+											</center>
+										
+										
+										</div>
+							
+							  </div>
+							  
+							   <div class="tab-pane fade" id="lessonPlan" role="tabpanel" aria-labelledby="home-tab-md">
+							   
+											 <div class="" style="text-align:center">
+									       			<label>Available Lesson Plan</label> <hr/>
+									       			<div class="status" th:text="${status}"></div>
+									       	</div>
+				<!--  					       	<div style="text-align:right;padding-right:20px;">
+									 
+									       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+									       							<option>Filter By Topic</option>
+									       					<span th:each="topic:${Topic}">		
+									  								<option><span th:text="${topic.getTopicName()}"></span></option>
+									  						</span>
+									  								
+									  								
+												</select>
+										
+									       	
+									       	
+									       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+									   		</div>
+				-->	
+									      	<div class="table-responsive">
+													<table id="tablePreview" class="table table-hover table-striped">
+										
+													  <thead class="">
+													    <tr>
+													        <th>#</th>
+													      <th>Topic Name</th>
+													      <th>Date Added</th>
+													      <th>Link</th>
+													      <th>Status</th>
+													    
+													    </tr>
+													  </thead>
+											
+													  <tbody>
+													  
+													  <span th:each="lesson:${LessonOnUser}">
+													    <tr class="clickable-row">
+													      <th scope="row"><input type="radio" th:value="${lesson.getLessonPlanId()}" th:id="${lesson.getLessonPlanId()}" name="selectionRadio" onchange="radioCall()"/></th>
+													      <td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>		
+													      <td><span th:text="${lesson.getDateAdded()}"></span></td>
+													      <td><a th:href="${lesson.getLessonPlan()}" class="pdfclass" target="_class"><img id="pdfsource" th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+													   
+													      <td><span th:if="${lesson.isStatus()==1}"><div id="true"/></span>
+													      	  <span th:unless="${lesson.isStatus()==1}"><div id="false"/></span>
+													      </td>
+													       <td>
+				      										<a class="btn btn-secondary detailLesson" th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a>
+				     										</span>
+				      										</td>
+													      
+													     
+													     
+													    </tr>
+													    </span>
+													   
+													</tbody>
+												
+													</table>
+												
+												</div>
+												
+												<div class="container">
+													<center>
+														
+															
+														<button class="btn btn-danger" id="deleteLesson"  disabled >Delete</button>
+															
+												
+													</center>
+												
+												
+												</div>
+												
+											
+																   
+							
+							  </div>
+							  
+							   <div class="tab-pane fade show " id="quiz" role="tabpanel" aria-labelledby="home-tab-md">
+							   
+										<div class="" style="texdt-align:center">
+								       			<label>Available Quiz</label> <hr/>
+								       			<div class="status" th:text="${status}"></div>
+								       	</div>
+			<!--  				       	<div style="text-align:right;padding-right:20px;">
+								 
+								       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+								       							<option>Filter By Topic</option>
+								       					<span th:each="topic:${Topic}">		
+								  								<option><span th:text="${topic.getTopicName()}"></span></option>
+								  						</span>
+								  								
+								  								
+											</select>
+									
+								       	
+								       	
+								       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+								   		</div>
+			-->	
+								   		
+								      	<form th:action="@{deleteQuiz}" method="post">
+								      	<div class="table-responsive">
+												<table id="tablePreview" class="table table-hover table-striped">
+									
+												  <thead class="">
+												    <tr>
+												      <th>#</th>
+												      <th>Remarks</th>
+												      <th>Topic Name</th>
+												      <th>Date Added</th>
+												      <th>Question</th>
+												      <th>Answer</th>
+												    
+												      <th>Operation</th>
+												    </tr>
+												  </thead>
+										
+												  <tbody>
+												  
+												  <span th:each="quiz:${QuizOnUser}">
+												    <tr class="clickable-row">
+												      <th scope="row"><input type="radio" th:value="${quiz.getQuizQuestionId() }" th:id="${quiz.getQuizQuestionId()}" name="selectionRadio" /></th>
+												      <td><span th:text="${quiz.getRemark()}"></span></td>		
+												      <td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
+												      <td><span th:text="${quiz.getDateAdded()}"></span></td>
+												      <td><a th:href="'/'+${quiz.getQuestion()}" class="pdfclass" target="_blank"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+												      <td><a th:href="'/'+${quiz.getAnswer()}" target="_blank" class="pdfclass"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+												      
+												      
+												      <td><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a>
+										     
+												    </tr>
+												    </span>
+												   
+												</tbody>
+											
+												</table>
+											
+											</div>
+											
+											<div class="container">
+												<center>
+													
+														
+													<button class="btn btn-danger" id="deleteQuiz"  disabled >Delete</button>
+														
+												
+												</center>
+											
+											
+											</div>
+											
+										</form>
+							
+							  </div>
+							  
+							</div>
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				</div>
+      			
+      		
+			      
+			    
+  			  
+  			  
+  			</div>
+		</div>
+       
+	</div> 
+	</div>
+	
+		<!-- CODE FOR Admin  -->
+	
+	
+	<div class="container-fluid" style="padding:50px" th:if="${LoggedUserRole}=='Admin'">          
+		<div class="row">
+  			<div class="col-3">
+      			<label><h1>Account Info</h1></label>
+    			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-credential" role="tab" aria-controls="v-pills-home" aria-selected="true">Credential</a>
+				      <label><h1>Operations</h1></label>
+				      <a class="nav-link " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-AdminTask" role="tab" aria-controls="v-pills-home" aria-selected="true">Admin Portal</a>
+				     
+				     
+    			</div>
+  			</div>
+  			<div class="col-1"></div>
+  			<div class="col-8">
+    			<div class="tab-content" id="v-pills-tabContent">
+    			
+      			
+      			<!--  CODE FOR PERSONAL INFO   -->
+      			
+      			<div class="tab-pane fade show" id="v-pills-credential" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      			
+      			<ul class="nav nav-tabs" id="myTab" role="tablist">
+						  <li class="nav-item">
+						    <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#Personal" role="tab" aria-controls="home"
+						      aria-selected="true">Personal Information</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link" id="passwordChange-tab" data-toggle="tab" href="#passwordChange" role="tab" aria-controls="profile"
+						      aria-selected="false">Update Password</a>
+						  </li>
+						
+				</ul>
+						<div class="tab-content" id="myTabContent">
+						  <div class="tab-pane fade show active" id="Personal" role="tabpanel" aria-labelledby="Video-tab">
+						  
+						  	<div class="clearfix"></div>
+						  	
+						  	<div class="table-responsive">
+								  <table class="table">
+								    
+								    <tbody>
+								      <tr>
+								       
+								        <td>First Name</td>
+								        <td><span th:text="${LoggedUser.getFname()}"></span></td>
+								        <td>E-mail</td>
+								        <td><span th:text="${LoggedUser.getEmail()}"></span></td>
+								      
+								      </tr>
+								      <tr>
+								        
+								        <td>Last Name</td>
+								        <td><span th:text="${LoggedUser.getLname()}"></span></td>
+								        <td>Sex</td>
+								        <td><span th:text="${LoggedUser.getSex()}"></span></td>
+								      
+								      </tr>
+								     
+								        <tr>
+								       
+								        <td>Joined On </td>
+								        <td><span th:text="${LoggedUser.getDateAdded()}"></span></td>
+								      
+								      
+								       
+								      </tr>
+								      
+								      <tr> <!--  teacher document to be uploaded here -->
+								      
+								      <td colspan="4" style="text-align:center">
+								      	</td>
+								      
+								      </tr>
+								    </tbody>
+								  </table>
+								</div>
+
+
+			     			 
+						 
+						  
+						  </div>
+						  
+						  
+						  <div class="tab-pane fade" id="passwordChange" role="tabpanel" aria-labelledby="Links-tab">
+						  
+						 		<div class="clearfix"></div>
+						  	
+						  	<div class="table-responsive table-borderless">
+						  	<div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			     			<div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+								  <table class="table">
+								    
+								    <tbody>
+								      <tr>
+								       
+								       
+								        <td><label for="newPass">New Password</label></td>
+								        <td><input type="password" id="newPassAdmin" class="form-control">
+								        	 	<input type="hidden" name="userIdUpdateAdmin" th:value="${LoggedUser.getId()}"/></td>
+								      
+								      </tr>
+								      <tr>
+								        
+								     	<td><label for="confPass">Confirm Password</label></td>
+								        <td><input type="password" id="confPassAdmin" class="form-control"></span></td>
+								      
+								      </tr>
+								     
+								   
+								        <tr>
+								       
+								        <td colspan="2" style="text-align:center"><button type="button" class="btn btn-primary" id="updatePasswordAdmin" disabled>Change Password</button></td>
+								 
+								      
+								       
+								      </tr>
+								    </tbody>
+								  </table>
+								</div>
+
+						 	
+						 
+					
+						  
+						  </div>
+						
+						</div>
+        		
+        		
+        		
+      			</div>
+      			
+      				<div class="tab-pane fade show" id="v-pills-AdminTask" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      					
+      					<div style="padding:30px;">
+      					
+      					<form action="adminPathUi" method="get">
+      					<input type="submit"  class="btn peach-gradient btn-lg" value="Admin Portal">
+      					</form>
+      					</div>
+      					
+      					
+      				</div>
+      				
+      			
+      		
+			      
+			    
+  			  
+  			  
+  			</div>
+		</div>
+       
+	</div> 
+	</div>
+	
+	
+	 
+    
+    
+  <!--  END OF CONTENT -->  
+  
+  	<!-- Modal for updating Video-->
+			
+			<div class="modal fade" id="VideoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadVideo">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Video</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="SuccessVideo" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailureVideo" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			       <div id="invalid-dataVideo" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Description</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="videoDesc" name="videoDesc" rows="4" cols="33" placeholder=""></textarea>
+				      			<input type="hidden" id="videoId" name="videoId" value="">
+				      			</div>
+				   </div>
+				   
+				      			<br/>
+				   <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Source</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" class="form-control-file" id="videosource" name="videosource" value=""/>
+				      			</div>
+				   </div>
+				   				<br/>
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Video</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="videourl" name="videourl" rows="4" cols="33" placeholder=""></textarea>
+				      			</div>
+				   </div>
+				   	<div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateVideoOnUser" value="">Update</button>
+				    </div>
+				      			
+				    </div>
+				    </form>
+				      
+				      </div>
+			    </div>
+			  </div>
+			  
+			  
+<!-- Modal for updating Quiz-->
+			
+			<div class="modal fade" id="QuizModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadQuiz">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Quiz</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="SuccessQuiz" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailureQuiz" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			      <div id="invalid-dataQuiz" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Remarks</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" readonly class="form-control-plaintext" id="remark" value="">
+				      			<input type="hidden" id="quizId" name="quizId" value="">
+				      			</div>
+				   </div>
+				   
+				      			<br/>
+				   <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Question</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="file" class="form-control-file" id="question" accept="application/pdf" name="question" />
+				      			</div>
+				   </div>
+				   				<br/>
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Answer</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="file" class="form-control-file" id="answer" accept="application/pdf" name="answer" />
+				      			</div>
+				   </div>
+				   <div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateQuizOnUser" value="" disabled>Update</button>
+				    </div>	
+				    </div>
+				    </form>
+				      
+				      </div>
+			    </div>
+			  </div>
+			  
+
+<!-- Modal for updating the Document-->
+			
+			<div class="modal fade" id="DocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadDocument">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="SuccessDocument" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailureDocument" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			      <div id="invalid-dataDocument" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Description</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="documentDesc" name="documentDesc" rows="4" cols="33" placeholder=""></textarea>
+				      			<input type="hidden" id="documentId" name="documentId" value="">
+				      			</div>
+				   </div>
+				   
+				      			<br/>
+				   <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Source</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" class="form-control-file" id="documentsource" name="documentsource" value=""/>
+				      			</div>
+				   </div>
+				   				<br/>
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Document</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="file" class="form-control-file" id="document" name="document" accept="pdf/*"/>
+				      			</div>
+				   </div>
+				   	<div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateDocumentOnUser" value="" disabled>Update</button>
+				    </div>
+				      			
+				    </div>
+				      </form>
+				      </div>
+			    </div>
+			  </div>
+			  
+
+
+  <!-- Modal for updating Lesson-->
+			
+			<div class="modal fade" id="LessonPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadLesson">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="SuccessLesson" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailureLesson" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			      <div id="invalid-dataLesson" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			    		
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Document</label>
+				      				<input type="hidden" id="lessonId" name="lessonId" value="">
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="file" class="form-control-file" id="lessonPlan" name="lessonPlan" accept="pdf/*" required/>
+				      			
+				      			</div>
+				   </div>
+				   	<div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateLessonOnUser" value="" >Update</button>
+				    </div>
+				      			
+				    </div>
+				      </form>
+				      </div>
+			    </div>
+			  </div>
+		
+<!-- Modal for updating the Artilce-->
+			
+			<div class="modal fade" id="ArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadArticle">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Article</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="SuccessArticle" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailureArticle" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			       <div id="invalid-dataArticle" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Description</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="articleDesc" name="articleDesc" rows="4" cols="33" placeholder=""></textarea>
+				      			<input type="hidden" id="artcileId" name="artcileId" value="">
+				      			</div>
+				   </div>
+				   
+				      			<br/>
+				   <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Source</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" class="form-control-file" id="articlesource" name="articlesource" value=""/>
+				      			</div>
+				   </div>
+				   				<br/>
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Artcile Link</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="articleurl" name="articleurl" rows="4" cols="33" placeholder=""></textarea>
+				      			</div>
+				   </div>
+				   	<div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateArticleOnUser" value="">Update</button>
+				    </div>
+				      			
+				    </div>
+				      </form>
+				      </div>
+			    </div>
+			  </div>
+			  
+
+<!-- Modal for updating Phet-->
+			
+			<div class="modal fade" id="PhetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadPhet">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Phet</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="SuccessPhet" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailurePhet" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			       <div id="invalid-dataPhet" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Description</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="phetDesc" name="phetDesc" rows="4" cols="33" placeholder=""></textarea>
+				      				<input type="hidden" id="phetId" name="phetId" value="">
+				      			</div>
+				   </div>
+				   
+				      			<br/>
+				   <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Source</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" class="form-control-file" id="phetsource" name="phetsource" value=""/>
+				      			</div>
+				   </div>
+				   				<br/>
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Enter Phets Url</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="phetUrl" name="phetUrl" rows="4" cols="33" placeholder=""></textarea>
+				      			</div>
+				   </div>
+				   	 <div class="modal-footer">
+				      		<button class="btn btn-primary" id="updatePhetOnUser" value="">Update</button>
+				    </div>
+				      			
+				    </div>
+				      </form>
+				      </div>
+			    </div>
+			  </div>
+			  
+<!-- Modal for updating Lesson Plan-->
+			
+			<div class="modal fade" id="LessonPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadLesson">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="SuccessLesson" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailureLesson" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			      <div id="invalid-dataLesson" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			    		
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Document</label>
+				      				<input type="hidden" id="lessonId" name="lessonId" value="">
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="file" class="form-control-file" id="lessonPlan" name="lessonPlan" accept="pdf/*" required/>
+				      			
+				      			</div>
+				   </div>
+				   	<div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateLessonOnUser" value="" >Update</button>
+				    </div>
+				      			
+				    </div>
+				      </form>
+				      </div>
+			    </div>
+			  </div>
+  	
+    
+	
+		
+		
+	
+		
+			
+			
+        
+    
+        	<!--  COMMON CODE FOR LIBRARY ADDED -->
+       <div th:replace="common/header :: body-bottom-scripts"></div>
+    </body>
+
+</html>

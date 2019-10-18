@@ -1,0 +1,199 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+  	
+  	          
+            
+    </head>
+    
+    <body>
+            <!-- NAVBAR DATA TOP-MOST -->
+        <div th:replace="common/header :: navbar-Admin"></div>
+       
+       
+       <div class="header-child">
+       			<label>Available Phets</label> <hr/>
+       			<div class="status" th:text="${status}"></div>
+       	</div>
+       	<div style="text-align:right;padding-right:20px;">
+ 
+       	<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
+       							<option>Filter By Topic</option>
+       					<span th:each="topic:${Topic}">		
+  								<option><span th:text="${topic.getTopicName()}"></span></option>
+  						</span>
+  								
+  								
+			</select>
+	
+       	
+       	
+       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
+   		</div>
+   		
+      	<form th:action="@{EnablePhet}" method="post">
+      	<div class="table-responsive">
+				<table id="tablePreview" class="table table-hover table-striped">
+	
+				  <thead class="">
+				    <tr>
+				        <th>#</th>
+				      <th>Topic Name</th>
+				      <th>Description</th>
+				      <th>Date Added</th>
+				      <th>Source</th>
+				      <th>Link</th>
+				      <th>Status</th>
+				      <th>Contributed by</th>
+				     
+				    </tr>
+				  </thead>
+		
+				  <tbody>
+				  
+				  <span th:each="phet:${PhetsAdded}">
+				    <tr class="clickable-row">
+				      <th scope="row"><input type="radio" th:value="${phet.getPhetId()}" th:id="${phet.getPhetId()}" name="selectionRadio" onchange="radioCall()"/></th>
+				      <td><span th:text="${phet.getTopic().getTopicName()}"></span></td>		
+				      <td><span th:text="${phet.getDescription()}"></span></td>
+				      <td><span th:text="${phet.getDateAdded()}"></span></td>
+				      <td><span th:text="${phet.getSource()}"></span></td>
+				      <td><iframe th:src="${phet.getUrl()}" width="400" height="200" scrolling="no" allowfullscreen></iframe></td>
+				  
+				      
+				      <td><span th:if="${phet.isStatus()==1}"><div id="true"/></span>
+				      	  <span th:unless="${phet.isStatus()==1}"><div id="false"/></span>
+				      </td>
+				      
+				      <td><a href=""><span th:text="${phet.getUser().getFname()}"></span></a></td>
+				     <td><a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a>
+		     
+				    </tr>
+				    </span>
+				   
+				</tbody>
+			
+				</table>
+				
+				<span th:if="${phetStatus}">
+					<div style="text-align:center;color:red;font-size:22px" th:text="${phetStatus}"/>
+				</span>
+			
+			</div>
+			
+			<div class="container">
+				<center>
+					
+						
+					<button class="btn btn-primary" id="deletePhet"  disabled >Enable</button>
+				
+				
+				</center>
+			
+			
+			</div>
+			
+				</form>
+
+
+<!-- Modal for updating the data-->
+			
+			<div class="modal fade" id="PhetCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+				  <div id="comData"></div>
+				  <br/>
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="phetComment" name="phetComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="phetId" name="phetId" value="">
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentPhetModal" id=commentPhetModal value="" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      		
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+			  </div>
+  	
+  
+       
+       				
+       		
+       
+		<link rel="stylesheet" href="css/mdb.css" type="text/css"/>      
+      				
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+	   	<script src="js/mdb.js"></script> 
+	   	
+	   	<script>
+			function filterByName() {
+  				var input, filter, table, tr, td, i, txtValue;
+ 				 input = document.getElementById("myInput");
+ 				 filter = input.value.toUpperCase();
+ 				 table = document.getElementById("tablePreview");
+  				 tr = table.getElementsByTagName("tr");
+                 for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[0];
+                     if (td) {
+                      txtValue = td.textContent || td.innerText;
+      					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       						 tr[i].style.display = "";
+     					 } else {
+       							 tr[i].style.display = "none";
+      						}
+    					}       
+  				}
+			}
+			
+			
+			function filterByRole() {
+  				var input, filter, table, tr, td, i, txtValue;
+ 				 input = document.getElementById("roleSelected");
+ 				 filter = input.value.toUpperCase();
+ 				 table = document.getElementById("tablePreview");
+  				 tr = table.getElementsByTagName("tr");
+                 for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[0];
+                     if (td) {
+                      txtValue = td.textContent || td.innerText;
+      					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       						 tr[i].style.display = "";
+     					 } else {
+       							 tr[i].style.display = "none";
+      						}
+    					}       
+  				}
+			}
+</script> 
+	   	
+
+        
+    </body>
+
+
+</html>
