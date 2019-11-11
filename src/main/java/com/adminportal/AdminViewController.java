@@ -1,0 +1,1355 @@
+package com.adminportal;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.DocumentExternal;
+import com.adminportal.content.Events;
+import com.adminportal.content.LessonPlan;
+import com.adminportal.content.Phets;
+import com.adminportal.content.QuizQuestion;
+import com.adminportal.content.Subject;
+import com.adminportal.content.Testimonial;
+import com.adminportal.content.Topic;
+import com.adminportal.content.VideoExternal;
+import com.adminportal.domain.User;
+import com.adminportal.domain.UserRole;
+import com.adminportal.service.ArticleExternalService;
+import com.adminportal.service.ClassService;
+import com.adminportal.service.DocumentExternalService;
+import com.adminportal.service.EventService;
+import com.adminportal.service.LessonPlanService;
+import com.adminportal.service.PhetsService;
+import com.adminportal.service.QuizQuestionService;
+import com.adminportal.service.RoleDetailService;
+import com.adminportal.service.SubjectClassService;
+import com.adminportal.service.SubjectService;
+import com.adminportal.service.TestimonialService;
+import com.adminportal.service.TopicService;
+import com.adminportal.service.UserService;
+import com.adminportal.service.VideoExternalService;
+import com.spoken.Utility.ServiceUtility;
+
+@Controller
+@SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})
+public class AdminViewController {
+	
+	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";
+	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";
+	
+	@Autowired
+	private ClassService classService;
+	
+	@Autowired
+	private SubjectClassService subjectClassService;
+	
+	@Autowired
+	private  SubjectService subjectService;
+	
+
+	@Autowired
+	private TopicService topicService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private ArticleExternalService articleService;
+	
+	@Autowired
+	private DocumentExternalService documentService;
+	
+	@Autowired
+	private LessonPlanService lessonService;
+	
+	@Autowired
+	private PhetsService phetService;
+	
+	@Autowired
+	private QuizQuestionService quizService;
+	
+	@Autowired
+	private VideoExternalService videoService;
+	
+	@Autowired
+	private RoleDetailService roleService;
+	
+	@Autowired
+	private TestimonialService testiService;
+	
+	@Autowired
+	private EventService eventService;
+	
+/*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	@RequestMapping(value = "/userList",method = RequestMethod.GET)
+	public ModelAndView userListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<User> usr= userService.findAll();
+	
+		mv.addObject("User", usr);
+		mv.setViewName("userList");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteUser",method = RequestMethod.GET)
+	public ModelAndView userListEnableGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<User> usr= userService.findAll();
+	
+		mv.addObject("User", usr);
+		mv.setViewName("userList");
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/deleteUser",method = RequestMethod.POST)
+	public ModelAndView userListPost(HttpServletRequest req,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		String enableDisable;
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		User usrTemp=userService.findById(id);
+		if(usrTemp.getRegistered()==1) {
+		 status=userService.disableEnableUser(0, id);
+		 enableDisable="Disabled";
+		}else {
+		  status=userService.disableEnableUser(1, id);
+		  enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "User "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		List<User> usr= userService.findAll();
+	
+		mv.addObject("User", usr);
+		mv.setViewName("userList");
+		return mv;
+	}
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+	
+	
+/*------------------------------------------SHOW SUBJECT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	@RequestMapping(value="/subjectList",method = RequestMethod.GET)
+	public ModelAndView subjectListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<Subject> subjectList=subjectService.findAll();
+		mv.addObject("Subject", subjectList);
+		
+		mv.setViewName("subjectList");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/deleteSubject",method = RequestMethod.POST)
+	public ModelAndView subjectListPost(HttpServletRequest req,@RequestParam(name="radiocall") String subjectId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(subjectId);
+		System.out.println(id);
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		subjectService.deleteById(id);
+		
+		mv.addObject("status", "Subject Deleted Sucessfully");
+		
+		List<Subject> subjectList=subjectService.findAll();
+		mv.addObject("Subject", subjectList);
+		
+		mv.setViewName("subjectList");
+		return mv;
+	}
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+	
+	
+	/*------------------------------------------SHOW TOPIC_LIST (ADMIN MODULE)-----------------------------------------------------------------*/	
+	
+	@RequestMapping(value="/topicList",method = RequestMethod.GET)
+	public ModelAndView topicListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<Topic> topicList=topicService.findAll();
+		List<Subject> subjectList=subjectService.findAll();
+		mv.addObject("Topic", topicList);
+		mv.addObject("Subject", subjectList);
+		
+		mv.setViewName("topicList");
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="/deleteTopic",method = RequestMethod.POST)
+	public ModelAndView topicListPost(HttpServletRequest req,@RequestParam(name="radioTopic") String topicId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(topicId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		Topic topicTemp=topicService.findById(id);
+		if(topicTemp.getStatus()==1) {
+		 status=topicService.disableEnableTopicById(0, id);
+		 enableDisable="Disabled";
+		}else {
+		  status=topicService.disableEnableTopicById(1, id);
+		  enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Topic "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		
+		
+		List<Topic> topicList=topicService.findAll();
+		List<Subject> subjectList=subjectService.findAll();
+		mv.addObject("Topic", topicList);
+		mv.addObject("Subject", subjectList);
+		
+		mv.setViewName("topicList");
+		return mv;
+	}
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+	
+	
+	/*------------------------------------------SHOW VIDEO_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	
+	@RequestMapping(value="/videoList",method = RequestMethod.GET)
+	public ModelAndView videoListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<VideoExternal> videoList=videoService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		
+		mv.addObject("Video",videoList);
+		
+		mv.setViewName("videoList");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/deleteVideo",method = RequestMethod.POST)
+	public ModelAndView videoListPost(HttpServletRequest req,@RequestParam(name="radioVideo") String videoId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(videoId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		VideoExternal videoTemp=videoService.findById(id);
+		if(videoTemp.isStatus()==1) {
+		 status=videoService.EnableVideoContent(0, id);
+		 enableDisable="Disabled";
+		 
+		}else {
+			status=videoService.EnableVideoContent(1, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Video "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+
+		
+		List<VideoExternal> videoList=videoService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		
+		mv.addObject("Video",videoList);
+		
+		mv.setViewName("videoList");
+		return mv;
+	}
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+	
+	/*------------------------------------------SHOW ARTICLE_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	@RequestMapping(value="/articleList",method = RequestMethod.GET)
+	public ModelAndView articleListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<ArticleExternal> articleList=articleService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Article",articleList);
+		
+		mv.setViewName("articleList");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/deleteArticle",method = RequestMethod.POST)
+	public ModelAndView articleListPost(HttpServletRequest req,@RequestParam(name="radioArticle") String articleId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(articleId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		ArticleExternal articleTemp=articleService.findByid(id);
+		if(articleTemp.isStatus()==1) {
+		 status=articleService.EnableArticleContent(0, id);
+		 enableDisable="Disabled";
+		}else {
+			status=articleService.EnableArticleContent(1, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Article "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		List<ArticleExternal> articleList=articleService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Article",articleList);
+		
+		mv.setViewName("articleList");
+		return mv;
+	}
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+	
+
+	
+	/*------------------------------------------SHOW DOCUMENT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	@RequestMapping(value="/documentList",method = RequestMethod.GET)
+	public ModelAndView documentListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<DocumentExternal> documentList=documentService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Document",documentList);
+		
+		mv.setViewName("documentList");
+		}
+		return mv;
+	}
+	
+
+	@RequestMapping(value="/deleteDocument",method = RequestMethod.POST)
+	public ModelAndView documentListPost(HttpServletRequest req,@RequestParam(name="radioDocument") String documentId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(documentId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		DocumentExternal documentTemp=documentService.findByid(id);
+		if(documentTemp.isStatus()==1) {
+		 status=documentService.EnableDocumentContent(0, id);
+		 enableDisable="Disabled";
+		}else {
+			status=documentService.EnableDocumentContent(1, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Document "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		List<DocumentExternal> documentList=documentService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Document",documentList);
+		
+		mv.setViewName("documentList");
+		return mv;
+	}
+	
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+	
+	/*------------------------------------------SHOW PHET_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	@RequestMapping(value="/phetsList",method = RequestMethod.GET)
+	public ModelAndView phetsListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+
+		List<Phets> phetList=phetService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Phet",phetList);
+		
+		mv.setViewName("phetsList");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/deletePhet",method = RequestMethod.POST)
+	public ModelAndView phetsListPost(HttpServletRequest req,@RequestParam(name="radioPhet") String phetId,ModelAndView mv) {
+
+		int id=Integer.parseInt(phetId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		Phets phetTemp=phetService.findByid(id);
+		if(phetTemp.isStatus()==1) {
+		 status=phetService.EnablePhetContent(0, id);
+		 enableDisable="Disabled";
+		}else {
+			status=phetService.EnablePhetContent(1, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Phet "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		List<Phets> phetList=phetService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Phet",phetList);
+		
+		mv.setViewName("phetsList");
+		return mv;
+	}
+	
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+	
+	/*------------------------------------------SHOW LESSONPLAN_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	@RequestMapping(value="/lessonPlanList",method = RequestMethod.GET)
+	public ModelAndView lessonPlanListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		List<LessonPlan> lessonList=lessonService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Lesson",lessonList);
+		mv.setViewName("lessonPlanList");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/deleteLesson",method = RequestMethod.POST)
+	public ModelAndView lessonPlanListPost(HttpServletRequest req,@RequestParam(name="radioLesson") String lessonId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(lessonId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		LessonPlan lessonTemp=lessonService.findById(id);
+		if(lessonTemp.isStatus()==1) {
+		 status=lessonService.EnableLessonPlanContent(0, id);
+		 enableDisable="Disabled";
+		}else {
+			status=lessonService.EnableLessonPlanContent(1, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Lesson "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		
+		List<LessonPlan> lessonList=lessonService.findAll();
+		
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Lesson",lessonList);
+		mv.setViewName("lessonPlanList");
+		return mv;
+	}
+	
+	/*----------------------------------------------------------END----------------------------------------------------------------------------*/	
+	
+	/*------------------------------------------SHOW QUIZ_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
+	
+	@RequestMapping(value="/quizList",method = RequestMethod.GET)
+	public ModelAndView quizListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		
+		List<QuizQuestion> quizList=quizService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		mv.addObject("Quiz",quizList );
+		mv.setViewName("quizList");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/deleteQuiz",method = RequestMethod.POST)
+	public ModelAndView quizListPost(HttpServletRequest req,@RequestParam(name="radioQuiz") String quizId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(quizId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		QuizQuestion quizTemp=quizService.findById(id);
+		if(quizTemp.isStatus()==1) {
+		 status=quizService.EnableQuizContent(0, id);
+		 enableDisable="Disabled";
+		}else {
+			status=quizService.EnableQuizContent(1, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Quiz "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		List<QuizQuestion> quizList=quizService.findAll();
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic",topicList);
+		
+		mv.addObject("Quiz",quizList );
+		mv.setViewName("quizList");
+		return mv;
+	}
+
+
+/*----------------------------------------------------------END----------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------START OF APPROVING/REJECT TECAHER---------------------------------------------------------------------*/
+
+	@RequestMapping(value = "/approveRejectTeacher")
+	public ModelAndView teacherAprovementGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession();
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<User> local=new ArrayList<User>();
+		
+			List<User> usr= userService.findAll();
+			
+			for(User a:usr) {
+				List<UserRole> userRole=a.getUserRoles();
+				for(UserRole x:userRole) {
+					if(x.getRole().getRoleName().contentEquals("Teacher") && a.getRegistered()==0) {
+						local.add(a);
+					}
+				}
+			}
+				
+				if(!local.isEmpty()) {
+					mv.addObject("UserTeacher", local);
+					
+				}else {
+					mv.addObject("TeacherStatus","No Entries Present To Approve");
+				}
+			
+			
+			mv.setViewName("approveRejectTeacher");
+			
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/approveTeacher",method =RequestMethod.POST)
+	public ModelAndView approveTeacherPost(HttpServletRequest req,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		
+		
+		status=userService.disableEnableUser(1, id);
+	
+		if(status) {
+			mv.addObject("status", "User Enabled Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		
+		HttpSession session=req.getSession();
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<User> local=new ArrayList<User>();
+		
+			List<User> usr= userService.findAll();
+			
+			for(User a:usr) {
+				List<UserRole> userRole=a.getUserRoles();
+				for(UserRole x:userRole) {
+					if(x.getRole().getRoleName().contentEquals("Teacher") && a.getRegistered()==0) {
+						local.add(a);
+					}
+				}
+			}
+				
+				if(!local.isEmpty()) {
+					mv.addObject("UserTeacher", local);
+					
+				}else {
+					mv.addObject("TeacherStatus","No Entries Present To Approve");
+				}
+			
+			
+			mv.setViewName("approveRejectTeacher");
+			
+		}
+		
+		
+		
+		return mv;
+	}
+	
+
+
+
+
+/*--------------------------------------------------------END----------------------------------------------------------------------------------*/
+
+	/*-----------------------------------------------START OF APPROVING/REJECT VIDEO---------------------------------------------------------------------*/
+
+
+	@RequestMapping(value = "/approveRejectVideo")
+	public ModelAndView videoApprovementGet(HttpServletRequest req, ModelAndView mv) {
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<VideoExternal> localVideo=new ArrayList<VideoExternal>();
+			
+			List<VideoExternal> videoList=videoService.findAll();
+			for(VideoExternal a:videoList) {
+				if(a.isStatus()==0) {
+					localVideo.add(a);
+				}
+			}
+			
+			if(localVideo.isEmpty()) {
+				
+				mv.addObject("VideoStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("VideoAdded",localVideo);
+			}
+			
+			
+			List<Topic> topicList=topicService.findAll();
+			
+			mv.addObject("Topic",topicList);
+			
+		
+			mv.setViewName("approveRejectVideo");
+			
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/EnableVideo",method = RequestMethod.POST)
+	public ModelAndView enbaleVideoPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		  status=videoService.EnableVideoContent(1, id);
+			
+			if(status) {
+				mv.addObject("status", "Video Enabled Sucessfully");
+			}else {
+				mv.addObject("status", "Please try Again");
+			}
+		
+		
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<VideoExternal> localVideo=new ArrayList<VideoExternal>();
+			
+			List<VideoExternal> videoList=videoService.findAll();
+			for(VideoExternal a:videoList) {
+				if(a.isStatus()==0) {
+					localVideo.add(a);
+				}
+			}
+			
+			if(localVideo.isEmpty()) {
+				
+				mv.addObject("VideoStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("VideoAdded",localVideo);
+			}
+			
+			
+			List<Topic> topicList=topicService.findAll();
+			
+			mv.addObject("Topic",topicList);
+			
+		
+			mv.setViewName("approveRejectVideo");
+			
+		}
+		
+		
+		
+		return mv;
+	}
+
+
+/*-----------------------------------------------START OF APPROVING/REJECT DOCUMENT---------------------------------------------------------------------*/
+	
+	
+	@RequestMapping(value = "/approveRejectDocument")
+	public ModelAndView documentApprovementGet(HttpServletRequest req, ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<DocumentExternal> localdocument=new ArrayList<DocumentExternal>();
+			
+			List<DocumentExternal> documentList=documentService.findAll();
+			for(DocumentExternal a:documentList) {
+				if(a.isStatus()==0) {
+					localdocument.add(a);
+				}
+			}
+			
+			if(localdocument.isEmpty()) {
+				
+				mv.addObject("documentStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("Documentadded",localdocument);
+			}
+			
+			
+			List<Topic> topicList=topicService.findAll();
+			
+			mv.addObject("Topic",topicList);
+			
+		
+			mv.setViewName("approveRejectDocument");
+			
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/EnableDocument",method = RequestMethod.POST)
+	public ModelAndView enbaleDocumentPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		  status=documentService.EnableDocumentContent(1, id);
+			
+			if(status) {
+				mv.addObject("status", "Document Enabled Sucessfully");
+			}else {
+				mv.addObject("status", "Please try Again");
+			}
+		
+			HttpSession session=req.getSession(false);
+			
+			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+				mv.setViewName("redirect:/adminPortal");
+			}else {
+				List<DocumentExternal> localdocument=new ArrayList<DocumentExternal>();
+				
+				List<DocumentExternal> documentList=documentService.findAll();
+				for(DocumentExternal a:documentList) {
+					if(a.isStatus()==0) {
+						localdocument.add(a);
+					}
+				}
+				
+				if(localdocument.isEmpty()) {
+					
+					mv.addObject("documentStatus","No Entries Present To Approve");
+				}else {
+					mv.addObject("Documentadded",localdocument);
+				}
+				
+				
+				List<Topic> topicList=topicService.findAll();
+				
+				mv.addObject("Topic",topicList);
+				
+			
+				mv.setViewName("approveRejectDocument");
+				
+			}
+			return mv;
+		}
+	
+	
+	
+	/*-----------------------------------------------START OF APPROVING/REJECT ARTICLE---------------------------------------------------------------------*/
+	
+	
+	
+	@RequestMapping(value = "/approveRejectArticle")
+	public ModelAndView articleApprovementGet(HttpServletRequest req, ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<ArticleExternal> localarticle=new ArrayList<ArticleExternal>();
+			
+			List<ArticleExternal> articleList=articleService.findAll();
+			for(ArticleExternal a:articleList) {
+				if(a.isStatus()==0) {
+					localarticle.add(a);
+				}
+			}
+			
+			if(localarticle.isEmpty()) {
+				
+				mv.addObject("articleStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("Article",localarticle);
+			}
+			
+			
+			List<Topic> topicList=topicService.findAll();
+			
+			mv.addObject("Topic",topicList);
+			
+		
+			mv.setViewName("approveRejectArticle");
+			
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/EnableArticle",method = RequestMethod.POST)
+	public ModelAndView enbaleArticlePost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		  status=articleService.EnableArticleContent(1, id);
+			
+			if(status) {
+				mv.addObject("status", "Article Enabled Sucessfully");
+			}else {
+				mv.addObject("status", "Please try Again");
+			}
+		
+			HttpSession session=req.getSession(false);
+			
+			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+				mv.setViewName("redirect:/adminPortal");
+			}else {
+				List<ArticleExternal> localarticle=new ArrayList<ArticleExternal>();
+				
+				List<ArticleExternal> articleList=articleService.findAll();
+				for(ArticleExternal a:articleList) {
+					if(a.isStatus()==0) {
+						localarticle.add(a);
+					}
+				}
+				
+				if(localarticle.isEmpty()) {
+					
+					mv.addObject("articleStatus","No Entries Present To Approve");
+				}else {
+					mv.addObject("Article",localarticle);
+				}
+				
+				
+				List<Topic> topicList=topicService.findAll();
+				
+				mv.addObject("Topic",topicList);
+				
+			
+				mv.setViewName("approveRejectArticle");
+				
+			}
+			return mv;
+		}
+	
+	
+	/*-----------------------------------------------START OF APPROVING/REJECT PHETS---------------------------------------------------------------------*/
+	
+	
+	@RequestMapping(value = "/approveRejectPhets")
+	public ModelAndView phetApprovementGet(HttpServletRequest req, ModelAndView mv) {
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<Phets> localphet=new ArrayList<Phets>();
+			
+			List<Phets> phetList=phetService.findAll();
+			for(Phets a:phetList) {
+				if(a.isStatus()==0) {
+					localphet.add(a);
+				}
+			}
+			
+			if(localphet.isEmpty()) {
+				
+				mv.addObject("phetStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("PhetsAdded",localphet);
+			}
+			
+			
+			List<Topic> topicList=topicService.findAll();
+			
+			mv.addObject("Topic",topicList);
+			
+		
+			mv.setViewName("approveRejectPhet");
+			
+		}
+		return mv;
+	}
+	
+	
+	
+	@RequestMapping(value = "/EnablePhet",method = RequestMethod.POST)
+	public ModelAndView enbalePhetPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		  status=phetService.EnablePhetContent(1, id);
+			
+			if(status) {
+				mv.addObject("status", "Phets Enabled Sucessfully");
+			}else {
+				mv.addObject("status", "Please try Again");
+			}
+		
+			HttpSession session=req.getSession(false);
+			
+			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+				mv.setViewName("redirect:/adminPortal");
+			}else {
+				List<Phets> localphet=new ArrayList<Phets>();
+				
+				List<Phets> phetList=phetService.findAll();
+				for(Phets a:phetList) {
+					if(a.isStatus()==0) {
+						localphet.add(a);
+					}
+				}
+				
+				if(localphet.isEmpty()) {
+					
+					mv.addObject("phetStatus","No Entries Present To Approve");
+				}else {
+					mv.addObject("PhetsAdded",localphet);
+				}
+				
+				
+				List<Topic> topicList=topicService.findAll();
+				
+				mv.addObject("Topic",topicList);
+				
+			
+				mv.setViewName("approveRejectPhet");
+				
+			}
+			return mv;
+		}
+	
+	
+	/*-----------------------------------------------START OF APPROVING/REJECT QUIZ---------------------------------------------------------------------*/
+	
+	
+	@RequestMapping(value = "/approveRejectQuiz")
+	public ModelAndView quizApprovementGet(HttpServletRequest req, ModelAndView mv) {
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<QuizQuestion> localQuiz=new ArrayList<QuizQuestion>();
+			
+			List<QuizQuestion> quizList=quizService.findAll();
+			for(QuizQuestion a:quizList) {
+				if(a.isStatus()==0) {
+					localQuiz.add(a);
+				}
+			}
+			
+			if(localQuiz.isEmpty()) {
+				
+				mv.addObject("QuizStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("QuizAdded",localQuiz);
+			}
+			
+			
+			List<Topic> topicList=topicService.findAll();
+			
+			mv.addObject("Topic",topicList);
+			
+		
+			mv.setViewName("approveRejectQuiz");
+			
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/EnableQuiz",method = RequestMethod.POST)
+	public ModelAndView enbaleQuizPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		  status=quizService.EnableQuizContent(1, id);
+			
+			if(status) {
+				mv.addObject("status", "Quiz Enabled Sucessfully");
+			}else {
+				mv.addObject("status", "Please try Again");
+			}
+		
+			HttpSession session=req.getSession(false);
+			
+			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+				mv.setViewName("redirect:/adminPortal");
+			}else {
+				List<QuizQuestion> localQuiz=new ArrayList<QuizQuestion>();
+				
+				List<QuizQuestion> quizList=quizService.findAll();
+				for(QuizQuestion a:quizList) {
+					if(a.isStatus()==0) {
+						localQuiz.add(a);
+					}
+				}
+				
+				if(localQuiz.isEmpty()) {
+					
+					mv.addObject("QuizStatus","No Entries Present To Approve");
+				}else {
+					mv.addObject("QuizAdded",localQuiz);
+				}
+				
+				
+				List<Topic> topicList=topicService.findAll();
+				
+				mv.addObject("Topic",topicList);
+				
+			
+				mv.setViewName("approveRejectQuiz");
+				
+			}
+			return mv;
+		}
+	
+	
+	
+	/*-----------------------------------------------START OF APPROVING/REJECT LESSON---------------------------------------------------------------------*/
+	
+	
+	@RequestMapping(value = "/approveRejectLesson")
+	public ModelAndView lessonApprovementGet(HttpServletRequest req, ModelAndView mv) {
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<LessonPlan> localLesson=new ArrayList<LessonPlan>();
+			
+			List<LessonPlan> lessonList=lessonService.findAll();
+			for(LessonPlan a:lessonList) {
+				if(a.isStatus()==0) {
+					localLesson.add(a);
+				}
+			}
+			
+			if(localLesson.isEmpty()) {
+				
+				mv.addObject("LessonStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("LessonAdded",localLesson);
+			}
+			
+			
+			List<Topic> topicList=topicService.findAll();
+			
+			mv.addObject("Topic",topicList);
+			
+		
+			mv.setViewName("approveRejectLesson");
+			
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/EnableLesson",method = RequestMethod.POST)
+	public ModelAndView enbaleLessonPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		  status=lessonService.EnableLessonPlanContent(1, id);
+			
+			if(status) {
+				mv.addObject("status", "Lesson Plan Enabled Sucessfully");
+			}else {
+				mv.addObject("status", "Please try Again");
+			}
+		
+			HttpSession session=req.getSession(false);
+			
+			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+				mv.setViewName("redirect:/adminPortal");
+			}else {
+				List<LessonPlan> localLesson=new ArrayList<LessonPlan>();
+				
+				List<LessonPlan> lessonList=lessonService.findAll();
+				for(LessonPlan a:lessonList) {
+					if(a.isStatus()==0) {
+						localLesson.add(a);
+					}
+				}
+				
+				if(localLesson.isEmpty()) {
+					
+					mv.addObject("LessonStatus","No Entries Present To Approve");
+				}else {
+					mv.addObject("LessonAdded",localLesson);
+				}
+				
+				
+				List<Topic> topicList=topicService.findAll();
+				
+				mv.addObject("Topic",topicList);
+				
+			
+				mv.setViewName("approveRejectLesson");
+				
+			}
+			return mv;
+		}
+	
+	
+	
+	@RequestMapping(value = "/testimonialList",method = RequestMethod.GET)
+	public ModelAndView testimonialList(HttpServletRequest req,ModelAndView mv) {
+		HttpSession session=req.getSession(false);
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			
+			try{
+				
+					List<Testimonial> local=testiService.findAll();
+					mv.addObject("Testimonial", local);
+			
+					mv.setViewName("testimonialList");
+				}
+			catch (Exception e) {
+				   mv.setViewName("redirect:/adminPortal");
+				
+			}
+		}
+		return mv;
+	
+		
+	}
+	
+	@RequestMapping(value = "/eventList",method = RequestMethod.GET)
+	public ModelAndView eventList(HttpServletRequest req,ModelAndView mv) {
+		HttpSession session=req.getSession(false);
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			
+			
+		
+			try{
+					List<Events> local=eventService.findAll();
+					mv.addObject("Events", local);
+			
+					mv.setViewName("eventList");
+				}
+			catch (Exception e) {
+				 mv.setViewName("redirect:/adminPortal");
+				
+			}
+		}
+		return mv;
+	
+		
+	}
+	
+	
+	
+/************************************************************END********************************************************************************/
+	
+	
+	
+	
+
+}

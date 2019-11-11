@@ -78,6 +78,7 @@ import com.adminportal.service.TopicService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.CommentAjaxQueryResolver;
+import com.spoken.Utility.CommentReplyAjaxQueryResolver;
 import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.SubjectAjaxQueryResolver;
 import com.spoken.Utility.SubjectClassAjaxQueryResolver;
@@ -433,7 +434,76 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	@PostMapping("/loadByValidityTopic")
+	public List<Integer> loadByValidityTopic(@Valid @RequestBody Topic topic){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		Topic local=topicService.findById(topic.getTopicId());
+		data.add(local.getStatus());
+		
+		return data;
+	}
 	
+	@PostMapping("/loadByValidityPhet")
+	public List<Integer> loadByValidityPhet(@Valid @RequestBody Phets phet){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		Phets local=phetServcie.findByid(phet.getPhetId());
+		data.add(local.isStatus());
+		
+		return data;
+	}
+	
+	@PostMapping("/loadByValidityDocument")
+	public List<Integer> loadByValidityDocument(@Valid @RequestBody DocumentExternal document){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		DocumentExternal local=docuService.findByid(document.getDocumentId());
+		data.add(local.isStatus());
+		
+		return data;
+	}
+	
+	@PostMapping("/loadByValidityLesson")
+	public List<Integer> loadByValidityLesson(@Valid @RequestBody LessonPlan lesson){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		LessonPlan local=lessonService.findById(lesson.getLessonPlanId());
+		data.add(local.isStatus());
+		
+		return data;
+	}
+	
+	@PostMapping("/loadByValidityArticle")
+	public List<Integer> loadByValidityArticle(@Valid @RequestBody ArticleExternal article){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		ArticleExternal local=articleService.findByid(article.getArticleId());
+		data.add(local.isStatus());
+		
+		return data;
+	}
+	
+	@PostMapping("/loadByValidityQuiz")
+	public List<Integer> loadByValidityQuiz(@Valid @RequestBody QuizQuestion quiz){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		QuizQuestion local=quizService.findById(quiz.getQuizQuestionId());
+		data.add(local.isStatus());
+		
+		return data;
+	}
+	
+	
+	@PostMapping("/loadByValidityVideo")
+	public List<Integer> loadByValidityVideo(@Valid @RequestBody VideoExternal video){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		VideoExternal local=videoService.findById(video.getVideoId());
+		data.add(local.isStatus());
+		
+		return data;
+	}
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------LOAD BY SUBJECT----------------------------------------------------------------------*/
@@ -1049,7 +1119,7 @@ public class HomeControllerRest {
 			}
 			urlUpload=url;
 			
-			
+		
 		}else {
 			urlUpload=articletemp.getUrl();
 		}
@@ -1103,39 +1173,63 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnVideo")
-	public List<String> uploadCommentonVideo(HttpServletRequest req,@Valid @RequestBody List<String> data) throws Exception {
+	public List<String> uploadCommentonVideo(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
 		List<String> msg=new ArrayList<String>();
-		int size=data.size();
+		
 		
 		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+		String emailToIdentifyUser;
+		if(data.isAdmin()) {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		}else {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		}
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
-		String sub=data.get(size-1);
-		int idVideo=Integer.parseInt(sub);
+		try {
+			if(data.isReply()) {
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				Comment localComment=comService.findById(data.getId());
+				
+				Set<CommentReply> reply= new HashSet<CommentReply>();
+				reply.add(new CommentReply(comReplyService.countRow()+1, data.getComment(), ServiceUtility.getCurrentTime(), localComment, usr));
+				
+				userService.addUserToCommentReply(usr, reply);
+				
+				msg.add("Success");
+				
+			}else {
+				
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				int idVideo=data.getId();
+				VideoExternal localVideo=videoService.findById(idVideo);
+				
+						
+				Set<Comment> comment=new HashSet<Comment>();
+				comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.getComment(), usr, localVideo));
+						
+				userService.addUserToComment(usr, comment);
+				
+				msg.add("Success");
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			msg.add("failure");
+		}
 		
-/****************************************             code to make entry CommentReply on database		********************************
-	
-		Comment localComment=comService.findById(1);
 		
-		Set<CommentReply> reply= new HashSet<CommentReply>();
-		reply.add(new CommentReply(comReplyService.countRow()+1, data.get(0), ServiceUtility.getCurrentTime(), localComment, usr));
-		
-		userService.addUserToCommentReply(usr, reply);
-		
-	
-*/		
-		VideoExternal localVideo=videoService.findById(idVideo);
-
-		
-		Set<Comment> comment=new HashSet<Comment>();
-		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localVideo));
-		
-		userService.addUserToComment(usr, comment);
-		
-		
-		msg.add("Success");
 		return msg;
 			
 		
@@ -1193,28 +1287,86 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnArticle")
-	public List<String> uploadCommentonArtcile(HttpServletRequest req,@Valid @RequestBody List<String> data) throws Exception {
+	public List<String> uploadCommentonArtcile(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+		
+//		List<String> msg=new ArrayList<String>();
+//		int size=data.size();
+//		
+//		HttpSession session=req.getSession(false);
+//		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+//		User usr=userService.findByUsername(emailToIdentifyUser);
+//		
+//		String sub=data.get(size-1);
+//		int idArticle=Integer.parseInt(sub);
+//		ArticleExternal localArticle=articleService.findByid(idArticle);
+//
+//		
+//		Set<Comment> comment=new HashSet<Comment>();
+//		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localArticle));
+//		
+//		userService.addUserToComment(usr, comment);
+//		
+//		
+//		msg.add("Success");
+//		return msg;
 		
 		List<String> msg=new ArrayList<String>();
-		int size=data.size();
+		
 		
 		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+		String emailToIdentifyUser;
+		if(data.isAdmin()) {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		}else {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		}
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
-		String sub=data.get(size-1);
-		int idArticle=Integer.parseInt(sub);
-		ArticleExternal localArticle=articleService.findByid(idArticle);
-
+		try {
+			if(data.isReply()) {
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				Comment localComment=comService.findById(data.getId());
+				
+				Set<CommentReply> reply= new HashSet<CommentReply>();
+				reply.add(new CommentReply(comReplyService.countRow()+1, data.getComment(), ServiceUtility.getCurrentTime(), localComment, usr));
+				
+				userService.addUserToCommentReply(usr, reply);
+				
+				msg.add("Success");
+				
+			}else {
+				
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				int idArticle=data.getId();
+				ArticleExternal localArticle=articleService.findByid(idArticle);
+				
+						
+				Set<Comment> comment=new HashSet<Comment>();
+				comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.getComment(), usr, localArticle));
+						
+				userService.addUserToComment(usr, comment);
+				
+				msg.add("Success");
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			msg.add("failure");
+		}
 		
-		Set<Comment> comment=new HashSet<Comment>();
-		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localArticle));
 		
-		userService.addUserToComment(usr, comment);
-		
-		
-		msg.add("Success");
 		return msg;
+			
 			
 		
 }
@@ -1250,27 +1402,64 @@ public class HomeControllerRest {
 	}
 	
 	@PostMapping("/uploadCommentOnDocument")
-	public List<String> uploadCommentonDocument(HttpServletRequest req,@Valid @RequestBody List<String> data) throws Exception {
+	public List<String> uploadCommentonDocument(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+		
 		
 		List<String> msg=new ArrayList<String>();
-		int size=data.size();
+		
 		
 		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+		String emailToIdentifyUser;
+		if(data.isAdmin()) {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		}else {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		}
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
-		String sub=data.get(size-1);
-		int idDocument=Integer.parseInt(sub);
-		DocumentExternal localDocument=docuService.findByid(idDocument);
-
+		try {
+			if(data.isReply()) {
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				Comment localComment=comService.findById(data.getId());
+				
+				Set<CommentReply> reply= new HashSet<CommentReply>();
+				reply.add(new CommentReply(comReplyService.countRow()+1, data.getComment(), ServiceUtility.getCurrentTime(), localComment, usr));
+				
+				userService.addUserToCommentReply(usr, reply);
+				
+				msg.add("Success");
+				
+			}else {
+				
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				int idDocument=data.getId();
+				DocumentExternal localDocument=docuService.findByid(idDocument);
+				
+						
+				Set<Comment> comment=new HashSet<Comment>();
+				comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.getComment(), usr, localDocument));
+				
+				userService.addUserToComment(usr, comment);
+				
+				msg.add("Success");
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			msg.add("failure");
+		}
 		
-		Set<Comment> comment=new HashSet<Comment>();
-		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localDocument));
 		
-		userService.addUserToComment(usr, comment);
-		
-		
-		msg.add("Success");
 		return msg;
 			
 	
@@ -1308,29 +1497,86 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnQuiz")
-	public List<String> uploadCommentonQuiz(HttpServletRequest req,@Valid @RequestBody List<String> data) throws Exception {
+	public List<String> uploadCommentonQuiz(HttpServletRequest req,@Valid @RequestBody  CommentReplyAjaxQueryResolver data) throws Exception {
+		
+//		List<String> msg=new ArrayList<String>();
+//		int size=data.size();
+//		
+//		HttpSession session=req.getSession(false);
+//		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+//		User usr=userService.findByUsername(emailToIdentifyUser);
+//		
+//		String sub=data.get(size-1);
+//		int idQuiz=Integer.parseInt(sub);
+//		QuizQuestion localQuiz=quizService.findById(idQuiz);
+//
+//		
+//		Set<Comment> comment=new HashSet<Comment>();
+//		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localQuiz));
+//		
+//		userService.addUserToComment(usr, comment);
+//		
+//		
+//		msg.add("Success");
+//		return msg;
 		
 		List<String> msg=new ArrayList<String>();
-		int size=data.size();
+		String emailToIdentifyUser;
 		
 		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+		
+		if(data.isAdmin()) {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		}else {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		}
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
-		String sub=data.get(size-1);
-		int idQuiz=Integer.parseInt(sub);
-		QuizQuestion localQuiz=quizService.findById(idQuiz);
-
-		
-		Set<Comment> comment=new HashSet<Comment>();
-		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localQuiz));
-		
-		userService.addUserToComment(usr, comment);
-		
-		
-		msg.add("Success");
-		return msg;
+		try {
+			if(data.isReply()) {
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				Comment localComment=comService.findById(data.getId());
+				
+				Set<CommentReply> reply= new HashSet<CommentReply>();
+				reply.add(new CommentReply(comReplyService.countRow()+1, data.getComment(), ServiceUtility.getCurrentTime(), localComment, usr));
+				
+				userService.addUserToCommentReply(usr, reply);
+				
+				msg.add("Success");
+				
+			}else {
+				
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				int idQuiz=data.getId();
+				QuizQuestion localQuiz=quizService.findById(idQuiz);
+				
+						
+				Set<Comment> comment=new HashSet<Comment>();
+				comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.getComment(), usr, localQuiz));
+				
+				userService.addUserToComment(usr, comment);
+				
+				msg.add("Success");
+			}
+		} catch (Exception e) {
 			
+			e.printStackTrace();
+			msg.add("failure");
+		}
+		
+		
+		return msg;
+					
 		
 }
 	
@@ -1362,27 +1608,86 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnPhet")
-	public List<String> uploadCommentonPhet(HttpServletRequest req,@Valid @RequestBody List<String> data) throws Exception {
+	public List<String> uploadCommentonPhet(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+		
+//		List<String> msg=new ArrayList<String>();
+//		int size=data.size();
+//		
+//		HttpSession session=req.getSession(false);
+//		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+//		User usr=userService.findByUsername(emailToIdentifyUser);
+//		
+//		String sub=data.get(size-1);
+//		int idphet=Integer.parseInt(sub);
+//		Phets localphet=phetServcie.findByid(idphet);
+//
+//		
+//		Set<Comment> comment=new HashSet<Comment>();
+//		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localphet));
+//		
+//		userService.addUserToComment(usr, comment);
+//		
+//		
+//		msg.add("Success");
+//		return msg;
 		
 		List<String> msg=new ArrayList<String>();
-		int size=data.size();
+		String emailToIdentifyUser;
+		
 		
 		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+		
+		if(data.isAdmin()) {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		}else {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		}
+		
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
-		String sub=data.get(size-1);
-		int idphet=Integer.parseInt(sub);
-		Phets localphet=phetServcie.findByid(idphet);
-
+		try {
+			if(data.isReply()) {
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				Comment localComment=comService.findById(data.getId());
+				
+				Set<CommentReply> reply= new HashSet<CommentReply>();
+				reply.add(new CommentReply(comReplyService.countRow()+1, data.getComment(), ServiceUtility.getCurrentTime(), localComment, usr));
+				
+				userService.addUserToCommentReply(usr, reply);
+				
+				msg.add("Success");
+				
+			}else {
+				
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				int idPhet=data.getId();
+				Phets localphet=phetServcie.findByid(idPhet);
+				
+						
+				Set<Comment> comment=new HashSet<Comment>();
+				comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.getComment(), usr, localphet));
+				
+				userService.addUserToComment(usr, comment);
+				
+				msg.add("Success");
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			msg.add("failure");
+		}
 		
-		Set<Comment> comment=new HashSet<Comment>();
-		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, localphet));
 		
-		userService.addUserToComment(usr, comment);
-		
-		
-		msg.add("Success");
 		return msg;
 			
 		
@@ -1417,29 +1722,81 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnLesson")
-	public List<String> uploadCommentonLesson(HttpServletRequest req,@Valid @RequestBody List<String> data) throws Exception {
+	public List<String> uploadCommentonLesson(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+		
+//		List<String> msg=new ArrayList<String>();
+//		int size=data.size();
+//		
+//		HttpSession session=req.getSession(false);
+//		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+//		User usr=userService.findByUsername(emailToIdentifyUser);
+//		
+//		String sub=data.get(size-1);
+//		int idLesson=Integer.parseInt(sub);
+//		LessonPlan locallesson=lessonService.findById(idLesson);
+//
+//		
+//		Set<Comment> comment=new HashSet<Comment>();
+//		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, locallesson));
+//		
+//		userService.addUserToComment(usr, comment);
+//		
+//		
+//		msg.add("Success");
+//		return msg;
+			
 		
 		List<String> msg=new ArrayList<String>();
-		int size=data.size();
+		
 		
 		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser=(String) session.getAttribute("UserLoged");
+		String emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
-		String sub=data.get(size-1);
-		int idLesson=Integer.parseInt(sub);
-		LessonPlan locallesson=lessonService.findById(idLesson);
-
-		
-		Set<Comment> comment=new HashSet<Comment>();
-		comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.get(0), usr, locallesson));
-		
-		userService.addUserToComment(usr, comment);
-		
-		
-		msg.add("Success");
-		return msg;
+		try {
+			if(data.isReply()) {
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				Comment localComment=comService.findById(data.getId());
+				
+				Set<CommentReply> reply= new HashSet<CommentReply>();
+				reply.add(new CommentReply(comReplyService.countRow()+1, data.getComment(), ServiceUtility.getCurrentTime(), localComment, usr));
+				
+				userService.addUserToCommentReply(usr, reply);
+				
+				msg.add("Success");
+				
+			}else {
+				
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				int idLesson=data.getId();
+				LessonPlan locallesson=lessonService.findById(idLesson);
+				
+						
+				Set<Comment> comment=new HashSet<Comment>();
+				comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.getComment(), usr, locallesson));
+				
+				userService.addUserToComment(usr, comment);
+				
+				msg.add("Success");
+			}
+		} catch (Exception e) {
 			
+			e.printStackTrace();
+			msg.add("failure");
+		}
+		
+		
+		return msg;
 		
 }
 	
@@ -1559,6 +1916,8 @@ public class HomeControllerRest {
 					videourl=urlUpload1;
 				
 				}catch(Exception e) {
+					status.add("failure");
+					e.printStackTrace();
 					
 				}
 				
@@ -1589,6 +1948,7 @@ public class HomeControllerRest {
 		} catch (Exception e) {
 			
 			status.add("failure");
+			e.printStackTrace();
 		}
 		
 		
@@ -1604,7 +1964,15 @@ public class HomeControllerRest {
 	public @ResponseBody List<String> addLessonFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
 										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
 										   @RequestParam("lesson") MultipartFile[] uploadLessonPlan){
+		
 		List<String> status=new ArrayList<String>();
+		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadLessonPlan)) {
+			
+			status.add("failure");
+			return status;
+			
+		}
 		
 		String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Lessonplan/";
 		
@@ -1649,10 +2017,24 @@ public class HomeControllerRest {
 										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
 										   @RequestParam("remarks") String remark,@RequestParam("Question") MultipartFile[] uploadQuestion,
 										   @RequestParam("Answer") MultipartFile[] uploadAnswer){
+		
 		List<String> status=new ArrayList<String>();
 		
 		String questionPath=null;
 		String answerPath=null;
+		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadAnswer)) {
+			
+			status.add("failure");
+			return status;
+			
+		}
+		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+			
+			status.add("failure");
+			return status;
+		}
 		
 		try {
 			String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Quiz/"+remark+"/";
@@ -1714,7 +2096,15 @@ public class HomeControllerRest {
 	public @ResponseBody List<String> addDocumentFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
 										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
 										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("Question") MultipartFile[] uploadDocument){
+		
 		List<String> status=new ArrayList<String>();
+		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadDocument)) {
+			
+			status.add("failure");
+			return status;
+			
+		}
 		
 		String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Document/";
 		

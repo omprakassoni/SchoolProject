@@ -13,12 +13,14 @@
        		<div class="header-child">
        			<label>Upload Questionaire</label> <hr/>
        			<div class="status" th:text="${status}"></div>
+       			<div class="errorClass" th:text="${failure}"></div>
+       			<div class="errorClass" th:text="${fileError}"></div>
        		</div>
        			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
        			<form th:action="@{addQuiz}" method="post" enctype="multipart/form-data">
        				<div class="row">
        				<div class="col-sm-4">
-       					<select class="form-control" name="classSelected" id="classSelected" >
+       					<select class="form-control" name="classSelected" id="classSelectedQuiz" >
        							<option>Select Class</option>
        							<span th:each="classValue: ${classExist}">
   								<option><span th:text="${classValue.getClassName()}"></span></option>
@@ -28,7 +30,7 @@
        				</div>
        				
        				<div class="col-sm-4">
-       					<select class="form-control" name="subjectSelected" id="subject" path="subject" disabled>
+       					<select class="form-control" name="subjectSelected" id="subjectQuiz" path="subject" disabled>
        						<option value="0" >Select Subject</option>
        						<options items="${cities}" itemValue="id" itemLabel="name" />
   											
@@ -37,7 +39,7 @@
        				</div>
        				
        				<div class="col-sm-4">
-       					<select class="form-control" name="topicSelected" id="topic" path="topic" disabled>
+       					<select class="form-control" name="topicSelected" id="topicQuiz" path="topic" disabled>
        						<option value="0" >Select Topic</option>
        						<options items="${cities}" itemValue="id" itemLabel="name" />
   											
@@ -59,7 +61,7 @@
        							<label for="poster" class="header-right">Remarks</label> 
        					</div>
        					<div class="col-sm-4">
-       							<input type="text" class="form-control-file" id="remarks" name="remarks" required disabled/>
+       							<input type="text" class="form-control-file" id="remarksQuiz" name="remarks" required disabled/>
        								<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" value=""/>
        					</div>
        					
@@ -77,7 +79,7 @@
        							<label for="poster" class="header-right">Questions</label> 
        					</div>
        					<div class="col-sm-4">
-       							<input type="file" class="form-control-file" id="Question" accept="application/pdf" name="Question" required disabled/>
+       							<input type="file" class="form-control-file" id="QuestionQuiz" accept="application/pdf" name="Question" required disabled/>
        					</div>
        					
        					<div class="col-sm-2">
@@ -93,7 +95,7 @@
        						<label for="poster" class="header-right">Answers</label> 
        					</div>
        					<div class="col-sm-4">
-       						<input type="file" class="form-control-file" id="Answer" accept="application/pdf"  name="Answer" required disabled/>
+       						<input type="file" class="form-control-file" id="AnswerQuiz" accept="application/pdf"  name="Answer" required disabled/>
        					
        					</div>
        					<div class="col-sm-2">
@@ -105,7 +107,7 @@
        					</div>
        					<div class="col-sm-4">
        						<div class="terms-and-condition">
-       						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+       						<input type="checkbox" class="form-check-input" id="exampleCheck1" required>
        						<button type="button" class="btn btn-link float-right" data-toggle="modal" data-target="#exampleModalScrollable">
   								<span id="">Agree to terms and conditions</span>
 							</button>
@@ -134,7 +136,7 @@
        					
        							
        					<div class="col-sm-4">
-       							<button class="btn btn-primary btn-action" type="submit">Upload</button>
+       							<button class="btn btn-primary btn-action upload-submit" type="submit" disabled>Upload</button>
        					
        					</div>
        					<div class="col-sm-2">

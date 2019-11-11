@@ -24,6 +24,7 @@ public class ArticleExternalServiceImpl implements ArticleExternalService{
 
 	@Autowired
 	private ArticleExternalRepository articleRepo;
+	
 	@Override
 	public List<ArticleExternal> findAll() {
 		

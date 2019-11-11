@@ -47,6 +47,9 @@ public class Topic {
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 	
+	@Column(name="status",nullable = false)
+	private int status;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="subClassId")
 	private SubjectClassMapping subjectClassMapping;
@@ -68,6 +71,9 @@ public class Topic {
 	
 	@OneToMany(mappedBy = "topic",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ArticleExternal> articleExternal=new HashSet<ArticleExternal>();
+	
+	@OneToMany(mappedBy = "topic",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Tutorial> tutorial=new HashSet<Tutorial>();
 
 	public int getTopicId() {
 		return topicId;
@@ -171,6 +177,22 @@ public class Topic {
 
 	public void setArticleExternal(Set<ArticleExternal> articleExternal) {
 		this.articleExternal = articleExternal;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Set<Tutorial> getTutorial() {
+		return tutorial;
+	}
+
+	public void setTutorial(Set<Tutorial> tutorial) {
+		this.tutorial = tutorial;
 	}
 	
 	

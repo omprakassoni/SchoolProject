@@ -1,6 +1,16 @@
 $(function(){
 	
+	
+	
+	$('#subject').change(function(){
+		
+		$("#headerSubmit").prop('disabled', false);
+		
+		
+	})
+	
 	// JQUERY AJAX CALL TO TAKE CONTACT DATA FROM USER SIDE ----------------------------------------
+	
 	
 		$('#contactForm').click(function(){
 			var name=$('#name').val();
@@ -933,7 +943,7 @@ $(function(){
   				
   				$('#topicQuiz').change(function(){
   					
-  				
+  					$(".upload-submit").prop('disabled', false);
   					$("#QuestionQuiz").prop('disabled', false);
   					$("#remarksQuiz").prop('disabled', false);
   				  
@@ -955,6 +965,8 @@ $(function(){
 				
 				$('#availableL').css({"display": "none"});
 				$('#notAvailableL').css({"display": "none"});
+				
+				if(validateEmail(data)){
 				
 				$.ajax({
 					  	type: "POST",
@@ -984,6 +996,10 @@ $(function(){
 						
 						
 					});
+				}else{
+					
+					$('#notAvailableL').css({"display": "block"}); 
+				}
 				
 				
 				
@@ -998,6 +1014,8 @@ $(function(){
 				
 				$('#availableP').css({"display": "none"});
 				$('#notAvailableP').css({"display": "none"});
+				
+				if(validateEmail(data)){
 				
 				$.ajax({
 					  	type: "POST",
@@ -1027,6 +1045,11 @@ $(function(){
 						
 						
 					});
+				}else{
+					
+					$('#notAvailableP').css({"display": "block"});
+					
+				}
 				
 				
 				
@@ -1040,6 +1063,8 @@ $(function(){
 				
 				$('#availableT').css({"display": "none"});
 				$('#notAvailableT').css({"display": "none"});
+				
+				if(validateEmail(data)){
 				
 				$.ajax({
 					  	type: "POST",
@@ -1069,6 +1094,11 @@ $(function(){
 						
 						
 					});
+				
+				}else{
+					
+					$('#notAvailableT').css({"display": "block"}); 
+				}
 				
 				
 				
@@ -1168,9 +1198,10 @@ $(function(){
   			            $("#subject").prop('disabled', false);
   			            $('#topic').html(html);
   			            $("#topic").prop('disabled', false);
-	  			      	$("#descriptionQ").prop('disabled', false);
-	  				  	$("#posterQ").prop('disabled', false);
-	  					$("#remarks").prop('disabled', false);
+	  			      	$("#addtopic").prop('disabled', false);
+	  				  	$("#descriptionTopic").prop('disabled', false);
+	  					$("#posterTopic").prop('disabled', false);
+	  					$("#upload-topic").prop('disabled', false);
   			            
   						},
   						
@@ -1201,6 +1232,7 @@ $(function(){
 	  				$("#phet").prop('disabled', false);
 	  				$("#Answer").prop('disabled', false);
 	  				$("#Answer").prop('disabled', false);
+	  				$('.upload-submit').prop('disabled',false)
   					
   				})
   				
@@ -1229,6 +1261,274 @@ $(function(){
 			       				$("#disableUser").prop('disabled', false);
 			       			 }else{
 			       				$("#enableUser").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
+  				
+  				
+  				$("input[name='radioTopic']").change(function(){
+  					
+  					$("#enableTopic").prop('disabled', true);
+  					$("#disableTopic").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"topicId":user_id
+  					};
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityTopic",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableTopic").prop('disabled', false);
+			       			 }else{
+			       				$("#enableTopic").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
+  					$("input[name='radioPhet']").change(function(){
+  					
+  					$("#enablePhet").prop('disabled', true);
+  					$("#disablePhet").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"phetId":user_id
+  					};
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityPhet",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disablePhet").prop('disabled', false);
+			       			 }else{
+			       				$("#enablePhet").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
+  					$("input[name='radioLesson']").change(function(){
+  					
+  					$("#enableLesson").prop('disabled', true);
+  					$("#disableLesson").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"lessonPlanId":user_id
+  					};
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityLesson",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableLesson").prop('disabled', false);
+			       			 }else{
+			       				$("#enableLesson").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
+  					$("input[name='radioDocument']").change(function(){
+  					
+  					$("#enableDocument").prop('disabled', true);
+  					$("#disableDocument").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"documentId":user_id
+  					};
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityDocument",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableDocument").prop('disabled', false);
+			       			 }else{
+			       				$("#enableDocument").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
+  					$("input[name='radioArticle']").change(function(){
+  					
+  					$("#enableArticle").prop('disabled', true);
+  					$("#disableArticle").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"articleId":user_id
+  					};
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityArticle",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableArticle").prop('disabled', false);
+			       			 }else{
+			       				$("#enableArticle").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
+  					$("input[name='radioQuiz']").change(function(){
+  					
+  					$("#enableQuiz").prop('disabled', true);
+  					$("#disableQuiz").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"quizQuestionId":user_id
+  					};
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityQuiz",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableQuiz").prop('disabled', false);
+			       			 }else{
+			       				$("#enableQuiz").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
+  					$("input[name='radioVideo']").change(function(){
+  					
+  					$("#enableVideo").prop('disabled', true);
+  					$("#disableVideo").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"videoId":user_id
+  					};
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityVideo",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableVideo").prop('disabled', false);
+			       			 }else{
+			       				$("#enableVideo").prop('disabled', false);
 			       			 }
 			       			
 			       			
@@ -1926,7 +2226,7 @@ $(function(){
   						 fire_ajax_submit_Lesson(); 
   					});
   					
-  					$('#updateLessonOnUser').click(function(){
+  						$('#updateLessonOnUser').click(function(){
   						
  						 event.preventDefault();
  						
@@ -2062,7 +2362,10 @@ $(function(){
 					       			 html+=data[i].dateReceived;
 					       			 html+='</span></p> <div class="clearfix"></div> <p>';
 					       			 html+= data[i].comment;
-					       			 html+= '</p></div></div>';
+					       			 html+= '</p>';
+					       			 html+= '<div class="reply" id='+data[i].comId+'><a href="javascript:void(0)" onclick="reply(this)" com-id=';
+					       			 html+= data[i].comId;
+					       			 html+= '>Reply</a></div></div></div>';
 					       	
 					       			 
 					       		
@@ -2124,7 +2427,7 @@ $(function(){
 			       			 
 			       		
 		       			 
-		       			$('#comData').html(html);
+		       			$('#comDataVideo').html(html);
 		       				
 			       		
 						},
@@ -2157,11 +2460,57 @@ $(function(){
   				
   				
   				
-  				$('.commentVideoModal').click(function(){
+  				$('.commentVideoModal,.commentVideoModalReply').click(function(){
   					
-  					var data=[];
-  					data[0]=$('#videoComment').val();
-  					data[1]=$('#videoId').val();
+  					var data;
+	
+  					if($(this).prop('name')=="reply"){
+  						
+  						if($('#videoFrom').val()=="admin"){
+  						
+  						 data={
+  								"id":$(this).prop('id'),
+  								"comment":$('#replyCommentVideo').val(),
+  								"reply":true,
+  								"admin":true
+  						};
+  						 
+  						}else{
+  							
+  							 data={
+  	  								"id":$(this).prop('id'),
+  	  								"comment":$('#replyCommentVideo').val(),
+  	  								"reply":true,
+  	  								"admin":false
+  	  						};
+  							
+  							
+  						}
+  						
+  					}else{
+  						
+  						if($('#videoFrom').val()=="admin"){
+  						
+  							data={
+  								"id":$('#videoId').val(),
+  								"comment":$('#videoComment').val(),
+  								"reply":false,
+  								"admin":true
+  							};
+  						}else{
+  							
+  							data={
+  	  								"id":$('#videoId').val(),
+  	  								"comment":$('#videoComment').val(),
+  	  								"reply":false,
+  	  								"admin":false
+  	  							};
+  							
+  							
+  						}
+  						
+  					}
+  					
   					
   					$.ajax({
 					  	type: "POST",
@@ -2173,13 +2522,13 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data1){
 			       			 
-			       			 $('#Success').css({"display": "none"}); 
-			    			 $('#Failure').css({"display": "none"});
+			       			 $('#SuccessVideoComment').css({"display": "none"}); 
+			    			 $('#FailureVideoComment').css({"display": "none"});
 			    			
 			    			 if(data1[0]==="Success"){
-			    				 $('#Success').css({"display": "block"});
+			    				 $('#SuccessVideoComment').css({"display": "block"});
 			    			 }else if(data1[0]==="failure"){
-			    				 $('#Failure').css({"display": "block"});
+			    				 $('#FailureVideoComment').css({"display": "block"});
 			    			 }
 			       		
 						},
@@ -2233,7 +2582,11 @@ $(function(){
 					       			 html+= data[i].userName;
 					       			 html+= '</strong></p> <div class="clearfix"></div> <p>';
 					       			 html+= data[i].comment;
-					       			 html+= '</p></div></div>';
+					       			 html+= '</p>';
+					       			 html+= '<div class="reply" id='+data[i].comId+'><a href="javascript:void(0)" onclick="replyArticle(this)" com-id=';
+					       			 html+= data[i].comId;
+					       			 html+= '>Reply</a></div></div></div>';
+					       	
 					       			 
 					       		
 					       			 
@@ -2292,7 +2645,7 @@ $(function(){
 			       			 
 			       		
 		       			 
-		       			$('#comData').html(html);
+		       			$('#comDataArticle').html(html);
 		       				
 			       		
 						},
@@ -2327,11 +2680,54 @@ $(function(){
   				
   				
   				
-  				$('.commentArticleModal').click(function(){
+  				$('.commentArticleModal,.commentArticleModalReply').click(function(){
   					
-  					var data=[];
-  					data[0]=$('#articleComment').val();
-  					data[1]=$('#articleId').val();
+  					var data;
+  					
+  					if($(this).prop('name')=="reply"){
+  						
+  						if($('#articleFrom').val()=="admin"){
+  						
+  						 data={
+  								"id":$(this).prop('id'),
+  								"comment":$('#replyCommentArticle').val(),
+  								"reply":true,
+  								"admin":true
+  						};
+  						}else{
+  							
+  							 data={
+  	  								"id":$(this).prop('id'),
+  	  								"comment":$('#replyCommentArticle').val(),
+  	  								"reply":true,
+  	  								"admin":false
+  	  						};
+  							
+  							
+  						}
+  						
+  					}else{
+  						
+  						if($('#articleFrom').val()=="admin"){
+  						
+  							data={
+  								"id":$('#articleId').val(),
+  								"comment":$('#articleComment').val(),
+  								"reply":false,
+  								"admin":true
+  							};
+  							
+  						}else{
+  							
+  							data={
+  	  								"id":$('#articleId').val(),
+  	  								"comment":$('#articleComment').val(),
+  	  								"reply":false,
+  	  								"admin":false
+  	  							};
+  							
+  						}
+  					}
   					
   					$.ajax({
 					  	type: "POST",
@@ -2343,13 +2739,13 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data1){
 			       			 
-			       			 $('#Success').css({"display": "none"}); 
-			    			 $('#Failure').css({"display": "none"});
+			       			 $('#SuccessArticleComment').css({"display": "none"}); 
+			    			 $('#FailureArticleComment').css({"display": "none"});
 			    			
 			    			 if(data1[0]==="Success"){
-			    				 $('#Success').css({"display": "block"});
+			    				 $('#SuccessArticleComment').css({"display": "block"});
 			    			 }else if(data1[0]==="failure"){
-			    				 $('#Failure').css({"display": "block"});
+			    				 $('#FailureArticleComment').css({"display": "block"});
 			    			 }
 			       		
 						},
@@ -2401,7 +2797,11 @@ $(function(){
 					       			 html+= data[i].userName;
 					       			 html+= '</strong></p> <div class="clearfix"></div> <p>';
 					       			 html+= data[i].comment;
-					       			 html+= '</p></div></div>';
+					       			 html+= '</p>';
+					       			 html+= '<div class="reply" id='+data[i].comId+'><a href="javascript:void(0)" onclick="replyDocument(this)" com-id=';
+					       			 html+= data[i].comId;
+					       			 html+= '>Reply</a></div></div></div>';
+					       		
 					       			 
 					       		
 					       			 
@@ -2460,7 +2860,7 @@ $(function(){
 			       			 
 			       		
 		       			 
-		       			$('#comData').html(html);
+		       			$('#comDataDocument').html(html);
 		       				
 			       		
 						},
@@ -2496,11 +2896,55 @@ $(function(){
   				
   				
   				
-  				$('.commentDocumentModal').click(function(){
+  				$('.commentDocumentModal,.commentDocumentModalReply').click(function(){
   					
-  					var data=[];
-  					data[0]=$('#documentComment').val();
-  					data[1]=$('#documentId').val();
+ 
+  					var data;
+  					
+  					if($(this).prop('name')=="reply"){
+  						
+  						if($('#documentFrom').val()=="admin"){
+  						
+  						 data={
+  								"id":$(this).prop('id'),
+  								"comment":$('#replyCommentDocument').val(),
+  								"reply":true,
+  								"admin":true
+  						 	};
+  						}else{
+  							
+  							 data={
+  	  								"id":$(this).prop('id'),
+  	  								"comment":$('#replyCommentDocument').val(),
+  	  								"reply":true,
+  	  								"admin":false
+  	  						};
+  							
+  							
+  						}
+  						
+  					}else{
+  						
+  						if($('#documentFrom').val()=="admin"){
+  						
+  							data={
+  								"id":$('#documentId').val(),
+  								"comment":$('#documentComment').val(),
+  								"reply":false,
+  								"admin":true
+  							};
+  						}else{
+  							
+  							data={
+  	  								"id":$('#documentId').val(),
+  	  								"comment":$('#documentComment').val(),
+  	  								"reply":false,
+  	  								"admin":false
+  	  							};
+  							
+  						}
+  						
+  					}
   					
   					$.ajax({
 					  	type: "POST",
@@ -2512,13 +2956,13 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data1){
 			       			 
-			       			 $('#Success').css({"display": "none"}); 
-			    			 $('#Failure').css({"display": "none"});
+			       			 $('#SuccessDocumentComment').css({"display": "none"}); 
+			    			 $('#FailureDocumentComment').css({"display": "none"});
 			    			
 			    			 if(data1[0]==="Success"){
-			    				 $('#Success').css({"display": "block"});
+			    				 $('#SuccessDocumentComment').css({"display": "block"});
 			    			 }else if(data1[0]==="failure"){
-			    				 $('#Failure').css({"display": "block"});
+			    				 $('#FailureDocumentComment').css({"display": "block"});
 			    			 }
 			       		
 						},
@@ -2571,7 +3015,11 @@ $(function(){
 					       			 html+= data[i].userName;
 					       			 html+= '</strong></p> <div class="clearfix"></div> <p>';
 					       			 html+= data[i].comment;
-					       			 html+= '</p></div></div>';
+					       			 html+= '</p>';
+					       			 html+= '<div class="reply" id='+data[i].comId+'><a href="javascript:void(0)" onclick="replyQuiz(this)" com-id=';
+					       			 html+= data[i].comId;
+					       			 html+= '>Reply</a></div></div></div>';
+					       		
 					       			 
 					       		
 					       			 
@@ -2630,7 +3078,7 @@ $(function(){
 			       			 
 			       		
 		       			 
-		       			$('#comData').html(html);
+		       			$('#comDataQuiz').html(html);
 		       				
 			       		
 						},
@@ -2665,11 +3113,57 @@ $(function(){
   				
   				
   				
-  				$('.commentQuizModal').click(function(){
+  				$('.commentQuizModal,.commentQuizModalReply').click(function(){
   					
-  					var data=[];
-  					data[0]=$('#quizComment').val();
-  					data[1]=$('#quizId').val();
+  					
+  					var data;
+  					
+  					if($(this).prop('name')=="reply"){
+  						
+  						if($('#quizFrom').val()=="admin"){
+  						
+  						
+  						 data={
+  								"id":$(this).prop('id'),
+  								"comment":$('#replyCommentQuiz').val(),
+  								"reply":true,
+  								"admin":true
+  						};
+  						 
+  						}else{
+  							
+  							 data={
+  	  								"id":$(this).prop('id'),
+  	  								"comment":$('#replyCommentQuiz').val(),
+  	  								"reply":true,
+  	  								"admin":false
+  	  						};
+  							
+  							
+  							
+  						}
+  						
+  					}else{
+  						
+  						if($('#quizFrom').val()=="admin"){
+  						data={
+  								"id":$('#quizId').val(),
+  								"comment":$('#quizComment').val(),
+  								"reply":false,
+  								"admin":true
+  							};
+  						}else{
+  							
+  							data={
+  	  								"id":$('#quizId').val(),
+  	  								"comment":$('#quizComment').val(),
+  	  								"reply":false,
+  	  								"admin":false
+  	  						};
+  							
+  						}
+  						
+  					}
   					
   					$.ajax({
 					  	type: "POST",
@@ -2681,13 +3175,13 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data1){
 			       			 
-			       			 $('#Success').css({"display": "none"}); 
-			    			 $('#Failure').css({"display": "none"});
+			       			 $('#SuccessQuizComment').css({"display": "none"}); 
+			    			 $('#FailureQuizComment').css({"display": "none"});
 			    			
 			    			 if(data1[0]==="Success"){
-			    				 $('#Success').css({"display": "block"});
+			    				 $('#SuccessQuizComment').css({"display": "block"});
 			    			 }else if(data1[0]==="failure"){
-			    				 $('#Failure').css({"display": "block"});
+			    				 $('#FailureQuizComment').css({"display": "block"});
 			    			 }
 			       		
 						},
@@ -2737,7 +3231,11 @@ $(function(){
 					       			 html+= data[i].userName;
 					       			 html+= '</strong></p> <div class="clearfix"></div> <p>';
 					       			 html+= data[i].comment;
-					       			 html+= '</p></div></div>';
+					       			 html+= '</p>';
+					       			 html+= '<div class="reply" id='+data[i].comId+'><a href="javascript:void(0)" onclick="replyLesson(this)" com-id=';
+					       			 html+= data[i].comId;
+					       			 html+= '>Reply</a></div></div></div>';
+					   
 					       			 
 					       		
 					       			 
@@ -2796,7 +3294,7 @@ $(function(){
 			       			 
 			       		
 		       			 
-		       			$('#comData').html(html);
+		       			$('#comDataLesson').html(html);
 		       				
 			       		
 						},
@@ -2830,11 +3328,55 @@ $(function(){
   				
   				
   				
-  				$('.commentLessonModal').click(function(){
+  				$('.commentLessonModal,.commentLessonModalReply').click(function(){
   					
-  					var data=[];
-  					data[0]=$('#lessonComment').val();
-  					data[1]=$('#lessonId').val();
+  					
+  					var data;
+  					
+  					if($(this).prop('name')=="reply"){
+  						
+  						if($('#lessonFrom').val()=="admin"){
+  						
+  						 data={
+  								"id":$(this).prop('id'),
+  								"comment":$('#replyCommentLesson').val(),
+  								"reply":true,
+  								"admin":true
+  						 	};
+  						}else{
+  							
+  							data={
+  	  								"id":$(this).prop('id'),
+  	  								"comment":$('#replyCommentLesson').val(),
+  	  								"reply":true,
+  	  								"admin":false
+  	  						 	};
+  							
+  						}
+  						
+  					}else{
+  						
+  						if($('#lessonFrom').val()=="admin"){
+  						
+  						data={
+  								"id":$('#lessonId').val(),
+  								"comment":$('#lessonComment').val(),
+  								"reply":false,
+  								"admin":true
+  							};
+  						}else{
+  							
+  							data={
+  	  								"id":$('#lessonId').val(),
+  	  								"comment":$('#lessonComment').val(),
+  	  								"reply":false,
+  	  								"admin":false
+  	  						};
+  							
+  							
+  						}
+  						
+  					}
   					
   					$.ajax({
 					  	type: "POST",
@@ -2846,13 +3388,13 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data1){
 			       			 
-			       			 $('#Success').css({"display": "none"}); 
-			    			 $('#Failure').css({"display": "none"});
+			       			 $('#SuccessLessonComment').css({"display": "none"}); 
+			    			 $('#FailureLessonComment').css({"display": "none"});
 			    			
 			    			 if(data1[0]==="Success"){
-			    				 $('#Success').css({"display": "block"});
+			    				 $('#SuccessLessonComment').css({"display": "block"});
 			    			 }else if(data1[0]==="failure"){
-			    				 $('#Failure').css({"display": "block"});
+			    				 $('#FailureLessonComment').css({"display": "block"});
 			    			 }
 			       		
 						},
@@ -2903,7 +3445,11 @@ $(function(){
 					       			 html+= data[i].userName;
 					       			 html+= '</strong></p> <div class="clearfix"></div> <p>';
 					       			 html+= data[i].comment;
-					       			 html+= '</p></div></div>';
+					       			 html+= '</p>';
+					       			 html+= '<div class="reply" id='+data[i].comId+'><a href="javascript:void(0)" onclick="replyPhet(this)" com-id=';
+					       			 html+= data[i].comId;
+					       			 html+= '>Reply</a></div></div></div>';
+					       			
 					       			 
 					       		
 					       			 
@@ -2962,7 +3508,7 @@ $(function(){
 			       			 
 			       		
 		       			 
-		       			$('#comData').html(html);
+		       			$('#comDataPhet').html(html);
 		       				
 			       		
 						},
@@ -2986,6 +3532,8 @@ $(function(){
   				})	
   				
   				
+  			
+  				
   				
   				$('#phetComment').change(function(){
   					
@@ -2996,11 +3544,54 @@ $(function(){
   				
   				
   				
-  				$('.commentPhetModal').click(function(){
+  				$('.commentPhetModal,.commentPhetModalReply').click(function(){
   					
-  					var data=[];
-  					data[0]=$('#phetComment').val();
-  					data[1]=$('#phetId').val();
+  				
+  					var data;
+  					
+  					if($(this).prop('name')=="reply"){
+  						
+  						if($('#phetFrom').val()=="admin"){
+  							
+  							data={
+  								"id":$(this).prop('id'),
+  								"comment":$('#replyComment').val(),
+  								"reply":true,
+  								"admin":true
+  						 	};
+  						}else{
+  							
+  							 data={
+  	  								"id":$(this).prop('id'),
+  	  								"comment":$('#replyComment').val(),
+  	  								"reply":true,
+  	  								"admin":false
+  	  						 	};
+  							
+  						}
+  						
+  					}else{
+  						
+  						if($('#phetFrom').val()=="admin"){
+  						data={
+  								"id":$('#phetId').val(),
+  								"comment":$('#phetComment').val(),
+  								"reply":false,
+  								"admin":true
+  						};
+  						}else{
+  							
+  							data={
+  	  								"id":$('#phetId').val(),
+  	  								"comment":$('#phetComment').val(),
+  	  								"reply":false,
+  	  								"admin":false
+  	  						};
+  							
+  							
+  						}
+  						
+  					}
   					
   					$.ajax({
 					  	type: "POST",
@@ -3012,13 +3603,13 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data1){
 			       			 
-			       			 $('#Success').css({"display": "none"}); 
-			    			 $('#Failure').css({"display": "none"});
+			       			 $('#SuccessPhetComment').css({"display": "none"}); 
+			    			 $('#FailurePhetComment').css({"display": "none"});
 			    			
 			    			 if(data1[0]==="Success"){
-			    				 $('#Success').css({"display": "block"});
+			    				 $('#SuccessPhetComment').css({"display": "block"});
 			    			 }else if(data1[0]==="failure"){
-			    				 $('#Failure').css({"display": "block"});
+			    				 $('#FailurePhetComment').css({"display": "block"});
 			    			 }
 			       		
 						},
@@ -3322,9 +3913,10 @@ $(function(){
   			
   			$("#addArticlefromUser").prop('disabled', true);
 			
-  			if(desc.length>0 && $('#urlArticle').val().length>0 && $('#sourceArticle').val().length>0){
+  			if(desc.length>0 && $('#urlArticle').val().length>0 && $('#sourceArticle').val().length>0 && $("#articleUserCheck").is(":checked")){
   				$("#addArticlefromUser").prop('disabled', false);
   			}
+  			
   			
   		})
   		
@@ -3333,7 +3925,7 @@ $(function(){
   			
   			$("#addArticlefromUser").prop('disabled', true);
 			
-  			if(desc.length>0 && $('#descriptionArticle').val().length>0 && $('#sourceArticle').val().length>0){
+  			if(desc.length>0 && $('#descriptionArticle').val().length>0 && $('#sourceArticle').val().length>0 && $("#articleUserCheck").is(":checked")){
   				$("#addArticlefromUser").prop('disabled', false);
   			}
   			
@@ -3344,11 +3936,23 @@ $(function(){
   			
   			$("#addArticlefromUser").prop('disabled', true);
 			
-  			if(desc.length>0 && $('#urlArticle').val().length>0 && $('#descriptionArticle').val().length>0){
+  			if(desc.length>0 && $('#urlArticle').val().length>0 && $('#descriptionArticle').val().length>0 && $("#articleUserCheck").is(":checked")){
   				$("#addArticlefromUser").prop('disabled', false);
   			}
   			
   		})
+  		
+  			$('#articleUserCheck').change(function(){
+  				
+  				$("#addArticlefromUser").prop('disabled', true);
+  				
+  	  			if($('#sourceArticle').val().length>0 && $('#urlArticle').val().length>0 && $('#descriptionArticle').val().length>0 && $("#articleUserCheck").is(":checked")){
+  	  				$("#addArticlefromUser").prop('disabled', false);
+  	  			}
+  				
+  			})
+  		
+  		/*****************************************************************************************************************/
   		
   		$('#addDocumentfromUser').click(function(){
   			
@@ -3359,6 +3963,58 @@ $(function(){
   			
   		})
   		
+  		$('#descriptionDocument').change(function(){
+  			var desc=$(this).val();
+  			
+  			$("#addDocumentfromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#UrlDocument').val().length>0 && $('#sourceDocument').val().length>0 && $("#documentUserCheck").is(":checked")){
+  				$("#addDocumentfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#UrlDocument').change(function(){
+  			var desc=$(this).val();
+  			
+  			$("#addDocumentfromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#descriptionDocument').val().length>0 && $('#sourceDocument').val().length>0 && $("#documentUserCheck").is(":checked")){
+  				$("#addDocumentfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#sourceDocument').change(function(){
+  			var desc=$(this).val();
+  			
+  			$("#addDocumentfromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#UrlDocument').val().length>0 && $('#descriptionDocument').val().length>0 && $("#documentUserCheck").is(":checked")){
+  				$("#addDocumentfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#documentUserCheck').change(function(){
+  			
+  			
+  			$("#addDocumentfromUser").prop('disabled', true);
+			
+  			if($('#descriptionDocument').val().length>0 && desc.length>0 && $('#UrlDocument').val().length>0 && $('#sourceDocument').val().length>0 && $("#documentUserCheck").is(":checked")){
+  				$("#addDocumentfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  		
+  		
+  		/*********************************************************************************************************************/
+  		
   		$('#addQuizfromUser').click(function(){
   			
   			event.preventDefault();
@@ -3368,6 +4024,53 @@ $(function(){
   			
   		})
   		
+  		$('#remarksQuiz').change(function(){
+  			
+  			
+  			$("#addQuizfromUser").prop('disabled', true);
+			
+  			if($('#QuestionQuiz').get(0).files.length > 0 && $('#AnswerQuiz').get(0).files.length > 0 && $('#remarksQuiz').length>0 && $("#quizUserCheck").is(":checked")){
+  				$("#addQuizfromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		$('#QuestionQuiz').change(function(){
+  			
+  			
+  			$("#addQuizfromUser").prop('disabled', true);
+			
+  			if($('#QuestionQuiz').get(0).files.length > 0 && $('#remarksQuiz').length > 0 && $('#AnswerQuiz').get(0).files.length > 0 && $("#quizUserCheck").is(":checked")){
+  				$("#addQuizfromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		$('#AnswerQuiz').change(function(){
+  			
+  			
+  			$("#addQuizfromUser").prop('disabled', true);
+			
+  			if($('#AnswerQuiz').get(0).files.length > 0 && $('#QuestionQuiz').get(0).files.length > 0 && $('#remarksQuiz').length > 0 && $("#quizUserCheck").is(":checked")){
+  				$("#addQuizfromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		$('#quizUserCheck').change(function(){
+  			
+  			
+  			$("#addQuizfromUser").prop('disabled', true);
+			
+  			if($('#QuestionQuiz').get(0).files.length > 0 && $('#AnswerQuiz').get(0).files.length > 0 && $('#remarksQuiz').length > 0 && $("#quizUserCheck").is(":checked")){
+  				$("#addQuizfromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		
+  		/********************************************************************************************************************/
+  		
   		$('#addLessonfromUser').click(function(){
   			
   			event.preventDefault();
@@ -3376,6 +4079,31 @@ $(function(){
   			
   			
   		})
+  		
+  		$('#lesson').change(function(){
+  			
+  			
+  			$("#addLessonfromUser").prop('disabled', true);
+			
+  			if($('#lesson').get(0).files.length > 0 && $("#lessonUserCheck").is(":checked")){
+  				$("#addLessonfromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		$('#lessonUserCheck').change(function(){
+  			
+  			$("#addLessonfromUser").prop('disabled', true);
+			
+  			if($('#lesson').get(0).files.length > 0 && $("#lessonUserCheck").is(":checked")){
+  				$("#addLessonfromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		
+  		
+  		/************************************************************************************************************************/
   		
   		$('#addPhetfromUser').click(function(){
   			
@@ -3391,7 +4119,7 @@ $(function(){
   			
   			$("#addPhetfromUser").prop('disabled', true);
 			
-  			if(desc.length>0 && $('#Embedphet').val().length>0 && $('#sourcePhet').val().length>0){
+  			if(desc.length>0 && $('#Embedphet').val().length>0 && $('#sourcePhet').val().length>0 && $("#phetUserCheck").is(":checked")){
   				$("#addPhetfromUser").prop('disabled', false);
   			}
   			
@@ -3402,7 +4130,7 @@ $(function(){
   			
   			$("#addPhetfromUser").prop('disabled', true);
 			
-  			if(desc.length>0 && $('#descriptionPhet').val().length>0 && $('#sourcePhet').val().length>0){
+  			if(desc.length>0 && $('#descriptionPhet').val().length>0 && $('#sourcePhet').val().length>0 && $("#phetUserCheck").is(":checked")){
   				$("#addPhetfromUser").prop('disabled', false);
   			}
   			
@@ -3413,11 +4141,24 @@ $(function(){
   			
   			$("#addPhetfromUser").prop('disabled', true);
 			
-  			if(desc.length>0 && $('#Embedphet').val().length>0 && $('#descriptionPhet').val().length>0){
+  			if(desc.length>0 && $('#Embedphet').val().length>0 && $('#descriptionPhet').val().length>0 && $("#phetUserCheck").is(":checked")){
   				$("#addPhetfromUser").prop('disabled', false);
   			}
   			
   		})
+  		
+  			$('#phetUserCheck').change(function(){
+  			var desc=$(this).val();
+  			
+  			$("#addPhetfromUser").prop('disabled', true);
+			
+  			if($('#sourcePhet').val().length>0 && $('#Embedphet').val().length>0 && $('#descriptionPhet').val().length>0 && $("#phetUserCheck").is(":checked")){
+  				$("#addPhetfromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		/*************************************************************************************************************/
   		
   		$('#addVideofromUser').click(function(){
   			
@@ -3428,6 +4169,56 @@ $(function(){
   			
   		})
   		
+  		$('#descriptionVideo').change(function(){
+  			var desc=$(this).val();
+  			
+  			$("#addVideofromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#urlVideo').val().length>0 && $('#sourceVideo').val().length>0 && $("#videoUserCheck").is(":checked")){
+  				$("#addVideofromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#urlVideo').change(function(){
+  			var desc=$(this).val();
+  			
+  			$("#addVideofromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#descriptionVideo').val().length>0 && $('#sourceVideo').val().length>0 && $("#videoUserCheck").is(":checked")){
+  				$("#addVideofromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#sourceVideo').change(function(){
+  			var desc=$(this).val();
+  			
+  			$("#addVideofromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#urlVideo').val().length>0 && $('#descriptionVideo').val().length>0 && $("#videoUserCheck").is(":checked")){
+  				$("#addVideofromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#videoUserCheck').change(function(){
+  		
+  			
+  			$("#addVideofromUser").prop('disabled', true);
+			
+  			if($('#descriptionVideo').val().length>0 && $('#urlVideo').val().length>0 && $('#sourceVideo').val().length>0 && $("#videoUserCheck").is(":checked")){
+  				$("#addVideofromUser").prop('disabled', false);
+  			}
+  			
+  		})
+  		
+  		
+  		
+  		
   
   		
   		
@@ -3436,6 +4227,45 @@ $(function(){
   					
   					
   	});
+
+$(document).ready(function () {                             /************Admin side              */
+	  $('#dtBasicExample').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});   
+
+/********************** User Side********************/
+
+$(document).ready(function () {
+	  $('#dtBasicExamplePhet').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});
+
+$(document).ready(function () {
+	  $('#dtBasicExampleVideo').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});
+
+$(document).ready(function () {
+	  $('#dtBasicExampleLesson').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});
+
+$(document).ready(function () {
+	  $('#dtBasicExampleDocument').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});
+
+$(document).ready(function () {
+	  $('#dtBasicExampleArticle').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});
+
+$(document).ready(function () {
+	  $('#dtBasicExampleQuiz').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});
+
+/********************************************************************/
 
 
 // -----------------------------------------AJAX FUNCTION FOR TOPIC---------------------------------------------------------------------------
@@ -3525,7 +4355,7 @@ function fire_ajax_submit_Topic(){
 
 	function fire_ajax_submit_QuizOnUser(){
 	
-		var form=$('#uploadQuiz')[0];
+		var form=$('#uploadUserQuiz')[0];
 		var data=new FormData(form);
 	
 			$.ajax({
@@ -3604,7 +4434,7 @@ function fire_ajax_submit_Topic(){
 	
 	function fire_ajax_submit_VideoOnUser(){
 		
-		var form=$('#uploadVideo')[0];
+		var form=$('#uploadUserVideo')[0];
 		var data=new FormData(form);
 	
 			$.ajax({
@@ -3684,7 +4514,7 @@ function fire_ajax_submit_Topic(){
 	
 function fire_ajax_submit_ArticleOnUser(){
 		
-		var form=$('#uploadArticle')[0];
+		var form=$('#uploadUserArticle')[0];
 		var data=new FormData(form);
 	
 			$.ajax({
@@ -3762,7 +4592,7 @@ function fire_ajax_submit_ArticleOnUser(){
 	
 function fire_ajax_submit_DocumentOnUser(){
 		
-		var form=$('#uploadDocument')[0];
+		var form=$('#uploadUserDocument')[0];
 		var data=new FormData(form);
 	
 			$.ajax({
@@ -3840,7 +4670,7 @@ function fire_ajax_submit_DocumentOnUser(){
 	
 	function fire_ajax_submit_PhetOnUser(){
 		
-		var form=$('#uploadPhet')[0];
+		var form=$('#uploadUserPhet')[0];
 		var data=new FormData(form);
 	
 			$.ajax({
@@ -3918,7 +4748,7 @@ function fire_ajax_submit_Lesson(){
 
 	function fire_ajax_submit_LessonOnUser(){
 	
-	var form=$('#uploadLesson')[0];
+	var form=$('#uploadUserLesson')[0];
 	var data=new FormData(form);
 
 		$.ajax({
@@ -4249,6 +5079,87 @@ function addVideo(){
 
 	});
 }
+
+
+
+/**************************   comment Reply visibility for all Content  *********************************************/
+
+function reply(caller){
 	
+	var commentid=$(caller).attr('com-id');
+	$('.commentVideoModalReply').attr('id', commentid);
+//	alert("1:"+commentid);
+//	alert("2:"+$('.commentVideoModalReply').attr('id'));
+	
+
+	$('.replyRowVideo').insertAfter($(caller));
+	$('.replyRowVideo').show();
+}
+
+function replyDocument(caller){
+	
+	var commentid=$(caller).attr('com-id');
+	$('.commentDocumentModalReply').attr('id', commentid);
+//	alert("1:"+commentid);
+//	alert("2:"+$('.commentDocumentModalReply').attr('id'));
+	
+
+	$('.replyRowDocument').insertAfter($(caller));
+	$('.replyRowDocument').show();
+}
+
+function replyArticle(caller){
+	
+	var commentid=$(caller).attr('com-id');
+	$('.commentArticleModalReply').attr('id', commentid);
+//	alert("1:"+commentid);
+//	alert("2:"+$('.commentArticleModalReply').attr('id'));
+	
+
+	$('.replyRowArticle').insertAfter($(caller));
+	$('.replyRowArticle').show();
+}
+
+function replyPhet(caller){
+	
+	var commentid=$(caller).attr('com-id');
+	$('.commentPhetModalReply').attr('id', commentid);
+//	alert("1:"+commentid);
+//	alert("2:"+$('.commentPhetModalReply').attr('id'));
+	
+
+	$('.replyRowPhet').insertAfter($(caller));
+	$('.replyRowPhet').show();
+}
+
+function replyQuiz(caller){
+	
+	var commentid=$(caller).attr('com-id');
+	$('.commentQuizModalReply').attr('id', commentid);
+//	alert("1:"+commentid);
+//	alert("2:"+$('.commentQuizModalReply').attr('id'));
+	
+
+	$('.replyRowQuiz').insertAfter($(caller));
+	$('.replyRowQuiz').show();
+}
+
+function replyLesson(caller){
+	
+	var commentid=$(caller).attr('com-id');
+	$('.commentLessonModalReply').attr('id', commentid);
+//	alert("1:"+commentid);
+//	alert("2:"+$('.commentLessonModalReply').attr('id'));
+	
+
+	$('.replyRowLesson').insertAfter($(caller));
+	$('.replyRowLesson').show();
+}
+
+
+function validateEmail($email) {
+	  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	  return emailReg.test( $email );
+}
 	
 /*-----------------------------------------------------END-----------------------------------------------------------------------------------------*/

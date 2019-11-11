@@ -15,6 +15,7 @@
        		<div class="header-child">
        			<label>Add New Class</label> <hr/>
        			<div class="status" th:text="${status}"></div>
+       			<div class="error" th:text="${sessionTimeOut}"></div>
        		</div>
        			<div class="row">
        				<div class="col-sm-2">
@@ -28,7 +29,7 @@
        								<label class="header-left" for="class">Select new class</label> 
        							</div>
        							<div class="col-sm-6">
-       									<select class="form-control" name="classSelected">
+       									<select class="form-control" name="classSelected" required>
        										<option></option>
        										<span th:each="classValue: ${classExist}">
   											<option><span th:text="${classValue}"></span></option>

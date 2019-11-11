@@ -14,6 +14,9 @@ import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -95,4 +98,60 @@ public class ServiceUtility {
 		
 		return path;
 	}
+	
+	
+	public static boolean checkFileExtensionPDF(MultipartFile[] pdfFile) {
+		
+		for(MultipartFile temp:pdfFile) {
+			if(!temp.getOriginalFilename().endsWith(".pdf")) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {
+		
+		for(MultipartFile temp:imageFile) {
+			if(!temp.getOriginalFilename().endsWith(".jpg") || !temp.getOriginalFilename().endsWith("jpeg")) {
+				
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean chechExistSessionAdmin(HttpSession session) {
+		
+		boolean status=true;
+		if(session==null) {
+			status=false;
+		}else {
+			if(session.getAttribute("UserLogedAdmin")==null) {
+				status= false;
+				
+			}
+		}
+		
+		return status;
+		
+	}
+	
+	public static boolean chechExistSessionUser(HttpSession session) {
+		
+		boolean status=true;
+		if(session==null) {
+			status=false;
+		}else {
+			if(session.getAttribute("UserLogedUserView")==null) {
+				status= false;
+				
+			}
+		}
+		
+		return status;
+		
+	}
+	
 }

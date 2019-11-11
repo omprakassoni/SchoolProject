@@ -15,6 +15,10 @@
        		<div class="header-child">
        			<label>Upload Reference Article</label> <hr/>
        			<div class="status" th:text="${status}"></div>
+       			<div class="errorClass" th:text="${failure}"></div>
+       			<div class="errorClass" th:text="${fileError}"></div>
+       			<div class="error" th:text="${sessionTimeOut}"></div>
+       			
        		</div>
        			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
        			<form th:action="@{addArticle}" method="post">
@@ -103,7 +107,7 @@
        					</div>
        					<div class="col-sm-4">
        						<div class="terms-and-condition">
-       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+       						<input type="checkbox" class="form-check-input" id="exampleCheck1" required></div>
        						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
   								<span id="agree-property">Agree to terms and conditions</span>
 							</button>
@@ -124,7 +128,7 @@
        					
        							
        					<div class="col-sm-4">
-       							<button class="btn btn-primary btn-action" type="submit">Upload</button>
+       							<button class="btn btn-primary btn-action upload-submit" type="submit"  disabled>Upload</button>
        					
        					</div>
        					<div class="col-sm-2">

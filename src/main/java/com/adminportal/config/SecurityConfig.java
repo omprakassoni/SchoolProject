@@ -8,6 +8,7 @@ package com.adminportal.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,9 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/css/**",
 			"/js/**",
 			"/Images/**",
+			"/img/**",
 			"/Media/**",
 			"/",
 			"/Login",
+			"/home",
 			"/Signup",
 			"/loadByClassName",
 			"/loadByClassnameAndSubject",
@@ -73,6 +76,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http)throws Exception{
 		
+//		http.authorizeRequests()
+//			.antMatchers(PUBLIC_MATCHERS).permitAll()
+//			.anyRequest().authenticated()
+//			.and()
+//			.formLogin()
+//			.loginPage("/Login");
 
 		
 		

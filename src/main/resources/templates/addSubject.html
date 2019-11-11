@@ -26,7 +26,7 @@
        								<label class="header-left" for="class">Select new Subject</label> 
        							</div>
        							<div class="col-sm-6">
-       									<select class="form-control" name="SelectedSubject" onchange="myFunction()">
+       									<select class="form-control" name="SelectedSubject" onchange="myFunction()" required>
        										<option></option>
        										<span th:each="classValue: ${subjectExist}">
   											<option><span th:text="${classValue}"></span></option>

@@ -108,9 +108,16 @@
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			      <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
-			      <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
-			      <div id="comData"></div>
+			      <div class="row replyRowArticle" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentArticle" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentArticleModalReply" name="reply">Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessArticleComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureArticleComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+			      <div id="comDataArticle"></div>
 				  <br/>
 			
 			      <div class="row">
@@ -119,10 +126,11 @@
 				      			<div class="col-sm-12">
 				      			<textarea class="form class" id="articleComment" name="articleComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
 				      			<input type="hidden" id="articleId" name="articleId" value="">
+				      			<input type="hidden" id="articleFrom" value="admin"/>
 				      			</div>
 				      			<br/>
 				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
-				      				<button class="btn blue-gradient commentArticleModal" id=commentArticleModal value="" disabled>Submit</button>
+				      				<button class="btn blue-gradient commentArticleModal" id=commentArticleModal value=""  name="comment" disabled>Submit</button>
 				      			
 				      			</div>
 				      			

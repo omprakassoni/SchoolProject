@@ -66,7 +66,7 @@
 				      </td>
 				      
 				      <td><a href=""><span th:text="${phet.getUser().getFname()}"></span></a></td>
-				     <td><a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a>
+				     <td><a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a></td>
 		     
 				    </tr>
 				    </span>
@@ -96,7 +96,7 @@
 				</form>
 
 
-<!-- Modal for updating the data-->
+<!-- Modal for Commenting Phets-->
 			
 			<div class="modal fade" id="PhetCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
@@ -109,9 +109,17 @@
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			      <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
-			      <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
-				  <div id="comData"></div>
+			       <div class="row replyRowPhet" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentPhet" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentPhetModalReply" name="reply">Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      
+			      <div id="SuccessPhetComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailurePhetComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+				  <div id="comDataPhet"></div>
 				  <br/>
 			      <div class="row">
 				      		
@@ -119,10 +127,11 @@
 				      			<div class="col-sm-12">
 				      			<textarea class="form class" id="phetComment" name="phetComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
 				      			<input type="hidden" id="phetId" name="phetId" value="">
+				      			<input type="hidden" id="phetFrom" value="admin"/>
 				      			</div>
 				      			<br/>
 				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
-				      				<button class="btn blue-gradient commentPhetModal" id=commentPhetModal value="" disabled>Submit</button>
+				      				<button class="btn blue-gradient commentPhetModal" id=commentPhetModal value="" name="comment" disabled>Submit</button>
 				      			
 				      			</div>
 				      			

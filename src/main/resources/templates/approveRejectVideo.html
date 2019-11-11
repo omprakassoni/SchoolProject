@@ -106,9 +106,16 @@
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			      <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
-			      <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
-			      <div id="comData"></div>
+			      <div class="row replyRowVideo" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentVideo" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentVideoModalReply" name="reply" >Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessVideoComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureVideoComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+			      <div id="comDataVideo"></div>
 				  <br/>
 			
 			      <div class="row">
@@ -117,10 +124,11 @@
 				      			<div class="col-sm-12">
 				      			<textarea class="form class" id="videoComment" name="videoComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
 				      			<input type="hidden" id="videoId" name="videoId" value="">
+				      			<input type="hidden" id="videoFrom" value="admin"/>
 				      			</div>
 				      			<br/>
 				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
-				      				<button class="btn blue-gradient commentVideoModal" id=commentVideoModal value="" disabled>Submit</button>
+				      				<button class="btn blue-gradient commentVideoModal" id="commentVideoModal" name="comment" disabled>Submit</button>
 				      			
 				      			</div>
 				      			

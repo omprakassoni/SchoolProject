@@ -1,0 +1,188 @@
+<!Doctype>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/header :: common-header">
+  
+            
+    </head>
+    
+    <body>
+            <!-- NAVBAR DATA TOP-MOST -->
+        <div th:replace="common/header :: navbar-Admin"></div>
+       
+        <div class="container">
+       		<div class="header-child">
+       			<label>Upload Tutorial</label> <hr/>
+       			<div class="status" th:text="${status}"></div>
+       			<div class="errorClass" th:text="${failure}"></div>
+       			<div class="errorClass" th:text="${fileError}"></div>
+       			
+       		</div>
+       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+       			<form th:action="@{addVideo}" method="post">
+       				<div class="row">
+       				<div class="col-sm-4">
+       					<select class="form-control" name="classSelected" id="classSelected" >
+       							<option>Select Class</option>
+       							<span th:each="classValue: ${classExist}">
+  								<option><span th:text="${classValue.getClassName()}"></span></option>
+  								</span>
+						</select>
+       				
+       				</div>
+       				
+       				<div class="col-sm-4">
+       					<select class="form-control" name="subjectSelected" id="subject" path="subject" disabled>
+       						<option value="0" >Select Subject</option>
+       						<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+						  </select>
+       				
+       				</div>
+       				
+       				<div class="col-sm-4">
+       					<select class="form-control" name="topicSelected" id="topic" path="topic" disabled>
+       						<option value="0" >Select Topic</option>
+       						<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+						  </select>
+       				
+       				</div>
+       				</div>
+       				<hr/>
+       				
+       			
+       				<br/>
+       				<div class="row">
+       				
+       					<div class="col-sm-3">
+       					</div>
+       				
+       					<div class="col-sm-3" >
+       							<label for="poster" class="header-right">Select Foss</label> 
+       					</div>
+       					<div class="col-sm-4">
+       						<select class="form-control" name="fossSelected" id="foss" disabled>
+       						<option value="0" >Select Foss</option>
+       						<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+						   </select>
+       					   <input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" value=""/>
+       					</div>
+       					
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				
+       				<br/>
+       				
+       				<div class="row">
+       					<div class="col-sm-3">
+       					</div>
+       					<div class="col-sm-3">
+       						<label for="poster" class="header-right">Select Language</label> 
+       					</div>
+       					<div class="col-sm-4">
+       						
+       						<select class="form-control" name="fossLanguageSelected" id="fossLanguage" disabled>
+       						<option value="0" >Select Language</option>
+       						<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+						  	 </select>
+       					</div>
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				
+       				<br/>
+       				
+       					<div class="row">
+       					<div class="col-sm-3">
+       					</div>
+       					<div class="col-sm-3">
+       						<label for="poster" class="header-right">Select Tutorial</label> 
+       					</div>
+       					<div class="col-sm-4">
+       						<select class="form-control" name="fossTutorialSelected" id="fossTutorial" disabled>
+       						<option value="0" >Select Tutorial</option>
+       						<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+						  	 </select>
+       					</div>
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				
+       				<div class="row">
+       					<div class="col-sm-6">
+       					</div>
+       					<div class="col-sm-4">
+       						<div class="terms-and-condition">
+       						<input type="checkbox" class="form-check-input" id="exampleCheck1" required></div>
+       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
+  								<span id="agree-property">Agree to terms and conditions</span>
+							</button>
+   							 
+       						
+       					</div>
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				
+       				<br/>
+       				
+       				<div class="row">
+       		
+       						
+       					<div class="col-sm-4">
+       					</div>
+       					
+       							
+       					<div class="col-sm-4">
+       							<button class="btn btn-primary btn-action upload-submit" type="submit" disabled>Upload</button>
+       					
+       					</div>
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       						
+       				</form>		
+       					
+       			</div>
+       					
+       		</div>
+       		
+       		
+       		<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalCenterTitle">Terms and Conditions</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        ...
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+       			
+       				
+       		
+       
+     
+      				<!--  COMMON CODE FOR LIBRARY ADDED -->
+        <div th:replace="common/header :: body-bottom-scripts"></div>
+         <link rel="stylesheet" href="css/mdb.css" type="text/css"/> 
+		<script src="js/mdb.js"></script>
+
+
+        
+    </body>
+
+
+</html>

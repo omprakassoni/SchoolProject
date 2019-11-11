@@ -75,22 +75,19 @@ public class TopicServiceimpl implements TopicService {
 		
 		return (List<Topic>) topicRepo.findAll();
 	}
+	
 	@Override
-	public void deleteTopicById(int id) {
+	@Transactional
+	public boolean disableEnableTopicById(int status,int id) {
 		
-		Optional<Topic> local=topicRepo.findById(id);
-		Topic temp=local.get();
+		int status1=topicRepo.disableTopic(status, id);
 		
-		ArrayList<DocumentExternal> documentTemp =  documentRepo.findAllBytopicAndType(temp, "Document");
-		ArrayList<QuizQuestion>     quizTemp     =  quizRepo.findAllBytopicAndType(temp, "Quiz");
-		ArrayList<ArticleExternal>  articleTemp  =  articleRepo.findAllBytopicAndType(temp, "Article");
-		ArrayList<VideoExternal>    videoTemp    =  videoRepo.findAllBytopicAndType(temp, "Video");
-		ArrayList<Phets>            phetTemp     =  phetRepo.findAllBytopicAndType(temp, "Phets");
-		ArrayList<LessonPlan>       lessonTemp   =  lessonRepo.findAllBytopicAndType(temp, "Lesson");
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
 		
-		/* have to write a delete functionality to delete from the persistent layer  */
-		
-		topicRepo.deleteById(temp.getTopicId());
 		
 		
 	}

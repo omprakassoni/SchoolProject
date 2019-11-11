@@ -68,6 +68,7 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 	}
 
 	@Override
+	@Transactional
 	public boolean EnableQuizContent(int status, int id) {
 		int status1=quizRepo.EnableQuizContent(status, id);
 		

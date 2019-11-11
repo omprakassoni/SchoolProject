@@ -445,7 +445,7 @@
 						       					</div>
 						       					<div class="col-sm-4">
 						       						<div class="terms-and-condition">
-						       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+						       						<input type="checkbox" class="form-check-input" id="phetUserCheck"></div>
 						       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
 						  								<span id="agree-property">Agree to terms and conditions</span>
 													</button>
@@ -581,7 +581,7 @@
 				       					</div>
 				       					<div class="col-sm-4">
 				       						<div class="terms-and-condition">
-				       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+				       						<input type="checkbox" class="form-check-input" id="articleUserCheck"></div>
 				       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
 				  								<span id="agree-property">Agree to terms and conditions</span>
 											</button>
@@ -685,7 +685,7 @@
 				       					</div>
 				       					<div class="col-sm-4">
 				       						<div class="terms-and-condition">
-				       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+				       						<input type="checkbox" class="form-check-input" id="lessonUserCheck"></div>
 				       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
 				  								<span id="agree-property">Agree to terms and conditions</span>
 											</button>
@@ -707,7 +707,7 @@
 				       					
 				       							
 				       					<div class="col-sm-4">
-				       							<button class="btn btn-primary btn-action" type="submit" id="addLessonfromUser">Upload</button>
+				       							<button class="btn btn-primary btn-action" type="submit" id="addLessonfromUser" disabled>Upload</button>
 				       					
 				       					</div>
 				       					<div class="col-sm-2">
@@ -821,7 +821,7 @@
 			       					</div>
 			       					<div class="col-sm-4">
 			       						<div class="terms-and-condition">
-			       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+			       						<input type="checkbox" class="form-check-input" id="documentUserCheck"></div>
 			       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
 			  								<span id="agree-property">Agree to terms and conditions</span>
 										</button>
@@ -842,7 +842,7 @@
 			       					
 			       							
 			       					<div class="col-sm-4">
-			       							<button class="btn btn-primary btn-action" type="submit" id="addDocumentfromUser">Upload</button>
+			       							<button class="btn btn-primary btn-action" type="submit" id="addDocumentfromUser" disabled>Upload</button>
 			       					
 			       					</div>
 			       					<div class="col-sm-2">
@@ -954,7 +954,7 @@
 				       					</div>
 				       					<div class="col-sm-4">
 				       						<div class="terms-and-condition">
-				       						<input type="checkbox" class="form-check-input" id="exampleCheck1"></div>
+				       						<input type="checkbox" class="form-check-input" id="videoUserCheck"></div>
 				       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
 				  								<span id="agree-property">Agree to terms and conditions</span>
 											</button>
@@ -975,7 +975,7 @@
 				       					
 				       							
 				       					<div class="col-sm-4">
-				       							<button class="btn btn-primary btn-action" type="submit" id="addVideofromUser">Upload</button>
+				       							<button class="btn btn-primary btn-action" type="submit" id="addVideofromUser" disabled>Upload</button>
 				       					
 				       					</div>
 				       					<div class="col-sm-2">
@@ -1093,7 +1093,7 @@
 				       					</div>
 				       					<div class="col-sm-4">
 				       						<div class="terms-and-condition">
-				       						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				       						<input type="checkbox" class="form-check-input" id="quizUserCheck">
 				       						<button type="button" class="btn btn-link float-right" data-toggle="modal" data-target="#exampleModalScrollable">
 				  								<span id="">Agree to terms and conditions</span>
 											</button>
@@ -1122,7 +1122,7 @@
 				       					
 				       							
 				       					<div class="col-sm-4">
-				       							<button class="btn btn-primary btn-action" type="submit" id="addQuizfromUser">Upload</button>
+				       							<button class="btn btn-primary btn-action" type="submit" id="addQuizfromUser" disabled>Upload</button>
 				       					
 				       					</div>
 				       					<div class="col-sm-2">
@@ -1179,30 +1179,13 @@
 							       			<label>Available Phets</label> <hr/>
 							       			<div class="status" th:text="${status}"></div>
 							       	</div>
-				<!--  			       	<div style="text-align:right;padding-right:20px;">
-							 
-							       	<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
-							       							<option>Filter By Topic</option>
-							       					<span th:each="topic:${Topic}">		
-							  								<option><span th:text="${topic.getTopicName()}"></span></option>
-							  						</span>
-							  								
-							  								
-										</select>
-								
-							       	
-							       	
-							       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
-							   		</div>
-			-->	
-							   		
-							      	<form th:action="@{deletePhet}" method="post">
+			
 							      	<div class="table-responsive">
-											<table id="tablePreview" class="table table-hover table-striped">
+											<table id="dtBasicExamplePhet" class="table table-striped table-sm" cellspacing="0" width="100%">
 								
 											  <thead class="">
 											    <tr>
-											        <th>#</th>
+											       
 											      <th>Topic Name</th>
 											      <th>Description</th>
 											      <th>Date Added</th>
@@ -1218,7 +1201,7 @@
 											  
 											  <span th:each="phet:${PhetOnUser}">
 											    <tr class="clickable-row">
-											      <th scope="row"><input type="radio" th:value="${phet.getPhetId()}" th:id="${phet.getPhetId()}" name="selectionRadio" onchange="radioCall()"/></th>
+											     
 											      <td><span th:text="${phet.getTopic().getTopicName()}"></span></td>		
 											      <td><span th:text="${phet.getDescription()}"></span></td>
 											      <td><span th:text="${phet.getDateAdded()}"></span></td>
@@ -1231,7 +1214,9 @@
 											      </td>
 											      
 											   
-											     <td><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a>
+											     <td><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br/><br/>
+											     	 <a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a>
+											     </td>
 									     
 											    </tr>
 											    </span>
@@ -1242,20 +1227,9 @@
 										
 										</div>
 										
-										<div class="container">
-											<center>
-												
-													
-												<button class="btn btn-danger" id="deletePhet"  disabled >Delete</button>
+						
+										
 											
-											
-											</center>
-									.
-										
-										
-										</div>
-										
-											</form>
 							  	
 							
 							  </div>
@@ -1269,30 +1243,13 @@
 										       			<label>Available Reference Video</label> <hr/>
 										       			<div class="status" th:text="${status}"></div>
 										       	</div>
-					<!--  					       	<div style="text-align:right;padding-right:20px;">
-										 
-										       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
-										       							<option>Filter By Topic</option>
-										       					<span th:each="topic:${Topic}">		
-										  								<option><span th:text="${topic.getTopicName()}"></span></option>
-										  						</span>
-										  								
-										  								
-													</select>
-											
-										       	
-										       	
-										       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
-										   		</div>
-					-->	
-										   		
-										      	<form th:action="@{deleteVideo}" method="post">
+					
 										      	<div class="table-responsive">
-														<table id="tablePreview" class="table table-hover table-striped">
+														<table id="dtBasicExampleVideo" class="table table-striped table-sm" cellspacing="0" width="100%">
 											
 														  <thead class="">
 														    <tr>
-														      <th>#</th>
+														    
 														      <th>Topic Name</th>
 														      <th>Description</th>
 														      <th>Source</th>
@@ -1308,7 +1265,6 @@
 														  
 														  <span th:each="video:${VideoOnUser}">
 														    <tr class="clickable-row">
-														      <th scope="row"><input type="radio" th:value="${video.getVideoId()}" th:id="${video.getVideoId()}" name="selectionRadio" onchange="radioCall()"/></th>
 														      <td><span th:text="${video.getTopic().getTopicName()}"></span></td>		
 														      <td><span th:text="${video.getDescription()}"></span></td>
 														      <td><span th:text="${video.getSource() }"></span></td>
@@ -1319,7 +1275,9 @@
 														      </td>
 														      
 													
-														      <td><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a>
+														      <td><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a><br/><br/>
+														      	  <a class="btn btn-secondary commentVideo" th:value="${video.getVideoId()}" id="commentVideo">Comment</a>
+														      </td>
 														     
 														    </tr>
 														    </span>
@@ -1330,20 +1288,7 @@
 													
 													</div>
 													
-													<div class="container">
-														<center>
-															
-																
-															<button class="btn btn-danger" id="deleteVideo"  disabled >Delete</button>
-																
-															
-														</center>
-													
-													
-													</div>
-													
-												
-										</form>
+									
 			
 							  </div>
 							  
@@ -1353,30 +1298,15 @@
 							       			<label>Available Reference Article</label> <hr/>
 							       			<div class="status" th:text="${status}"></div>
 							       	</div>
-				<!--  		       	<div style="text-align:right;padding-right:20px;">
-							 
-							       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
-							       							<option>Filter By Topic</option>
-							       					<span th:each="topic:${Topic}">		
-							  								<option><span th:text="${topic.getTopicName()}"></span></option>
-							  						</span>
-							  								
-							  								
-										</select>
-								
-							       	
-							       	
-							       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
-							   		</div>
-				-->	
+	
 							   		
-							      	<form th:action="@{deleteArticle}" method="post">
+							
 							      	<div class="table-responsive">
-											<table id="tablePreview" class="table table-hover table-striped">
+											<table id="dtBasicExampleArticle" class="table table-striped table-sm" cellspacing="0" width="100%">
 								
 											  <thead class="">
 											    <tr>
-											      <th>#</th>
+											      
 											      <th>Topic Name</th>
 											      <th>Description</th>
 											      <th>Date Added</th>
@@ -1393,7 +1323,6 @@
 											  
 											  <span th:each="article:${ArticleOnUser}">
 											    <tr class="clickable-row">
-											      <th scope="row"><input type="radio" th:value="${article.getArticleId()}" th:id="${article.getArticleId()}" name="selectionRadio" onchange="radioCall()"/></th>
 											      <td><span th:text="${article.getTopic().getTopicName()}"></span></td>		
 											      <td><span th:text="${article.getDescription()}"></span></td>
 											      <td><span th:text="${article.getDateAdded()}"></span></td>
@@ -1405,7 +1334,9 @@
 											      </td>
 											      
 											   
-											      <td><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a>
+											      <td><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a><br/><br/>
+											      	  <a class="btn btn-secondary commentArticle" th:value="${article.getArticleId()}" id="commentArticle">Comment</a>
+											      </td>
 											     
 											    </tr>
 											    </span>
@@ -1416,19 +1347,9 @@
 										
 										</div>
 										
-										<div class="container">
-											<center>
-												
-													
-												<button class="btn btn-danger" id="deleteArticle"  disabled >Delete</button>
-													
-												
-											</center>
+							
 										
-										
-										</div>
-										
-									</form>
+								
 							
 							  </div>
 							  
@@ -1438,30 +1359,13 @@
 							       			<label>Available Reference Document</label> <hr/>
 							       			<div class="status" th:text="${status}"></div>
 							       	</div>
-			<!--  				       	<div style="text-align:right;padding-right:20px;">
-							 
-							       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
-							       							<option>Filter By Topic</option>
-							       					<span th:each="topic:${Topic}">		
-							  								<option><span th:text="${topic.getTopicName()}"></span></option>
-							  						</span>
-							  								
-							  								
-										</select>
-								
-							       	
-							       	
-							       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
-							   		</div>
-			-->	
-							   		
-							      	<form th:action="@{deleteDocument}" method="post">
+		
 							      	<div class="table-responsive">
-											<table id="tablePreview" class="table table-hover table-striped">
+											<table id="dtBasicExampleDocument" class="table table-striped table-sm" cellspacing="0" width="100%">
 								
 											  <thead class="">
 											    <tr>
-											        <th>#</th>
+											        
 											      <th>Topic Name</th>
 											      <th>Description</th>
 											      <th>Date Added</th>
@@ -1477,7 +1381,6 @@
 											  
 											  <span th:each="document:${DocumentOnUser}">
 											    <tr class="clickable-row">
-											      <th scope="row"><input type="radio" th:value="${document.getDocumentId()}" th:id="${document.getDocumentId()}" name="selectionRadio" onchange="radioCall()"/></th>
 											      <td><span th:text="${document.getTopic().getTopicName()}"></span></td>		
 											      <td><span th:text="${document.getDescription()}"></span></td>
 											      <td><span th:text="${document.getDateAdded()}"></span></td>
@@ -1491,7 +1394,9 @@
 											      
 										
 											      
-											      <td><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a>
+											      <td><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a><br/><br/>
+											      	  <a class="btn btn-secondary commentDocument" th:value="${document.getDocumentId()}" id="commentDocument">Comment</a>
+											      </td>
 											     
 											    </tr>
 											    </span>
@@ -1502,17 +1407,8 @@
 										
 										</div>
 										
-										<div class="container">
-											<center>
-												
-													
-												<button class="btn btn-danger" id="deleteDocument"  disabled >Delete</button>
-													</form>
-											
-											</center>
-										
-										
-										</div>
+							
+									
 							
 							  </div>
 							  
@@ -1522,32 +1418,18 @@
 									       			<label>Available Lesson Plan</label> <hr/>
 									       			<div class="status" th:text="${status}"></div>
 									       	</div>
-				<!--  					       	<div style="text-align:right;padding-right:20px;">
-									 
-									       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
-									       							<option>Filter By Topic</option>
-									       					<span th:each="topic:${Topic}">		
-									  								<option><span th:text="${topic.getTopicName()}"></span></option>
-									  						</span>
-									  								
-									  								
-												</select>
-										
-									       	
-									       	
-									       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
-									   		</div>
-				-->	
+		
 									      	<div class="table-responsive">
-													<table id="tablePreview" class="table table-hover table-striped">
+													<table id="dtBasicExampleLesson" class="table table-striped table-sm" cellspacing="0" width="100%">
 										
-													  <thead class="">
-													    <tr>
-													        <th>#</th>
+													  <thead>
+													    <tr >
+													       
 													      <th>Topic Name</th>
 													      <th>Date Added</th>
 													      <th>Link</th>
 													      <th>Status</th>
+													      <th>Operation</th>
 													    
 													    </tr>
 													  </thead>
@@ -1556,7 +1438,6 @@
 													  
 													  <span th:each="lesson:${LessonOnUser}">
 													    <tr class="clickable-row">
-													      <th scope="row"><input type="radio" th:value="${lesson.getLessonPlanId()}" th:id="${lesson.getLessonPlanId()}" name="selectionRadio" onchange="radioCall()"/></th>
 													      <td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>		
 													      <td><span th:text="${lesson.getDateAdded()}"></span></td>
 													      <td><a th:href="${lesson.getLessonPlan()}" class="pdfclass" target="_class"><img id="pdfsource" th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
@@ -1564,10 +1445,11 @@
 													      <td><span th:if="${lesson.isStatus()==1}"><div id="true"/></span>
 													      	  <span th:unless="${lesson.isStatus()==1}"><div id="false"/></span>
 													      </td>
-													       <td>
-				      										<a class="btn btn-secondary detailLesson" th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a>
-				     										</span>
-				      										</td>
+													      <td>
+				      										<a class="btn btn-secondary detailLesson" th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a><br/><br/>
+				      										<a class="btn btn-secondary commentLesson" th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a>
+				      										
+				      									</td>
 													      
 													     
 													     
@@ -1580,17 +1462,7 @@
 												
 												</div>
 												
-												<div class="container">
-													<center>
-														
-															
-														<button class="btn btn-danger" id="deleteLesson"  disabled >Delete</button>
-															
-												
-													</center>
-												
-												
-												</div>
+										
 												
 											
 																   
@@ -1603,30 +1475,14 @@
 								       			<label>Available Quiz</label> <hr/>
 								       			<div class="status" th:text="${status}"></div>
 								       	</div>
-			<!--  				       	<div style="text-align:right;padding-right:20px;">
-								 
-								       		<select  name="roleSelected" id="roleSelected" onchange="filterByRole()">
-								       							<option>Filter By Topic</option>
-								       					<span th:each="topic:${Topic}">		
-								  								<option><span th:text="${topic.getTopicName()}"></span></option>
-								  						</span>
-								  								
-								  								
-											</select>
-									
-								       	
-								       	
-								       	<input type="text" id="myInput" onkeyup="filterByName()" placeholder="Search for names.." title="Type in a name"/>
-								   		</div>
-			-->	
+		
 								   		
-								      	<form th:action="@{deleteQuiz}" method="post">
 								      	<div class="table-responsive">
-												<table id="tablePreview" class="table table-hover table-striped">
+												<table id="dtBasicExampleQuiz" class="table table-striped table-sm" cellspacing="0" width="100%">
 									
 												  <thead class="">
 												    <tr>
-												      <th>#</th>
+												    
 												      <th>Remarks</th>
 												      <th>Topic Name</th>
 												      <th>Date Added</th>
@@ -1641,7 +1497,6 @@
 												  
 												  <span th:each="quiz:${QuizOnUser}">
 												    <tr class="clickable-row">
-												      <th scope="row"><input type="radio" th:value="${quiz.getQuizQuestionId() }" th:id="${quiz.getQuizQuestionId()}" name="selectionRadio" /></th>
 												      <td><span th:text="${quiz.getRemark()}"></span></td>		
 												      <td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
 												      <td><span th:text="${quiz.getDateAdded()}"></span></td>
@@ -1649,7 +1504,9 @@
 												      <td><a th:href="'/'+${quiz.getAnswer()}" target="_blank" class="pdfclass"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
 												      
 												      
-												      <td><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a>
+												      <td><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br/><br/>
+												      	  <a class="btn btn-secondary commentQuiz" th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a>
+												      </td>
 										     
 												    </tr>
 												    </span>
@@ -1660,19 +1517,7 @@
 											
 											</div>
 											
-											<div class="container">
-												<center>
-													
-														
-													<button class="btn btn-danger" id="deleteQuiz"  disabled >Delete</button>
-														
-												
-												</center>
-											
-											
-											</div>
-											
-										</form>
+							
 							
 							  </div>
 							  
@@ -1873,7 +1718,7 @@
 			<div class="modal fade" id="VideoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			     <form action =""  method="post" enctype="multipart/form-data" id="uploadVideo">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUserVideo">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Video</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1932,7 +1777,7 @@
 			<div class="modal fade" id="QuizModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadQuiz">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserQuiz">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Quiz</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1975,7 +1820,7 @@
 				      			</div>
 				   </div>
 				   <div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateQuizOnUser" value="" disabled>Update</button>
+				      		<button class="btn btn-primary" id="updateQuizOnUser" value="" >Update</button>
 				    </div>	
 				    </div>
 				    </form>
@@ -1990,7 +1835,7 @@
 			<div class="modal fade" id="DocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadDocument">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserDocument">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2033,7 +1878,7 @@
 				      			</div>
 				   </div>
 				   	<div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateDocumentOnUser" value="" disabled>Update</button>
+				      		<button class="btn btn-primary" id="updateDocumentOnUser" value="" >Update</button>
 				    </div>
 				      			
 				    </div>
@@ -2049,7 +1894,7 @@
 			<div class="modal fade" id="LessonPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadLesson">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserLesson">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2087,7 +1932,7 @@
 			<div class="modal fade" id="ArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadArticle">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserArticle">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Article</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2145,7 +1990,7 @@
 			<div class="modal fade" id="PhetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			     <form action =""  method="post" enctype="multipart/form-data" id="uploadPhet">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUserPhet">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Phet</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2202,7 +2047,7 @@
 			<div class="modal fade" id="LessonPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadLesson">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserLesson">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2236,10 +2081,323 @@
 			  </div>
   	
     
+ 		<!-- ---------------------------------------------Comment Modal for Teacher -- ------------------------------------------------->
+ 		
+ 		
+ <!-- Modal for Commenting Phets-->
+			
+			<div class="modal fade" id="PhetCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			       <div class="row replyRowPhet" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentPhet" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentPhetModalReply" name="reply">Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      
+			      <div id="SuccessPhetComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailurePhetComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+				  <div id="comDataPhet"></div>
+				  <br/>
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="phetComment" name="phetComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="phetId" name="phetId" value="">
+				      			<input type="hidden" id="phetFrom" value="user"/>
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentPhetModal" id=commentPhetModal value="" name="comment" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      		
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+			  </div>
 	
+
+<!-- Modal for Commenting Article-->
+			
+			<div class="modal fade" id="ArticleCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div class="row replyRowArticle" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentArticle" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentArticleModalReply" name="reply">Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessArticleComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureArticleComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+			      <div id="comDataArticle"></div>
+				  <br/>
+			
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="articleComment" name="articleComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="articleId" name="articleId" value="">
+				      			<input type="hidden" id="articleFrom" value="user"/>
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentArticleModal" id=commentArticleModal value=""  name="comment" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      		
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+			  </div>
+  	
+		
+	
+<!-- Modal for Commenting Video-->
+
+			
+			<div class="modal fade" id="VideoCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable " role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div class="row replyRowVideo" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentVideo" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentVideoModalReply" name="reply" >Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessVideoComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureVideoComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+			      <div id="comDataVideo"></div>
+				  <br/>
+			
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="videoComment" name="videoComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="videoId" name="videoId" value="">
+				      			<input type="hidden" id="videoFrom" value="user"/>
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentVideoModal" id="commentVideoModal" name="comment" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      			
+				      			   	
+				   
+				   	
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+		</div>
 		
 		
-	
+<!--  Modal for Commenting Document -->	
+
+		<div class="modal fade" id="DocumentCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div class="row replyRowDocument" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentDocument" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentDocumentModalReply" name="reply" >Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessDocumentComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureDocumentComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+				  <div id="comDataDocument"></div>
+				  <br/>
+					
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="documentComment" name="documentComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="documentId" name="documentId" value="">
+				      			<input type="hidden" id="documentFrom" value="user"/>
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentDocumentModal" id=commentDocumentModal value="" name="comment" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      			
+				      			   	
+				   
+				   	
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+			  </div>
+			  
+			
+			
+<!--  Modal for Commenting LessonPlan -->	  
+
+		<div class="modal fade" id="LessonCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div class="row replyRowLesson" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentLesson" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentLessonModalReply" name="reply">Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessLessonComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureLessonComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+				  <div id="comDataLesson"></div>
+				  <br/>
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="lessonComment" name="lessonComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="lessonId" name="lessonId" value="">
+				      			<input type="hidden" id="lessonFrom" value="user"/>
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentLessonModal" id=commentLessonModal value="" name="comment" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      		
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+			  </div>
+			  
+			  
+<!-- Modal for Commenting Quiz -->
+			
+			<div class="modal fade" id="QuizCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div class="row replyRowQuiz" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentQuiz" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentQuizModalReply" name="reply" >Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessQuizComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureQuizComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+				  <div id="comDataQuiz"></div>
+				  <br/>
+				  
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="quizComment" name="quizComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="quizId" name="quizId" value="">
+				      			<input type="hidden" id="quizFrom" value="user"/>
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentQuizModal" id=commentQuizModal value="" name="comment" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      		
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+		 </div>
+  	
+  	
 		
 			
 			

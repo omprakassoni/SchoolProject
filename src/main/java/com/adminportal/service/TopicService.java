@@ -28,7 +28,7 @@ public interface TopicService {
 	
 	List<Topic> findAll();
 	
-	void deleteTopicById(int id);
+	boolean disableEnableTopicById(int status,int id);
 	
 	Topic findById(int id);
 	

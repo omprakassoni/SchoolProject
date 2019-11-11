@@ -34,6 +34,7 @@ import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
+import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.security.Authority;
 
@@ -107,6 +108,9 @@ public class User {
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<VideoExternal> videoExternal=new HashSet<VideoExternal>();
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Tutorial> tutorial=new HashSet<Tutorial>();
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<Comment> comment=new HashSet<Comment>();
@@ -297,6 +301,14 @@ public class User {
 
 	public void setCommentReply(Set<CommentReply> commentReply) {
 		this.commentReply = commentReply;
+	}
+
+	public Set<Tutorial> getTutorial() {
+		return tutorial;
+	}
+
+	public void setTutorial(Set<Tutorial> tutorial) {
+		this.tutorial = tutorial;
 	}
 
 	

@@ -13,6 +13,8 @@
        		<div class="header-child">
        			<label>Add New Topic</label> <hr/>
        			<div class="status" th:text="${status}"></div>
+       			<div class="errorClass" th:text="${failure}"></div>
+       			<div class="errorClass" th:text="${fileError}"></div>
        		</div>
        			<div class="row">
        				<div class="col-sm-2">
@@ -59,7 +61,7 @@
        								<label class="header-left">Enter Topic Name</label> 
        							</div>
        							<div class="col-sm-6">
-       									<input type="text" class="form-control" placeholder="Enter Topic" name="topic" aria-label="TopicQ" aria-describedby="basic-addon1" id="topic" required disabled/>
+       									<input type="text" class="form-control" placeholder="Enter Topic" name="topic" aria-label="TopicQ" aria-describedby="basic-addon1" id="addtopic" required disabled/>
        							</div>
        							
        						</div>
@@ -71,7 +73,7 @@
        							</div>
        							<div class="col-sm-6">
        								
-    									<textarea class="form-control" placeholder="Enter Something" id="descriptionQ" name="descriptionQ" rows="3" required disabled></textarea>
+    									<textarea class="form-control" placeholder="Enter Something" id="descriptionTopic" name="descriptionQ" rows="3" required disabled></textarea>
        							</div>
        							
        						</div>
@@ -82,7 +84,7 @@
        								<label for="poster" class="header-left">Poster</label> 
        							</div>
        							<div class="col-sm-6">
-       									 <input type="file" class="form-control-file" id="posterQ" name="posterQ" accept="image/*" required disabled/>
+       									 <input type="file" class="form-control-file" id="posterTopic" name="posterQ" accept="image/*" required disabled/>
        							</div>
        							
        						</div>
@@ -93,7 +95,7 @@
        							<div class="col-sm-4"></div>
        							
        							<div class="col-sm-4">
-       								<button class="btn btn-primary btn-action" type="submit">Add Topic</button>
+       								<button class="btn btn-primary btn-action" id="upload-topic" type="submit" disabled>Add Topic</button>
        								<div id="ya"></div>
        							</div>
        						</div>
