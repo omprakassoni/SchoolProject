@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.w3.org/1000/xhtml">
  
  <head th:fragment="common-header">
  
-           
+ <meta name="_csrf" th:content="${_csrf.token}"/>
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
       
         
         <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -135,7 +137,6 @@
 		<!--  	<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>   -->
 		
 		  	<script src="/js/jquery-3.4.1.min.js"></script>
-		  
         	<script src="/js/bootstrap.min.js"></script>
         	
         	<script src="/js/all.js"></script>

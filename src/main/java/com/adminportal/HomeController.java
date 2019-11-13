@@ -407,6 +407,13 @@ public class HomeController {
 	}
 	
 	
+	@RequestMapping(path = "/my-mind", method = RequestMethod.GET)
+	public ModelAndView mindMapGet(ModelAndView mv) {
+		mv.setViewName("my-mind");
+		return mv;
+	}
+	
+	
 	
 	
 	

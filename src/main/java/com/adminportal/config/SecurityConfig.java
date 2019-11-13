@@ -29,8 +29,6 @@ import com.spoken.Utility.ServiceUtility;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	
-
-	
 	private BCryptPasswordEncoder passwordEncoder() {
 		return ServiceUtility.passwordEncoder();
 	}
@@ -82,11 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //			.and()
 //			.formLogin()
 //			.loginPage("/Login");
-
-		
-		
-		http
-		.csrf().disable().cors().disable();
+//
+//		
+//		
+//		http
+//		.csrf().disable().cors().disable();
 		
 	}
 

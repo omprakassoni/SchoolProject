@@ -24,16 +24,23 @@ $(function(){
 						"email":email,
 				};
 				var jsdata= JSON.stringify(json);
-				alert(jsdata);
+				
+				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
 				
 				$.ajax({
 				  	type: "POST",
 		        	contentType: "application/json",
 		       		 url: "/addContactForm",
 		       		 data: JSON.stringify(json),
+		       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+		       		 },
 		       		 dataType: 'json',
 		       		 cache: false,
 		        	 timeout: 600000,
+		        	
 		       		 success: function (data){
 		       			 
 		       			 
@@ -87,11 +94,17 @@ $(function(){
 					"testimonialId":testi_id
 				};
 				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: "/loadByTestimonialID",
 	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
 	       		 dataType: 'json',
 	       		 cache: false,
 	        	 timeout: 600000,
@@ -129,11 +142,17 @@ $(function(){
 					"eventId":event_id
 				};
 				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: "/loadByEventID",
 	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
 	       		 dataType: 'json',
 	       		 cache: false,
 	        	 timeout: 600000,
@@ -178,11 +197,17 @@ $(function(){
 					
 				};
 				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: "/updateTestimonial",
 	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
 	       		 dataType: 'json',
 	       		 cache: false,
 	        	 timeout: 600000,
@@ -232,11 +257,17 @@ $(function(){
 					
 				};
 				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: "/updateEvent",
 	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
 	       		 dataType: 'json',
 	       		 cache: false,
 	        	 timeout: 600000,
@@ -290,6 +321,9 @@ $(function(){
 					"className":classname,
 			};
 			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
 
 		
 			$.ajax({
@@ -297,6 +331,9 @@ $(function(){
 	        	contentType: "application/json",
 	       		 url: "/loadByClassName",
 	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
 	       		 dataType: 'json',
 	       		 cache: false,
 	        	 timeout: 600000,
@@ -337,12 +374,18 @@ $(function(){
 					"className":classname,
 					
 			};
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
 		
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: "/loadByClassnameAndSubject",
 	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
 	       		 dataType: 'json',
 	       		 cache: false,
 	        	 timeout: 600000,
@@ -402,13 +445,17 @@ $(function(){
   							"className":classname,
   					};
   					
-  		
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassName",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -452,12 +499,18 @@ $(function(){
   							"className":classname,
   							
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -514,13 +567,17 @@ $(function(){
   							"className":classname,
   					};
   					
-  		
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassName",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -564,12 +621,18 @@ $(function(){
   							"className":classname,
   							
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -625,6 +688,9 @@ $(function(){
   							"className":classname,
   					};
   					
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   		
   				
   					$.ajax({
@@ -632,6 +698,9 @@ $(function(){
   			        	contentType: "application/json",
   			       		 url: "/loadByClassName",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -676,12 +745,18 @@ $(function(){
   							"className":classname,
   							
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -739,6 +814,9 @@ $(function(){
   							"className":classname,
   					};
   					
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   		
   				
   					$.ajax({
@@ -746,6 +824,9 @@ $(function(){
   			        	contentType: "application/json",
   			       		 url: "/loadByClassName",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -789,12 +870,18 @@ $(function(){
   							"className":classname,
   							
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -850,13 +937,17 @@ $(function(){
   							"className":classname,
   					};
   					
-  		
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassName",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -900,12 +991,18 @@ $(function(){
   							"className":classname,
   							
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -966,6 +1063,9 @@ $(function(){
 				$('#availableL').css({"display": "none"});
 				$('#notAvailableL').css({"display": "none"});
 				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
 				if(validateEmail(data)){
 				
 				$.ajax({
@@ -973,6 +1073,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/validateEmail",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1015,6 +1118,9 @@ $(function(){
 				$('#availableP').css({"display": "none"});
 				$('#notAvailableP').css({"display": "none"});
 				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
 				if(validateEmail(data)){
 				
 				$.ajax({
@@ -1022,6 +1128,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/validateEmail",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1064,6 +1173,9 @@ $(function(){
 				$('#availableT').css({"display": "none"});
 				$('#notAvailableT').css({"display": "none"});
 				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
 				if(validateEmail(data)){
 				
 				$.ajax({
@@ -1071,6 +1183,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/validateEmail",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1125,6 +1240,8 @@ $(function(){
   							"className":classname,
   					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   		
   				
   					$.ajax({
@@ -1132,6 +1249,9 @@ $(function(){
   			        	contentType: "application/json",
   			       		 url: "/loadByClassName",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -1175,12 +1295,18 @@ $(function(){
   							"className":classname,
   							
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: "/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
   			       		 dataType: 'json',
   			       		 cache: false,
   			        	 timeout: 600000,
@@ -1248,11 +1374,18 @@ $(function(){
   					var json={
   							"id":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidity",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1288,11 +1421,18 @@ $(function(){
   					var json={
   							"topicId":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidityTopic",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1326,11 +1466,20 @@ $(function(){
   					var json={
   							"phetId":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidityPhet",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1364,11 +1513,18 @@ $(function(){
   					var json={
   							"lessonPlanId":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidityLesson",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1402,11 +1558,18 @@ $(function(){
   					var json={
   							"documentId":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidityDocument",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1440,11 +1603,18 @@ $(function(){
   					var json={
   							"articleId":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidityArticle",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1478,11 +1648,18 @@ $(function(){
   					var json={
   							"quizQuestionId":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidityQuiz",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1516,11 +1693,18 @@ $(function(){
   					var json={
   							"videoId":user_id
   					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByValidityVideo",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1572,11 +1756,17 @@ $(function(){
 							"id":user_id
 					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByUser",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1642,13 +1832,17 @@ $(function(){
 							"subId":user_id
 					};
   					
-  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByClass",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1679,6 +1873,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/loadBySubject",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1704,6 +1901,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/loadBySubjectClass",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1763,6 +1963,9 @@ $(function(){
 	       				});
   					
   					data[i]=$(this).val();
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
   			
   					
   					$.ajax({
@@ -1770,6 +1973,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/updateSubject",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1811,11 +2017,17 @@ $(function(){
 							"topicId":user_id
 					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByTopic",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1836,6 +2048,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/loadByTopicDesc",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1891,11 +2106,17 @@ $(function(){
 							"quizQuestionId":user_id
 					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByQuizQuestionID",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1966,11 +2187,17 @@ $(function(){
 							"videoId":user_id
 					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByVideoID",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -1992,6 +2219,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/loadByVideoIDSource",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2047,11 +2277,17 @@ $(function(){
 							"articleId":user_id
 					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByArtcileID",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2073,6 +2309,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/loadByArtcileIDDesc",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2128,11 +2367,17 @@ $(function(){
 							"documentId":user_id
 					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByDocumentID",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2154,6 +2399,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/loadByDocumentIDDesc",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2248,11 +2496,17 @@ $(function(){
 							"phetId":user_id
 					};
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByphetID",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2274,6 +2528,9 @@ $(function(){
 			        	contentType: "application/json",
 			       		 url: "/loadByphetIDDesc",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2337,12 +2594,18 @@ $(function(){
   					
   					var html='';
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
 			       		 url: "/loadByVideoComment",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2383,6 +2646,9 @@ $(function(){
 							        	contentType: "application/json",
 							       		 url: "/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
+							       		 beforeSend: function(xhr) {
+					                         xhr.setRequestHeader(header, token);
+							       		 },
 							       		 dataType: 'json',
 							       		 cache: false,
 							        	 timeout: 600000,
@@ -2511,12 +2777,18 @@ $(function(){
   						
   					}
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/uploadCommentOnVideo",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2559,12 +2831,18 @@ $(function(){
   					
   					var html='';
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
 			       		 url: "/loadByArticleComment",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2603,6 +2881,9 @@ $(function(){
 							        	contentType: "application/json",
 							       		 url: "/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
+							       		 beforeSend: function(xhr) {
+					                         xhr.setRequestHeader(header, token);
+							       		 },
 							       		 dataType: 'json',
 							       		 cache: false,
 							        	 timeout: 600000,
@@ -2729,11 +3010,17 @@ $(function(){
   						}
   					}
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/uploadCommentOnArticle",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2774,12 +3061,18 @@ $(function(){
   					
   					var html='';
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
 			       		 url: "/loadByDocumentComment",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2818,6 +3111,9 @@ $(function(){
 							        	contentType: "application/json",
 							       		 url: "/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
+							       		 beforeSend: function(xhr) {
+					                         xhr.setRequestHeader(header, token);
+							       		 },
 							       		 dataType: 'json',
 							       		 cache: false,
 							        	 timeout: 600000,
@@ -2946,11 +3242,17 @@ $(function(){
   						
   					}
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/uploadCommentOnDocument",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -2992,12 +3294,18 @@ $(function(){
   					
   					var html='';
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
 			       		 url: "/loadByQuizComment",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -3036,6 +3344,9 @@ $(function(){
 							        	contentType: "application/json",
 							       		 url: "/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
+							       		 beforeSend: function(xhr) {
+					                         xhr.setRequestHeader(header, token);
+							       		 },
 							       		 dataType: 'json',
 							       		 cache: false,
 							        	 timeout: 600000,
@@ -3165,11 +3476,17 @@ $(function(){
   						
   					}
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/uploadCommentOnQuiz",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -3209,11 +3526,17 @@ $(function(){
   					
   					var html='';
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/loadByLessonComment",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -3252,6 +3575,9 @@ $(function(){
 							        	contentType: "application/json",
 							       		 url: "/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
+							       		 beforeSend: function(xhr) {
+					                         xhr.setRequestHeader(header, token);
+							       		 },
 							       		 dataType: 'json',
 							       		 cache: false,
 							        	 timeout: 600000,
@@ -3378,11 +3704,17 @@ $(function(){
   						
   					}
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/uploadCommentOnLesson",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -3422,12 +3754,18 @@ $(function(){
   					
   					var html='';
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
 			       		 url: "/loadByPhetComment",
 			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -3466,6 +3804,9 @@ $(function(){
 							        	contentType: "application/json",
 							       		 url: "/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
+							       		 beforeSend: function(xhr) {
+					                         xhr.setRequestHeader(header, token);
+							       		 },
 							       		 dataType: 'json',
 							       		 cache: false,
 							        	 timeout: 600000,
@@ -3593,11 +3934,17 @@ $(function(){
   						
   					}
   					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: "/uploadCommentOnPhet",
 			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
 			       		 dataType: 'json',
 			       		 cache: false,
 			        	 timeout: 600000,
@@ -3655,6 +4002,10 @@ $(function(){
   			var userid=$('#userIdUpdateTeacher').val();
   			var pass=$('#newPassTeacher').val();
   			var confpass=$('#confPassTeacher').val();
+  			
+  			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
   			if(pass === confpass){
   				
   				var json={
@@ -3663,11 +4014,16 @@ $(function(){
   					
   				};
   				
+  			
+  				
   				$.ajax({
   					type: "POST",
   					contentType: "application/json",
   					url: "/updatePassword",
   					data:JSON.stringify(json),
+  					 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+		       		 },
   					cache:false,
   					timeout: 600000,
   					success:function(data){
@@ -3749,6 +4105,10 @@ $(function(){
   			var userid=$('#userIdUpdateLearnerParent').val();
   			var pass=$('#newPassLearnerParent').val();
   			var confpass=$('#confPassLearnerParent').val();
+  			
+  			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
   			if(pass === confpass){
   				
   				var json={
@@ -3762,6 +4122,9 @@ $(function(){
   					contentType: "application/json",
   					url: "/updatePassword",
   					data:JSON.stringify(json),
+  					 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+		       		 },
   					cache:false,
   					timeout: 600000,
   					success:function(data){
@@ -3836,6 +4199,10 @@ $(function(){
   			var userid=$('#userIdUpdateAdmin').val();
   			var pass=$('#newPassAdmin').val();
   			var confpass=$('#confPassAdmin').val();
+  			
+  			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
   			if(pass === confpass){
   				
   				var json={
@@ -3849,6 +4216,9 @@ $(function(){
   					contentType: "application/json",
   					url: "/updatePassword",
   					data:JSON.stringify(json),
+  					beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+		       		},
   					cache:false,
   					timeout: 600000,
   					success:function(data){
@@ -4275,12 +4645,17 @@ function fire_ajax_submit_Topic(){
 		var form=$('#uploadTopic')[0];
 		var data=new FormData(form);
 		
-	
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+			
 	$.ajax({
 		type: "POST",
 		enctype: 'multipart/form-data',
 		url: "/updateTopic",
 		data:data,
+		beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		},
 		cache:false,
 		contentType:false,
 		processData:false,
@@ -4317,12 +4692,18 @@ function fire_ajax_submit_Topic(){
 	
 		var form=$('#uploadQuiz')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateQuiz",
 				data:data,
+				beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4357,12 +4738,18 @@ function fire_ajax_submit_Topic(){
 	
 		var form=$('#uploadUserQuiz')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateQuiz",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4398,12 +4785,18 @@ function fire_ajax_submit_Topic(){
 		
 		var form=$('#uploadVideo')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateVideo",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4436,12 +4829,18 @@ function fire_ajax_submit_Topic(){
 		
 		var form=$('#uploadUserVideo')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateVideo",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4477,12 +4876,18 @@ function fire_ajax_submit_Topic(){
 		
 		var form=$('#uploadArticle')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateArticle",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4516,12 +4921,18 @@ function fire_ajax_submit_ArticleOnUser(){
 		
 		var form=$('#uploadUserArticle')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateArticle",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4556,12 +4967,18 @@ function fire_ajax_submit_ArticleOnUser(){
 		
 		var form=$('#uploadDocument')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateDocument",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4594,12 +5011,18 @@ function fire_ajax_submit_DocumentOnUser(){
 		
 		var form=$('#uploadUserDocument')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateDocument",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4634,12 +5057,18 @@ function fire_ajax_submit_DocumentOnUser(){
 		
 		var form=$('#uploadPhet')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updatePhet",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4672,12 +5101,18 @@ function fire_ajax_submit_DocumentOnUser(){
 		
 		var form=$('#uploadUserPhet')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updatePhet",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4712,12 +5147,18 @@ function fire_ajax_submit_Lesson(){
 		
 		var form=$('#uploadLesson')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/updateLesson",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4750,12 +5191,18 @@ function fire_ajax_submit_Lesson(){
 	
 	var form=$('#uploadUserLesson')[0];
 	var data=new FormData(form);
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
 			url: "/updateLesson",
 			data:data,
+			beforeSend: function(xhr) {
+                 xhr.setRequestHeader(header, token);
+       		},
 			cache:false,
 			contentType:false,
 			processData:false,
@@ -4791,12 +5238,18 @@ function fire_ajax_submit_Lesson(){
 		
 		var form=$('#uploadArticle')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/addArticleFromUser",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4841,12 +5294,18 @@ function fire_ajax_submit_Lesson(){
 		
 		var form=$('#uploadQuiz')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/addQuizFromUser",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4891,12 +5350,18 @@ function addLesson(){
 		
 		var form=$('#uploadLesson')[0];
 		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
 				url: "/addLessonFromUser",
 				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
 				cache:false,
 				contentType:false,
 				processData:false,
@@ -4936,12 +5401,18 @@ function addPhet(){
 	
 	var form=$('#uploadPhet')[0];
 	var data=new FormData(form);
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
 			url: "/addPhetFromUser",
 			data:data,
+			beforeSend: function(xhr) {
+                 xhr.setRequestHeader(header, token);
+       		},
 			cache:false,
 			contentType:false,
 			processData:false,
@@ -4986,12 +5457,18 @@ function addDocument(){
 	
 	var form=$('#uploadDocument')[0];
 	var data=new FormData(form);
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
 			url: "/addDocumentFromUser",
 			data:data,
+			beforeSend: function(xhr) {
+                 xhr.setRequestHeader(header, token);
+       		},
 			cache:false,
 			contentType:false,
 			processData:false,
@@ -5035,12 +5512,18 @@ function addVideo(){
 	
 	var form=$('#uploadVideo')[0];
 	var data=new FormData(form);
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
 			url: "/addVideoFromUser",
 			data:data,
+			beforeSend: function(xhr) {
+                 xhr.setRequestHeader(header, token);
+       		},
 			cache:false,
 			contentType:false,
 			processData:false,
