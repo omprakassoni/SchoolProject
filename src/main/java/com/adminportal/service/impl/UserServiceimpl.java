@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
@@ -212,6 +213,14 @@ public class UserServiceimpl implements UserService {
 		else
 			return false;
 		
+	}
+
+
+	@Override
+	public User addUserToConceptMap(User usr, Set<ConceptMap> concept) {
+		usr.getConceptMap().addAll(concept);
+		userRepository.save(usr);
+		return null;
 	}
 
 

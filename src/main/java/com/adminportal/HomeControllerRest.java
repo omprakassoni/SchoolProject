@@ -43,6 +43,7 @@ import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Class;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.ContactForm;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.Events;
@@ -66,6 +67,7 @@ import com.adminportal.service.ArticleExternalService;
 import com.adminportal.service.ClassService;
 import com.adminportal.service.CommentReplyService;
 import com.adminportal.service.CommentService;
+import com.adminportal.service.ConceptMapService;
 import com.adminportal.service.DocumentExternalService;
 import com.adminportal.service.EventService;
 import com.adminportal.service.LessonPlanService;
@@ -141,6 +143,9 @@ public class HomeControllerRest {
 	
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private ConceptMapService concepMapService;
 	
 	/*--------------------------------------TAKING CONTACT FORM DATA FROM INDEX PAGE ------------------------------------------------------*/
 	@PostMapping("/addContactForm")
@@ -504,6 +509,16 @@ public class HomeControllerRest {
 		
 		return data;
 	}
+	
+	@PostMapping("/loadByValidityConcept")
+	public List<Integer> loadByValidityConcept(@Valid @RequestBody ConceptMap concept){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		ConceptMap local=concepMapService.findByid(concept.getConcepMapid());
+		data.add(local.getStatus());
+		
+		return data;
+	}
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------LOAD BY SUBJECT----------------------------------------------------------------------*/
@@ -631,6 +646,23 @@ public class HomeControllerRest {
 	}
 	
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
+	/***************************************** LOADING CONCEPT-MAP DETAILS ********************************************************/
+	
+	
+	@PostMapping("/loadByConceptID")
+	public List<String> loadByConceptID(@Valid @RequestBody ConceptMap concept){
+		
+		List<String> conceptdata=new ArrayList<String>();
+		
+		ConceptMap local=concepMapService.findByid(concept.getConcepMapid());
+		
+		conceptdata.add(local.getDescription());
+		conceptdata.add(local.getRemark());
+		
+		return conceptdata;
+	}
+	
+	/****************************************************END****************************************************************************/
 	
 	/*--------------------------------------------------LOADING ARTICLE DETAILS----------------------------------------------------------------------*/
 	
@@ -940,6 +972,69 @@ public class HomeControllerRest {
 	
 	/*------------------------------------------------------------END--------------------------------------------------------------------*/
 	
+	/*--------------------------------------------------UPDATING CONCEPT-MAP-------------------------------------------------------------*/
+	
+	@PostMapping("/updateConcept")
+	public @ResponseBody List<String> updateConcept(@RequestParam("conceptImage") MultipartFile[] conceptImage,@RequestParam("conceptDesc") String desc,@RequestParam("conceptId") String conceptId,@RequestParam("conceptHeadline") String remark){
+		List<String> msg=new ArrayList<String>();
+		
+		ConceptMap conceptTemp=concepMapService.findByid(Integer.parseInt(conceptId));
+		
+		String previousPath=deleteDirectory+conceptTemp.getUrl();
+		Path deletePreviousPath=Paths.get(previousPath);
+		
+		String uploadconceptImage=uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+conceptTemp.getTopic().getTopicName()+"/"+"ConceptMap/";
+		
+		String document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
+		
+		int indexToStart=document.indexOf('M');
+		String documentToUpload=document.substring(indexToStart, document.length());
+		
+		if(desc.length()>0) {
+			boolean done=concepMapService.updateConcept(desc, documentToUpload, remark, ServiceUtility.getCurrentTime(), conceptTemp.getConcepMapid());
+			if(done) {
+				try {
+					Files.delete(deletePreviousPath);
+					
+					
+				} catch (IOException e) {
+					
+					
+				}
+				msg.add("Success");
+				return msg;
+				
+			}else {
+				msg.add("failure");
+				return msg;
+			}
+		}else {
+			
+			boolean done=concepMapService.updateConcept(conceptTemp.getDescription(), documentToUpload, remark, ServiceUtility.getCurrentTime(), conceptTemp.getConcepMapid());
+			if(done) {
+				try {
+					Files.delete(deletePreviousPath);
+					
+					
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+				msg.add("Success");
+				return msg;
+			}else {
+				msg.add("failure");
+				return msg;
+			}
+		}
+		
+		
+	}
+	
+	
+	/*--------------------------------------------------------------END-----------------------------------------------------------------*
+	 * 
+	 */
 	
 	/*--------------------------------------------------UPDATING VIDEO----------------------------------------------------------------------*/
 	
@@ -1695,6 +1790,97 @@ public class HomeControllerRest {
 	
 	/*---------------------------------------------------------------END----------------------------------------------------------------------------*/
 	
+	/**************************************** COMMENT SECTION FOR CONCEPTS-MAP********************************************/
+	
+	@PostMapping("/loadByConceptComment")
+	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnLesson(@Valid @RequestBody ConceptMap conceptMap) {
+		
+		ConceptMap localConcept=concepMapService.findByid(conceptMap.getConcepMapid());
+		
+		List<Comment> localComment=comService.getCommentByConceptMap(localConcept);
+		
+		List<CommentAjaxQueryResolver> temp=new ArrayList<CommentAjaxQueryResolver>();
+		
+		for(Comment data:localComment) {
+			
+			String date=ServiceUtility.daysDifference(data.getDateAdded())+" day Ago";
+			
+			temp.add(new CommentAjaxQueryResolver(data.getCommentid(), data.getComment(), data.getUser().getFname(), date));
+			
+		}
+		
+		
+		
+		return temp;
+	}
+	
+	@PostMapping("/uploadCommentOnConcept")
+	public List<String> uploadCommentonConcept(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+		
+		
+		List<String> msg=new ArrayList<String>();
+		String emailToIdentifyUser;
+		
+		
+		HttpSession session=req.getSession(false);
+		
+		if(data.isAdmin()) {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		}else {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		}
+		
+		User usr=userService.findByUsername(emailToIdentifyUser);
+		
+		try {
+			if(data.isReply()) {
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				Comment localComment=comService.findById(data.getId());
+				
+				Set<CommentReply> reply= new HashSet<CommentReply>();
+				reply.add(new CommentReply(comReplyService.countRow()+1, data.getComment(), ServiceUtility.getCurrentTime(), localComment, usr));
+				
+				userService.addUserToCommentReply(usr, reply);
+				
+				msg.add("Success");
+				
+			}else {
+				
+				if(data.getComment().isEmpty()) {
+					msg.add("failure");
+					return msg;
+					
+				}
+				
+				int idConcept=data.getId();
+				ConceptMap localConcept=concepMapService.findByid(idConcept);
+				
+						
+				Set<Comment> comment=new HashSet<Comment>();
+				comment.add(new Comment(comService.countRow()+1, ServiceUtility.getCurrentTime(), data.getComment(), usr, localConcept));
+				
+				userService.addUserToComment(usr, comment);
+				
+				msg.add("Success");
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			msg.add("failure");
+		}
+		
+		
+		return msg;
+			
+		
+}
+	
+	
 	/*---------------------------------------------------------COMMENT SECTION FOR LESSON---------------------------------------------------------*/
 	
 	
@@ -1719,6 +1905,8 @@ public class HomeControllerRest {
 		
 		return temp;
 	}
+	
+	
 	
 	
 	@PostMapping("/uploadCommentOnLesson")
@@ -2144,7 +2332,59 @@ public class HomeControllerRest {
 		
 		return status;
 	}
-											
+				
+	
+	@PostMapping("/addConceptFromUser")
+	public @ResponseBody List<String> addConceptFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("descriptionConceptMap") String desc,@RequestParam("headlineConceptMap") String remark,@RequestParam("conceptMapImage") MultipartFile[] uploadDocument){
+		
+		List<String> status=new ArrayList<String>();
+		
+		if(!ServiceUtility.checkFileExtensionImage(uploadDocument)) {
+			
+			status.add("failure");
+			return status;
+			
+		}
+		
+		String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/ConceptMap/";
+		
+		
+		try {
+			String path1=ServiceUtility.uploadFile(uploadDocument, createFolder);
+			
+			
+			
+			int indexToStart=path1.indexOf('M');
+			String path=path1.substring(indexToStart, path1.length());
+			
+
+			Class localClass=classService.findByClassName(classSelected);
+			Subject localSubject=subjectService.findBysubName(subSelected);
+			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+			
+
+			
+			User usr=userService.findByUsername(userID);
+			
+			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
+			conceptMapping.add(new ConceptMap(concepMapService.countRow()+10, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0, remark, localTopic, usr));
+			
+			userService.addUserToConceptMap(usr, conceptMapping);
+			status.add("Success");
+			
+		} catch (Exception e) {
+			
+			status.add("failure");
+			
+		}
+		
+		
+		
+		return status;
+	}
 	
 	/*---------------------------------------------------------------END----------------------------------------------------------------------------*/
 }

@@ -313,6 +313,128 @@ $(function(){
 	
 	//------------------------------JQUERY AJAX FOR CHANGING OF CLASS SUBJECT AND TIPIC--------------------------------------------------------------
 	
+	//*******************************************CONCEPTS-MAP*************************************************************************
+			
+			$('#classSelectedConcept').change(function(){
+			
+			var classname=$(this).find(":selected").val();
+			var json={
+					"className":classname,
+			};
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+
+		
+			$.ajax({
+			  	type: "POST",
+	        	contentType: "application/json",
+	       		 url: "/loadByClassName",
+	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
+	       		 dataType: 'json',
+	       		 cache: false,
+	        	 timeout: 600000,
+	       		 success: function (data){
+	       	    var html = '';
+	            var len = data.length;
+	            html += '<option value="0">Select Subject</option>';
+	            for (var i = 0; i < len; i++) {
+	             html += '<option value="' + data[i] + '">'
+	               + data[i]
+	               + '</option>';
+	            }
+	            html += '</option>';
+	            
+	            $("#subjectConcept").prop('disabled', false);
+	            $('#subjectConcept').html(html);
+	            
+				},
+				
+				error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+				
+			});
+		
+			
+		});
+			
+		
+		
+		$('#subjectConcept').change(function(){
+			
+			var subject=$(this).find(":selected").val();
+			var classname = $("#classSelectedConcept").val();
+			var json={
+					"subject":subject,
+					"className":classname,
+					
+			};
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+		
+			$.ajax({
+			  	type: "POST",
+	        	contentType: "application/json",
+	       		 url: "/loadByClassnameAndSubject",
+	       		 data: JSON.stringify(json),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
+	       		 dataType: 'json',
+	       		 cache: false,
+	        	 timeout: 600000,
+	       		 success: function (data){
+	       	    var html = '';
+	            var len = data.length;
+	            html += '<option value="0">Select Topic</option>';
+	            for (var i = 0; i < len; i++) {
+	             html += '<option value="' + data[i] + '">'
+	               + data[i]
+	               + '</option>';
+	            }
+	            html += '</option>';
+	            
+	           
+	            $('#topicConcept').html(html);
+	            $("#topicConcept").prop('disabled', false);
+		      
+	            
+				},
+				
+				error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+				
+			});
+			
+		 
+		  
+		});
+		
+	
+		
+		
+		$('#topicConcept').change(function(){
+			
+			
+		  	$("#descriptionConceptMap").prop('disabled', false);
+		  
+		  	
+			$("#headlineConceptMap").prop('disabled', false);
+			
+			$("#conceptMapImage").prop('disabled', false);
+			
+			
+		})
+			
 	//******************************************* PHETS ******************************************************************************/
 	$('#classSelectedPhet').change(function(){
 			
@@ -1359,6 +1481,10 @@ $(function(){
 	  				$("#Answer").prop('disabled', false);
 	  				$("#Answer").prop('disabled', false);
 	  				$('.upload-submit').prop('disabled',false)
+	  				$("#descriptionConceptMap").prop('disabled', false);
+	  				$("#headlineConceptMap").prop('disabled', false);
+	  				$("#conceptMapImage").prop('disabled', false);
+	  				
   					
   				})
   				
@@ -1729,6 +1855,51 @@ $(function(){
   						
   				})
   				
+  					$("input[name='radioConcept']").change(function(){
+  					
+  					$("#enableConcept").prop('disabled', true);
+  					$("#disableConcept").prop('disabled', true);
+  					
+  					var user_id=$(this).val();
+  					var json={
+  							"concepMapid":user_id
+  					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityConcept",
+			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableConcept").prop('disabled', false);
+			       			 }else{
+			       				$("#enableConcept").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
   				/*-----------------------------------------END--------------------------------------------------------------------------*/
   				
   				/*----------------------------------------------JQUERY TO ENABLE BUTTON ON RADIO CALL--------------------------------------------*/
@@ -1742,6 +1913,7 @@ $(function(){
   						$("#deleteLesson").prop('disabled', false);
   						$("#deleteTopic").prop('disabled', false);
   						$("#deleteQuiz").prop('disabled', false);
+  						$("#deleteConcept").prop('disabled', false);
   					})
   				
   				
@@ -2265,7 +2437,75 @@ $(function(){
  						 fire_ajax_submit_VideoOnUser(); 
  					});
   			/*----------------------------------------------------------------END-------------------------------------------------------------*/
-  				
+  			 /*----------------------------------------- CALLING MODAL FOR CONCEPT-MAPS -----------------------------------------*/
+  					
+  					$(".detailConcept").click(function(){
+  	  					var user_id=$(this).attr('value');
+  	  					
+  	  					var json={
+  								"concepMapid":user_id
+  						};
+  	  					
+  	  					var token = $("meta[name='_csrf']").attr("content");
+  	  					var header = $("meta[name='_csrf_header']").attr("content");
+  	  					
+  	  					$.ajax({
+  						  	type: "POST",
+  				        	contentType: "application/json",
+  				       		 url: "/loadByConceptID",
+  				       		 data: JSON.stringify(json),
+  				       		 beforeSend: function(xhr) {
+  		                         xhr.setRequestHeader(header, token);
+  				       		 },
+  				       		 dataType: 'json',
+  				       		 cache: false,
+  				        	 timeout: 600000,
+  				       		 success: function (data){
+  				       			
+  				       			$('#conceptDesc').attr('placeholder',data[0]);
+  				       			$('#conceptHeadline').attr('value',data[1]);
+  				       		
+  							},
+  							
+  							error : function(err){
+  								console.log("not working. ERROR: "+JSON.stringify(err));
+  							}
+  							
+  						});
+  	  	
+  	  	
+  	  					$('#conceptId').prop('value',user_id);
+  	  					$('#ConceptMapModal').modal('show');
+  	  				})
+  	  				
+  	  				
+  	  			/* -------------------------------------------------------------END-----------------------------------------------------------*/
+  	  				
+  	  			/* --------------------------------------------START OF UPDATING CONCEPT--------------------------------------------------------*/
+  	  					$('#conceptImage').change(function(){
+  					
+  	  						$('#updateConcept').prop('disabled',false);
+  	  						$('#updateConceptOnUser').prop('disabled',false);
+  	  					})
+  	  				
+
+  	  				
+  	  					$('#updateConcept').click(function(){
+  	  						
+  	  						 event.preventDefault();
+  	  						
+
+  	  						 fire_ajax_submit_Concept(); 
+  	  					});
+  	  					
+  	  					$('#updateConceptOnUser').click(function(){
+  	  						
+  	 						 event.preventDefault();
+  	 						
+
+  	 						 fire_ajax_submit_ConceptOnUser(); 
+  	 					});
+  	  			/*----------------------------------------------------------------END-------------------------------------------------------------*/
   				
   				
   			// ---------------------------------------------------START TO CALL MODAL FROM ARTICLE MOPDULE----------------------------------
@@ -3265,6 +3505,236 @@ $(function(){
 			    				 $('#SuccessDocumentComment').css({"display": "block"});
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureDocumentComment').css({"display": "block"});
+			    			 }
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+  					});
+  					
+  				
+  					
+  				})
+  				
+  				/*********************************************CONCEPTS MAPS APPROVE/REJECT SECTION COMMENT SECTION ********************************/
+  				
+  					$('.commentConcept').click(function(){
+  					
+  					var Id=$(this).attr('value');
+  					
+  					var json={
+  						"concepMapid":Id	
+  					};
+  					
+  					var html='';
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					$.ajax({
+					  	type: "POST",
+					  	
+			        	contentType: "application/json",
+			       		 url: "/loadByConceptComment",
+			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			
+			       			 
+			       			 
+			       			 var len=data.length;
+			       			 for(var i=0;i<len;i++){
+			       			 
+					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
+					       			 html+='<img src="Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+					       			 html+= data[i].dateReceived;
+					       			 html+= '</p></div> <div class="col-md-10"> <p><strong>';
+					       			 html+= data[i].userName;
+					       			 html+= '</strong></p> <div class="clearfix"></div> <p>';
+					       			 html+= data[i].comment;
+					       			 html+= '</p>';
+					       			 html+= '<div class="reply" id='+data[i].comId+'><a href="javascript:void(0)" onclick="replyConcept(this)" com-id=';
+					       			 html+= data[i].comId;
+					       			 html+= '>Reply</a></div></div></div>';
+					       		
+					       			 
+					       		
+					       			 
+					       			 var jsonReply={
+					       					 "commentid":data[i].comId
+					       			 };
+					       			 
+					       			
+					       			
+					       			$.ajax({
+					       				
+									  	type: "POST",
+									  	async:false,
+							        	contentType: "application/json",
+							       		 url: "/loadReplyOnComment",
+							       		 data: JSON.stringify(jsonReply),
+							       		 beforeSend: function(xhr) {
+					                         xhr.setRequestHeader(header, token);
+							       		 },
+							       		 dataType: 'json',
+							       		 cache: false,
+							        	 timeout: 600000,
+							       		 success: function (dataReply){
+							       			 
+							       			 var lengthReply=dataReply.length;
+							       			 
+							       			 for(var j=0;j<lengthReply;j++){
+							       				        				 
+							       				 
+							       				 
+							       				 
+							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
+							       				 html+='<img src="Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+= dataReply[j].dateReceived;
+							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
+							       				 html+= dataReply[j].userName;
+							       				 html+= '</strong></p> <div class="clearfix"></div> <p>';
+								       			 html+= dataReply[j].comment;
+								       			 html+= '</p></div></div></div></div>';
+								       			 
+							       				 
+				
+							       			 }
+							       			 
+							       		 },
+							       		 error : function(err){
+											console.log("not working. ERROR: "+JSON.stringify(err));
+							       		 }
+							       		 
+					       			});
+					       			
+					       			
+					       			html+='</div></div></div></div><br/>';
+					       		
+					       
+					       		
+					       			 
+			       			 }
+			       			 
+			       		
+		       			 
+		       			$('#comDataConcept').html(html);
+		       				
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  					
+  					
+  					
+  					
+  					$('#conceptId').prop('value',Id);
+  					$('#ConceptCommentModal').modal('show');
+  					
+  					
+  					
+  					
+  					
+  					
+  				})	
+  				
+  				
+  				
+  				$('#conceptComment').change(function(){
+  					
+  					
+  					$('.commentConceptModal').prop('disabled',false);
+  					
+  				})
+  				
+  				
+  				
+  				$('.commentConceptModal,.commentConceptModalReply').click(function(){
+  					
+ 
+  					var data;
+  					
+  					if($(this).prop('name')=="reply"){
+  						
+  						if($('#conceptFrom').val()=="admin"){
+  						
+  						 data={
+  								"id":$(this).prop('id'),
+  								"comment":$('#replyCommentConcept').val(),
+  								"reply":true,
+  								"admin":true
+  						 	};
+  						}else{
+  							
+  							 data={
+  	  								"id":$(this).prop('id'),
+  	  								"comment":$('#replyCommentConcept').val(),
+  	  								"reply":true,
+  	  								"admin":false
+  	  						};
+  							
+  							
+  						}
+  						
+  					}else{
+  						
+  						if($('#conceptFrom').val()=="admin"){
+  						
+  							data={
+  								"id":$('#conceptId').val(),
+  								"comment":$('#conceptComment').val(),
+  								"reply":false,
+  								"admin":true
+  							};
+  						}else{
+  							
+  							data={
+  	  								"id":$('#conceptId').val(),
+  	  								"comment":$('#conceptComment').val(),
+  	  								"reply":false,
+  	  								"admin":false
+  	  							};
+  							
+  						}
+  						
+  					}
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/uploadCommentOnConcept",
+			       		 data: JSON.stringify(data),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data1){
+			       			 
+			       			 $('#SuccessConceptComment').css({"display": "none"}); 
+			    			 $('#FailureConceptComment').css({"display": "none"});
+			    			
+			    			 if(data1[0]==="Success"){
+			    				 $('#SuccessConceptComment').css({"display": "block"});
+			    			 }else if(data1[0]==="failure"){
+			    				 $('#FailureConceptComment').css({"display": "block"});
 			    			 }
 			       		
 						},
@@ -4381,6 +4851,66 @@ $(function(){
   			
   		})
   		
+  		/************************************************************************************************************************/
+  		
+  			$('#addConceptfromUser').click(function(){
+  			
+  			event.preventDefault();
+  			
+  			addConcept();
+  			
+  			
+  		})
+  		
+  		$('#descriptionConceptMap').change(function(){
+  			var desc=$(this).val();
+  			
+  			
+  			$("#addConceptfromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#conceptMapImage').get(0).files.length >0 && $('#headlineConceptMap').val().length>0 && $("#ConceptUserCheck").is(":checked")){
+  				$("#addConceptfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#headlineConceptMap').change(function(){
+  			var desc=$(this).val();
+  		
+  			
+  			$("#addConceptfromUser").prop('disabled', true);
+			
+  			if(desc.length>0 && $('#descriptionConceptMap').val().length>0 && $('#conceptMapImage').get(0).files.length >0 && $("#ConceptUserCheck").is(":checked")){
+  				$("#addConceptfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#conceptMapImage').change(function(){
+  			var desc=$(this).val();
+  		
+  			
+  			$("#addConceptfromUser").prop('disabled', true);
+			
+  			if($('#conceptMapImage').get(0).files.length >0 && $('#headlineConceptMap').val().length>0 && $('#descriptionConceptMap').val().length>0 && $("#ConceptUserCheck").is(":checked")){
+  				$("#addConceptfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  			$('#ConceptUserCheck').change(function(){
+  			
+  			$("#addConceptfromUser").prop('disabled', true);
+			
+  			if($('#descriptionConceptMap').val().length>0 && $('#conceptMapImage').get(0).files.length >0 && $('#headlineConceptMap').val().length>0 && $("#ConceptUserCheck").is(":checked")){
+  				$("#addConceptfromUser").prop('disabled', false);
+  			}
+  			
+  			
+  		})
   		
   		
   		/*********************************************************************************************************************/
@@ -4635,6 +5165,11 @@ $(document).ready(function () {
 	  $('.dataTables_length').addClass('bs-select');
 });
 
+$(document).ready(function () {
+	  $('#dtBasicExampleConcept').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+});
+
 /********************************************************************/
 
 
@@ -4870,6 +5405,102 @@ function fire_ajax_submit_Topic(){
 	}
 /* -------------------------------------------------------END--------------------------------------------------------------------------------------*/
 
+	
+/******************************************AJAX FUNCTION FOR CONCEPT -MAPS *********************************************/
+	
+	
+
+	function fire_ajax_submit_Concept(){
+		
+		var form=$('#uploadConcept')[0];
+		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+	
+			$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: "/updateConcept",
+				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
+				cache:false,
+				contentType:false,
+				processData:false,
+				timeout: 600000,
+				success:function(data){
+					
+					 $('#Success').css({"display": "none"}); 
+					 $('#invalid-data').css({"display": "none"}); 
+					 $('#Failure').css({"display": "none"});
+					
+					 if(data[0]==="Success"){
+						 $('#Success').css({"display": "block"});
+					 }else if(data[0]==="failure"){
+						 $('#Failure').css({"display": "block"});
+					 }else{
+						 $('#invalid-data').css({"display": "block"}); 
+					 }
+					
+				
+				},
+			
+			error : function(err){
+				console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+	
+		});
+	}
+	
+	function fire_ajax_submit_ConceptOnUser(){
+		
+		var form=$('#uploadUserConcept')[0];
+		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+	
+			$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: "/updateConcept",
+				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
+				cache:false,
+				contentType:false,
+				processData:false,
+				timeout: 600000,
+				success:function(data){
+					
+					 $('#SuccessConcept').css({"display": "none"}); 
+					 $('#invalid-dataConcept').css({"display": "none"}); 
+					 $('#FailureConcept').css({"display": "none"});
+					
+					 if(data[0]==="Success"){
+						 $('#SuccessConcept').css({"display": "block"});
+					 }else if(data[0]==="failure"){
+						 $('#FailureConcept').css({"display": "block"});
+					 }else{
+						 $('#invalid-dataConcept').css({"display": "block"}); 
+					 }
+					
+				
+				},
+			
+			error : function(err){
+				console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+	
+		});
+	}
+	
+	
+	
+/*--------------------------------------------------END---------------------------------------------------------------*
 
 /* ---------------------------------------------AJAX FUNCTION FOR ARTICLE--------------------------------------------------------------------*/
 	function fire_ajax_submit_Article(){
@@ -5508,6 +6139,61 @@ function addDocument(){
 	});
 }
 
+function addConcept(){
+	
+	var form=$('#uploadConcept')[0];
+	var data=new FormData(form);
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',
+			url: "/addConceptFromUser",
+			data:data,
+			beforeSend: function(xhr) {
+                 xhr.setRequestHeader(header, token);
+       		},
+			cache:false,
+			contentType:false,
+			processData:false,
+			timeout: 600000,
+			success:function(data){
+				 
+				$('#SuccessArticleReturnStatusConcept').css({"display": "none"}); 
+				  
+				 $('#FailureArticleReturnStatusConcept').css({"display": "none"});
+				
+				 if(data[0]==="Success"){
+					 $('#SuccessArticleReturnStatusConcept').css({"display": "block"});
+				 }else {
+					 $('#FailureArticleReturnStatusConcept').css({"display": "block"});
+				 }
+				 
+				 $('#subjectConcept').prop('disabled',true);
+				 
+				 $('#topicConcept').prop('disabled',true);
+				 
+				 $('#descriptionConceptMap').prop('disabled',true);
+				 $('#descriptionConceptMap').prop('value',"");
+				 
+				 $('#headlineConceptMap').prop('disabled',true);
+				 $('#headlineConceptMap').prop('value',"");
+				 
+				 $('#conceptMapImage').prop('disabled',true);
+				 $('#conceptMapImage').prop('value',"");
+				
+			
+			},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+			}
+
+	});
+}
+
 function addVideo(){
 	
 	var form=$('#uploadVideo')[0];
@@ -5621,7 +6307,7 @@ function replyQuiz(caller){
 	$('.commentQuizModalReply').attr('id', commentid);
 //	alert("1:"+commentid);
 //	alert("2:"+$('.commentQuizModalReply').attr('id'));
-	
+	replyConcept
 
 	$('.replyRowQuiz').insertAfter($(caller));
 	$('.replyRowQuiz').show();
@@ -5637,6 +6323,18 @@ function replyLesson(caller){
 
 	$('.replyRowLesson').insertAfter($(caller));
 	$('.replyRowLesson').show();
+}
+
+function replyConcept(caller){
+	
+	var commentid=$(caller).attr('com-id');
+	$('.commentConceptModalReply').attr('id', commentid);
+//	alert("1:"+commentid);
+//	alert("2:"+$('.commentLessonModalReply').attr('id'));
+	
+
+	$('.replyRowConcept').insertAfter($(caller));
+	$('.replyRowConcept').show();
 }
 
 

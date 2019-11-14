@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
@@ -87,6 +88,14 @@ public class CommentServiceImpl implements CommentService {
 		
 		List<Comment> com=comRepo.findAllBylesson(lesson);
 		return com;
+	}
+
+	@Override
+	public List<Comment> getCommentByConceptMap(ConceptMap conceptMap) {
+		
+		List<Comment> com=comRepo.findALlByconceptMap(conceptMap);
+		return com;
+		
 	}
 
 	

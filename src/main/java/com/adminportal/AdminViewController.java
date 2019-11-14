@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.Events;
 import com.adminportal.content.LessonPlan;
@@ -28,6 +29,7 @@ import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
 import com.adminportal.service.ArticleExternalService;
 import com.adminportal.service.ClassService;
+import com.adminportal.service.ConceptMapService;
 import com.adminportal.service.DocumentExternalService;
 import com.adminportal.service.EventService;
 import com.adminportal.service.LessonPlanService;
@@ -91,6 +93,9 @@ public class AdminViewController {
 	
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private ConceptMapService conceptService;
 	
 /*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
@@ -226,9 +231,9 @@ public class AdminViewController {
 		}else {
 		
 		List<Topic> topicList=topicService.findAll();
-		List<Subject> subjectList=subjectService.findAll();
+		
 		mv.addObject("Topic", topicList);
-		mv.addObject("Subject", subjectList);
+
 		
 		mv.setViewName("topicList");
 		}
@@ -268,9 +273,9 @@ public class AdminViewController {
 		
 		
 		List<Topic> topicList=topicService.findAll();
-		List<Subject> subjectList=subjectService.findAll();
+
 		mv.addObject("Topic", topicList);
-		mv.addObject("Subject", subjectList);
+		
 		
 		mv.setViewName("topicList");
 		return mv;
@@ -292,9 +297,9 @@ public class AdminViewController {
 		}else {
 		
 		List<VideoExternal> videoList=videoService.findAll();
-		List<Topic> topicList=topicService.findAll();
+	
 		
-		mv.addObject("Topic",topicList);
+		
 		
 		mv.addObject("Video",videoList);
 		
@@ -336,9 +341,9 @@ public class AdminViewController {
 
 		
 		List<VideoExternal> videoList=videoService.findAll();
-		List<Topic> topicList=topicService.findAll();
 		
-		mv.addObject("Topic",topicList);
+		
+	
 		
 		mv.addObject("Video",videoList);
 		
@@ -360,9 +365,9 @@ public class AdminViewController {
 		}else {
 		
 		List<ArticleExternal> articleList=articleService.findAll();
-		List<Topic> topicList=topicService.findAll();
 		
-		mv.addObject("Topic",topicList);
+		
+	
 		mv.addObject("Article",articleList);
 		
 		mv.setViewName("articleList");
@@ -400,9 +405,7 @@ public class AdminViewController {
 		}
 		
 		List<ArticleExternal> articleList=articleService.findAll();
-		List<Topic> topicList=topicService.findAll();
-		
-		mv.addObject("Topic",topicList);
+
 		mv.addObject("Article",articleList);
 		
 		mv.setViewName("articleList");
@@ -425,9 +428,7 @@ public class AdminViewController {
 		}else {
 		
 		List<DocumentExternal> documentList=documentService.findAll();
-		List<Topic> topicList=topicService.findAll();
 		
-		mv.addObject("Topic",topicList);
 		mv.addObject("Document",documentList);
 		
 		mv.setViewName("documentList");
@@ -466,9 +467,7 @@ public class AdminViewController {
 		}
 		
 		List<DocumentExternal> documentList=documentService.findAll();
-		List<Topic> topicList=topicService.findAll();
 		
-		mv.addObject("Topic",topicList);
 		mv.addObject("Document",documentList);
 		
 		mv.setViewName("documentList");
@@ -490,9 +489,7 @@ public class AdminViewController {
 		}else {
 
 		List<Phets> phetList=phetService.findAll();
-		List<Topic> topicList=topicService.findAll();
 		
-		mv.addObject("Topic",topicList);
 		mv.addObject("Phet",phetList);
 		
 		mv.setViewName("phetsList");
@@ -530,9 +527,7 @@ public class AdminViewController {
 		}
 		
 		List<Phets> phetList=phetService.findAll();
-		List<Topic> topicList=topicService.findAll();
 		
-		mv.addObject("Topic",topicList);
 		mv.addObject("Phet",phetList);
 		
 		mv.setViewName("phetsList");
@@ -554,9 +549,7 @@ public class AdminViewController {
 		}else {
 		
 		List<LessonPlan> lessonList=lessonService.findAll();
-		List<Topic> topicList=topicService.findAll();
-		
-		mv.addObject("Topic",topicList);
+	
 		mv.addObject("Lesson",lessonList);
 		mv.setViewName("lessonPlanList");
 		}
@@ -595,9 +588,7 @@ public class AdminViewController {
 		
 		List<LessonPlan> lessonList=lessonService.findAll();
 		
-		List<Topic> topicList=topicService.findAll();
-		
-		mv.addObject("Topic",topicList);
+	
 		mv.addObject("Lesson",lessonList);
 		mv.setViewName("lessonPlanList");
 		return mv;
@@ -618,9 +609,7 @@ public class AdminViewController {
 		
 		
 		List<QuizQuestion> quizList=quizService.findAll();
-		List<Topic> topicList=topicService.findAll();
 		
-		mv.addObject("Topic",topicList);
 		mv.addObject("Quiz",quizList );
 		mv.setViewName("quizList");
 		}
@@ -657,12 +646,68 @@ public class AdminViewController {
 		}
 		
 		List<QuizQuestion> quizList=quizService.findAll();
-		List<Topic> topicList=topicService.findAll();
-		
-		mv.addObject("Topic",topicList);
+	
 		
 		mv.addObject("Quiz",quizList );
 		mv.setViewName("quizList");
+		return mv;
+	}
+
+/*-------------------------------------------CONCEPT-MAP---------------------------------------*/
+	
+	@RequestMapping(value="/conceptList",method = RequestMethod.GET)
+	public ModelAndView ConceptListGet(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		
+		
+		List<ConceptMap> ConceptMapList=conceptService.findAll();
+		
+		mv.addObject("ConceptMapList",ConceptMapList );
+		mv.setViewName("concepMapList");
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="/deleteConcept",method = RequestMethod.POST)
+	public ModelAndView conceptListPost(HttpServletRequest req,@RequestParam(name="radioConcept") String conceptId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(conceptId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		ConceptMap conceptTemp=conceptService.findByid(id);
+		if(conceptTemp.getStatus()==1) {
+		 status=conceptService.EnableConceptContent(0, id);
+		 enableDisable="Disabled";
+		}else {
+			status=conceptService.EnableConceptContent(1, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Concept "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		List<ConceptMap> ConceptMapList=conceptService.findAll();
+	
+		
+		mv.addObject("ConceptMapList",ConceptMapList );
+		mv.setViewName("concepMapList");
 		return mv;
 	}
 
@@ -790,10 +835,7 @@ public class AdminViewController {
 				mv.addObject("VideoAdded",localVideo);
 			}
 			
-			
-			List<Topic> topicList=topicService.findAll();
-			
-			mv.addObject("Topic",topicList);
+		
 			
 		
 			mv.setViewName("approveRejectVideo");
@@ -839,9 +881,7 @@ public class AdminViewController {
 			}
 			
 			
-			List<Topic> topicList=topicService.findAll();
-			
-			mv.addObject("Topic",topicList);
+		
 			
 		
 			mv.setViewName("approveRejectVideo");
@@ -882,9 +922,7 @@ public class AdminViewController {
 			}
 			
 			
-			List<Topic> topicList=topicService.findAll();
-			
-			mv.addObject("Topic",topicList);
+		
 			
 		
 			mv.setViewName("approveRejectDocument");
@@ -929,9 +967,7 @@ public class AdminViewController {
 				}
 				
 				
-				List<Topic> topicList=topicService.findAll();
-				
-				mv.addObject("Topic",topicList);
+			
 				
 			
 				mv.setViewName("approveRejectDocument");
@@ -971,9 +1007,7 @@ public class AdminViewController {
 			}
 			
 			
-			List<Topic> topicList=topicService.findAll();
-			
-			mv.addObject("Topic",topicList);
+		
 			
 		
 			mv.setViewName("approveRejectArticle");
@@ -1019,9 +1053,7 @@ public class AdminViewController {
 				}
 				
 				
-				List<Topic> topicList=topicService.findAll();
-				
-				mv.addObject("Topic",topicList);
+			
 				
 			
 				mv.setViewName("approveRejectArticle");
@@ -1058,9 +1090,7 @@ public class AdminViewController {
 			}
 			
 			
-			List<Topic> topicList=topicService.findAll();
 			
-			mv.addObject("Topic",topicList);
 			
 		
 			mv.setViewName("approveRejectPhet");
@@ -1107,9 +1137,7 @@ public class AdminViewController {
 				}
 				
 				
-				List<Topic> topicList=topicService.findAll();
 				
-				mv.addObject("Topic",topicList);
 				
 			
 				mv.setViewName("approveRejectPhet");
@@ -1146,9 +1174,7 @@ public class AdminViewController {
 			}
 			
 			
-			List<Topic> topicList=topicService.findAll();
-			
-			mv.addObject("Topic",topicList);
+		
 			
 		
 			mv.setViewName("approveRejectQuiz");
@@ -1194,9 +1220,7 @@ public class AdminViewController {
 				}
 				
 				
-				List<Topic> topicList=topicService.findAll();
 				
-				mv.addObject("Topic",topicList);
 				
 			
 				mv.setViewName("approveRejectQuiz");
@@ -1234,9 +1258,7 @@ public class AdminViewController {
 			}
 			
 			
-			List<Topic> topicList=topicService.findAll();
-			
-			mv.addObject("Topic",topicList);
+		
 			
 		
 			mv.setViewName("approveRejectLesson");
@@ -1281,10 +1303,7 @@ public class AdminViewController {
 					mv.addObject("LessonAdded",localLesson);
 				}
 				
-				
-				List<Topic> topicList=topicService.findAll();
-				
-				mv.addObject("Topic",topicList);
+			
 				
 			
 				mv.setViewName("approveRejectLesson");
@@ -1294,6 +1313,82 @@ public class AdminViewController {
 		}
 	
 	
+	/*----------------------------------- APPROVE REJECT CONCEPTS-MAP ------------------------------------------------*/
+	
+	@RequestMapping(value = "/approveRejectConcept")
+	public ModelAndView conceptApprovementGet(HttpServletRequest req, ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			List<ConceptMap> localconcept=new ArrayList<ConceptMap>();
+			
+			List<ConceptMap> conceptList=conceptService.findAll();
+			for(ConceptMap a:conceptList) {
+				if(a.getStatus()==0) {
+					localconcept.add(a);
+				}
+			}
+			
+			if(localconcept.isEmpty()) {
+				
+				mv.addObject("conceptStatus","No Entries Present To Approve");
+			}else {
+				mv.addObject("Conceptadded",localconcept);
+			}
+			
+			
+		
+			mv.setViewName("approveRejectConcept");
+			
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/EnableConcept",method = RequestMethod.POST)
+	public ModelAndView enbaleConceptPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+		
+		int id=Integer.parseInt(userId);
+		boolean status;
+		
+		  status=conceptService.EnableConceptContent(1, id);
+			
+			if(status) {
+				mv.addObject("status", "Concept-Map Enabled Sucessfully");
+			}else {
+				mv.addObject("status", "Please try Again");
+			}
+		
+			HttpSession session=req.getSession(false);
+			
+			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+				mv.setViewName("redirect:/adminPortal");
+			}else {
+				List<ConceptMap> localconcept=new ArrayList<ConceptMap>();
+				
+				List<ConceptMap> conceptList=conceptService.findAll();
+				for(ConceptMap a:conceptList) {
+					if(a.getStatus()==0) {
+						localconcept.add(a);
+					}
+				}
+				
+				if(localconcept.isEmpty()) {
+					
+					mv.addObject("conceptStatus","No Entries Present To Approve");
+				}else {
+					mv.addObject("Conceptadded",localconcept);
+				}
+				
+				
+			
+				mv.setViewName("approveRejectConcept");
+			}
+			return mv;
+		}
+	/***********************************************************************************************************************/
 	
 	@RequestMapping(value = "/testimonialList",method = RequestMethod.GET)
 	public ModelAndView testimonialList(HttpServletRequest req,ModelAndView mv) {

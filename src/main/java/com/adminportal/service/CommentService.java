@@ -8,6 +8,7 @@ import javax.swing.text.Document;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
@@ -30,6 +31,8 @@ public interface CommentService {
 	List<Comment> getCommentByPhetId(Phets phet);
 	
 	List<Comment> getCommentByLessonId(LessonPlan lesson);
+	
+	List<Comment> getCommentByConceptMap(ConceptMap conceptMap);
 	
 	Comment addReplyComment(Comment comment,Set<CommentReply> commentReply);
 	

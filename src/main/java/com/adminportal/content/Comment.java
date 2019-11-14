@@ -69,6 +69,10 @@ public class Comment {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="document_id",updatable = false)
 	private DocumentExternal document;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ConceptMap_id",updatable = false)
+	private ConceptMap conceptMap;
 
 	public int getCommentid() {
 		return commentid;
@@ -169,6 +173,15 @@ public class Comment {
 		this.comment = comment;
 		this.user = user;
 		this.article = article;
+	}
+	
+	public Comment(int commentid, Timestamp dateAdded, String comment, User user, ConceptMap concept) {
+		
+		this.commentid = commentid;
+		this.dateAdded = dateAdded;
+		this.comment = comment;
+		this.user = user;
+		this.conceptMap = concept;
 	}
 
 	

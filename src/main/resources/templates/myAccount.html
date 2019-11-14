@@ -343,7 +343,154 @@
         		
       			</div>
       			
-      				<div class="tab-pane fade show" id="v-pills-Concept-map" role="tabpanel" aria-labelledby="v-pills-home-tab"> concept-map</div>
+      				<div class="tab-pane fade show" id="v-pills-Concept-map" role="tabpanel" aria-labelledby="v-pills-home-tab"> 
+      				
+      				<div class="container-fluid">
+			       		<div style="text-align:center">
+			       			<label>Upload Concept-Map</label> <hr/>
+			       			<div id="SuccessArticleReturnStatusConcept" style="display:none;color:green;font-size:18px;text-align:center">Data Uploaded Successfully</div>
+			      			 <div id="FailureArticleReturnStatusConcept" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			       		</div>
+       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
+       			<form action="" method="post" enctype="multipart/form-data" id="uploadConcept">
+       				<div class="row">
+       				<div class="col-sm-4">
+       					<select class="form-control" name="classSelected" id="classSelectedConcept" >
+       							<option>Select Class</option>
+       							<span th:each="classValue: ${classfromDatabase}">
+					  			<option><span th:text="${classValue.getClassName()}"></span></option>
+  								</span>
+						</select>
+       				
+       				</div>
+       				
+       				<div class="col-sm-4">
+       					<select class="form-control" name="subjectSelected" id="subjectConcept" path="subject" disabled>
+       						<option value="0" >Select Subject</option>
+       						<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+						  </select>
+       				
+       				</div>
+       				
+       				<div class="col-sm-4">
+       					<select class="form-control" name="topicSelected" id="topicConcept" path="topic" disabled>
+       						<option value="0" >Select Topic</option>
+       						<options items="${cities}" itemValue="id" itemLabel="name" />
+  											
+						  </select>
+       				
+       				</div>
+       				</div>
+       				<hr/>
+       				
+       			
+       				<br/>
+       				
+       				<div class="row">
+       				
+       					<div class="col-sm-2">
+       					</div>
+       				
+       					<div class="col-sm-4" >
+       							<label for="poster" class="header-right">Description</label> 
+       					</div>
+       					<div class="col-sm-4">
+       							<textarea class="form-control" placeholder="Enter Something" id="descriptionConceptMap" name="descriptionConceptMap" rows="3" required disabled></textarea>
+       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+       					</div>
+       					
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				<br/>
+       				<div class="row">
+       				
+       					<div class="col-sm-2">
+       					</div>
+       				
+       					<div class="col-sm-4" >
+       							<label for="poster" class="header-right">Headline</label> 
+       					</div>
+       					<div class="col-sm-4">
+       							<input type="text" class="form-control-file" id="headlineConceptMap" name="headlineConceptMap" required disabled/>
+       					</div>
+       					
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				
+       				<br/>
+       				
+       				
+       				<br/>
+       				
+       					<div class="row">
+       					<div class="col-sm-2">
+       					</div>
+       					<div class="col-sm-4">
+       						<label for="poster" class="header-right">Upload Image</label> 
+       					</div>
+       					<div class="col-sm-4">
+       						<input type="file" class="form-control-file" id="conceptMapImage" accept="image/*" name="conceptMapImage" required disabled/>
+       					</div>
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				
+       				<div class="row">
+       					<div class="col-sm-6">
+       					</div>
+       					<div class="col-sm-4">
+       						<div class="terms-and-condition">
+       						<input type="checkbox" class="form-check-input" id="ConceptUserCheck" required></div>
+       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
+  								<span id="agree-property">Agree to terms and conditions</span>
+							</button>
+   							 
+       						
+       					</div>
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       				
+       				<br/>
+       				
+       				<div class="row">
+       		
+       						
+       					<div class="col-sm-4">
+       					</div>
+       					
+       							
+       					<div class="col-sm-4">
+       							<button class="btn btn-primary btn-action upload-submit" type="submit" id="addConceptfromUser" disabled>Upload</button>
+       					
+       					</div>
+       					<div class="col-sm-2">
+       					</div>
+       				</div>
+       						
+       				</form>		
+       					
+       			</div>
+       					
+       		</div>
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				
+      				</div>
       				<div class="tab-pane fade show" id="v-pills-Phets" role="tabpanel" aria-labelledby="v-pills-home-tab">
       				
       						<div class="container-fluid">
@@ -1234,6 +1381,65 @@
 							
 							  </div>
 							  <div class="tab-pane fade" id="concept-map" role="tabpanel" aria-labelledby="profile-tab-md">
+							 			<div style="text-align:center">
+								       			<label>Available Concept-Map</label> <hr/>
+								       			<div class="status" th:text="${status}"></div>
+								       	</div>
+     
+   		
+      
+								      	<div class="table-responsive">
+												<table id="dtBasicExampleConcept" class="table table-striped table-sm" cellspacing="0" width="100%">
+									
+												  <thead class="">
+												    <tr>
+												      <th>#</th>
+												      <th>Remarks</th>
+												      <th>Topic Name</th>
+												      <th>Description</th>
+												      <th>Date Added</th>
+												 				 
+												      <th>Concept-Map</th>
+												      <th>Status</th>
+												      <th>Operation </th>
+												    </tr>
+												  </thead>
+										
+												  <tbody>
+												  
+												  <span th:each="concept:${ConceptOnUser}">
+												    <tr class="clickable-row">
+												      <th scope="row"><input type="radio" th:value="${concept.getConcepMapid()}" th:id="${concept.getConcepMapid()}" name="radioConcept" /></th>
+												      <td><span th:text="${concept.getRemark()}"></span></td>	
+												      <td><span th:text="${concept.getTopic().getTopicName()}"></span></td>		
+												      <td><span th:text="${concept.getDescription()}"></span></td>
+												      <td><span th:text="${concept.getDateAdded()}"></span></td>
+												     
+												 
+												      
+												      <td><a href="#" class="pop"><img id="imagesource" th:src="${concept.getUrl()}" style="width:150px;height:100px"/></a></td>
+												       <td><span th:if="${concept.getStatus()==1}"><div id="true"/></span>
+												      	  <span th:unless="${concept.getStatus()==1}"><div id="false"/></span>
+												      </td>
+												   	  
+													   <td><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br/><br/>
+											     	 <a class="btn btn-secondary commentConcept" th:value="${concept.getConcepMapid()}" id="commentConcept">Comment</a>
+												     
+												    </tr>
+												    </span>
+												   
+												</tbody>
+											
+												</table>
+											
+											</div>
+			
+		
+			
+		
+							 
+							 
+							 
 							 
 							  </div>
 							  <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="contact-tab-md">
@@ -2079,6 +2285,73 @@
 				      </div>
 			    </div>
 			  </div>
+			  
+			  
+<!-- Modal for updating the data  CONCEPT - MAP    -->
+			
+			<div class="modal fade" id="ConceptMapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUserConcept">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Concept-Map</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      
+			      <div class="modal-body">
+			      
+			      <div id="SuccessConcept" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
+			      <div id="FailureConcept" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			      <div id="invalid-dataConcept" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			     
+			      <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Headline</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="text" class="form-control-file" id="conceptHeadline" name="conceptHeadline" value=""/>
+				      			<input type="hidden" id="conceptId" name="conceptId" value="">
+				      			</div>
+				   </div>
+				   
+				      			<br/>
+				   <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Description</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<textarea class="form class" id="conceptDesc" name="conceptDesc" rows="4" cols="20" placeholder=""></textarea>
+				      			</div>
+				   </div>
+				   				<br/>
+				    <div class="row">
+				      		
+				      			<div class="col-sm-6">
+				      				<label>Concept-Maps Image</label>
+				      			</div>
+				      			<div class="col-sm-6">
+				      			<input type="file" class="form-control-file" id="conceptImage" name="conceptImage" accept="image/*"/>
+				      			</div>
+				   </div>
+				   				
+				      		
+				      		 <div class="modal-footer">
+				      		<button class="btn btn-primary" id="updateConceptOnUser" value="" disabled>Update</button>
+				     		 </div>	
+				     		     
+				    </div>
+				    </form>
+				
+				    
+				      
+				      </div>
+			    </div>
+			  </div>
+			
   	
     
  		<!-- ---------------------------------------------Comment Modal for Teacher -- ------------------------------------------------->
@@ -2396,8 +2669,82 @@
 				      </div>
 			    </div>
 		 </div>
+		 
+		 <!--  Modal for comment Section for concept map -->	
+
+		<div class="modal fade" id="ConceptCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			 
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <div class="row replyRowConcept" style="display:none">
+			      	<div class="col-md-12">
+			      		<textarea class="form-control" id="replyCommentConcept" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
+			      		<button style="float:right" class="btn btn-primary commentConceptModalReply" name="reply" >Add Reply</button>
+			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRow').hide();">Close</button>	
+			      	</div>
+			      </div>
+			      <div id="SuccessConceptComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
+			      <div id="FailureConceptComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
+				  <div id="comDataConcept"></div>
+				  <br/>
+					
+			      <div class="row">
+				      		
+				      			
+				      			<div class="col-sm-12">
+				      			<textarea class="form class" id="conceptComment" name="conceptComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+				      			<input type="hidden" id="conceptId" name="conceptId" value="">
+				      			<input type="hidden" id="quizFrom" value="user"/>
+				      			</div>
+				      			<br/>
+				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
+				      				<button class="btn blue-gradient commentConceptModal" id=commentConceptModal value="" name="comment" disabled>Submit</button>
+				      			
+				      			</div>
+				      			
+				   </div>
+				   
+				      			
+				      			   	
+				   
+				   	
+				      			
+				    </div>
+				
+				      
+				      </div>
+			    </div>
+			  </div>
   	
+  	<!-- Modal  for previewing the Concept map Images-->
   	
+			<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Image Viewer</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <img src="" id="imagepreview" style="width: 100%;" />
+			        ...
+			     
+			      <div class="modal-footer">
+			       
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			</div>
 		
 			
 			

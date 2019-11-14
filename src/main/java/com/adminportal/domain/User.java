@@ -30,6 +30,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
@@ -113,6 +114,9 @@ public class User {
 	private Set<Tutorial> tutorial=new HashSet<Tutorial>();
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<ConceptMap> conceptMap=new HashSet<ConceptMap>();
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<Comment> comment=new HashSet<Comment>();
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -161,6 +165,14 @@ public class User {
 
 	public String getLname() {
 		return lname;
+	}
+
+	public Set<ConceptMap> getConceptMap() {
+		return conceptMap;
+	}
+
+	public void setConceptMap(Set<ConceptMap> conceptMap) {
+		this.conceptMap = conceptMap;
 	}
 
 	public void setLname(String lname) {

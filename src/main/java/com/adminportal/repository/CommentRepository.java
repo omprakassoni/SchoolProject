@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Comment;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
@@ -25,5 +26,7 @@ public interface CommentRepository extends CrudRepository<Comment, Integer>{
 	List<Comment> findAllByphet(Phets phet);
 	
 	List<Comment> findAllBydocument(DocumentExternal document);
+	
+	List<Comment> findALlByconceptMap(ConceptMap conceptMap);
 
 }

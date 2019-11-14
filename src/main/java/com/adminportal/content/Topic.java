@@ -74,9 +74,20 @@ public class Topic {
 	
 	@OneToMany(mappedBy = "topic",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<Tutorial> tutorial=new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "topic",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<ConceptMap> conceptMap=new HashSet<ConceptMap>();
 
 	public int getTopicId() {
 		return topicId;
+	}
+
+	public Set<ConceptMap> getConceptMap() {
+		return conceptMap;
+	}
+
+	public void setConceptMap(Set<ConceptMap> conceptMap) {
+		this.conceptMap = conceptMap;
 	}
 
 	public void setTopicId(int topicId) {

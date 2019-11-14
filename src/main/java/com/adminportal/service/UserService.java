@@ -11,6 +11,7 @@ import java.util.Set;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
@@ -50,6 +51,8 @@ public interface UserService {
 	User addUserToPhets(User usr,Set<Phets> phet);
 	
 	User addUserToQuizQuestion(User usr,Set<QuizQuestion> quiz);
+	
+	User addUserToConceptMap(User usr,Set<ConceptMap> concept);
 	
 	User addUserToVideo(User usr,Set<VideoExternal> video);
 	

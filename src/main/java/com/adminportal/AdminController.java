@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Class;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.Events;
 import com.adminportal.content.LessonPlan;
@@ -35,6 +36,7 @@ import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
 import com.adminportal.service.ArticleExternalService;
 import com.adminportal.service.ClassService;
+import com.adminportal.service.ConceptMapService;
 import com.adminportal.service.DocumentExternalService;
 import com.adminportal.service.EventService;
 import com.adminportal.service.LessonPlanService;
@@ -91,13 +93,15 @@ public class AdminController {
 	private VideoExternalService videoService;
 	
 	@Autowired
-	private RoleDetailService roleService;
+	private ConceptMapService conceptService;
 	
 	@Autowired
 	private TestimonialService testiService;
 	
 	@Autowired
 	private EventService eventService;
+	
+	
 	
 	
 	/************************* HomePage *******************************************************/
@@ -168,7 +172,6 @@ public class AdminController {
 		
 		return mv;
 	}
-	
 	
 	
 /*------------------------------------------ADD CLASS (ADMIN MODULE)-----------------------------------------------------------------*/
@@ -1152,6 +1155,99 @@ public class AdminController {
 		return mv;
 		
 		
+	}
+	
+	
+	@RequestMapping(value = "/addConceptMap",method = RequestMethod.GET)
+	public ModelAndView addConceptMapGet(HttpServletRequest req,ModelAndView mv) {
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+
+		mv.addObject("classExist", classExist);
+		mv.setViewName("addConcpetMap");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/addConceptMap",method = RequestMethod.POST)
+	public ModelAndView addConceptMapPost(HttpServletRequest req,@RequestParam(name="conceptMapImage")MultipartFile[] conceptMapImage,ModelAndView mv) {
+		
+		String path1=null;
+		String className=req.getParameter("classSelected");
+		String subjectName=req.getParameter("subjectSelected");
+		String topicName=req.getParameter("topicSelected");
+		String desc=req.getParameter("descriptionConceptMap");
+		String remark=req.getParameter("headlineConceptMap");
+		
+		String emailToIdentifyUser;
+		
+		if(!ServiceUtility.checkFileExtensionImage(conceptMapImage)) {
+			mv.addObject("fileError", "File must be a Image File");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+
+			mv.addObject("classExist", classExist);
+			
+			mv.setViewName("addConcpetMap");
+			
+			return mv;
+			
+		}
+		
+		HttpSession session=req.getSession(false);
+		if(ServiceUtility.chechExistSessionAdmin(session)) {
+		
+		try {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+
+			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/ConceptMap/";
+			
+			path1=ServiceUtility.uploadFile(conceptMapImage, createFolder);
+			
+			int indexToStart=path1.indexOf('M');
+			String path=path1.substring(indexToStart, path1.length());
+			
+
+			Class localClass=classService.findByClassName(className);
+			Subject localSubject=subjectService.findBysubName(subjectName);
+			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+			
+
+			
+			User usr=userService.findByUsername(emailToIdentifyUser);
+			
+			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
+			conceptMapping.add(new ConceptMap(conceptService.countRow()+10, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0, remark, localTopic, usr));
+			
+			
+
+			userService.addUserToConceptMap(usr, conceptMapping);
+			mv.addObject("status", "Concept-Map Added Successfully");
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			mv.addObject("failure", "Please Try Again");
+		}
+		}else {
+			
+			mv.addObject("sessionTimeOut", "Session TimeOut");
+			
+		}
+		
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+
+		mv.addObject("classExist", classExist);
+		
+		mv.setViewName("addConcpetMap");
+		
+		
+		return mv;
 	}
 	
 	/*----------------------------------------------------------END----------------------------------------------------------------------------*/

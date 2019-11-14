@@ -114,7 +114,7 @@ public class ServiceUtility {
 	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {
 		
 		for(MultipartFile temp:imageFile) {
-			if(!temp.getOriginalFilename().endsWith(".jpg") || !temp.getOriginalFilename().endsWith("jpeg")) {
+			if(!temp.getOriginalFilename().endsWith(".jpg") && !temp.getOriginalFilename().endsWith(".jpeg")) {
 				
 				return false;
 			}

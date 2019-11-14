@@ -42,6 +42,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Class;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.Events;
 import com.adminportal.content.LessonPlan;
@@ -57,6 +58,7 @@ import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
 import com.adminportal.service.ArticleExternalService;
 import com.adminportal.service.ClassService;
+import com.adminportal.service.ConceptMapService;
 import com.adminportal.service.DocumentExternalService;
 import com.adminportal.service.EventService;
 import com.adminportal.service.LessonPlanService;
@@ -120,6 +122,9 @@ public class HomeController {
 	
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private ConceptMapService conceptMapService;
 	
 	////////////////////////
 	
@@ -210,6 +215,7 @@ public class HomeController {
 			List<LessonPlan> localLesson=lessonService.findALlByUser(localUser);
 			List<VideoExternal> localvideo=videoService.findALlByUser(localUser);
 			List<Phets> localPhets=phetService.findALlByUser(localUser);
+			List<ConceptMap> localConcept=conceptMapService.findALlByUser(localUser);
 			
 			if(localQuiz.isEmpty()) {
 				mv.addObject("QuizError", "Nothing To Show");
@@ -235,12 +241,17 @@ public class HomeController {
 				mv.addObject("PhetError", "Nothing To Show");
 			}
 			
+			if(localPhets.isEmpty()) {
+				mv.addObject("ConceptError", "Nothing To Show");
+			}
+			
 			mv.addObject("QuizOnUser", localQuiz);
 			mv.addObject("VideoOnUser", localvideo);
 			mv.addObject("ArticleOnUser", localArticle);
 			mv.addObject("DocumentOnUser", localDocument);
 			mv.addObject("LessonOnUser", localLesson);
 			mv.addObject("PhetOnUser", localPhets);
+			mv.addObject("ConceptOnUser", localConcept);
 			
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
@@ -366,6 +377,7 @@ public class HomeController {
 		List<LessonPlan> localLesson=lessonService.findAllByTopic(localTopic);
 		List<VideoExternal> localvideo=videoService.findAllByTopic(localTopic);
 		List<Phets> localPhets=phetService.findAllByTopic(localTopic);
+		List<ConceptMap> localConcept=conceptMapService.findAllByTopic(localTopic);
 		
 			
 		if(localQuiz.isEmpty()) {
@@ -392,12 +404,17 @@ public class HomeController {
 			mv.addObject("PhetError", "Nothing To Show");
 		}
 		
+		if(localConcept.isEmpty()) {
+			mv.addObject("ConceptError", "Nothing To Show");
+		}
+		
 		mv.addObject("QuizOnTopic", localQuiz);
 		mv.addObject("VideoOnTopic", localvideo);
 		mv.addObject("ArticleOnTopic", localArticle);
 		mv.addObject("DocumentOnTopic", localDocument);
 		mv.addObject("LessonOnTopic", localLesson);
 		mv.addObject("PhetOnTopic", localPhets);
+		mv.addObject("ConceptOnTopic",localConcept);
 		
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
