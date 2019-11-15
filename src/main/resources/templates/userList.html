@@ -61,8 +61,8 @@
 				      
 				       <td><span th:with="roles=${user.getUserRoles()}">
 				      	  <span th:each="role:${roles}">
-				      		<span th:if="${role.getRole().getRoleId()==2}"></span>
-				      		<span th:unless="${role.getRole().getRoleId()==2}"><a class="btn btn-secondary detailUser" th:value="${user.getId()}" id="detailUser">Details</a></span>
+				      		<span th:if="${role.getRole().getRoleId()==1}"><a class="btn btn-secondary detailUser" th:value="${user.getId()}" id="detailUser">Details</a></span>
+				      		<span th:if="${role.getRole().getRoleId()==3}"><h5><a href="#" class="pop" th:src="${user.getDocument()}">View Details</a></h5>
 				      		<br/>
 				      	  </span>
 				      	 </span>
@@ -119,9 +119,6 @@
 				      				<label>Sex</label>
 				      			</div>
 				      			<div class="row">
-				      				<label>Role</label>
-				      			</div>
-				      			<div class="row">
 				      				<label>Date of Birth</label>
 				      			</div>
 				      			<div class="row">
@@ -153,10 +150,7 @@
 				      			<input type="text" readonly class="form-control-plaintext" id="Sex" value="">
 				      				
 				      			</div>
-				      			<div class="row">
-				      			<input type="text" readonly class="form-control-plaintext" id="Role" value="">
-				      				
-				      			</div>
+				      			
 				      			<div class="row">
 				      			<input type="text" readonly class="form-control-plaintext" id="Dob" value="">
 				      				
@@ -185,67 +179,27 @@
 
 
 
-		<!-- Modal -->
-				<div class="modal fade" id="TeacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				  <div class="modal-dialog modal-lg " role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
-				      </div>
-				      <div class="modal-body">
-				      	<div class="row">
-				      		<div class="col-sm-6">
-				      			<div class="row ">
-				      				<label>First Name</label>
-				      			</div>
-				      			<div class="row">
-				      				<label>Last Name</label>
-				      			</div>
-				      			<div class="row">
-				      				<label>E-mail </label>
-				      			</div>
-				      			<div class="row">
-				      				<label>Sex</label>
-				      			</div>
-				      			<div class="row">
-				      				<label>Role</label>
-				      			</div>
-				      		
-				      		</div>
-				      		<div class="col-sm-6" style="font-size:18px">
-				      			<div class="row ">
-				      				 
-    								<input type="text" readonly class="form-control-plaintext" id="FirstName" value="">
- 									
-				      			</div>
-				      			<div class="row">
-				      			<input type="text" readonly class="form-control-plaintext" id="LastName" value="">
-				      				
-				      			</div>
-				      			<div class="row">
-				      			<input type="text" readonly class="form-control-plaintext" id="Email" value="">
-				      				
-				      			</div>
-				      			<div class="row">
-				      			<input type="text" readonly class="form-control-plaintext" id="Sex" value="">
-				      				
-				      			</div>
-				      			<div class="row">
-				      			<input type="text" readonly class="form-control-plaintext" id="Role" value="">
-				      				
-				      		</div>
-				      	</div>
-				         <hr/>
-				      </div>
-				      
-				      
-				    </div>
-				  </div>
-				</div>
-  
+		<!-- Modal  for previewing the Images-->
+			<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenterTitle">Image Viewer</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <img src="" id="imagepreview" style="width: 100%;" />
+			        ...
+			     
+			      <div class="modal-footer">
+			       
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			</div>
        
        				
        		

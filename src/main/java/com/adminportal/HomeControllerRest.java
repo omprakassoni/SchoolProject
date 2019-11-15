@@ -406,21 +406,13 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOADING USER DETIAILS----------------------------------------------------------------------*/
 	
 	@PostMapping("/loadByUser")
-	public RoleDetail loadByUser(@Valid @RequestBody User usr){
-		List<String> roleName=new ArrayList<String>();	/*--------------------------------------------------LOAD ----------------------------------------------------------------------*/
-		
+	public User loadByUser(@Valid @RequestBody User usr){
+	
 		User localUser=userService.findById(usr.getId());
-//		Set<UserRole> localUserRole=localUser.getUserRoles();
-//		
-//		
-//		for(UserRole temp:localUserRole) {
-//			roleName.add(temp.getRole().getRoleName());
-//		}
-		System.out.println(localUser);
-		RoleDetail r=new RoleDetail();	/*--------------------------------------------------LOAD ----------------------------------------------------------------------*/
-		r.setRoleId(5);
-		r.setRoleName("om");
-		return r;
+
+		localUser.setPassword("0");
+		localUser.setUserRoles(null);
+		return localUser;
 		
 	
 	}

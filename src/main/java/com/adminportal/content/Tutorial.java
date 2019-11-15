@@ -33,6 +33,9 @@ public class Tutorial {
 	@Column(nullable = false,length = 10000)
 	private String stVideoName;
 	
+	@Column(nullable = false)
+	private int status;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="topic_id")
 	private Topic topic;

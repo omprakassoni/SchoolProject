@@ -8,6 +8,52 @@ $(function(){
 		
 		
 	})
+	// REST API CALL FUNCTIONALITY FOR TUTORIAL
+	
+	
+		$('#topicTutorial').change(function(){
+			
+			$("#foss").prop('disabled', true);
+			
+			$.ajax({
+				  	 type: "GET",
+				
+		       		 url: "http://10.177.6.34:8000/api/get_fosslist/",
+		       		 dataType: 'json',
+		       		 cache: false,
+		        	 timeout: 600000,
+		       		 success: function (data){
+		       			
+			       	    var html = '';
+			            var len = data.length;
+			            html += '<option value="0">Select Foss</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + data[i].course_id + '">'
+			               + data[i].title
+			               + '</option>';
+			            }
+			            html += '</option>';
+		            
+		        	$("#foss").prop('disabled', false);
+		        	alert("vik");
+		            $('#foss').html(html);
+		         
+		            
+					},
+					
+					error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+						
+					}
+					
+					
+				});
+			
+			
+			
+			
+		})
+	
 	
 	// JQUERY AJAX CALL TO TAKE CONTACT DATA FROM USER SIDE ----------------------------------------
 	
@@ -1445,7 +1491,10 @@ $(function(){
   			            
   			            $("#subject").prop('disabled', false);
   			            $('#topic').html(html);
+  			            $('#topicTutorial').html(html);
+  			            
   			            $("#topic").prop('disabled', false);
+  			            $("#topicTutorial").prop('disabled', false);
 	  			      	$("#addtopic").prop('disabled', false);
 	  				  	$("#descriptionTopic").prop('disabled', false);
 	  					$("#posterTopic").prop('disabled', false);
@@ -1484,6 +1533,7 @@ $(function(){
 	  				$("#descriptionConceptMap").prop('disabled', false);
 	  				$("#headlineConceptMap").prop('disabled', false);
 	  				$("#conceptMapImage").prop('disabled', false);
+	  				
 	  				
   					
   				})
@@ -1943,16 +1993,17 @@ $(function(){
 			       		 cache: false,
 			        	 timeout: 600000,
 			       		 success: function (data){
-			       			 var html = '';
-			       			// var len = data.length;
 			       			 
-//			       			 for(var i=0;i<len;i++){
-//			       				 if(data[i]=="Learner" || data[i]=="Teacher"){
-////			       					 $("#detail").prop('disabled', false);
-//			       				 }
-//			       			 }
-			       			
-			       			 alert(data.roleId);
+			       		
+			       			 
+			       			$('#FirstName').attr('value',data.fname);
+		  					$('#LastName').attr('value',data.lname);
+		  					$('#Email').attr('value',data.email);
+		  					$('#Sex').attr('value',data.sex);
+		  					$('#Dob').attr('value',data.dateOfBirth);
+		  					$('#SchoolN').attr('value',data.schoolName);
+		  					$('#SchoolA').attr('value',data.schoolAddress);
+		  					$('#Pincode').attr('value',data.pincode);
 			       		
 						},
 						
@@ -1962,15 +2013,15 @@ $(function(){
 						
 					});
   					
-  					$('#FirstName').attr('value','Om Prakash');
-  					$('#LastName').attr('value','Om Prakash');
-  					$('#Email').attr('value','Om Prakash');
-  					$('#Sex').attr('value','Om Prakash');
-  					$('#Role').attr('value','Om Prakash');
-  					$('#Dob').attr('value','Om Prakash');
-  					$('#SchoolN').attr('value','Om Prakash');
-  					$('#SchoolA').attr('value','Om Prakash');
-  					$('#Pincode').attr('value','Om Prakash');
+//  					$('#FirstName').attr('value','Om Prakash');
+//  					$('#LastName').attr('value','Om Prakash');
+//  					$('#Email').attr('value','Om Prakash');
+//  					$('#Sex').attr('value','Om Prakash');
+//  					$('#Role').attr('value','Om Prakash');
+//  					$('#Dob').attr('value','Om Prakash');
+//  					$('#SchoolN').attr('value','Om Prakash');
+//  					$('#SchoolA').attr('value','Om Prakash');
+//  					$('#Pincode').attr('value','Om Prakash');
   					
   					$('#LearnerModal').modal('show');
   				})
@@ -1979,7 +2030,8 @@ $(function(){
   		/*-----------------------------------------------START OF ZOOMING UP THE PHOTO---------------------------------------------------------	*/	
   				
   				$(".pop").on("click", function() {
-  				   $('#imagepreview').attr('src', $(this).find('img').attr('src')); // here asign the image to the modal when the user click the enlarge link
+  				   $('#imagepreview').attr('src', $(this).find('img').attr('src'));
+  				   $('#imagepreview').attr('src', $(this).attr('src'));// here asign the image to the modal when the user click the enlarge link
   				   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
   				   
   				});

@@ -24,6 +24,7 @@ public interface ArticleExternalRepository extends CrudRepository<ArticleExterna
 	ArrayList<ArticleExternal> findAllBytopic(ArrayList<Topic> temp);
 	
 	List<ArticleExternal> findAllBytype(String type);
+
 	
 	@Query("from ArticleExternal U where U.topic=?1 and U.type=?2")
 	ArrayList<ArticleExternal> findAllBytopicAndType(Topic temp,String topic);
