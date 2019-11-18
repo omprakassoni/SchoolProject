@@ -23,15 +23,9 @@ public class Tutorial {
 	
 	@Column(nullable = false)
 	private int stlanguageId;
-	
-	@Column(nullable = false)
-	private String stLanguageName;
-	
+
 	@Column(nullable = false)
 	private int stVideoId;
-	
-	@Column(nullable = false,length = 10000)
-	private String stVideoName;
 	
 	@Column(nullable = false)
 	private int status;
@@ -43,6 +37,19 @@ public class Tutorial {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	public Tutorial() {}
+
+	public Tutorial(int tutorialId, int stfossId, int stlanguageId, int stVideoId, int status, Topic topic, User user) {
+		
+		this.tutorialId = tutorialId;
+		this.stfossId = stfossId;
+		this.stlanguageId = stlanguageId;
+		this.stVideoId = stVideoId;
+		this.status = status;
+		this.topic = topic;
+		this.user = user;
+	}
 
 	public int getTutorialId() {
 		return tutorialId;
@@ -85,13 +92,9 @@ public class Tutorial {
 		this.user = user;
 	}
 
-	public String getStLanguageName() {
-		return stLanguageName;
-	}
 
-	public void setStLanguageName(String stLanguageName) {
-		this.stLanguageName = stLanguageName;
-	}
+
+	
 
 	public int getStVideoId() {
 		return stVideoId;
@@ -101,13 +104,7 @@ public class Tutorial {
 		this.stVideoId = stVideoId;
 	}
 
-	public String getStVideoName() {
-		return stVideoName;
-	}
 
-	public void setStVideoName(String stVideoName) {
-		this.stVideoName = stVideoName;
-	}
 	
 	
 }

@@ -31,6 +31,7 @@ import com.adminportal.content.Subject;
 import com.adminportal.content.SubjectClassMapping;
 import com.adminportal.content.Testimonial;
 import com.adminportal.content.Topic;
+import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
@@ -47,6 +48,7 @@ import com.adminportal.service.SubjectClassService;
 import com.adminportal.service.SubjectService;
 import com.adminportal.service.TestimonialService;
 import com.adminportal.service.TopicService;
+import com.adminportal.service.TutorialService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
@@ -100,6 +102,9 @@ public class AdminController {
 	
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private TutorialService tutorialService;
 	
 	
 	
@@ -1271,6 +1276,57 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = "/addTutorial",method = RequestMethod.POST)
+	public ModelAndView addTutorialPost(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			
+			String className=req.getParameter("classSelected");
+			String subjectName=req.getParameter("subjectSelected");
+			String topicName=req.getParameter("topicSelected");
+			String [] tutorialList=req.getParameterValues("fossTutorialSelected");
+			int fossid=Integer.parseInt(req.getParameter("fossSelected"));
+			int stLanguageId=Integer.parseInt(req.getParameter("fossLanguageSelected"));
+			
+			String emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			
+			User usr=userService.findByUsername(emailToIdentifyUser);
+			
+			
+			Class localClass=classService.findByClassName(className);
+			Subject localSubject=subjectService.findBysubName(subjectName);
+			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+			
+			Set<Tutorial> tempTutorial=new HashSet<Tutorial>();
+			int tutorialCount=tutorialService.countRow();
+			tutorialCount++;
+			
+			for(int i=0;i<tutorialList.length;i++) {
+				int videoId=Integer.parseInt(tutorialList[i]);
+				tempTutorial.add(new Tutorial(tutorialCount+i, fossid, stLanguageId, videoId, 1, localTopic, usr));
+			}
+			
+			
+			userService.addUserToTutorial(usr, tempTutorial);
+			mv.addObject("status", "Tutorial Added Successfully");
+			
+		
+			
+		}
+		
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+
+		mv.addObject("classExist", classExist);
+		
+		mv.setViewName("addTutorial");
+		
+		return mv;
+	}
+	
 	
 	
 	
@@ -1387,6 +1443,8 @@ public class AdminController {
 		return mv;
 
 	}
+	
+	
 	
 
 }

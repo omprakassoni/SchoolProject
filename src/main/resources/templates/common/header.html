@@ -13,10 +13,10 @@
         <link rel="stylesheet" href="/css/style.css"/>
          <link rel="stylesheet" href="/css/all.min.css" type="text/css"/>
          <link rel="stylesheet" href="/datatables.min.css" type="text/css"/>  
+       
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         
         
-        <title> Homepage</title>
         
         
   </head>
@@ -78,7 +78,7 @@
       					</div>
       					
       					<div class="pad-extra-submit" th:unless="${session.UserNameUserSide}"> 
-                		<a href="Login">Log In</a> |  <a th:href="@{Signup}">Register</a>
+                		<a th:href="@{Login}">Log In</a> |  <a th:href="@{Signup}">Register</a>
                 		</div>
               		</div>
               		
@@ -145,6 +145,8 @@
          	<script src="/datatables.min.js"></script>  
         	
         	<script src="/js/ajaxPoperty.js"></script>
+        	
+        
         	
         
         </div>

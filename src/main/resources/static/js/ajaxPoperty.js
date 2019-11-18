@@ -1,6 +1,57 @@
 $(function(){
 	
 	
+
+	
+	/**************************** Reloading Page on closing of Modal ***********************************************/
+	
+	$('#VideoModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#SubjectModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#TopicModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#QuizModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#ArticleModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#DocumentModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#LessonPlanModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#PhetModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#TestimonialModall').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#EventModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	
+	
+	
+	
+	
+	
+	/*****************************************END *********************************************************************/
 	
 	$('#subject').change(function(){
 		
@@ -18,7 +69,7 @@ $(function(){
 			$.ajax({
 				  	 type: "GET",
 				
-		       		 url: "http://10.177.6.34:8000/api/get_fosslist/",
+		       		 url: "http://10.177.6.18:8005/api/get_schoolfosslist/",
 		       		 dataType: 'json',
 		       		 cache: false,
 		        	 timeout: 600000,
@@ -28,15 +79,115 @@ $(function(){
 			            var len = data.length;
 			            html += '<option value="0">Select Foss</option>';
 			            for (var i = 0; i < len; i++) {
-			             html += '<option value="' + data[i].course_id + '">'
-			               + data[i].title
+			             html += '<option value="' + data[i].id + '">'
+			               + data[i].foss
 			               + '</option>';
 			            }
 			            html += '</option>';
 		            
 		        	$("#foss").prop('disabled', false);
-		        	alert("vik");
+		        	
 		            $('#foss').html(html);
+		           
+		            $(".upload-submit").prop('disabled', false);
+		         
+		            
+					},
+					
+					error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+						
+					}
+					
+					
+				});
+			
+			
+			
+			
+		})
+		
+		
+		$('#foss').change(function(){
+			
+			var fossId=$(this).find(":selected").val();
+			
+			$("#fossLanguage").prop('disabled', true);
+			
+			var urlLanguage="http://10.177.6.18:8005/api/get_fosslanguage/"+fossId+"/";
+			
+			
+			$.ajax({
+				  	 type: "GET",
+				
+		       		 url: urlLanguage,
+		       		 dataType: 'json',
+		       		 cache: false,
+		        	 timeout: 600000,
+		       		 success: function (data){
+		       			
+			       	    var html = '';
+			            var len = data.length;
+			            html += '<option value="0">Select Language</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + data[i].id + '">'
+			               + data[i].name
+			               + '</option>';
+			            }
+			            html += '</option>';
+		            
+		        	$("#fossLanguage").prop('disabled', false);
+		        	
+		            $('#fossLanguage').html(html);
+		         
+		            
+					},
+					
+					error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+						
+					}
+					
+					
+				});
+			
+			
+			
+			
+		})
+		
+		$('#fossLanguage').change(function(){
+			
+			var fossLanguageId=$(this).find(":selected").val();
+			var fossId = $("#foss").val();
+			
+			$("#fossTutorial").prop('disabled', true);
+			
+			var urlFossAndLanguage="http://10.177.6.18:8005/api/get_tutorials/"+fossId+"/"+fossLanguageId+"/";
+			
+			
+			$.ajax({
+				  	 type: "GET",
+				
+		       		 url: urlFossAndLanguage,
+		       		 dataType: 'json',
+		       		 cache: false,
+		        	 timeout: 600000,
+		       		 success: function (data){
+		       			
+			       	    var html = '';
+			            var len = data.length;
+			            html += '<option value="0">Select Tutorial</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + data[i].id + '">'
+			               + data[i].tutorial_name
+			               + '</option>';
+			            }
+			            html += '</option>';
+		            
+		        	$("#fossTutorial").prop('disabled', false);
+		        	
+		            $('#fossTutorial').html(html);
 		         
 		            
 					},

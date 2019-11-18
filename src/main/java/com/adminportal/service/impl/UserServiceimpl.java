@@ -21,6 +21,7 @@ import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
+import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
@@ -219,6 +220,14 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public User addUserToConceptMap(User usr, Set<ConceptMap> concept) {
 		usr.getConceptMap().addAll(concept);
+		userRepository.save(usr);
+		return null;
+	}
+
+
+	@Override
+	public User addUserToTutorial(User usr, Set<Tutorial> tutorial) {
+		usr.getTutorial().addAll(tutorial);
 		userRepository.save(usr);
 		return null;
 	}

@@ -424,6 +424,19 @@ public class HomeController {
 	}
 	
 	
+	@RequestMapping(path = "/content/Login", method = RequestMethod.GET)
+	public ModelAndView pathtoLogin(ModelAndView mv) {
+		mv.setViewName("redirect:/Login");
+		return mv;
+	}
+	
+	@RequestMapping(path = "/content/Signup", method = RequestMethod.GET)
+	public ModelAndView pathtoRegister(ModelAndView mv) {
+		mv.setViewName("redirect:/Signup");
+		return mv;
+	}
+	
+	
 	@RequestMapping(path = "/my-mind", method = RequestMethod.GET)
 	public ModelAndView mindMapGet(ModelAndView mv) {
 		mv.setViewName("my-mind");

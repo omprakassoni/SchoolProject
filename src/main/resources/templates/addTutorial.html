@@ -1,6 +1,12 @@
 <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="common/header :: common-header">
+    <head >
+    
+    	<div th:replace="common/header :: common-header">
+    
+    	</div>
+    
+    	<title>Add Tutorial</title>
   
             
     </head>
@@ -18,7 +24,7 @@
        			
        		</div>
        			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
-       			<form th:action="@{addVideo}" method="post">
+       			<form th:action="@{addTutorial}" method="post">
        				<div class="row">
        				<div class="col-sm-4">
        					<select class="form-control" name="classSelected" id="classSelected" >
@@ -102,7 +108,7 @@
        						<label for="poster" class="header-right">Select Tutorial</label> 
        					</div>
        					<div class="col-sm-4">
-       						<select class="form-control" name="fossTutorialSelected" id="fossTutorial" disabled>
+       						<select class="form-control " name="fossTutorialSelected" id="fossTutorial" disabled  multiple>
        						<option value="0" >Select Tutorial</option>
        						<options items="${cities}" itemValue="id" itemLabel="name" />
   											
@@ -125,8 +131,13 @@
        						
        					</div>
        					<div class="col-sm-2">
-       					</div>
+       					
+						 </div>
        				</div>
+       				
+       				
+       				
+       				
        				
        				<br/>
        				

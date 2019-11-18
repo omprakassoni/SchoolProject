@@ -16,6 +16,7 @@ import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
+import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
@@ -55,6 +56,8 @@ public interface UserService {
 	User addUserToConceptMap(User usr,Set<ConceptMap> concept);
 	
 	User addUserToVideo(User usr,Set<VideoExternal> video);
+	
+	User addUserToTutorial(User usr,Set<Tutorial> tutorial);
 	
 	User addUserToComment(User usr,Set<Comment> comment);
 	
