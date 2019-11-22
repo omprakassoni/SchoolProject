@@ -99,7 +99,7 @@
         
         
         
-        <section class="section-header"  style="background: lightblue">
+        <section class="section-header"  style="background: lightblue" th:if="${Testimonial!= null}">
             <div class="container">
                 <div class="section1">
 			         <h3 class="section-title-except-contact-us">Testimonials</h3>
@@ -112,8 +112,8 @@
                     <!--Slides-->
                     <div class="carousel-inner" role="listbox">
                         <!--First slide-->
-                        
-                        <div class="carousel-item active" th:if="${Testimonial[0]}">
+                       
+                        <div class="carousel-item active" th:if="${Testimonial[0]!=null}">
                             <div class="testimonial">
                                 <!--Avatar-->
                             <!--Content-->
@@ -126,12 +126,8 @@
            
                             </div>
                     </div>
-                    <!--First slide-->
-                   
-                        
-                    <!--Second slide-->
-               
-                <div class="carousel-item" th:if="${Testimonial[1]}">
+                    
+                    <div class="carousel-item" th:if="${Testimonial[1]!=null}">
                     <div class="testimonial">
                             <!--Avatar-->
                            
@@ -150,20 +146,13 @@
                         
         <!--Third slide-->
         	
-                <div class="carousel-item" th:if="${Testimonial[2]}">
-                    <div class="testimonial">
-                    <!--Avatar-->
-                   
-            <!--Content-->
-                    <p>
-                        <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${Testimonial[2].getDescription()}"/><i class="fas fa-quote-right"></i>
-                    </p>
-                    <h4 class="font-weight-bold" th:text="${Testimonial[2].getName()}"></h4>
-                    <h6 class="font-weight-bold my-3" th:text="${Testimonial[2].getOrganization()}"></h6>
-           
-            
-                    </div>
-                </div>
+               
+       
+       	
+                        
+        <!--Third slide-->
+        	
+       
         <!--Third slide-->
       
       </div>
@@ -194,7 +183,7 @@
         
         
         <!-- Event Announcement Section  -->
-        <section class="section-header" id="Event">
+        <section class="section-header" id="Event" th:if="${Events != null}">
             <div class="container">
                 <div class="section1">
 			         <h3 class="section-title-except-contact-us">Events</h3>
@@ -202,32 +191,19 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col-sm-6 base-content" th:if="${Events}">
+                    <div class="col-sm-6 base-content" th:each="event:${Events}">
                         <div class="base-heading">
-                            <h4> <div th:text="${#calendars.day(Events[0].getDateToHappen())} "/>  <span th:text="${#calendars.monthNameShort(Events[0].getDateToHappen())} "></span></h4>
-                            <h6 th:text="${Events[0].getHeadline()}"> t</h6>
+                            <h4> <div th:text="${#calendars.day(event.getDateToHappen())} "/>  <span th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span></h4>
+                            <h6 th:text="${event.getHeadline()}"> t</h6>
                         </div>
-                          <p th:text="${Events[0].getDescription()}"> 
+                          <p th:text="${event.getDescription()}"> 
                         </p>
                         <div class="view">
                             <a href="#">View</a>
                         </div>
                     </div>
                 
-                    <div class="col-sm-6 base-content" th:if="${Events[1]}">
-                        <div class="base-heading">
-                            <h4> <div th:text="${#calendars.day(Events[1].getDateToHappen())} "/>  <span th:text="${#calendars.monthNameShort(Events[1].getDateToHappen())} "></span></h4>
-                            <h6 th:text="${Events[1].getHeadline()}"> </h6>
-                        </div>
-                          <p th:text="${Events[1].getDescription()}"> 
-                        </p>
-                        
-                          <div class="view">
-                            <a href="#">View</a>
-                        </div>
-                        
-                    </div>
-                
+          
                 
                 
                 </div>

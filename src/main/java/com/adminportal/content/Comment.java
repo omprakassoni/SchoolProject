@@ -2,6 +2,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : This is Comment Modal for capturing comment from various USer from View and subsequently persist same to database.
  */
 package com.adminportal.content;
 

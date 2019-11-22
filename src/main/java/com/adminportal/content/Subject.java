@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : Subject Modal to Store subject related infor into database.
  */
 
 package com.adminportal.content;

@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Decription	  : This is Phets Modal to store its related data to database.
  */
 
 package com.adminportal.content;
@@ -38,7 +39,7 @@ public class Phets {
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 
-	@Column(name="description",nullable = false)
+	@Column(name="description",nullable = false,length = 10000)
 	private String description;
 	
 	@Column(name="source")

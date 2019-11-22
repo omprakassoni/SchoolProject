@@ -1,6 +1,14 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description   : This is Utility class where various task is being carried out like
+ * 					1. Password Encoding using fixed set of letter
+ * 					2. operation to get Current date 
+ * 					3. operation find out days between 2 date
+ * 					4. creating folder for Storing resources.
+ * 					5. uploading file
+ * 					6. checking Session
+ *				
  */
 
 package com.spoken.Utility;
@@ -31,12 +39,12 @@ public class ServiceUtility {
 	private static final String SALT="salt";
 	private static String uploadDirectory="src/main/resources/static"+"/Media/content/";
 	
-	public static BCryptPasswordEncoder passwordEncoder() {
+	public static BCryptPasswordEncoder passwordEncoder() {										// password encoding
 		
 		return new BCryptPasswordEncoder(12,new SecureRandom(SALT.getBytes()));
 	}
 	
-	public static Timestamp getCurrentTime() {
+	public static Timestamp getCurrentTime() {								// Current Date
 		
 		Date date=new Date();
 		long t=date.getTime();
@@ -45,7 +53,7 @@ public class ServiceUtility {
 		return st;
 	}
 	
-	public static String daysDifference(Timestamp date) {
+	public static String daysDifference(Timestamp date) {						// days Difference Between 2 date(current - given)
 		
 		Timestamp presentdate=getCurrentTime();
 		long difference =Math.abs(date.getTime()-presentdate.getTime());
@@ -56,8 +64,8 @@ public class ServiceUtility {
 	}
 	
 	
-	
-	public static boolean createclassSubjectFolder(String className,String subject,String topicName) {
+	 
+	public static boolean createclassSubjectFolder(String className,String subject,String topicName) {  // creating folder for topic
 		
 		boolean status=true;
 		if(!new File(uploadDirectory+className+"_"+subject+"/"+topicName+"/").exists()) {
@@ -72,7 +80,7 @@ public class ServiceUtility {
 		return status;
 	}
 	
-	public static boolean createFolder(String path) {
+	public static boolean createFolder(String path) {					// check for existence of path
 		boolean status=false;
 		if(!new File(path).exists()) {
 			status=new File(path).mkdirs();
@@ -81,8 +89,8 @@ public class ServiceUtility {
 		
 	}
 	
-	public static String uploadFile(MultipartFile[] uploadFile,String pathToUpload) {
-		String path=null;
+	public static String uploadFile(MultipartFile[] uploadFile,String pathToUpload) {		// uploading file
+		String path=null;	
 		for(MultipartFile file:uploadFile) {
 			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
 		
@@ -100,7 +108,7 @@ public class ServiceUtility {
 	}
 	
 	
-	public static boolean checkFileExtensionPDF(MultipartFile[] pdfFile) {
+	public static boolean checkFileExtensionPDF(MultipartFile[] pdfFile) {				// validate file against PDF extension
 		
 		for(MultipartFile temp:pdfFile) {
 			if(!temp.getOriginalFilename().endsWith(".pdf")) {
@@ -111,7 +119,7 @@ public class ServiceUtility {
 	}
 	
 	
-	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {
+	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {			// validate file against Image Extension
 		
 		for(MultipartFile temp:imageFile) {
 			if(!temp.getOriginalFilename().endsWith(".jpg") && !temp.getOriginalFilename().endsWith(".jpeg")) {
@@ -122,7 +130,7 @@ public class ServiceUtility {
 		return true;
 	}
 	
-	public static boolean chechExistSessionAdmin(HttpSession session) {
+	public static boolean chechExistSessionAdmin(HttpSession session) {					// validate Exist session for admin
 		
 		boolean status=true;
 		if(session==null) {
@@ -138,7 +146,7 @@ public class ServiceUtility {
 		
 	}
 	
-	public static boolean chechExistSessionUser(HttpSession session) {
+	public static boolean chechExistSessionUser(HttpSession session) {					// validate exist session for user
 		
 		boolean status=true;
 		if(session==null) {

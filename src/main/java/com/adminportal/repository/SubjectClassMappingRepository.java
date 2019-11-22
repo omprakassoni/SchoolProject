@@ -19,12 +19,12 @@ import com.adminportal.domain.User;
 
 public interface SubjectClassMappingRepository extends CrudRepository<SubjectClassMapping, Integer>{
 	
-	List<SubjectClassMapping> findBystandard(Class tempClass);
+	List<SubjectClassMapping> findBystandard(Class tempClass);			// listing list of object based on class
 	
-	@Query("from SubjectClassMapping U where U.sub=?1 and U.standard=?2")
+	@Query("from SubjectClassMapping U where U.sub=?1 and U.standard=?2")	// list object based on class and subject
 	SubjectClassMapping findBysubAndstandard(Subject subject,Class clas);
 
-	@Query("from SubjectClassMapping U where U.sub=?1")
+	@Query("from SubjectClassMapping U where U.sub=?1")			
 	void deleteBysub(Subject sub);
 	
 	ArrayList<SubjectClassMapping> findBysub(Subject sub);

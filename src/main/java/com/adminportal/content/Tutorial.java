@@ -1,3 +1,8 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description	  : Representation of Tutorial from spoken tutorial website.
+ */
 package com.adminportal.content;
 
 import javax.persistence.Column;
@@ -95,6 +100,30 @@ public class Tutorial {
 
 
 	
+
+	public int getStfossId() {
+		return stfossId;
+	}
+
+	public void setStfossId(int stfossId) {
+		this.stfossId = stfossId;
+	}
+
+	public int getStlanguageId() {
+		return stlanguageId;
+	}
+
+	public void setStlanguageId(int stlanguageId) {
+		this.stlanguageId = stlanguageId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 	public int getStVideoId() {
 		return stVideoId;

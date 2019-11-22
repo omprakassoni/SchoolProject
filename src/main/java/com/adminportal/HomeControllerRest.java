@@ -55,6 +55,7 @@ import com.adminportal.content.Subject;
 import com.adminportal.content.SubjectClassMapping;
 import com.adminportal.content.Testimonial;
 import com.adminportal.content.Topic;
+import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
@@ -78,6 +79,7 @@ import com.adminportal.service.SubjectClassService;
 import com.adminportal.service.SubjectService;
 import com.adminportal.service.TestimonialService;
 import com.adminportal.service.TopicService;
+import com.adminportal.service.TutorialService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.CommentAjaxQueryResolver;
@@ -147,6 +149,9 @@ public class HomeControllerRest {
 	
 	@Autowired
 	private ConceptMapService concepMapService;
+	
+	@Autowired
+	private TutorialService tutorialService;
 	
 	/*--------------------------------------TAKING CONTACT FORM DATA FROM INDEX PAGE ------------------------------------------------------*/
 	@PostMapping("/addContactForm")
@@ -512,6 +517,16 @@ public class HomeControllerRest {
 		
 		return data;
 	}
+	
+	@PostMapping("/loadByValidityTutorial")
+	public List<Integer> loadByValidityTutorial(@Valid @RequestBody Tutorial tutorial){
+		List<Integer> data=new ArrayList<Integer>();
+		
+		Tutorial local=tutorialService.getById(tutorial.getTutorialId());
+		data.add(local.getStatus());
+		
+		return data;
+	}
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------LOAD BY SUBJECT----------------------------------------------------------------------*/
@@ -793,6 +808,11 @@ public class HomeControllerRest {
 		
 	
 		Topic temptopic=topicService.findById(Integer.parseInt(TopicID));
+		
+		if(!ServiceUtility.checkFileExtensionImage(uploadfiles)) {
+			msg.add("invalid-data'");
+			return msg;
+		}
 
 		
 		if(!(desc.length()>0)) {
@@ -847,6 +867,17 @@ public class HomeControllerRest {
 	@PostMapping("/updateQuiz")
 	public @ResponseBody List<String> updateQuiz(@RequestParam("question") MultipartFile[] uploadQuestion, @RequestParam("answer") MultipartFile[] uploadAnswer, @RequestParam("quizId") String quizID){
 		List<String> msg=new ArrayList<String>();
+		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadAnswer)) {
+			msg.add("invalid-data");
+			return msg;
+		}
+		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+			msg.add("invalid-data");
+			return msg;
+		}
+		
 		
 		QuizQuestion tempQuiz=quizService.findById(Integer.parseInt(quizID));
 		
@@ -909,6 +940,11 @@ public class HomeControllerRest {
 	public @ResponseBody List<String> updateDocument(@RequestParam("document") MultipartFile[] uploadQuestion,@RequestParam("documentsource") String dSource,@RequestParam("documentId") String documentId,@RequestParam("documentDesc") String desc){
 		List<String> msg=new ArrayList<String>();
 		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+			msg.add("invalid-data");
+			return msg;
+		}
+		
 		DocumentExternal docuTemp=docuService.findByid(Integer.parseInt(documentId));
 		
 		String previousPath=deleteDirectory+docuTemp.getUrl();
@@ -970,6 +1006,11 @@ public class HomeControllerRest {
 	@PostMapping("/updateConcept")
 	public @ResponseBody List<String> updateConcept(@RequestParam("conceptImage") MultipartFile[] conceptImage,@RequestParam("conceptDesc") String desc,@RequestParam("conceptId") String conceptId,@RequestParam("conceptHeadline") String remark){
 		List<String> msg=new ArrayList<String>();
+		
+		if(!ServiceUtility.checkFileExtensionImage(conceptImage)) {
+			msg.add("invalid-data");
+			return msg;
+		}
 		
 		ConceptMap conceptTemp=concepMapService.findByid(Integer.parseInt(conceptId));
 		
@@ -1146,6 +1187,11 @@ public class HomeControllerRest {
 	@PostMapping("/updateLesson")
 	public @ResponseBody List<String> updateLesson(@RequestParam("lessonPlan") MultipartFile[] uploadLessonPlan,@RequestParam("lessonId") String documentId){
 		List<String> msg=new ArrayList<String>();
+		
+		if(!ServiceUtility.checkFileExtensionPDF(uploadLessonPlan)) {
+			msg.add("invalid-data");
+			return msg;
+		}
 		
 		LessonPlan lessonTemp=lessonService.findById(Integer.parseInt(documentId));
 		

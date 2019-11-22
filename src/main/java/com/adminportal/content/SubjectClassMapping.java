@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : This modal is representation of many-many relation among Class and subject.
  */
 
 package com.adminportal.content;

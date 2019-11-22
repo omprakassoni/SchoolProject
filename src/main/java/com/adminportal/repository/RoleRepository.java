@@ -12,6 +12,6 @@ import com.adminportal.domain.RoleDetail;
 
 public interface RoleRepository extends CrudRepository<RoleDetail, Integer> {
 	
-	RoleDetail findByroleName(String name);
-
+	RoleDetail findByroleName(String name);  // fetching role based on rolename
+ 
 }

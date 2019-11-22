@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : Service class for Lesson interacting with its repository for database operation
  */
 
 package com.adminportal.service;

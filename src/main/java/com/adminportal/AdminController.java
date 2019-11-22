@@ -1,3 +1,12 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description   : This Class is a Controller Class(All request related to admin task like adding resources into an App.)
+ * 					All Admin related Url for adding resources will get called into this layer.
+ * 					This can be considered as middleware ie, create a link among view and modal.
+ */
+
+
 package com.adminportal;
 
 import java.sql.Date;
@@ -22,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Class;
 import com.adminportal.content.ConceptMap;
+import com.adminportal.content.ContactForm;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.Events;
 import com.adminportal.content.LessonPlan;
@@ -38,6 +48,7 @@ import com.adminportal.domain.UserRole;
 import com.adminportal.service.ArticleExternalService;
 import com.adminportal.service.ClassService;
 import com.adminportal.service.ConceptMapService;
+import com.adminportal.service.ContactFormService;
 import com.adminportal.service.DocumentExternalService;
 import com.adminportal.service.EventService;
 import com.adminportal.service.LessonPlanService;
@@ -53,12 +64,18 @@ import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
 
+/* Annotation used to declare class to accept url passed from view  */
 @Controller
+
+/* these are the Session variable to be used under session management  */
 @SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})
+
 public class AdminController {
 	
-	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";
-	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";
+	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";  /* path to which content will get stored */
+	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/"; /* path to which teachers document will get stored */
+	
+	/* Dependency Injection via creating reference to service class */
 	
 	@Autowired
 	private ClassService classService;
@@ -69,7 +86,6 @@ public class AdminController {
 	@Autowired
 	private  SubjectService subjectService;
 	
-
 	@Autowired
 	private TopicService topicService;
 	
@@ -106,59 +122,69 @@ public class AdminController {
 	@Autowired
 	private TutorialService tutorialService;
 	
+	@Autowired
+	private ContactFormService contactService;
 	
 	
 	
-	/************************* HomePage *******************************************************/
+	
+	/* url to redirect page to homepage of Admin Module */
 	
 	@RequestMapping(value = "/home",method = RequestMethod.GET)
 	public ModelAndView adminHomeGet(HttpServletRequest req,ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		
+		HttpSession session=req.getSession(false);  // checking the last alive session
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {     // checking for admin alive session
 			
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/adminPortal");    // if no admin session is active--- redirect to login page.
 		}else {
 						
-			mv.setViewName("home");
+			mv.setViewName("home");   // if admin session alive the, redirect to homepage.
 			
 		}
 		return mv;
 	}
 	
+	// Authentication Process under the admin module 
+	// only admin role access user can access adminn module.
+	
 	@RequestMapping(value = "/home",method = RequestMethod.POST)
 	public ModelAndView adminHomepost(HttpServletRequest req,ModelAndView mv) {
 		
-		String username=req.getParameter("username");
-		String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
+		String username=req.getParameter("username");   // geeting username from the view
+		String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));  // encoding password entered by User.
 		boolean status=false;
 		
-		User usr=(User) userService.existsByUser(username, password);
+		User usr=(User) userService.existsByUser(username, password);   // check for user existence in database
 		if(usr!=null) {
 			List<UserRole> local=(List<UserRole>) usr.getUserRoles();
 			for(UserRole role:local) {
-				if(role.getRole().getRoleName().contentEquals("Admin")) {
+				if(role.getRole().getRoleName().contentEquals("Admin")) {  // checking for admin role in user 
 					status=true;
 				}
 			}
 			
 			if(status) {
 				HttpSession session=req.getSession();
-				session.setAttribute("UserLogedAdmin", usr.getEmail());
+				session.setAttribute("UserLogedAdmin", usr.getEmail());  // Setting session variable for session management.
 				session.setAttribute("UserNameAdmin", usr.getFname());
 				
-				mv.setViewName("home");
+				usr.setLastLogin(ServiceUtility.getCurrentTime());
+				userService.save(usr);
+				
+				mv.setViewName("home");                         // redirecting to Homepage
 				
 			}else {
-				mv.setViewName("adminLoginPage");
+				mv.setViewName("adminLoginPage");              // redirecting to login page if anything goes wrong.
 				
 			}
 			
 		
 			
 		}else {
-			mv.addObject("Error", "Login Credentials are Incorrect");
+			mv.addObject("Error", "Login Credentials are Incorrect");  // Setting error Status for View.
 			mv.setViewName("adminLoginPage");
-			System.out.println("vikash");
+
 			
 		}
 		
@@ -168,7 +194,7 @@ public class AdminController {
 		
 	}
 	
-	/************** admin Portal from User Side Entry *****************************************/
+	// Entry to Admin Module from User side Under the MyAccount Section.
 	
 	@RequestMapping(value = "/adminPathUi", method = RequestMethod.GET)
 	public ModelAndView adminPortalFromUI(HttpServletRequest req,ModelAndView mv) {
@@ -181,17 +207,18 @@ public class AdminController {
 	
 /*------------------------------------------ADD CLASS (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	// method to redirect addClass View 
 	
 	@RequestMapping(value="/addClass", method = RequestMethod.GET)
 	public ModelAndView addClassget(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);                             // checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {                  // checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();   // fetching Class Tuple list
 		
 		ArrayList<String> newNonExistClass=new ArrayList<String>();
 		newNonExistClass.add("Class 1");
@@ -209,12 +236,12 @@ public class AdminController {
 		
 
 		
-		for(Class s:standard) {
+		for(Class s:standard) {												 // Validating each class tuple against its non availability in database(Class)
 			if(newNonExistClass.contains(s.getClassName()))
 				newNonExistClass.remove(s.getClassName());
 		}
 
-		mv.addObject("classExist", newNonExistClass);
+		mv.addObject("classExist", newNonExistClass);						// Setting view Variable to available class not included in database till now.
 		mv.setViewName("addClass");
 		}
 		
@@ -222,21 +249,23 @@ public class AdminController {
 	}
 	
 	
+	// method to add Class entry into database
+	
 	@RequestMapping(value="/addClass", method = RequestMethod.POST)
 	public ModelAndView addClassPost(HttpServletRequest req,@RequestParam(name="classSelected") String classSelected , ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);									// checking the last alive session
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
 			mv.addObject("sessionTimeOut", "Session TimeOut");
 			
 		}else {
-			Class tempClass=new Class();
+			Class tempClass=new Class();											// creating object of class modal to add entry into database.
 			tempClass.setClassName(classSelected);
-			classService.save(tempClass);
-			mv.addObject("status", "Added Successfully");
+			classService.save(tempClass);											// pushing data into database 
+			mv.addObject("status", "Added Successfully");                           // setting a status message for View
 		}
 			
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();        // fetching Class Tuple list
 		
 		ArrayList<String> newNonExistClass=new ArrayList<String>();
 		newNonExistClass.add("Class 1");
@@ -252,15 +281,15 @@ public class AdminController {
 		newNonExistClass.add("Class 11");
 		newNonExistClass.add("Class 12");
 		
-		for(Class s:standard) {
+		for(Class s:standard) {														// Validating each class tuple against its non availability in database(Class)
 			if(newNonExistClass.contains(s.getClassName()))
 				newNonExistClass.remove(s.getClassName());
 
 		}
 
-		mv.addObject("classExist", newNonExistClass);
+		mv.addObject("classExist", newNonExistClass);								// Setting view Variable to available class not included in database till now.
 		
-		mv.setViewName("addClass");
+		mv.setViewName("addClass");													// returns to addClass View
 		
 		
 		return mv;
@@ -271,36 +300,40 @@ public class AdminController {
 	
 	/*------------------------------------------ADD ARTICLE (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	// method to redirect addArticle View 
 	
 	@RequestMapping(value="/addArticle",method = RequestMethod.GET)
 	public ModelAndView addArtcileGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);										// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addArticle");
+		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
+		mv.setViewName("addArticle");													// setting view name
 		
 		}
 		return mv;
 	}
 	
+	
+	// method to add Article entry into database
+	
 	@RequestMapping(value="/addArticle",method = RequestMethod.POST)
 	public ModelAndView addArtcilePost(HttpServletRequest req,ModelAndView mv) {
 		
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");					// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		String desc=req.getParameter("description");
 		String url=req.getParameter("url");
 		String source=req.getParameter("source");
 		
-		if(!url.startsWith("http")) {
+		if(!url.startsWith("http")) {												// validation against proper Url given against artcile file.
 			
 			mv.addObject("fileError","Path specified isn't correct");
 			
@@ -317,32 +350,32 @@ public class AdminController {
 		
 		String emailToIdentifyUser;
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);											// checking the last alive session
 		
-		if(ServiceUtility.chechExistSessionAdmin(session)) {
+		if(ServiceUtility.chechExistSessionAdmin(session)) {								// checking for admin alive session
 		
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");			// fetching e-mail of user logged in.
 			
-			Class localClass=classService.findByClassName(className);
-			Subject localSubject=subjectService.findBysubName(subjectName);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+			Class localClass=classService.findByClassName(className);									// fetching class tuple based on given data
+			Subject localSubject=subjectService.findBysubName(subjectName);								// fetching Subject tuple based on given data
+			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);			// fetching Subject Class mapping tuple based on class and subject
+			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);					// fetching topic tuple based on given data subject class mapping.
 			
 			
 			
-			User usr=userService.findByUsername(emailToIdentifyUser);
+			User usr=userService.findByUsername(emailToIdentifyUser);						// logged in user details.
 			Set<ArticleExternal> articlemapping=new HashSet<ArticleExternal>();
 			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,  ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 
 
-			userService.addUserToArticle(usr, articlemapping);
-			mv.addObject("status", "Added Sucessfully");
+			userService.addUserToArticle(usr, articlemapping);								// saving the article information into database.
+			mv.addObject("status", "Added Sucessfully");									// setting status for view(success)
 		} catch (Exception e) {
 			
 			e.printStackTrace();
-			mv.addObject("failure", "Please try Again Later");
+			mv.addObject("failure", "Please try Again Later");								// setting status for view(failure)
 			
 		}
 		}else {
@@ -353,11 +386,11 @@ public class AdminController {
 		
 		
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();				// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);												// setting variable for view for displaying purpose
 
-		mv.setViewName("addArticle");
+		mv.setViewName("addArticle");														// setting view name
 		
 		
 		return mv;
@@ -368,30 +401,34 @@ public class AdminController {
 	
 	/*------------------------------------------ADD DOCUMENT (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	// method to redirect addDocument View 
+	
 	@RequestMapping(value="/addDocument",method = RequestMethod.GET)
 	public ModelAndView addDocumentGet(HttpServletRequest req,ModelAndView mv) {
 		
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);								// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 			
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addDocument");
+		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
+		mv.setViewName("addDocument");											// setting view name
 		}
 		return mv;
 		
 	}
 	
+	
+	// method to add Document into database
 	@RequestMapping(value="/addDocument",method = RequestMethod.POST)
 	public ModelAndView addDocumentPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] document,ModelAndView mv) {
 		
 		String path1=null;
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");						// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		String desc=req.getParameter("description");
@@ -399,47 +436,47 @@ public class AdminController {
 		
 		String emailToIdentifyUser;
 		
-		if(!ServiceUtility.checkFileExtensionPDF(document)) {
+		if(!ServiceUtility.checkFileExtensionPDF(document)) {                 	// validation against PDF document 
 			mv.addObject("fileError", "File must be a PDF File");
 			
-			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
-			mv.addObject("classExist", classExist);
+			mv.addObject("classExist", classExist);								// setting variable for view for displaying purpose
 			
-			mv.setViewName("addDocument");
+			mv.setViewName("addDocument");										// setting view name
 			
 			return mv;
 			
 		}
 		
-		HttpSession session=req.getSession(false);
-		if(ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);									// checking the last alive session
+		if(ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
 		
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");						// fetching e-mail of user logged in.
 
-			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Document/";
+			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Document/";	// PATH TO SAVE DOCUMENT UNDER TOPIC
 			
-			path1=ServiceUtility.uploadFile(document, createFolder);
+			path1=ServiceUtility.uploadFile(document, createFolder);									// 	upload file to path mentioned
 			
-			int indexToStart=path1.indexOf('M');
+			int indexToStart=path1.indexOf('M');														// extracting path starting from MEDIA to save in database
 			String path=path1.substring(indexToStart, path1.length());
 			
 
-			Class localClass=classService.findByClassName(className);
-			Subject localSubject=subjectService.findBysubName(subjectName);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+			Class localClass=classService.findByClassName(className);									// retrieving class modal
+			Subject localSubject=subjectService.findBysubName(subjectName);								// retrieving subject modal
+			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject); // retrieving subject class mapping from class and subject
+			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);			// retrieving topic from sucject class mapping
 			
 
 			
-			User usr=userService.findByUsername(emailToIdentifyUser);
+			User usr=userService.findByUsername(emailToIdentifyUser);						// retrieving the logged USer
 			
 			Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
 			documentMapping.add(new DocumentExternal(documentService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
 
 
-			userService.addUserToDocument(usr, documentMapping);
+			userService.addUserToDocument(usr, documentMapping);					// saving document data into database.		
 			mv.addObject("status", "Document Added Successfully");
 			
 		} catch (Exception e) {
@@ -453,11 +490,11 @@ public class AdminController {
 			
 		}
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		
-		mv.setViewName("addDocument");
+		mv.setViewName("addDocument");													// setting view name
 		
 		
 		return mv;
@@ -468,80 +505,82 @@ public class AdminController {
 	
 	/*------------------------------------------ADD LESSON PLAN (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	// method to redirect addLessonPlan View 
 	@RequestMapping(value="/addLessonPlan",method = RequestMethod.GET)
 	public ModelAndView addLessonPlanGet(HttpServletRequest req,ModelAndView mv) {
 		
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);									// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
-
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addLessonPlan");
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+		
+		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		mv.setViewName("addLessonPlan");											// setting view name
 		}
 		return mv;
 		
 	}
 	
+	// method to add Lesson Plan into database
 	@RequestMapping(value="/addLessonPlan",method = RequestMethod.POST)
 	public ModelAndView addLessonPlanPost(HttpServletRequest req,@RequestParam(name="lesson") MultipartFile[] lesson,ModelAndView mv) {
 		
 		String path1=null;
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");						// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		
 		
 		String emailToIdentifyUser;
 		
-		if(!ServiceUtility.checkFileExtensionPDF(lesson)) {
+		if(!ServiceUtility.checkFileExtensionPDF(lesson)) {							// validation against PDF document 
 			
 			mv.addObject("fileError", "Please Select PDF file");
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 
-			mv.addObject("classExist", classExist);
+			mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
 			
-			mv.setViewName("addLessonPlan");
+			mv.setViewName("addLessonPlan");											// setting view name
 			return mv;
 			
 		}
 		
-		HttpSession session=req.getSession(false);
-		if(ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);									// checking the last alive session
+		if(ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
 		
 		
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");   
 			
 
-			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Lessonplan/";
+			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Lessonplan/";  // path to store lesson Plan
 			
-			path1=ServiceUtility.uploadFile(lesson, createFolder);
+			path1=ServiceUtility.uploadFile(lesson, createFolder);					// uploading lesson plan to path given
 			
-			int indexToStart=path1.indexOf('M');
+			int indexToStart=path1.indexOf('M');									// extract path starting from MEDIA to persist .
 			String path=path1.substring(indexToStart, path1.length());
 			
 			
 			
 
-			Class localClass=classService.findByClassName(className);
+			Class localClass=classService.findByClassName(className);						
 			Subject localSubject=subjectService.findBysubName(subjectName);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
 			
 
 			
-			User usr=userService.findByUsername(emailToIdentifyUser);
+			User usr=userService.findByUsername(emailToIdentifyUser);				// retrive logged in user
 			
 			Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
 			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 			
-			userService.addUserToLessonplan(usr, lessonMapping);
+			userService.addUserToLessonplan(usr, lessonMapping);					// saving lessonPaln data
 			mv.addObject("status", "Added Sucessfully");
 			
 		} catch (Exception e) {
@@ -557,16 +596,16 @@ public class AdminController {
 		
 		
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		
 		
-		mv.addObject("lessonStatus", "Added Sucessfully");
+		mv.addObject("lessonStatus", "Added Sucessfully");							
 		
 			
-		mv.setViewName("addLessonPlan");
-		
+		mv.setViewName("addLessonPlan");												// setting view name
+			
 		
 	
 		return mv;
@@ -578,29 +617,31 @@ public class AdminController {
 	
 	/*------------------------------------------ADD PHET (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	// method to redirect addPhets View 
 	@RequestMapping(value="/addPhets",method = RequestMethod.GET)
 	public ModelAndView addPhetsGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);								// checking the last alive session
+			
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addPhets");
+		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
+		mv.setViewName("addPhets");												// setting view name
 		}
 		return mv;
 	
 	}
 	
+	// method to add Phets into database
 	@RequestMapping(value="/addPhets",method = RequestMethod.POST)
 	public ModelAndView addPhetsPost(HttpServletRequest req,ModelAndView mv) {
 		
 
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");						// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		String desc=req.getParameter("description");
@@ -611,10 +652,10 @@ public class AdminController {
 		
 		String emailToIdentifyUser;
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);							// checking the last alive session
 		
 		
-			if(phet.length()>0) {
+			if(phet.length()>0) {											// checking out whether phet link proper or not
 			
 			if(!phet.startsWith("<iframe")) {
 				
@@ -659,7 +700,7 @@ public class AdminController {
 		}
 			
 			
-			if(ServiceUtility.chechExistSessionAdmin(session)) {
+			if(ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
 		
 				try {
 			
@@ -671,14 +712,14 @@ public class AdminController {
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
 			
 			
-			User usr=userService.findByUsername(emailToIdentifyUser);
+			User usr=userService.findByUsername(emailToIdentifyUser);				// retrive Logged In User
 			
 			
 			Set<Phets> phetMapping=new HashSet<Phets>();
 			phetMapping.add(new Phets(phetService.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
 
 			
-			userService.addUserToPhets(usr, phetMapping);
+			userService.addUserToPhets(usr, phetMapping);							// persist Phet data 
 			mv.addObject("status", "Added Sucessfully");
 			
 			
@@ -698,11 +739,11 @@ public class AdminController {
 		
 		
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		
-		mv.setViewName("addPhets");
+		mv.setViewName("addPhets");														// setting view name
 		
 		
 		
@@ -715,13 +756,13 @@ public class AdminController {
 	
 	/*------------------------------------------ADD TOPIC (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	
+	// method to add Topic into database
 	@RequestMapping(value="/addTopic",method=RequestMethod.POST)
 	public ModelAndView addTopicPost(@RequestParam("posterQ") MultipartFile[] poster,HttpServletRequest req,ModelAndView mv) throws Exception {
 		
 		String path1=null;
 		String uploadDirectoryPoster=null;
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");							// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topic");
 		String topicDesc=req.getParameter("descriptionQ");
@@ -729,7 +770,7 @@ public class AdminController {
 		System.out.println(poster);
 		
 		
-		if(!ServiceUtility.checkFileExtensionImage(poster)) {
+		if(!ServiceUtility.checkFileExtensionImage(poster)) {						// validating Image file of given data
 			
 			mv.addObject("fileError", "Invalid File Extension");
 			
@@ -747,13 +788,13 @@ public class AdminController {
 			
 
 			
-			uploadDirectoryPoster=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/";
+			uploadDirectoryPoster=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/"; // path to upload Quiz File
 			System.out.println(uploadDirectoryPoster);
 				
 			path1=ServiceUtility.uploadFile(poster, uploadDirectoryPoster);
 				
 	
-			int indexToStart=path1.indexOf('M');
+			int indexToStart=path1.indexOf('M');						// extract path starting from MEDIA to persist .
 			String path=path1.substring(indexToStart, path1.length());
 			
 			Class localClass=classService.findByClassName(className);
@@ -783,28 +824,28 @@ public class AdminController {
 		
 		
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 		
 		
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		mv.setViewName("addTopic");
 		return mv;
 	}
 	
-	
+	// redirect to addTopic View
 	@RequestMapping(value="/addTopic",method=RequestMethod.GET)
 	public ModelAndView addTopicGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);								// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addTopic");
+		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
+		mv.setViewName("addTopic");												// setting view name
 		}
 		return mv;
 	}
@@ -815,18 +856,19 @@ public class AdminController {
 	/*------------------------------------------ADD SUBJECT (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	
+	// method to redirect addSubject View 
 	@RequestMapping(value="/addSubject", method=RequestMethod.GET)
 	public ModelAndView addSubjectGet(HttpServletRequest req,ModelAndView mv) {
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);						// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
 		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
-		ArrayList<String> newNonExistSubject =new ArrayList<String>();
+		ArrayList<String> newNonExistSubject =new ArrayList<String>();	
 		
 		newNonExistSubject.add("Maths");
 		newNonExistSubject.add("Science");
@@ -844,11 +886,13 @@ public class AdminController {
 		mv.addObject("classExist",classExist);
 		
 		
-		mv.setViewName("addSubject");
+		mv.setViewName("addSubject");										// setting view name
 		}
 		return mv;
 	}
 	
+	
+	// method to add Subject into database
 	@RequestMapping(value="/addSubject", method=RequestMethod.POST)
 	public ModelAndView addSubjectPost(@RequestParam(name="SelectedSubject") String selectedSubject,@RequestParam(name="SelectedClasses") List<String> selectedClasses,ModelAndView mv) throws Exception {
 			
@@ -867,7 +911,7 @@ public class AdminController {
 		
 		
 		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
 		ArrayList<String> newNonExistSubject =new ArrayList<String>();
 		
@@ -878,17 +922,17 @@ public class AdminController {
 		newNonExistSubject.add("Chemistry");
 		newNonExistSubject.add("English");
 		
-		for(Subject sub:subject) {
+		for(Subject sub:subject) {													// checking for the entries which doesn't part of database entries.
 			if(newNonExistSubject.contains(sub.getSubName()))
 				newNonExistSubject.remove(sub.getSubName());
 		}
 		
 		mv.addObject("subjectExist",newNonExistSubject);
-		mv.addObject("classExist",classExist);
-		mv.addObject("status", "Added Sucessfully");
+		mv.addObject("classExist",classExist);										// setting variable for view for displaying purpose
+		mv.addObject("status", "Added Sucessfully");								
 		
 		
-		mv.setViewName("addSubject");
+		mv.setViewName("addSubject");												// setting view name
 		return mv;
 	}
 	
@@ -896,30 +940,31 @@ public class AdminController {
 	
 	/*------------------------------------------ADD VIDEO (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	
+	// method to redirect addVideo View 
 	@RequestMapping(value="/addVideo",method = RequestMethod.GET)
 	public ModelAndView addVideoGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);					// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {		// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addVideo");
+		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
+		mv.setViewName("addVideo");												// setting view name
 		}
 		return mv;
 		
 	}
 	
+	// method to add Video into database
 	@RequestMapping(value="/addVideo",method = RequestMethod.POST)
 	public ModelAndView addVideoGetPost(HttpServletRequest req,ModelAndView mv) {
 		
 		
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");						// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		String desc=req.getParameter("description");
@@ -928,7 +973,7 @@ public class AdminController {
 		String videourl=null;
 	
 		
-		if(url.length()>0) {
+		if(url.length()>0) {													// check for proper Video Url 
 			
 			if(!url.startsWith("<iframe")) {
 				
@@ -963,9 +1008,9 @@ public class AdminController {
 		String emailToIdentifyUser;
 		
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);							// checking the last alive session
 		
-		if(ServiceUtility.chechExistSessionAdmin(session)) {
+		if(ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 	
 		try {
 			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
@@ -986,7 +1031,7 @@ public class AdminController {
 			
 
 			
-			userService.addUserToVideo(usr, videoMapping);
+			userService.addUserToVideo(usr, videoMapping);							// persist Video Information
 			mv.addObject("Status", "Added Sucessfully");
 			
 		} catch (Exception e) {
@@ -1000,12 +1045,12 @@ public class AdminController {
 		}
 		
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
 		
-		mv.setViewName("addVideo");
-		
+		mv.setViewName("addVideo");													// setting view name
+			
 		
 		
 		return mv;
@@ -1016,31 +1061,33 @@ public class AdminController {
 	
 	/*------------------------------------------ADD QUIZ (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	// method to redirect addQuiz View 
 	@RequestMapping(value="/addQuiz",method = RequestMethod.GET)
 	public ModelAndView addQuizGet(HttpServletRequest req,ModelAndView mv) {
+			
+		HttpSession session=req.getSession(false);							// checking the last alive session
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addQuiz");
+		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
+		mv.setViewName("addQuiz");												// setting view name
 		}
 		return mv;
 		
 		
 	}
 	
+	// method to add Quiz into database
 	@RequestMapping(value="/addQuiz",method = RequestMethod.POST)
 	public ModelAndView addQuizPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] question,@RequestParam(name="Answer")MultipartFile[] answer,ModelAndView mv) {
 		
 		String questionPath=null;
 		String answerPath=null;
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");						// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		String remarks=req.getParameter("remarks");
@@ -1048,11 +1095,11 @@ public class AdminController {
 		
 		String emailToIdentifyUser;
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);							// checking the last alive session
 		
 		
 		
-		if(!ServiceUtility.checkFileExtensionPDF(question)) {
+		if(!ServiceUtility.checkFileExtensionPDF(question)) {					// check for PDF file
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 
@@ -1068,7 +1115,7 @@ public class AdminController {
 			
 		}
 		
-		if(!ServiceUtility.checkFileExtensionPDF(answer)) {
+		if(!ServiceUtility.checkFileExtensionPDF(answer)) {								// check for PDF file
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 
@@ -1086,7 +1133,7 @@ public class AdminController {
 		
 		
 		
-		String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Quiz/"+remarks+"/";
+		String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Quiz/"+remarks+"/";  // path to save question and answer
 		boolean b=ServiceUtility.createFolder(createFolder);
 		
 		String CreateFolderQuestion=createFolder+"Question/";
@@ -1095,7 +1142,7 @@ public class AdminController {
 		boolean ques=ServiceUtility.createFolder(CreateFolderQuestion);
 		boolean ans=ServiceUtility.createFolder(CreateFolderAnswer);
 		
-		if(ServiceUtility.chechExistSessionAdmin(session)) {
+		if(ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 		
 		try {
 			if(ques && ans) {
@@ -1126,7 +1173,7 @@ public class AdminController {
 			
 			
 			
-			userService.addUserToQuizQuestion(usr, quizMapping);
+			userService.addUserToQuizQuestion(usr, quizMapping);   // persist Quiz details
 			
 			mv.addObject("status", "Added Sucessfully");
 			
@@ -1148,41 +1195,43 @@ public class AdminController {
 		
 		
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
 		
 		mv.addObject("quizStatus", "Added Sucessfully");
 		
-		mv.setViewName("addQuiz");
+		mv.setViewName("addQuiz");													// setting view name
 		
 	
 		return mv;
 		
 		
 	}
+	/**********************************************************************************************/
 	
-	
+	// method to redirect addConcept-map View 
 	@RequestMapping(value = "/addConceptMap",method = RequestMethod.GET)
 	public ModelAndView addConceptMapGet(HttpServletRequest req,ModelAndView mv) {
-		HttpSession session=req.getSession();
+		HttpSession session=req.getSession();							// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addConcpetMap");
+		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		mv.setViewName("addConcpetMap");											// setting view name
 		}
 		return mv;
 	}
 	
+	// method to add Concept -MAp into database
 	@RequestMapping(value = "/addConceptMap",method = RequestMethod.POST)
 	public ModelAndView addConceptMapPost(HttpServletRequest req,@RequestParam(name="conceptMapImage")MultipartFile[] conceptMapImage,ModelAndView mv) {
 		
 		String path1=null;
-		String className=req.getParameter("classSelected");
+		String className=req.getParameter("classSelected");				// taking out various information given by user in view.
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		String desc=req.getParameter("descriptionConceptMap");
@@ -1190,7 +1239,7 @@ public class AdminController {
 		
 		String emailToIdentifyUser;
 		
-		if(!ServiceUtility.checkFileExtensionImage(conceptMapImage)) {
+		if(!ServiceUtility.checkFileExtensionImage(conceptMapImage)) {    // check Image file
 			mv.addObject("fileError", "File must be a Image File");
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
@@ -1203,17 +1252,17 @@ public class AdminController {
 			
 		}
 		
-		HttpSession session=req.getSession(false);
-		if(ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);							// checking the last alive session
+		if(ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 		
 		try {
 			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
 
-			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/ConceptMap/";
+			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/ConceptMap/";  // path to store Concept-map
 			
 			path1=ServiceUtility.uploadFile(conceptMapImage, createFolder);
 			
-			int indexToStart=path1.indexOf('M');
+			int indexToStart=path1.indexOf('M');										// extracting proper Path from Actual path
 			String path=path1.substring(indexToStart, path1.length());
 			
 
@@ -1231,7 +1280,7 @@ public class AdminController {
 			
 			
 
-			userService.addUserToConceptMap(usr, conceptMapping);
+			userService.addUserToConceptMap(usr, conceptMapping);						// persist Concept-map
 			mv.addObject("status", "Concept-Map Added Successfully");
 			
 		} catch (Exception e) {
@@ -1245,11 +1294,11 @@ public class AdminController {
 			
 		}
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		
-		mv.setViewName("addConcpetMap");
+		mv.setViewName("addConcpetMap");												// setting view name
 		
 		
 		return mv;
@@ -1257,34 +1306,36 @@ public class AdminController {
 	
 	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
 	/**************************************** ADDING TUTORIAL  ********************************************************************************/
+	// method to redirect addTutorial View 
 	
 	@RequestMapping(value="/addTutorial",method = RequestMethod.GET)
 	public ModelAndView addTutorialGet(HttpServletRequest req,ModelAndView mv) {
 		
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession(false);							// checking the last alive session
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
-		mv.setViewName("addTutorial");
+		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		mv.setViewName("addTutorial");												// setting view name
 		}
 		return mv;
 		
 	}
 	
+	// method to add Tutorial into database
 	@RequestMapping(value = "/addTutorial",method = RequestMethod.POST)
 	public ModelAndView addTutorialPost(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);							// checking the last alive session
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 			
-			String className=req.getParameter("classSelected");
+			String className=req.getParameter("classSelected");					// taking out various information given by user in view.
 			String subjectName=req.getParameter("subjectSelected");
 			String topicName=req.getParameter("topicSelected");
 			String [] tutorialList=req.getParameterValues("fossTutorialSelected");
@@ -1311,18 +1362,18 @@ public class AdminController {
 			}
 			
 			
-			userService.addUserToTutorial(usr, tempTutorial);
+			userService.addUserToTutorial(usr, tempTutorial);				// persisting Tutorial
 			mv.addObject("status", "Tutorial Added Successfully");
 			
 		
 			
 		}
 		
-		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
-		mv.addObject("classExist", classExist);
+		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		
-		mv.setViewName("addTutorial");
+		mv.setViewName("addTutorial");													// setting view name
 		
 		return mv;
 	}
@@ -1332,13 +1383,14 @@ public class AdminController {
 	
 	/*******************************************************************************************************************************************/
 
+	// method to redirect addTestimonial View 
 	@RequestMapping(value = "/addTestimonial",method = RequestMethod.GET)
 	public ModelAndView addTestimonialGet(HttpServletRequest req,ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);						// checking the last alive session
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
-				mv.setViewName("addTestimonial");
+				mv.setViewName("addTestimonial");							// setting view name
 				
 		}
 		
@@ -1347,14 +1399,16 @@ public class AdminController {
 		
 	}
 	
+	
+	// method to add Testimonial into database
 	@RequestMapping(value = "/addTestimonial",method = RequestMethod.POST)
 	public ModelAndView addTestimonialPost(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		String name=req.getParameter("Name");
+		HttpSession session=req.getSession(false);					// checking the last alive session
+		String name=req.getParameter("Name");						// taking out various information given by user in view.
 		String organization=req.getParameter("org");
 		String Desc=req.getParameter("description");
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {		// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 			
@@ -1369,7 +1423,7 @@ public class AdminController {
 						
 						testiService.save(addtestData);
 						mv.addObject("returnStatus", "Data Added Sucessfully");
-						mv.setViewName("addTestimonial");
+						mv.setViewName("addTestimonial");									// setting view name
 					} catch (Exception e) {
 						
 						mv.addObject("returnStatus", "Please Try Again");
@@ -1384,32 +1438,35 @@ public class AdminController {
 	}
 	
 	
+	
+	// method to redirect addEvent View 
 	@RequestMapping(value = "/addEvent",method = RequestMethod.GET)
 	public ModelAndView addEventGet(HttpServletRequest req,ModelAndView mv) {
 		
 		
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);						// checking the last alive session
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 			
-				mv.setViewName("addEvent");
+				mv.setViewName("addEvent");								// setting view name
 		}
 		
 		return mv;
 
 	}
 	
+	// method to add event into database
 	@RequestMapping(value = "/addEvent",method = RequestMethod.POST)
 	public ModelAndView addEventPost(HttpServletRequest req,ModelAndView mv) {
 		
-		String headline=req.getParameter("headline");
+		String headline=req.getParameter("headline");									// taking out various information given by user in view.
 		String Desc=req.getParameter("description");
 		
 	
 		
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+		HttpSession session=req.getSession(false);										// checking the last alive session
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 			
@@ -1427,14 +1484,14 @@ public class AdminController {
 						addEvent.setHeadline(headline);
 						addEvent.setDateToHappen(dateOfEvent);
 						
-						eventService.save(addEvent);
+						eventService.save(addEvent);	
 						
 						mv.addObject("returnStatus", "Data Added Sucessfully");
-						mv.setViewName("addEvent");
+						mv.setViewName("addEvent");											// setting view name
 					} catch (Exception e) {
 						
 						mv.addObject("returnStatus", "Please Try Again");
-						mv.setViewName("addEvent");
+						mv.setViewName("addEvent");											// setting view name
 						e.printStackTrace();
 					}
 			}
@@ -1445,6 +1502,25 @@ public class AdminController {
 	}
 	
 	
+	//method to redirect page to Message of User
+	@RequestMapping(value = "/contactInformation",method = RequestMethod.GET)
+	public ModelAndView getUserMessageget(HttpServletRequest req,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);										// checking the last alive session
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			
+			List<ContactForm> tempContact=contactService.getAllMessages();
+			mv.addObject("contactMessages", tempContact);
+			mv.setViewName("message");	
+			
+			
+		}
+		
+		return mv;
+		
+	}
 	
 
 }

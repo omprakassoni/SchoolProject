@@ -1,3 +1,9 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description	  : This is Comment feedback/contact form modal to capture visitor information and persist same to database.
+ */
+
 package com.adminportal.content;
 
 import java.sql.Timestamp;
@@ -23,7 +29,7 @@ public class ContactForm {
 	@Column(updatable = false,nullable = false)
 	private String email;
 	
-	@Column(updatable = false,nullable = false)
+	@Column(updatable = false,nullable = false,length = 10000)
 	private String message;
 	
 	@Column(updatable = false,nullable = false)

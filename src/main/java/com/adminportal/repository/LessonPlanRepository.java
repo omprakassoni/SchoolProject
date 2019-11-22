@@ -20,22 +20,29 @@ import com.adminportal.domain.User;
 
 public interface LessonPlanRepository extends CrudRepository<LessonPlan, Integer>{
 	
-	List<LessonPlan> findAllBytopic(List<Topic> temp);
+	List<LessonPlan> findAllBytopic(List<Topic> temp);							//fetching List of Lesson based on Topic
 	
-	List<LessonPlan> findAllBytype(String type);
+	List<LessonPlan> findAllBytype(String type);								//fetching list of Lesson based on Type
 	
 	@Query("from LessonPlan U where U.topic=?1 and U.type=?2")
-	ArrayList<LessonPlan> findAllBytopicAndType(Topic temp,String topic);
+	ArrayList<LessonPlan> findAllBytopicAndType(Topic temp,String topic);		//fetching list of Lesson based on type and topic
 	
 	@Modifying
-	@Query("update LessonPlan set status=?1 where lessonPlanId=?2")
+	@Query("update LessonPlan set status=?1 where lessonPlanId=?2")				//Enabling or disabling status of Lesson based on primary key		
 	int EnableLessonPlanContent(int status,int id);
 
-	@Query("from LessonPlan U where U.user=?1 and U.type=?2")
+	@Query("from LessonPlan U where U.user=?1 and U.type=?2")				//listing Lesson based on user and type
 	List<LessonPlan> findAllByuser(User usr,String type);
 	
 	@Modifying
-	@Query("update LessonPlan set dateModified=?1 ,lessonPlan=?2 where lessonPlanId=?3")
+	@Query("update LessonPlan set dateModified=?1 ,lessonPlan=?2 where lessonPlanId=?3")		//updating Lesson Information
 	int updateLessonPlan(Timestamp dat,String lessonPath,int id);
 	
 }
+
+
+
+
+
+
+

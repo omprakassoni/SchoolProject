@@ -1,3 +1,11 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description   : This Class is a Controller Class
+ * 					All Registration url will be caught here.
+ * 					New User is categorized in Learner,Parent and teacher
+ */
+
 package com.adminportal;
 
 import java.sql.Date;
@@ -28,8 +36,8 @@ import com.spoken.Utility.ServiceUtility;
 @Controller
 public class RegistrationController {
 	
-	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";
-	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";
+	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";		/* path to which content will get stored */
+	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";  /* path to which teachers document will get stored */
 	
 	@Autowired
 	private UserService userService;
@@ -57,7 +65,7 @@ public class RegistrationController {
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
 		
 		
-		if(userService.existByEmail(email)) {
+		if(userService.existByEmail(email)) {										// check for already email exist
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
@@ -70,7 +78,7 @@ public class RegistrationController {
 			
 		}
 	
-		if(!password.equals(req.getParameter("password2"))) {
+		if(!password.equals(req.getParameter("password2"))) {						// check for password and confirm password equality
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
@@ -83,7 +91,7 @@ public class RegistrationController {
 			
 		}
 		
-		String date=req.getParameter("txtdate");
+		String date=req.getParameter("txtdate");									// conversion String to DAte Object value
 		SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date dateUtil=sd1.parse(date);
 		Date dateOfBirth=new Date(dateUtil.getTime());
@@ -107,8 +115,8 @@ public class RegistrationController {
 		usr.setRegistered(1);
 		
 		Set<UserRole> userRoles=new HashSet<UserRole>();
-		userRoles.add(new UserRole(usr, role));
-		
+		userRoles.add(new UserRole(usr, role));												// persisting user(Learner)
+			
 		
 		userService.createUser(usr, userRoles);
 		mv.setViewName("redirect:/");
@@ -131,7 +139,7 @@ public class RegistrationController {
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
 		
-		if(userService.existByEmail(email)) {
+		if(userService.existByEmail(email)) {											// check for already email exist
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
@@ -144,7 +152,7 @@ public class RegistrationController {
 			
 		}
 		
-		if(!password.equals(req.getParameter("Confpassword"))) {
+		if(!password.equals(req.getParameter("Confpassword"))) {						// check for password and confirm password equality
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
@@ -158,7 +166,7 @@ public class RegistrationController {
 		}
 	
 	
-		RoleDetail role=roleService.findByRoleName("Admin");
+		RoleDetail role=roleService.findByRoleName("Parent");
 		
 		User usr=new User();
 		
@@ -175,7 +183,7 @@ public class RegistrationController {
 		userRoles.add(new UserRole(usr, role));
 		
 		
-		userService.createUser(usr, userRoles);
+		userService.createUser(usr, userRoles);													// persisting user(Parent)
 		
 		
 		mv.setViewName("redirect:/");
@@ -196,7 +204,7 @@ public class RegistrationController {
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
 		
-		if(!ServiceUtility.checkFileExtensionImage(uploadDocument)) {
+		if(!ServiceUtility.checkFileExtensionImage(uploadDocument)) {						// validate against Image file
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
@@ -209,7 +217,7 @@ public class RegistrationController {
 			
 		}
 		
-		if(userService.existByEmail(email)) {
+		if(userService.existByEmail(email)) {												// check for already email exist
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
@@ -222,7 +230,7 @@ public class RegistrationController {
 			
 		}
 		
-		if(!password.equals(req.getParameter("Confpassword"))) {
+		if(!password.equals(req.getParameter("Confpassword"))) {							// check for password and confirm password equality
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
@@ -258,10 +266,10 @@ public class RegistrationController {
 
 		
 		Set<UserRole> userRoles=new HashSet<UserRole>();
-		userRoles.add(new UserRole(usr, role));
+		userRoles.add(new UserRole(usr, role));												
 		
 		
-		userService.createUser(usr, userRoles);
+		userService.createUser(usr, userRoles);										// persist user (Teacher)
 		
 		
 		mv.setViewName("redirect:/");

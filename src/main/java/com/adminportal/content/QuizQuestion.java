@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : This is Quiz Modal to store Quiz related information like question and answer.
  */
 
 package com.adminportal.content;

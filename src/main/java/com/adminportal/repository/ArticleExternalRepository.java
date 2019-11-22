@@ -20,25 +20,25 @@ import com.adminportal.domain.User;
 
 public interface ArticleExternalRepository extends CrudRepository<ArticleExternal, Integer>{
 	
-
-	ArrayList<ArticleExternal> findAllBytopic(ArrayList<Topic> temp);
 	
-	List<ArticleExternal> findAllBytype(String type);
+	ArrayList<ArticleExternal> findAllBytopic(ArrayList<Topic> temp);				// fetching List of article based on Topic
+	
+	List<ArticleExternal> findAllBytype(String type);								// fetching list of article based on Type		
 
 	
-	@Query("from ArticleExternal U where U.topic=?1 and U.type=?2")
-	ArrayList<ArticleExternal> findAllBytopicAndType(Topic temp,String topic);
+	@Query("from ArticleExternal U where U.topic=?1 and U.type=?2")	
+	ArrayList<ArticleExternal> findAllBytopicAndType(Topic temp,String topic);		// fetching list of article based on type and topic
 	
 	
 	@Modifying
-	@Query("update ArticleExternal set description=?1,source=?2,url=?3,dateModified=?4 where articleId=?5")
+	@Query("update ArticleExternal set description=?1,source=?2,url=?3,dateModified=?4 where articleId=?5") // updating Article Information
 	int updateArticle(String desc, String source,String url,Timestamp date,int id);
 	
 	@Modifying
-	@Query("update ArticleExternal set status=?1 where articleId=?2")
+	@Query("update ArticleExternal set status=?1 where articleId=?2")	// Enabling or disabling status of Article based on primary key
 	int EnableArticleContent(int status,int id);
 	
-	@Query("from ArticleExternal U where U.user=?1 and U.type=?2")
+	@Query("from ArticleExternal U where U.user=?1 and U.type=?2")		// listing Article based on user and type
 	List<ArticleExternal> findAllByuser(User usr,String type);
 
 }

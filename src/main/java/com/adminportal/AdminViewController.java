@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.adminportal.content.ArticleExternal;
@@ -24,6 +25,7 @@ import com.adminportal.content.QuizQuestion;
 import com.adminportal.content.Subject;
 import com.adminportal.content.Testimonial;
 import com.adminportal.content.Topic;
+import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
@@ -40,9 +42,11 @@ import com.adminportal.service.SubjectClassService;
 import com.adminportal.service.SubjectService;
 import com.adminportal.service.TestimonialService;
 import com.adminportal.service.TopicService;
+import com.adminportal.service.TutorialService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
+import com.spoken.Utility.TutorialList;
 
 @Controller
 @SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})
@@ -96,6 +100,9 @@ public class AdminViewController {
 	
 	@Autowired
 	private ConceptMapService conceptService;
+	
+	@Autowired
+	private TutorialService tutorialService;
 	
 /*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
@@ -1438,6 +1445,102 @@ public class AdminViewController {
 	
 		
 	}
+	
+	
+	@RequestMapping(value = "/tutorialList",method = RequestMethod.GET)
+	public ModelAndView TutorialList(HttpServletRequest req,ModelAndView mv) {
+		HttpSession session=req.getSession(false);
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+		}else {
+			
+			List<Tutorial> tempTutorial=tutorialService.getAllTutorial();
+			
+			List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
+			
+			
+			for(Tutorial localTemp:tempTutorial) {
+				
+				String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+				RestTemplate restTemp=new RestTemplate();
+				TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
+				
+				localTutorial.setTutorialId(localTemp.getTutorialId());
+				localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
+				localTutorial.setContributedBy(localTemp.getUser().getFname());
+				localTutorial.setStatus(localTemp.getStatus());
+				System.out.println(localTutorial.getOutline());
+				
+				tutorialListData.add(localTutorial);
+			}
+			
+		
+			
+			mv.addObject("Tutorials", tutorialListData);
+			mv.setViewName("tutorialList");
+			
+		
+		}
+		return mv;
+	
+		
+	}
+	
+	@RequestMapping(value="/disableEnableTutorial",method = RequestMethod.POST)
+	public ModelAndView enableDisableTutorialListPost(HttpServletRequest req,@RequestParam(name="radioTutorial") String tutorialId,ModelAndView mv) {
+		
+		int id=Integer.parseInt(tutorialId);
+		boolean status;
+		String enableDisable;
+		
+		HttpSession session=req.getSession();
+		
+		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+			mv.setViewName("redirect:/adminPortal");
+			return mv;
+			
+		}
+		
+		Tutorial tutorialTemp=tutorialService.getById(id);
+		if(tutorialTemp.getStatus()==1) {
+		 status=tutorialService.enableDisableTutorial(0, id);
+		 enableDisable="Disabled";
+		 
+		}else {
+			status=tutorialService.enableDisableTutorial(0, id);
+			enableDisable="Enabled";
+		}
+		if(status) {
+			mv.addObject("status", "Tutorial "+enableDisable+ " Sucessfully");
+		}else {
+			mv.addObject("status", "Please try Again");
+		}
+		
+		List<Tutorial> tempTutorial=tutorialService.getAllTutorial();
+		
+		List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
+		
+		
+		for(Tutorial localTemp:tempTutorial) {
+			
+			String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+			RestTemplate restTemp=new RestTemplate();
+			TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
+			
+			localTutorial.setTutorialId(localTemp.getTutorialId());
+			localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
+			localTutorial.setContributedBy(localTemp.getUser().getFname());
+			localTutorial.setStatus(localTemp.getStatus());
+			
+			tutorialListData.add(localTutorial);
+		}
+		
+		
+		mv.addObject("Tutorials", tutorialListData);
+		mv.setViewName("tutorialList");
+		return mv;
+	}
+	
 	
 	
 	

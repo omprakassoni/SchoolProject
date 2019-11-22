@@ -1,3 +1,8 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description	  : Testimonial Modal representating modal for saving testimonial data into database.
+ */
 package com.adminportal.content;
 
 import java.sql.Timestamp;

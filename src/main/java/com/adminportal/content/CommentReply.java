@@ -2,6 +2,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : This is Comment Reply modal to capture reply of each comment made earlier from various user and then persist to database.
  */
 
 package com.adminportal.content;

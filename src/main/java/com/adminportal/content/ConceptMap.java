@@ -1,3 +1,9 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description	  : This is Comment Concept-map modal to capture all concept-map related data and then persist same to database.
+ */
+
 package com.adminportal.content;
 
 import java.sql.Timestamp;
@@ -36,7 +42,7 @@ public class ConceptMap {
 	@Column(name="url")
 	private String url;
 	
-	@Column(name="description",nullable = false)
+	@Column(name="description",nullable = false,length = 10000)
 	private String description;
 	
 	@Column(name="date_approved")

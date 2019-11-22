@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : this is a representation of many to many relationship among user and user role.
  */
 
 package com.adminportal.domain;

@@ -11,6 +11,6 @@ import com.adminportal.content.Class;
 
 public interface ClassRepository extends CrudRepository<Class, Integer>{
 	
-	Class findByclassName(String clas_name);
+	Class findByclassName(String clas_name);	// fetching Class based on classNAme
 	
 }

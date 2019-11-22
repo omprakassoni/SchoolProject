@@ -109,7 +109,43 @@
       			
       			<!--  CODE FOR TUTORIAL -->
       			
-			      <div class="tab-pane fade" id="v-pills-Tutorial" role="tabpanel" aria-labelledby="v-pills-profile-tab">... Tutorial</div>
+			      <div class="tab-pane fade" id="v-pills-Tutorial" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+			      	  
+			      	  <div class="clearfix"></div>
+			      		<div class="row" th:each="tutorial:${TutorialOnTopic}" style="padding:10px">
+			      	
+			      		<div class="col-4">
+			      			
+			      			
+			      				<a th:href="${tutorial.getVideo_url()}" target="_blank"><img th:src="${tutorial.getThumbnail_path()}" style="width:80%;height:80%"/></a>
+			      			
+                            
+			      			
+			      		</div>
+			      
+						<div class="col-1">
+						</div>
+						
+						<div class="col-7" >
+						
+							<h3 th:text="${tutorial.getTut_name()}"></h3><br/>
+							<pre><h6 th:text="${tutorial.getOutline()}"></h6></pre>
+							
+						</div>	
+						
+							      
+			      
+			      
+			      </div>
+			      
+			      
+			      
+			      
+			       <span th:if="${TutorialError}">
+							<h1 style="text-align:center;color:red;" th:text="${ConceptError}"/>
+				  </span>	
+			      
+			      </div>
 			      
 			    <!-- CODE FOR PHETS -->
 			    
@@ -343,15 +379,25 @@
 						    	<tr >
 						    		<td><h3>Question Set </h3></td>
 						    		<td><h2><a th:href="'/'+${quiz.getQuestion()}" style="color:blue" target="_blank">Download</a></h2></td>
-						    		<td><h3>Answer</h3> </td>
-						    		<td><h2><a th:href="'/'+${quiz.getAnswer()}" style="color:blue" target="_blank">Download</a></h2></td>
-						    	
+						    		
+						    		
+						    		
+						    		<td>
+						    			<span th:if="${LoggedUserRole==null or LoggedUserRole=='Learner'}"></span>
+						    			<span th:unless="${LoggedUserRole==null or LoggedUserRole=='Learner'}"><h3>Answer</h3></span> 
+						    		</td>
+						    		<td>
+						    			<span th:if="${LoggedUserRole==null or LoggedUserRole=='Learner'}"></span>
+						    			<span th:unless="${LoggedUserRole==null or LoggedUserRole=='Learner'}">
+						    			<h2><a th:href="'/'+${quiz.getAnswer()}" style="color:blue" target="_blank">Download</a></h2></span>
+						    		</td>
+						    		
 						    	</tr>
 						
 						    </tbody>
 						   </table>
 									      
-			      
+			       
 			      
 			      
 			      </div>

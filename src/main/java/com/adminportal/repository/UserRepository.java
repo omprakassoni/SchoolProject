@@ -18,19 +18,19 @@ import com.adminportal.domain.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	
-	User findByemail(String username);
+	User findByemail(String username);  /// user by Email
 	
-	@Query("from User U where U.email=?1 and U.password=?2")
+	@Query("from User U where U.email=?1 and U.password=?2")		//check for existing user
 	User existsByUser(String email,String password);
 	
 	@Modifying
-	@Query("update User set Registered=?1 where id=?2")
+	@Query("update User set Registered=?1 where id=?2")				// enabling user
 	int disableuser(int registered,int id);
 	
-	boolean existsByemail(String email);
+	boolean existsByemail(String email);							
 	
 	@Modifying
-	@Query("update User set password=?1 where id=?2")
+	@Query("update User set password=?1 where id=?2")			// update password
 	int updateUserPassword(String password,int id);
 	
 

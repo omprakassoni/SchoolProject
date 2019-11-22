@@ -13,6 +13,6 @@ import com.adminportal.domain.UserRole;
 
 public interface UserRoleRepository extends CrudRepository<UserRole,Integer> {
 	
-	@Query("from UserRole U where U.user=?1")
+	@Query("from UserRole U where U.user=?1")  
 	void deleteByuser(User usr);
 }

@@ -1,3 +1,9 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description   : This is a Helper Class to fetch password request change Related data from UI on ajax Call.
+ */
+
 package com.spoken.Utility;
 
 public class passwordUpdateAjaxQueryResolver {

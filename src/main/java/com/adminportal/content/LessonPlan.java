@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description   : this is LEsson Plan Modal to store data related to lesson plan into database.
  */
 
 package com.adminportal.content;

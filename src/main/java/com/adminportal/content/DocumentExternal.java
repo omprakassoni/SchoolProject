@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : This Document Modal to capture All document related data and then persist same to database.
  */
 
 package com.adminportal.content;
@@ -38,7 +39,7 @@ public class DocumentExternal {
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 	
-	@Column(name="description")
+	@Column(name="description",length = 10000)
 	private String description;
 	
 	@Column(name="source")

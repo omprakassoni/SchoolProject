@@ -1,6 +1,7 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	Description	  : Topic Modal to persist same into database.
  */
 
 package com.adminportal.content;
@@ -38,7 +39,7 @@ public class Topic {
 	@Column(name="poster",nullable = false)
 	private String poster;
 	
-	@Column(name="description",nullable = false )
+	@Column(name="description",nullable = false,length = 5000)
 	private String description;
 	
 	@Column(name="date_added",updatable = false,nullable = false)

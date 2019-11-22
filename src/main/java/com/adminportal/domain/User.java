@@ -1,6 +1,12 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ * 	description	  : User related information will get persist into database various user as such
+ * 					1.Learner
+ * 					2.Parent
+ * 					3.Teacher
+ * 					4.Admin
+ *  
  */
 
 package com.adminportal.domain;

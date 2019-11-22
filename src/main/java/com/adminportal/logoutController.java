@@ -1,3 +1,10 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description   : This Class is a Controller Class
+ * 					this class is responsible for handling all logout url
+ */
+
 package com.adminportal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class logoutController {
 
-	@RequestMapping(value = "/logoutAdmin",method = RequestMethod.GET)
+	
+	/*  Method supporting session management in application, operation performed after user or admin press Logout
+	 * 
+	 */
+	
+	@RequestMapping(value = "/logoutAdmin",method = RequestMethod.GET)   
 	public String logoutGetAdmin(HttpServletRequest req) {
 		
 		HttpSession session=req.getSession(false);

@@ -1,11 +1,18 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ *  Description   : This class is used for setting up the basic property under Spring security framework like
+ *  				1. Authentication
+ *  				2. Authorization
+ *  				3. Login
+ *  				4. Logout
+ *  				5. Security on various Pages.
+ *  				Not in Use Now, but will come into picture once Log-in and Log-out made it from Spring Security framework.
  */
 
 package com.adminportal.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

@@ -1367,8 +1367,8 @@
 											      </td>
 											      
 											   
-											     <td><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br/><br/>
-											     	 <a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a>
+											     <td><span th:if="${phet.isStatus()==0}"><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br/><br/>
+											     	 <a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a></span>
 											     </td>
 									     
 											    </tr>
@@ -1428,8 +1428,8 @@
 												      	  <span th:unless="${concept.getStatus()==1}"><div id="false"/></span>
 												      </td>
 												   	  
-													   <td><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br/><br/>
-											     	 <a class="btn btn-secondary commentConcept" th:value="${concept.getConcepMapid()}" id="commentConcept">Comment</a>
+													   <td><span th:if="${concept.getStatus()==0}"><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br/><br/>
+											     	 <a class="btn btn-secondary commentConcept" th:value="${concept.getConcepMapid()}" id="commentConcept">Comment</a></span>
 												     
 												    </tr>
 												    </span>
@@ -1487,8 +1487,8 @@
 														      </td>
 														      
 													
-														      <td><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a><br/><br/>
-														      	  <a class="btn btn-secondary commentVideo" th:value="${video.getVideoId()}" id="commentVideo">Comment</a>
+														      <td><span th:if="${video.isStatus()==0}"><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a><br/><br/>
+														      	  <a class="btn btn-secondary commentVideo" th:value="${video.getVideoId()}" id="commentVideo">Comment</a></span>
 														      </td>
 														     
 														    </tr>
@@ -1546,8 +1546,8 @@
 											      </td>
 											      
 											   
-											      <td><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a><br/><br/>
-											      	  <a class="btn btn-secondary commentArticle" th:value="${article.getArticleId()}" id="commentArticle">Comment</a>
+											      <td><span th:if="${article.isStatus()==0}"><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a><br/><br/>
+											      	  <a class="btn btn-secondary commentArticle" th:value="${article.getArticleId()}" id="commentArticle">Comment</a></span>
 											      </td>
 											     
 											    </tr>
@@ -1606,8 +1606,8 @@
 											      
 										
 											      
-											      <td><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a><br/><br/>
-											      	  <a class="btn btn-secondary commentDocument" th:value="${document.getDocumentId()}" id="commentDocument">Comment</a>
+											      <td><span th:if="${document.isStatus()==0}"><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a><br/><br/>
+											      	  <a class="btn btn-secondary commentDocument" th:value="${document.getDocumentId()}" id="commentDocument">Comment</a></span>
 											      </td>
 											     
 											    </tr>
@@ -1658,9 +1658,10 @@
 													      	  <span th:unless="${lesson.isStatus()==1}"><div id="false"/></span>
 													      </td>
 													      <td>
+													      <span th:if="${lesson.isStatus()==0}">
 				      										<a class="btn btn-secondary detailLesson" th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a><br/><br/>
 				      										<a class="btn btn-secondary commentLesson" th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a>
-				      										
+				      									  </span>
 				      									</td>
 													      
 													     
@@ -1700,7 +1701,7 @@
 												      <th>Date Added</th>
 												      <th>Question</th>
 												      <th>Answer</th>
-												    
+												      <th>Status</th>
 												      <th>Operation</th>
 												    </tr>
 												  </thead>
@@ -1714,10 +1715,12 @@
 												      <td><span th:text="${quiz.getDateAdded()}"></span></td>
 												      <td><a th:href="'/'+${quiz.getQuestion()}" class="pdfclass" target="_blank"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
 												      <td><a th:href="'/'+${quiz.getAnswer()}" target="_blank" class="pdfclass"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+												      <td><span th:if="${quiz.isStatus()==1}"><div id="true"/></span>
+				      	  									<span th:unless="${quiz.isStatus()==1}"><div id="false"/></span>
+				      									</td>
 												      
-												      
-												      <td><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br/><br/>
-												      	  <a class="btn btn-secondary commentQuiz" th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a>
+												      <td><span th:if="${quiz.isStatus()==0}"><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br/><br/>
+												      	  <a class="btn btn-secondary commentQuiz" th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a></span>
 												      </td>
 										     
 												    </tr>
@@ -1999,7 +2002,7 @@
 			      <div class="modal-body">
 			      <div id="SuccessQuiz" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
 			      <div id="FailureQuiz" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
-			      <div id="invalid-dataQuiz" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div id="invalid-dataQuiz" style="display:none;color:red;font-size:18px;text-align:center">File must be PDF</div>
 			      <div class="row">
 				      		
 				      			<div class="col-sm-6">
@@ -2057,7 +2060,7 @@
 			      <div class="modal-body">
 			      <div id="SuccessDocument" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
 			      <div id="FailureDocument" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
-			      <div id="invalid-dataDocument" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div id="invalid-dataDocument" style="display:none;color:red;font-size:18px;text-align:center">File must be PDF</div>
 			      <div class="row">
 				      		
 				      			<div class="col-sm-6">
@@ -2116,7 +2119,7 @@
 			      <div class="modal-body">
 			      <div id="SuccessLesson" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
 			      <div id="FailureLesson" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
-			      <div id="invalid-dataLesson" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div id="invalid-dataLesson" style="display:none;color:red;font-size:18px;text-align:center">File must be PDF</div>
 			    		
 				    <div class="row">
 				      		
@@ -2269,7 +2272,7 @@
 			      <div class="modal-body">
 			      <div id="SuccessLesson" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
 			      <div id="FailureLesson" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
-			      <div id="invalid-dataLesson" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div id="invalid-dataLesson" style="display:none;color:red;font-size:18px;text-align:center">File must be PDF</div>
 			    		
 				    <div class="row">
 				      		
@@ -2310,7 +2313,7 @@
 			      
 			      <div id="SuccessConcept" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
 			      <div id="FailureConcept" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
-			      <div id="invalid-dataConcept" style="display:none;color:red;font-size:18px;text-align:center">Invalid Data</div>
+			      <div id="invalid-dataConcept" style="display:none;color:red;font-size:18px;text-align:center">File must be Image</div>
 			     
 			      <div class="row">
 				      		

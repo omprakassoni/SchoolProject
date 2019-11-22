@@ -1,6 +1,13 @@
 /*  Company Name  : Spoken Tutorial IIT bombay
  * 	Author Name	  : Om Prakash
  * 	Version		  : 1.0
+ *  Description   : This HomeController Class mainly deal with url which will caught from USer side like
+ *  				1. initial Page or index page
+ *  				2. Login Page
+ *  				3. Singup Page
+ *  				4. User Authentication (Not for Admin)
+ *  				5. course information
+ *  				6. content information
  */
 
 
@@ -15,6 +22,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,6 +61,7 @@ import com.adminportal.content.Subject;
 import com.adminportal.content.SubjectClassMapping;
 import com.adminportal.content.Testimonial;
 import com.adminportal.content.Topic;
+import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
@@ -69,16 +79,18 @@ import com.adminportal.service.SubjectClassService;
 import com.adminportal.service.SubjectService;
 import com.adminportal.service.TestimonialService;
 import com.adminportal.service.TopicService;
+import com.adminportal.service.TutorialService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
+import com.spoken.Utility.TutorialList;
 
 @Controller
-@SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})
+@SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})  // Session Variable
 public class HomeController {
 	
-	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";
-	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";
+	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";   // Path to save resources
+	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";	// path to save teacher Document
 	
 	@Autowired
 	private ClassService classService;
@@ -126,6 +138,9 @@ public class HomeController {
 	@Autowired
 	private ConceptMapService conceptMapService;
 	
+	@Autowired
+	private TutorialService tutorialService;
+	
 	////////////////////////
 	
 	
@@ -134,6 +149,7 @@ public class HomeController {
 /* ------------------------------------------HOME PAGE-------------------------------------------------*/
 
 	
+
 	
 	@RequestMapping("/")
 	public ModelAndView home(ModelAndView mv) {
@@ -144,9 +160,16 @@ public class HomeController {
 		
 		List<Events> eventData=eventService.getAllEventdata();
 		
+		if(testidata.size()>0) {
+			mv.addObject("Testimonial", testidata);
+		}
 		
-		mv.addObject("Events", eventData);
-		mv.addObject("Testimonial", testidata);
+		if(eventData.size()>0) {
+			mv.addObject("Events", eventData);
+		}
+		
+	
+		
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("Index");
 		return mv;
@@ -162,20 +185,53 @@ public class HomeController {
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		
+		String userRole=null;
 		String username=req.getParameter("username");
 		String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
 		boolean status=false;
 		
-		User usr=(User) userService.existsByUser(username, password);
+		User usr=(User) userService.existsByUser(username, password);			// check for existence of User
 		if(usr!=null) {
+		List<UserRole> tempuserRole=usr.getUserRoles();
+		for(UserRole temp:tempuserRole) {
+			userRole=temp.getRole().getRoleName();
 			
-				HttpSession session=req.getSession();
-				session.setAttribute("UserLogedUserView", usr.getEmail());
-				session.setAttribute("UserNameUserSide", usr.getFname());
-
-				mv.setViewName("redirect:/");
+		}
+		}
+		if(usr!=null) {
+				
+				if(userRole.contentEquals("Teacher") ) {
+					
+					if(usr.getRegistered()==1) {
+			
+						HttpSession session=req.getSession();
+						session.setAttribute("UserLogedUserView", usr.getEmail());		// setting Session variable 
+						session.setAttribute("UserNameUserSide", usr.getFname());
+						
+						usr.setLastLogin(ServiceUtility.getCurrentTime());
+						userService.save(usr);
+		
+						mv.setViewName("redirect:/");
+					}else {
+						mv.addObject("Error", "Not verified yet..Please Try later");
+						mv.setViewName("Login");
+						
+					}
+				}else {
+					
+					HttpSession session=req.getSession();
+					session.setAttribute("UserLogedUserView", usr.getEmail());		// setting Session variable 
+					session.setAttribute("UserNameUserSide", usr.getFname());
+					
+					usr.setLastLogin(ServiceUtility.getCurrentTime());
+					userService.save(usr);
+	
+					mv.setViewName("redirect:/");
+					
+				}
 			
 		}else {
+			
 			mv.addObject("Error", "Login Credentials are Incorrect");
 			mv.setViewName("Login");
 			
@@ -189,13 +245,15 @@ public class HomeController {
 	}
 	
 	
-/**********************************************************************************************************************/
+/***********************************************END***********************************************************************/
+	
+/******************************* MY ACCOUNT PAGE OF USER TO PERFORM OPERATION ***********************************/
 	
 	@RequestMapping(value = "/myAccount",method=RequestMethod.GET)
 	public ModelAndView myAccountGet(ModelAndView mv,HttpServletRequest req) {
 		
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionUser(session)) {
+		HttpSession session=req.getSession(false);						// CHECK FOR EXISTING ALIVE SESSION	
+		if(!ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
 			mv.setViewName("redirect:/");
 		}else {
 			
@@ -302,13 +360,17 @@ public class HomeController {
 	
 //---------------------------------------------END--------------------------------------------------------------------
 	
+/*********************************** ADMIN PORTAL HYPERLINK ******************************************/	
+	
 	@RequestMapping(value = "/adminPortal")
 	public String adminHomepage() {
 		return "adminLoginPage";
 	}
 	
 	
-
+/************************************************************************************************************************/
+	
+// ---------------------------------- Event List on USer Side ------------------------------------------
 	
 	@RequestMapping(value = "/eventsList")
 	public ModelAndView viewEvent(ModelAndView mv) {
@@ -323,18 +385,12 @@ public class HomeController {
 		return mv;
 	}
 	
-	
 
-	
-
-
-	
-	
-	
-// Above code was to add all entries into database
 
 	
 /************************************************ START OF CONTROLLER FOR USER SIDE ***********************************************************/
+	
+	// COURSES PAGE BASED ON SELECTION OF CLASS AND SUBJECT
 	
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public ModelAndView viewCoursesAvailable(@RequestParam(name="subjectSelected") String subject,@RequestParam(name="classSelected") String classSelected,ModelAndView mv) {
@@ -363,9 +419,12 @@ public class HomeController {
 	}
 	
 	
+	/******              CONTENT PAGE BASED ON CLASS SUBJECT AND TOPIC-------------------------------*/
 	
 	@RequestMapping(path = "/content/{topicId}", method = RequestMethod.GET)
-	public ModelAndView viewContentonTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
+	public ModelAndView viewContentonTopic(HttpServletRequest req,@PathVariable("topicId") int topicId,ModelAndView mv) {
+		
+		HttpSession session=req.getSession(false);
 		
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
@@ -378,6 +437,34 @@ public class HomeController {
 		List<VideoExternal> localvideo=videoService.findAllByTopic(localTopic);
 		List<Phets> localPhets=phetService.findAllByTopic(localTopic);
 		List<ConceptMap> localConcept=conceptMapService.findAllByTopic(localTopic);
+		List<Tutorial> localTutorial=tutorialService.getAllTutorialByTopic(localTopic);
+		
+		if(ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
+			
+		String loggedUser=(String) session.getAttribute("UserLogedUserView");
+		User localUser=userService.findByUsername(loggedUser);
+		List<UserRole> localUserRole=localUser.getUserRoles();
+		for(UserRole temp:localUserRole) {
+			mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
+			
+		}
+		}
+		
+		
+		
+		List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
+		
+		
+		for(Tutorial localTemp:localTutorial) {
+			
+			String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+			RestTemplate restTemp=new RestTemplate();
+			TutorialList localTut=restTemp.getForObject(url, TutorialList.class);
+			
+			System.out.println(localTut.getTut_name());
+			
+			tutorialListData.add(localTut);
+		}
 		
 			
 		if(localQuiz.isEmpty()) {
@@ -408,6 +495,10 @@ public class HomeController {
 			mv.addObject("ConceptError", "Nothing To Show");
 		}
 		
+		if(tutorialListData.isEmpty()) {
+			mv.addObject("TutorialError", "Nothing To Show");
+		}
+		
 		mv.addObject("QuizOnTopic", localQuiz);
 		mv.addObject("VideoOnTopic", localvideo);
 		mv.addObject("ArticleOnTopic", localArticle);
@@ -415,6 +506,7 @@ public class HomeController {
 		mv.addObject("LessonOnTopic", localLesson);
 		mv.addObject("PhetOnTopic", localPhets);
 		mv.addObject("ConceptOnTopic",localConcept);
+		mv.addObject("TutorialOnTopic", tutorialListData);
 		
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
@@ -423,6 +515,7 @@ public class HomeController {
 		return mv;
 	}
 	
+	/*********************** LOGIN HYPERLINK FROM CONTENT PAGE *********************************/
 	
 	@RequestMapping(path = "/content/Login", method = RequestMethod.GET)
 	public ModelAndView pathtoLogin(ModelAndView mv) {
@@ -430,12 +523,17 @@ public class HomeController {
 		return mv;
 	}
 	
+	/*********************** SIGNUP HYPERLINK FROM CONTENT PAGE *********************************/
+	
 	@RequestMapping(path = "/content/Signup", method = RequestMethod.GET)
 	public ModelAndView pathtoRegister(ModelAndView mv) {
 		mv.setViewName("redirect:/Signup");
 		return mv;
 	}
 	
+	
+	
+	// ------------------ MY MIND HYPERLINK***********************************************
 	
 	@RequestMapping(path = "/my-mind", method = RequestMethod.GET)
 	public ModelAndView mindMapGet(ModelAndView mv) {

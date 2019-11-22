@@ -1,3 +1,8 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ * 	Description	  : This is Event modal to persist Event related data into database.
+ */
 package com.adminportal.content;
 
 import java.sql.Date;
@@ -21,7 +26,7 @@ public class Events {
 	@Column(nullable = false)
 	private String headline;
 	
-	@Column(nullable = false)
+	@Column(nullable = false,length = 10000)
 	@Length(max = 10000)
 	private String description;
 	

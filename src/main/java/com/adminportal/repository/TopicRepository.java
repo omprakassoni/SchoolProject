@@ -18,9 +18,9 @@ import com.adminportal.content.Topic;
 
 public interface TopicRepository extends CrudRepository<Topic, Integer> {
 	
-	List<Topic> findBysubjectClassMapping(SubjectClassMapping temp); 
+	List<Topic> findBysubjectClassMapping(SubjectClassMapping temp); 		// listing list topic based on mapping of class and subject
 	
-	@Query("from Topic T where T.subjectClassMapping=?1 and T.topicName=?2")
+	@Query("from Topic T where T.subjectClassMapping=?1 and T.topicName=?2")	//topic based on subjectClassAmpping AND TOPICNAME
 	Topic findBysubjectClassMappingAndtopicName(SubjectClassMapping subjectClassMapping,String topicName);
 	
 	boolean existsBysubjectClassMapping(SubjectClassMapping sub);
@@ -29,11 +29,11 @@ public interface TopicRepository extends CrudRepository<Topic, Integer> {
 	ArrayList<Topic> findAllBysubjectClassMapping(ArrayList<SubjectClassMapping> temp);
 	
 	@Modifying
-	@Query("update Topic set description=?1, poster=?2 , dateModified=?3 where topicId=?4")
+	@Query("update Topic set description=?1, poster=?2 , dateModified=?3 where topicId=?4")	//UPDATING TOPIC
 	int updateTopic(String desc,String poster,Timestamp date,int topicID);
 
 	@Modifying
-	@Query("update Topic set status=?1 where topicId=?2")
+	@Query("update Topic set status=?1 where topicId=?2")		// DISABLE OR ENABLE TOPIC BASED ON TOPIC id
 	int disableTopic(int status,int topicId);
 	
 }

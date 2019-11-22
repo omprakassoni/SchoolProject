@@ -13,7 +13,7 @@ import com.adminportal.content.SubjectClassMapping;
 
 public interface SubjectRepository extends CrudRepository<Subject, Integer>{
 	
-	Subject findBysubName(String subName);
+	Subject findBysubName(String subName);		// list subject based on subject name
 	
 
 }

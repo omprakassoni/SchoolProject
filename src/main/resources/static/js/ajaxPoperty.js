@@ -2101,6 +2101,54 @@ $(function(){
   						
   				})
   				
+  				
+  				$("input[name='radioTutorial']").change(function(){
+  					
+  					$("#disableTutorial").prop('disabled', true);
+  					$("#enableTutorial").prop('disabled', true);
+  					
+  					var tutorial_id=$(this).val();
+  					var json={
+  							"tutorialId":tutorial_id
+  					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					
+  					
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/loadByValidityTutorial",
+			       		 data: JSON.stringify(json),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data[0]==1){
+			       				$("#disableTutorial").prop('disabled', false);
+			       			 }else{
+			       				$("#enableTutorial").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
   				/*-----------------------------------------END--------------------------------------------------------------------------*/
   				
   				/*----------------------------------------------JQUERY TO ENABLE BUTTON ON RADIO CALL--------------------------------------------*/

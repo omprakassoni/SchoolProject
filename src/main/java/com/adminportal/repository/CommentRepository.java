@@ -1,3 +1,7 @@
+/*  Company Name  : Spoken Tutorial IIT bombay
+ * 	Author Name	  : Om Prakash
+ * 	Version		  : 1.0
+ */
 package com.adminportal.repository;
 
 import java.util.List;
@@ -15,18 +19,18 @@ import com.adminportal.content.VideoExternal;
 
 public interface CommentRepository extends CrudRepository<Comment, Integer>{
 	
-	List<Comment> findAllByvideo(VideoExternal video);
+	List<Comment> findAllByvideo(VideoExternal video);			// listing list of comment based on Video type
 	
-	List<Comment> findAllByarticle(ArticleExternal article);
+	List<Comment> findAllByarticle(ArticleExternal article);	// listing list of comment based on article type
 	
-	List<Comment> findAllByquiz(QuizQuestion quiz);
+	List<Comment> findAllByquiz(QuizQuestion quiz);				// listing list of comment based on Quiz type
 	
-	List<Comment> findAllBylesson(LessonPlan lesson);
+	List<Comment> findAllBylesson(LessonPlan lesson);			// listing list of comment based on lesson type
 	
-	List<Comment> findAllByphet(Phets phet);
+	List<Comment> findAllByphet(Phets phet);					// listing list of comment based on phet type
 	
-	List<Comment> findAllBydocument(DocumentExternal document);
+	List<Comment> findAllBydocument(DocumentExternal document);	// listing list of comment based on Document type
 	
-	List<Comment> findALlByconceptMap(ConceptMap conceptMap);
+	List<Comment> findALlByconceptMap(ConceptMap conceptMap);	// listing list of comment based on Concept-map type
 
 }

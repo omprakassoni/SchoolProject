@@ -21,22 +21,27 @@ import com.adminportal.domain.User;
 
 public interface VideoExternalRepository extends CrudRepository<VideoExternal, Integer> {
 	
-	List<VideoExternal> findAllBytopic(List<Topic> temp);
+	List<VideoExternal> findAllBytopic(List<Topic> temp);			//fetching List of video based on Topic
 	
-	List<VideoExternal> findAllBytype(String type);
+	List<VideoExternal> findAllBytype(String type);					//fetching list of video based on Type
 	
-	@Query("from VideoExternal U where U.topic=?1 and U.type=?2")
+	@Query("from VideoExternal U where U.topic=?1 and U.type=?2")				//fetching list of video based on type and topic
 	ArrayList<VideoExternal> findAllBytopicAndType(Topic temp,String topic);
 
 	@Modifying
-	@Query("update VideoExternal set description=?1,source=?2,url=?3,dateModified=?4 where videoId=?5")
+	@Query("update VideoExternal set description=?1,source=?2,url=?3,dateModified=?4 where videoId=?5")		//updating video Information
 	int updateVideo(String desc,String source,String url,Timestamp date,int id);
 	
 	@Modifying
-	@Query("update VideoExternal set status=?1 where videoId=?2")
+	@Query("update VideoExternal set status=?1 where videoId=?2")			//Enabling or disabling status of video based on primary key
 	int EnableVideoContent(int status,int id);
 	
-	@Query("from VideoExternal U where U.user=?1 and U.type=?2")
+	@Query("from VideoExternal U where U.user=?1 and U.type=?2")			//listing video based on user and type
 	List<VideoExternal> findAllByuser(User usr,String type);
 }
+
+
+
+
+
 
