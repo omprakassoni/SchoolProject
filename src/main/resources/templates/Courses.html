@@ -34,7 +34,7 @@
 		<div class="row" style="padding:20px">
 		
 		
-			<div class="col-4" th:each="topic:${TopicListOnSubjectClass}" >
+			<div class="col-4" th:each="topic:${TopicListOnSubjectClass}"  >
 				 <!-- Card -->
 			<a th:href="'content/'+ ${topic.getTopicId()}">	
 			<div class="card card-image" th:style="'background-image:url(\''+ ${topic.getPoster()} + '\');'">
@@ -42,8 +42,10 @@
 			  <!-- Content -->
 			  <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
 			    <div style="text-align:center">
-			      <h5 class="pink-text"><i class="fas fa-chart-pie"></i> <span th:text="${topic.getTopicName()}"></span></h5>
-			      <h3 class="card-title pt-2"><strong><span th:text="${topic.getDescription()}"></span></strong></h3>
+			      <h3 class="pink-text"><i class="fas fa-chart-pie"></i> <span th:text="${topic.getTopicName()}"></span></h3>
+			      <!--  <h3 class="card-title pt-2"><strong><span th:text="${topic.getDescription()}"></span></strong></h3>-->
+			      <br/>
+			      <br/>
 			      
 			    </div>
 			  </div>

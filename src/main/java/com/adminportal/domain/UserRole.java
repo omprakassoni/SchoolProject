@@ -21,9 +21,8 @@ import javax.persistence.TableGenerator;
 @Table(name="user_role")
 public class UserRole {
 	
-	@TableGenerator(name = "userRole_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", allocationSize = 1)
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE,generator = "userRole_gen")
 	@Column(nullable = false,updatable = false)
 	private int userRoleId;
 	
@@ -39,7 +38,8 @@ public class UserRole {
 		
 	}
 	
-	public UserRole(User user,RoleDetail role) {
+	public UserRole(int userRoleId,User user,RoleDetail role) {
+		this.userRoleId=userRoleId;
 		this.user=user;
 		this.role=role;
 		

@@ -18,6 +18,8 @@ public interface ClassService {
 	
 	Class save(Class temp);
 	
+	int countRow();
+	
 	
 
 }

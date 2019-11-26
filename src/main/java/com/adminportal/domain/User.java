@@ -50,9 +50,7 @@ import com.adminportal.security.Authority;
 @Table(name="user_details")
 public class User {
 	
-	@TableGenerator(name = "user_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", allocationSize = 1)
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE,generator = "user_gen")
 	@Column(name = "user_id", nullable = false,updatable = false)
 	private int id;
 	
@@ -94,6 +92,9 @@ public class User {
 	
 	@Column (name="isvalid",nullable = false )
 	private int Registered;
+	
+	@Column(name="token")
+	private String token;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<UserRole> userRoles=new ArrayList<UserRole>();
@@ -329,6 +330,15 @@ public class User {
 		this.tutorial = tutorial;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	
 	
 
 	

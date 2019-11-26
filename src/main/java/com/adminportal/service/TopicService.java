@@ -35,6 +35,8 @@ public interface TopicService {
 	
 	boolean updateTopic(String desc,String poster,Timestamp date,int topicID);
 	
+	int countRow();
+	
 	
 
 }

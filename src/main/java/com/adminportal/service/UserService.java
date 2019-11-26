@@ -27,6 +27,8 @@ import com.adminportal.domain.UserRole;
 public interface UserService {
 	
 	User findByUsername(String username);
+	
+	User findByToken(String token);
 	User save(User user);
 	
 	User existsByUser(String username,String password);
@@ -65,6 +67,8 @@ public interface UserService {
 	User addUserToCommentReply(User usr,Set<CommentReply> comReply);
 	
 	boolean updateUserPassword(String password,int id);
+	
+	int countRow();
 	
 
 }

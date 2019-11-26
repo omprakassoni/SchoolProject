@@ -260,6 +260,7 @@ public class AdminController {
 			
 		}else {
 			Class tempClass=new Class();											// creating object of class modal to add entry into database.
+			tempClass.setClass_id(classService.countRow()+1);
 			tempClass.setClassName(classSelected);
 			classService.save(tempClass);											// pushing data into database 
 			mv.addObject("status", "Added Successfully");                           // setting a status message for View
@@ -366,7 +367,7 @@ public class AdminController {
 			
 			User usr=userService.findByUsername(emailToIdentifyUser);						// logged in user details.
 			Set<ArticleExternal> articlemapping=new HashSet<ArticleExternal>();
-			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,  ServiceUtility.getCurrentTime(), localTopic, usr));
+			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 
 
@@ -473,7 +474,7 @@ public class AdminController {
 			User usr=userService.findByUsername(emailToIdentifyUser);						// retrieving the logged USer
 			
 			Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
-			documentMapping.add(new DocumentExternal(documentService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			documentMapping.add(new DocumentExternal(documentService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 
 
 			userService.addUserToDocument(usr, documentMapping);					// saving document data into database.		
@@ -577,7 +578,7 @@ public class AdminController {
 			User usr=userService.findByUsername(emailToIdentifyUser);				// retrive logged in user
 			
 			Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
-			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0, 0,ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 			
 			userService.addUserToLessonplan(usr, lessonMapping);					// saving lessonPaln data
@@ -716,7 +717,7 @@ public class AdminController {
 			
 			
 			Set<Phets> phetMapping=new HashSet<Phets>();
-			phetMapping.add(new Phets(phetService.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			phetMapping.add(new Phets(phetService.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 
 			
 			userService.addUserToPhets(usr, phetMapping);							// persist Phet data 
@@ -804,6 +805,7 @@ public class AdminController {
 			System.out.println(localsubjectClassMapping.getSubClassId());
 			
 			Topic addTopic=new Topic();
+			addTopic.setTopicId(topicService.countRow()+1);
 			addTopic.setPoster(path);
 			addTopic.setTopicName(topicName);
 			addTopic.setDescription(topicDesc);
@@ -896,15 +898,16 @@ public class AdminController {
 	@RequestMapping(value="/addSubject", method=RequestMethod.POST)
 	public ModelAndView addSubjectPost(@RequestParam(name="SelectedSubject") String selectedSubject,@RequestParam(name="SelectedClasses") List<String> selectedClasses,ModelAndView mv) throws Exception {
 			
-		
+		int i=0;             
 		Subject addsubject=new Subject();
+		addsubject.setSubId(subjectService.countRow()+1);
 		addsubject.setSubName(selectedSubject);
 		
 		Set<SubjectClassMapping> subjectClassMapping=new HashSet<SubjectClassMapping>();
 	
 		for(String classes:selectedClasses) {
 			Class om=classService.findByClassName(classes);
-			subjectClassMapping.add(new SubjectClassMapping(om,addsubject));
+			subjectClassMapping.add(new SubjectClassMapping(subjectClassService.countRow()+i++,om,addsubject));
 		}
 		
 		subjectClassService.createSubjectClass(addsubject, subjectClassMapping);
@@ -1027,7 +1030,7 @@ public class AdminController {
 			User usr=userService.findByUsername(emailToIdentifyUser);
 			
 			Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
-			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 
 			
@@ -1169,7 +1172,7 @@ public class AdminController {
 
 			
 			Set<QuizQuestion> quizMapping=new HashSet<QuizQuestion>();
-			quizMapping.add(new QuizQuestion(quizService.countRow()+1,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),pathQuestion,pathAnswer,0,remarks,ServiceUtility.getCurrentTime(),localTopic,usr));
+			quizMapping.add(new QuizQuestion(quizService.countRow()+1,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),pathQuestion,pathAnswer,0,0,remarks,ServiceUtility.getCurrentTime(),localTopic,usr));
 			
 			
 			
@@ -1276,7 +1279,7 @@ public class AdminController {
 			User usr=userService.findByUsername(emailToIdentifyUser);
 			
 			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
-			conceptMapping.add(new ConceptMap(conceptService.countRow()+10, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0, remark, localTopic, usr));
+			conceptMapping.add(new ConceptMap(conceptService.countRow()+10, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
 			
 			
 

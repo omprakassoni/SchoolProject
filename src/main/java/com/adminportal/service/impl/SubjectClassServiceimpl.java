@@ -62,4 +62,10 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 		return localSubjectClass;
 	}
 
+	@Override
+	public int countRow() {
+		
+		return (int) subjectClassRepo.count();
+	}
+
 }

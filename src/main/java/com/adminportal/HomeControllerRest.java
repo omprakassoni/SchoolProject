@@ -768,6 +768,8 @@ public class HomeControllerRest {
 	
 	@PostMapping("/updateSubject")
 	public List<String> updateSubject(@Valid @RequestBody List<String> data) throws Exception {
+		int index=0;
+		
 		List<String> msg=new ArrayList<String>();
 		int size=data.size();
 		Set<SubjectClassMapping> subjectClassMapping=new HashSet<SubjectClassMapping>();
@@ -780,7 +782,7 @@ public class HomeControllerRest {
 			
 			for(int i=0;i<size-1;i++) {
 				Class classTemp=classService.findByClassName(data.get(i));
-				subjectClassMapping.add(new SubjectClassMapping(classTemp,subject));
+				subjectClassMapping.add(new SubjectClassMapping(subjectClassService.countRow()+index++,classTemp,subject));
 				
 			}
 			
@@ -2046,7 +2048,7 @@ public class HomeControllerRest {
 			
 			User usr=userService.findByUsername(userID);
 			Set<ArticleExternal> articlemapping=new HashSet<ArticleExternal>();
-			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,  ServiceUtility.getCurrentTime(), localTopic, usr));
+			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 
 
@@ -2103,7 +2105,7 @@ public class HomeControllerRest {
 			
 			
 			Set<Phets> phetMapping=new HashSet<Phets>();
-			phetMapping.add(new Phets(phetServcie.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			phetMapping.add(new Phets(phetServcie.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 
 			
 			userService.addUserToPhets(usr, phetMapping);
@@ -2165,7 +2167,7 @@ public class HomeControllerRest {
 			User usr=userService.findByUsername(userID);
 			
 			Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
-			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 
 			
@@ -2222,7 +2224,7 @@ public class HomeControllerRest {
 			User usr=userService.findByUsername(userID);
 			
 			Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
-			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 			
 			userService.addUserToLessonplan(usr, lessonMapping);
@@ -2297,7 +2299,7 @@ public class HomeControllerRest {
 
 			
 			Set<QuizQuestion> quizMapping=new HashSet<QuizQuestion>();
-			quizMapping.add(new QuizQuestion(quizService.countRow()+1,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),pathQuestion,pathAnswer,0,remark,ServiceUtility.getCurrentTime(),localTopic,usr));
+			quizMapping.add(new QuizQuestion(quizService.countRow()+1,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),pathQuestion,pathAnswer,0,0,remark,ServiceUtility.getCurrentTime(),localTopic,usr));
 			
 			
 			
@@ -2355,7 +2357,7 @@ public class HomeControllerRest {
 			User usr=userService.findByUsername(userID);
 			
 			Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
-			documentMapping.add(new DocumentExternal(docuService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			documentMapping.add(new DocumentExternal(docuService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 
 
 			userService.addUserToDocument(usr, documentMapping);
@@ -2409,7 +2411,7 @@ public class HomeControllerRest {
 			User usr=userService.findByUsername(userID);
 			
 			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
-			conceptMapping.add(new ConceptMap(concepMapService.countRow()+10, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0, remark, localTopic, usr));
+			conceptMapping.add(new ConceptMap(concepMapService.countRow()+1, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
 			
 			userService.addUserToConceptMap(usr, conceptMapping);
 			status.add("Success");

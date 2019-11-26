@@ -49,6 +49,9 @@ public class QuizQuestion {
 	@Column(name="status",nullable = false)
 	private int status;
 	
+	@Column(name="acceptedByAdmin",nullable = false)
+	private int acceptedByAdmin;
+	
 	@Column(name="remarks")
 	private String remark;
 	
@@ -69,7 +72,7 @@ public class QuizQuestion {
 	public QuizQuestion() {}
 
 	public QuizQuestion(int id,String type, Timestamp dateAdded, Timestamp dateModified, String question, String answer,
-			int status, String remark, Timestamp dateApproved, Topic topic, User user) {
+			int status,int acceptedByAdmin, String remark, Timestamp dateApproved, Topic topic, User user) {
 
 		this.quizQuestionId=id;
 		this.type = type;
@@ -78,6 +81,7 @@ public class QuizQuestion {
 		this.question = question;
 		this.answer = answer;
 		this.status = status;
+		this.acceptedByAdmin=acceptedByAdmin;
 		this.remark = remark;
 		this.dateApproved = dateApproved;
 		this.topic = topic;
@@ -170,6 +174,22 @@ public class QuizQuestion {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public int getAcceptedByAdmin() {
+		return acceptedByAdmin;
+	}
+
+	public void setAcceptedByAdmin(int acceptedByAdmin) {
+		this.acceptedByAdmin = acceptedByAdmin;
+	}
+
+	public List<Comment> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<Comment> comment) {
+		this.comment = comment;
 	}
 	
 	

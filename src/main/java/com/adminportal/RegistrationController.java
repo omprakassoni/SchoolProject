@@ -30,6 +30,7 @@ import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
 import com.adminportal.service.ClassService;
 import com.adminportal.service.RoleDetailService;
+import com.adminportal.service.UserRoleService;
 import com.adminportal.service.UserService;
 import com.spoken.Utility.ServiceUtility;
 
@@ -47,6 +48,9 @@ public class RegistrationController {
 	
 	@Autowired
 	private RoleDetailService roleService;
+	
+	@Autowired
+	private UserRoleService userRoleService;
 	
 /*------------------------------------------Registration Task Method (LEARNER)-----------------------------------------------------------------*/
 	
@@ -100,7 +104,7 @@ public class RegistrationController {
 		RoleDetail role=roleService.findByRoleName("Learner");
 		
 		User usr=new User();
-		
+		usr.setId(userService.countRow()+1);
 		usr.setEmail(email);
 		usr.setPassword(passwordEncrypt);
 		usr.setFname(fname);
@@ -115,7 +119,7 @@ public class RegistrationController {
 		usr.setRegistered(1);
 		
 		Set<UserRole> userRoles=new HashSet<UserRole>();
-		userRoles.add(new UserRole(usr, role));												// persisting user(Learner)
+		userRoles.add(new UserRole(userRoleService.countRow()+1,usr, role));												// persisting user(Learner)
 			
 		
 		userService.createUser(usr, userRoles);
@@ -169,7 +173,7 @@ public class RegistrationController {
 		RoleDetail role=roleService.findByRoleName("Parent");
 		
 		User usr=new User();
-		
+		usr.setId(userService.countRow()+1);
 		usr.setEmail(email);
 		usr.setPassword(passwordEncrypt);
 		usr.setFname(fname);
@@ -180,7 +184,7 @@ public class RegistrationController {
 		usr.setRegistered(1);
 		
 		Set<UserRole> userRoles=new HashSet<UserRole>();
-		userRoles.add(new UserRole(usr, role));
+		userRoles.add(new UserRole(userRoleService.countRow()+1,usr, role));
 		
 		
 		userService.createUser(usr, userRoles);													// persisting user(Parent)
@@ -253,7 +257,7 @@ public class RegistrationController {
 		RoleDetail role=roleService.findByRoleName("Teacher");
 		
 		User usr=new User();
-		
+		usr.setId(userService.countRow()+1);
 		usr.setEmail(email);
 		usr.setPassword(passwordEncrypt);
 		usr.setFname(fname);
@@ -266,7 +270,7 @@ public class RegistrationController {
 
 		
 		Set<UserRole> userRoles=new HashSet<UserRole>();
-		userRoles.add(new UserRole(usr, role));												
+		userRoles.add(new UserRole(userRoleService.countRow()+1,usr, role));												
 		
 		
 		userService.createUser(usr, userRoles);										// persist user (Teacher)

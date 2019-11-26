@@ -52,6 +52,9 @@ public class ArticleExternal {
 	@Column(name="status",nullable = false)
 	private int status;
 	
+	@Column(name="acceptedByAdmin",nullable = false)
+	private int acceptedByAdmin;
+	
 	@Column(name="date_approved")
 	private Timestamp dateApproved;
 	
@@ -69,7 +72,7 @@ public class ArticleExternal {
 	public ArticleExternal() {}
 
 	public ArticleExternal(int articleId, String type, Timestamp dateAdded, Timestamp dateModified, String description,
-			String source, String url, int status, Timestamp dateApproved, Topic topic, User user) {
+			String source, String url, int status, int acceptedByAdmin,Timestamp dateApproved, Topic topic, User user) {
 	
 		this.articleId = articleId;
 		this.type = type;
@@ -79,6 +82,7 @@ public class ArticleExternal {
 		this.source = source;
 		this.url = url;
 		this.status = status;
+		this.acceptedByAdmin=acceptedByAdmin;
 		this.dateApproved = dateApproved;
 		this.topic = topic;
 		this.user = user;
@@ -170,6 +174,22 @@ public class ArticleExternal {
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
+	}
+
+	public int getAcceptedByAdmin() {
+		return acceptedByAdmin;
+	}
+
+	public void setAcceptedByAdmin(int acceptedByAdmin) {
+		this.acceptedByAdmin = acceptedByAdmin;
+	}
+
+	public List<Comment> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<Comment> comment) {
+		this.comment = comment;
 	}
 	
 	

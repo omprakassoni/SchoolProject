@@ -19,6 +19,7 @@ import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
 import com.adminportal.repository.VideoExternalRepository;
 import com.adminportal.service.VideoExternalService;
+import com.spoken.Utility.ServiceUtility;
 
 @Service
 public class VideoExternalServiceImpl implements VideoExternalService{
@@ -89,6 +90,23 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 	public List<VideoExternal> findALlByUser(User usr) {
 		
 		return videoRepo.findAllByuser(usr,"Video");
+	}
+
+	@Override
+	@Transactional
+	public boolean EnableAcceptedByAdminVideoContent(int status, int id) {
+		int status1=videoRepo.EnableAcceptedByAdminContent(status,ServiceUtility.getCurrentTime(), id);
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public List<VideoExternal> findAllByTopicAndStatus(Topic topic) {
+		
+		return videoRepo.findAllByTopicAndStatus(topic, 1,"Video");
 	}
 
 }

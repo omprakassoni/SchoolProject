@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,6 +36,9 @@ import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.hibernate.annotations.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +49,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -82,6 +87,7 @@ import com.adminportal.service.TopicService;
 import com.adminportal.service.TutorialService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
+import com.spoken.Utility.MailConstructor;
 import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 
@@ -141,6 +147,7 @@ public class HomeController {
 	@Autowired
 	private TutorialService tutorialService;
 	
+
 	////////////////////////
 	
 	
@@ -341,6 +348,104 @@ public class HomeController {
 	
 //---------------------------------------------END--------------------------------------------------------------------
 	
+//------------------------------------------- FORGET PASSWORD --------------------------------------------------------
+	
+	@RequestMapping("/forgetPassword")
+	public ModelAndView forgetPasswordGet(ModelAndView mv){
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		mv.setViewName("forgetPassword");
+		return mv;
+
+	}
+	
+	/*------------------- FORGET PASSWORD TAKIN REQUEST FROM VIEW -----------------------------------------*/
+	
+	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
+	public ModelAndView forgetPasswordPost(HttpServletRequest req,ModelAndView mv){
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
+		String userEmail=req.getParameter("username");
+		
+		User usr=userService.findByUsername(userEmail);
+		if(usr==null) {
+			mv.addObject("Error", "E-mail doesn't Exist");
+			mv.setViewName("forgetPassword");
+			return mv;
+		}
+		
+		usr.setToken(UUID.randomUUID().toString());
+		
+		userService.save(usr);
+		/**
+		 *  E-mail related code will be written here.
+		 */
+		
+	
+	
+		
+		mv.addObject("Success", "Link to reset password has been sent to your E-mail ID");
+		
+		mv.setViewName("forgetPassword");
+		return mv;
+
+	}
+	
+	/*--------------------------- LINK TO WHICH USER WILL SET NEW PASSWORD ----------------------------------*/
+	
+	@RequestMapping(value = "/reset",method = RequestMethod.GET)
+	public ModelAndView resetPasswordGet(ModelAndView mv,@RequestParam("token") String token){
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
+		User usr=userService.findByToken(token);
+		if(usr==null) {
+			mv.setViewName("redirect:/");
+			return mv;
+		}
+		
+		System.out.println(token);
+		mv.addObject("resetToken",usr.getToken());
+		mv.setViewName("resetPassword");
+		return mv;
+
+	}
+	
+	
+	/*---------------------------- PERSISTING NEW PASSWORD OF USER ----------------------------------*/
+	
+	@RequestMapping(value = "/resetPassword",method = RequestMethod.POST)
+	public ModelAndView resetPasswordPost(ModelAndView mv,HttpServletRequest req){
+		
+		String newPassword=req.getParameter("Password");
+		String confNewPassword=req.getParameter("Confirm");
+		String token=req.getParameter("token");
+		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
+		User usr=userService.findByToken(token);
+		if(usr==null) {
+			mv.addObject("Error","Invalid request");
+			return mv;
+		}
+		
+		if(!newPassword.contentEquals(confNewPassword)) {
+			mv.addObject("Error","Both password doesn't match");
+			return mv;
+		}
+		
+		usr.setPassword(ServiceUtility.passwordEncoder().encode(newPassword));
+		usr.setToken(null);
+		userService.save(usr);
+	
+		mv.setViewName("resetPassword");
+		return mv;
+
+	}
+	
+//-----------------------------------------END-------------------------------------------------------
 	
 //-----------------------------------------------SIGNUP HYPERLINK------------------------------------------------------------------	
 	
@@ -402,7 +507,14 @@ public class HomeController {
 		Subject localSubject=subjectService.findBySubjectName(subject);
 		SubjectClassMapping localSubjectClassMapping=subjectClassService.findBysubAndstandard(localClass, localSubject);
 		
-		List<Topic> localTopic=topicService.findBysubjectclassMapping(localSubjectClassMapping);
+		List<Topic> localTopictemp=topicService.findBysubjectclassMapping(localSubjectClassMapping);
+		
+		List<Topic> localTopic=new ArrayList<Topic>();
+		for(Topic temp:localTopictemp) {
+			if(temp.getStatus()==1) {
+				localTopic.add(temp);
+			}
+		}
 		
 		if(!localTopic.isEmpty()) {
 			mv.addObject("TopicListOnSubjectClass", localTopic);
@@ -430,13 +542,13 @@ public class HomeController {
 		mv.addObject("classfromDatabase", standard);
 		
 		Topic localTopic=topicService.findById(topicId);
-		List<QuizQuestion> localQuiz=quizService.findAllByTopic(localTopic);
-		List<ArticleExternal> localArticle=articleService.findAllByTopic(localTopic);
-		List<DocumentExternal> localDocument=documentService.findAllByTopic(localTopic);
-		List<LessonPlan> localLesson=lessonService.findAllByTopic(localTopic);
-		List<VideoExternal> localvideo=videoService.findAllByTopic(localTopic);
-		List<Phets> localPhets=phetService.findAllByTopic(localTopic);
-		List<ConceptMap> localConcept=conceptMapService.findAllByTopic(localTopic);
+		List<QuizQuestion> localQuiz=quizService.findAllByTopicAndStatus(localTopic);
+		List<ArticleExternal> localArticle=articleService.findAllByTopicAndStatus(localTopic);
+		List<DocumentExternal> localDocument=documentService.findAllByTopicAndStatus(localTopic);
+		List<LessonPlan> localLesson=lessonService.findAllByTopicAndStatus(localTopic);
+		List<VideoExternal> localvideo=videoService.findAllByTopicAndStatus(localTopic);
+		List<Phets> localPhets=phetService.findAllByTopicAndStatus(localTopic);
+		List<ConceptMap> localConcept=conceptMapService.findAllByTopicAndStatus(localTopic);
 		List<Tutorial> localTutorial=tutorialService.getAllTutorialByTopic(localTopic);
 		
 		if(ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
@@ -457,13 +569,18 @@ public class HomeController {
 		
 		for(Tutorial localTemp:localTutorial) {
 			
-			String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
-			RestTemplate restTemp=new RestTemplate();
-			TutorialList localTut=restTemp.getForObject(url, TutorialList.class);
-			
-			System.out.println(localTut.getTut_name());
-			
-			tutorialListData.add(localTut);
+			try {
+				String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+				RestTemplate restTemp=new RestTemplate();
+				TutorialList localTut=restTemp.getForObject(url, TutorialList.class);
+				
+				System.out.println(localTut.getTut_name());
+				
+				tutorialListData.add(localTut);
+			} catch (RestClientException e) {
+				
+				e.printStackTrace();
+			}
 		}
 		
 			

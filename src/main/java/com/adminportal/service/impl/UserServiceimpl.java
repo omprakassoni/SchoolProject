@@ -234,6 +234,21 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	@Override
+	public User findByToken(String token) {
+		
+		User temp=userRepository.findBytoken(token);
+		return temp;
+	}
+
+
+	@Override
+	public int countRow() {
+		
+		return (int) userRepository.count();
+	}
+
+
 
 
 	

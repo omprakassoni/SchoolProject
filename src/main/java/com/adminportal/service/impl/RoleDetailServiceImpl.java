@@ -29,4 +29,10 @@ public class RoleDetailServiceImpl implements RoleDetailService {
 		return local;
 	}
 
+	@Override
+	public int countRow() {
+		
+		return (int) roleRepo.count();
+	}
+
 }

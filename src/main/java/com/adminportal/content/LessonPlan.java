@@ -45,6 +45,9 @@ public class LessonPlan {
 	@Column(name="status",nullable = false)
 	private int status;
 	
+	@Column(name="acceptedByAdmin",nullable = false)
+	private int acceptedByAdmin;
+	
 	@Column(name="date_approved")
 	private Timestamp dateApproved;
 
@@ -62,7 +65,7 @@ public class LessonPlan {
 	public LessonPlan () {}
 	
 	public LessonPlan(int lessonPlanId, String type, Timestamp dateAdded, Timestamp dateModified, String lessonPlan,
-			int status, Timestamp dateApproved, Topic topic, User user) {
+			int status,int acceptedByAdmin, Timestamp dateApproved, Topic topic, User user) {
 		super();
 		this.lessonPlanId = lessonPlanId;
 		this.type = type;
@@ -70,6 +73,7 @@ public class LessonPlan {
 		this.dateModified = dateModified;
 		this.lessonPlan = lessonPlan;
 		this.status = status;
+		this.acceptedByAdmin=acceptedByAdmin;
 		this.dateApproved = dateApproved;
 		this.topic = topic;
 		this.user = user;
@@ -146,6 +150,23 @@ public class LessonPlan {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public int getAcceptedByAdmin() {
+		return acceptedByAdmin;
+	}
+
+	public void setAcceptedByAdmin(int acceptedByAdmin) {
+		this.acceptedByAdmin = acceptedByAdmin;
+	}
+
+	public List<Comment> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<Comment> comment) {
+		this.comment = comment;
+	}
+	
 	
 	
 }

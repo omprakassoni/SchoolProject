@@ -20,9 +20,11 @@ import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
 import com.adminportal.repository.PhetsRepository;
 import com.adminportal.service.PhetsService;
+import com.spoken.Utility.ServiceUtility;
 
 @Service
 public class PhetsServiceImpl implements PhetsService{
+	
 
 	@Autowired
 	private PhetsRepository phetRepo;
@@ -69,6 +71,7 @@ public class PhetsServiceImpl implements PhetsService{
 	}
 
 	@Override
+	@Transactional
 	public boolean EnablePhetContent(int status, int id) {
 		int status1=phetRepo.EnablePhetContent(status, id);
 		
@@ -91,6 +94,24 @@ public class PhetsServiceImpl implements PhetsService{
 	public List<Phets> findALlByUser(User usr) {
 		
 		return phetRepo.findAllByuser(usr,"Phets");
+	}
+
+	@Override
+	@Transactional
+	public boolean EnableAcceptedByAdminPhetContent(int status, int id) {
+		int status1=phetRepo.EnableAcceptedByAdminContent(status,ServiceUtility.getCurrentTime(), id);
+		
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public List<Phets> findAllByTopicAndStatus(Topic topic) {
+		
+		return phetRepo.findAllByTopicAndStatus(topic, 1,"Phets");
 	}
 
 }

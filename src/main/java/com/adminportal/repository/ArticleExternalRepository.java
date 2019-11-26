@@ -25,6 +25,8 @@ public interface ArticleExternalRepository extends CrudRepository<ArticleExterna
 	
 	List<ArticleExternal> findAllBytype(String type);								// fetching list of article based on Type		
 
+	@Query("from ArticleExternal U where U.topic=?1 and U.status=?2 and U.type=?3")
+	List<ArticleExternal> findAllByTopicAndStatus(Topic topic,int status,String type);
 	
 	@Query("from ArticleExternal U where U.topic=?1 and U.type=?2")	
 	ArrayList<ArticleExternal> findAllBytopicAndType(Topic temp,String topic);		// fetching list of article based on type and topic
@@ -40,5 +42,9 @@ public interface ArticleExternalRepository extends CrudRepository<ArticleExterna
 	
 	@Query("from ArticleExternal U where U.user=?1 and U.type=?2")		// listing Article based on user and type
 	List<ArticleExternal> findAllByuser(User usr,String type);
+	
+	@Modifying
+	@Query("update ArticleExternal set acceptedByAdmin=?1,status=?1,dateApproved=?2 where articleId=?3")
+	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
 
 }

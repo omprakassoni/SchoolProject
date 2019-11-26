@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.QuizQuestion;
 import com.adminportal.content.Topic;
@@ -30,5 +31,9 @@ public interface DocumentExternalService {
 	List<DocumentExternal> findAllByTopic(Topic topic);
 	
 	List<DocumentExternal> findALlByUser(User usr);
+	
+	boolean EnableAcceptedByAdminDocumentContent(int status,int id);
+	
+	List<DocumentExternal> findAllByTopicAndStatus(Topic topic);
 	
 }

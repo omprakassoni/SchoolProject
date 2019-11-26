@@ -20,6 +20,7 @@ import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
 import com.adminportal.repository.LessonPlanRepository;
 import com.adminportal.service.LessonPlanService;
+import com.spoken.Utility.ServiceUtility;
 
 @Service
 public class LessonPlanServiceImpl implements LessonPlanService{
@@ -87,6 +88,21 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 		}
 		
 		
+	}
+	@Override
+	@Transactional
+	public boolean EnableAcceptedByAdminLessonPlanContent(int status, int id) {
+		int status1=lessonRepo.EnableAcceptedByAdminContent(status,ServiceUtility.getCurrentTime(), id);
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	@Override
+	public List<LessonPlan> findAllByTopicAndStatus(Topic topic) {
+		
+		return lessonRepo.findAllByTopicAndStatus(topic, 1,"Lesson");
 	}
 
 }

@@ -19,6 +19,7 @@ import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
 import com.adminportal.repository.ConceptMapRepository;
 import com.adminportal.service.ConceptMapService;
+import com.spoken.Utility.ServiceUtility;
 
 @Service
 public class ConceptMapServiceImpl implements ConceptMapService{
@@ -83,6 +84,28 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 	public List<ConceptMap> findALlByUser(User usr) {
 		List<ConceptMap> localConcept=conceptRepo.findAllByuser(usr, "ConceptMap");
 		return localConcept;
+	}
+
+
+	@Override
+	@Transactional
+	public boolean EnableAcceptedByAdminConceptContent(int status, int id) {
+		
+		int status1=conceptRepo.EnableAcceptedByAdminContent(status,ServiceUtility.getCurrentTime(), id);
+		
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
+	
+	}
+
+
+	@Override
+	public List<ConceptMap> findAllByTopicAndStatus(Topic topic) {
+		
+		return conceptRepo.findAllByTopicAndStatus(topic, 1,"ConceptMap");
 	}
 
 }

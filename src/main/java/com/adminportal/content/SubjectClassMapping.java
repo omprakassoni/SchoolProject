@@ -26,9 +26,8 @@ import javax.persistence.TableGenerator;
 @Table(name="subject_class_mapping")
 public class SubjectClassMapping {
 
-	@TableGenerator(name = "sub_class_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", allocationSize = 1)
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE,generator = "sub_class_gen")
 	@Column(name="sub_class_id",nullable = false,updatable = false)
 	private int subClassId;
 	
@@ -49,7 +48,8 @@ public class SubjectClassMapping {
 		
 	}
 	
-	public SubjectClassMapping(Class standard,Subject sub) {
+	public SubjectClassMapping(int subClassID,Class standard,Subject sub) {
+		this.subClassId=subClassID;
 		this.standard=standard;
 		this.sub=sub;
 	}

@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
@@ -32,4 +33,8 @@ public interface LessonPlanService {
 
 
 	boolean updateLessonPlan(Timestamp dat,String lessonPath,int id);
+	
+	boolean EnableAcceptedByAdminLessonPlanContent(int status,int id);
+	
+	List<LessonPlan> findAllByTopicAndStatus(Topic topic);
 }

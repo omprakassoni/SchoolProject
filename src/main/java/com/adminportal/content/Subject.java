@@ -24,9 +24,8 @@ import javax.persistence.TableGenerator;
 @Table(name="Subject")
 public class Subject {
 	
-	@TableGenerator(name = "sub_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", allocationSize = 1)
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE,generator = "sub_gen")
 	@Column(nullable = false,updatable = false)
 	private int subId;
 	

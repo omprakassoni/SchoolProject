@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
 import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
@@ -30,6 +31,9 @@ public interface QuizQuestionRepository extends CrudRepository<QuizQuestion, Int
 	@Modifying
 	@Query("update QuizQuestion set question=?1, answer=?2, dateModified=?3 where quizQuestionId=?4")	//updating Quiz Information
 	int updateQuiz(String question,String answer,Timestamp date,int quizId);
+	
+	@Query("from QuizQuestion U where U.topic=?1 and U.status=?2 and U.type=?3")
+	List<QuizQuestion> findAllByTopicAndStatus(Topic topic,int status,String type);
 
 	@Modifying
 	@Query("update QuizQuestion set status=?1 where quizQuestionId=?2")			//Enabling or disabling status of Quiz based on primary key
@@ -37,6 +41,10 @@ public interface QuizQuestionRepository extends CrudRepository<QuizQuestion, Int
 	
 	@Query("from QuizQuestion U where U.user=?1 and U.type=?2")					//listing Quiz based on user and type
 	List<QuizQuestion> findAllByuser(User usr,String type);
+	
+	@Modifying
+	@Query("update QuizQuestion set acceptedByAdmin=?1,status=?1,dateApproved=?2 where quizQuestionId=?3")
+	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
 	
 }
 

@@ -16,7 +16,7 @@
     <body >
     
     	<!--  CODE FOR NAVBAR -->			
-    <div th:replace="common/header :: navbar"></div>
+    <div th:replace="common/header :: navbar"></div> 
     <hr/>
     
     <!--  CODE FOR DISPLAYING SUBJECTNAME AND CLASSNAME ALONG WITH TOPICNAME -->
@@ -1367,7 +1367,7 @@
 											      </td>
 											      
 											   
-											     <td><span th:if="${phet.isStatus()==0}"><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br/><br/>
+											     <td><span th:if="${phet.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br/><br/>
 											     	 <a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a></span>
 											     </td>
 									     
@@ -1428,7 +1428,7 @@
 												      	  <span th:unless="${concept.getStatus()==1}"><div id="false"/></span>
 												      </td>
 												   	  
-													   <td><span th:if="${concept.getStatus()==0}"><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br/><br/>
+													   <td><span th:if="${concept.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br/><br/>
 											     	 <a class="btn btn-secondary commentConcept" th:value="${concept.getConcepMapid()}" id="commentConcept">Comment</a></span>
 												     
 												    </tr>
@@ -1487,7 +1487,7 @@
 														      </td>
 														      
 													
-														      <td><span th:if="${video.isStatus()==0}"><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a><br/><br/>
+														      <td><span th:if="${video.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a><br/><br/>
 														      	  <a class="btn btn-secondary commentVideo" th:value="${video.getVideoId()}" id="commentVideo">Comment</a></span>
 														      </td>
 														     
@@ -1546,7 +1546,7 @@
 											      </td>
 											      
 											   
-											      <td><span th:if="${article.isStatus()==0}"><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a><br/><br/>
+											      <td><span th:if="${article.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a><br/><br/>
 											      	  <a class="btn btn-secondary commentArticle" th:value="${article.getArticleId()}" id="commentArticle">Comment</a></span>
 											      </td>
 											     
@@ -1606,7 +1606,7 @@
 											      
 										
 											      
-											      <td><span th:if="${document.isStatus()==0}"><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a><br/><br/>
+											      <td><span th:if="${document.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a><br/><br/>
 											      	  <a class="btn btn-secondary commentDocument" th:value="${document.getDocumentId()}" id="commentDocument">Comment</a></span>
 											      </td>
 											     
@@ -1658,7 +1658,7 @@
 													      	  <span th:unless="${lesson.isStatus()==1}"><div id="false"/></span>
 													      </td>
 													      <td>
-													      <span th:if="${lesson.isStatus()==0}">
+													      <span th:if="${lesson.getAcceptedByAdmin()==0}">
 				      										<a class="btn btn-secondary detailLesson" th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a><br/><br/>
 				      										<a class="btn btn-secondary commentLesson" th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a>
 				      									  </span>
@@ -1719,7 +1719,7 @@
 				      	  									<span th:unless="${quiz.isStatus()==1}"><div id="false"/></span>
 				      									</td>
 												      
-												      <td><span th:if="${quiz.isStatus()==0}"><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br/><br/>
+												      <td><span th:if="${quiz.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br/><br/>
 												      	  <a class="btn btn-secondary commentQuiz" th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a></span>
 												      </td>
 										     

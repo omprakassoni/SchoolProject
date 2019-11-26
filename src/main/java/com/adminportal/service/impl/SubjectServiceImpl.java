@@ -243,4 +243,10 @@ public class SubjectServiceImpl implements SubjectService{
 		return localSub;
 	}
 
+	@Override
+	public int countRow() {
+		
+		return (int) subjectRepo.count();
+	}
+
 }

@@ -39,23 +39,7 @@ public class TopicServiceimpl implements TopicService {
 	@Autowired
 	private TopicRepository topicRepo;
 	
-	@Autowired
-	private ArticleExternalRepository articleRepo;
 	
-	@Autowired
-	private DocumentExternalRepository documentRepo;
-	
-	@Autowired
-	private LessonPlanRepository lessonRepo;
-	
-	@Autowired
-	private PhetsRepository phetRepo;
-	
-	@Autowired
-	private QuizQuestionRepository quizRepo;
-	
-	@Autowired
-	private VideoExternalRepository videoRepo;
 	
 	
 	
@@ -111,6 +95,11 @@ public class TopicServiceimpl implements TopicService {
 		}
 		
 		
+	}
+	@Override
+	public int countRow() {
+		
+		return (int) topicRepo.count();
 	}
 	
 	

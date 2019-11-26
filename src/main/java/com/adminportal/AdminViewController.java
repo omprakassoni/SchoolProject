@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -830,7 +831,7 @@ public class AdminViewController {
 			
 			List<VideoExternal> videoList=videoService.findAll();
 			for(VideoExternal a:videoList) {
-				if(a.isStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localVideo.add(a);
 				}
 			}
@@ -856,7 +857,7 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
-		  status=videoService.EnableVideoContent(1, id);
+		  status=videoService.EnableAcceptedByAdminVideoContent(1, id);
 			
 			if(status) {
 				mv.addObject("status", "Video Enabled Sucessfully");
@@ -875,7 +876,7 @@ public class AdminViewController {
 			
 			List<VideoExternal> videoList=videoService.findAll();
 			for(VideoExternal a:videoList) {
-				if(a.isStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localVideo.add(a);
 				}
 			}
@@ -916,7 +917,7 @@ public class AdminViewController {
 			
 			List<DocumentExternal> documentList=documentService.findAll();
 			for(DocumentExternal a:documentList) {
-				if(a.isStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localdocument.add(a);
 				}
 			}
@@ -944,7 +945,7 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
-		  status=documentService.EnableDocumentContent(1, id);
+		  status=documentService.EnableAcceptedByAdminDocumentContent(1, id);
 			
 			if(status) {
 				mv.addObject("status", "Document Enabled Sucessfully");
@@ -961,7 +962,7 @@ public class AdminViewController {
 				
 				List<DocumentExternal> documentList=documentService.findAll();
 				for(DocumentExternal a:documentList) {
-					if(a.isStatus()==0) {
+					if(a.getAcceptedByAdmin()==0) {
 						localdocument.add(a);
 					}
 				}
@@ -1001,7 +1002,7 @@ public class AdminViewController {
 			
 			List<ArticleExternal> articleList=articleService.findAll();
 			for(ArticleExternal a:articleList) {
-				if(a.isStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localarticle.add(a);
 				}
 			}
@@ -1030,7 +1031,7 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
-		  status=articleService.EnableArticleContent(1, id);
+		  status=articleService.EnableAcceptedByAdminArticleContent(1, id);
 			
 			if(status) {
 				mv.addObject("status", "Article Enabled Sucessfully");
@@ -1047,7 +1048,7 @@ public class AdminViewController {
 				
 				List<ArticleExternal> articleList=articleService.findAll();
 				for(ArticleExternal a:articleList) {
-					if(a.isStatus()==0) {
+					if(a.getAcceptedByAdmin()==0) {
 						localarticle.add(a);
 					}
 				}
@@ -1084,7 +1085,7 @@ public class AdminViewController {
 			
 			List<Phets> phetList=phetService.findAll();
 			for(Phets a:phetList) {
-				if(a.isStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localphet.add(a);
 				}
 			}
@@ -1114,7 +1115,7 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
-		  status=phetService.EnablePhetContent(1, id);
+		  status=phetService.EnableAcceptedByAdminPhetContent(1, id);
 			
 			if(status) {
 				mv.addObject("status", "Phets Enabled Sucessfully");
@@ -1131,7 +1132,7 @@ public class AdminViewController {
 				
 				List<Phets> phetList=phetService.findAll();
 				for(Phets a:phetList) {
-					if(a.isStatus()==0) {
+					if(a.getAcceptedByAdmin()==0) {
 						localphet.add(a);
 					}
 				}
@@ -1168,7 +1169,7 @@ public class AdminViewController {
 			
 			List<QuizQuestion> quizList=quizService.findAll();
 			for(QuizQuestion a:quizList) {
-				if(a.isStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localQuiz.add(a);
 				}
 			}
@@ -1197,7 +1198,7 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
-		  status=quizService.EnableQuizContent(1, id);
+		  status=quizService.EnableAcceptedByAdminQuizContent(1, id);
 			
 			if(status) {
 				mv.addObject("status", "Quiz Enabled Sucessfully");
@@ -1214,7 +1215,7 @@ public class AdminViewController {
 				
 				List<QuizQuestion> quizList=quizService.findAll();
 				for(QuizQuestion a:quizList) {
-					if(a.isStatus()==0) {
+					if(a.getAcceptedByAdmin()==0) {
 						localQuiz.add(a);
 					}
 				}
@@ -1252,7 +1253,7 @@ public class AdminViewController {
 			
 			List<LessonPlan> lessonList=lessonService.findAll();
 			for(LessonPlan a:lessonList) {
-				if(a.isStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localLesson.add(a);
 				}
 			}
@@ -1281,7 +1282,7 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
-		  status=lessonService.EnableLessonPlanContent(1, id);
+		  status=lessonService.EnableAcceptedByAdminLessonPlanContent(1, id);
 			
 			if(status) {
 				mv.addObject("status", "Lesson Plan Enabled Sucessfully");
@@ -1298,7 +1299,7 @@ public class AdminViewController {
 				
 				List<LessonPlan> lessonList=lessonService.findAll();
 				for(LessonPlan a:lessonList) {
-					if(a.isStatus()==0) {
+					if(a.getAcceptedByAdmin()==0) {
 						localLesson.add(a);
 					}
 				}
@@ -1334,7 +1335,7 @@ public class AdminViewController {
 			
 			List<ConceptMap> conceptList=conceptService.findAll();
 			for(ConceptMap a:conceptList) {
-				if(a.getStatus()==0) {
+				if(a.getAcceptedByAdmin()==0) {
 					localconcept.add(a);
 				}
 			}
@@ -1360,7 +1361,7 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
-		  status=conceptService.EnableConceptContent(1, id);
+		  status=conceptService.EnableAcceptedByAdminConceptContent(1, id);
 			
 			if(status) {
 				mv.addObject("status", "Concept-Map Enabled Sucessfully");
@@ -1377,7 +1378,7 @@ public class AdminViewController {
 				
 				List<ConceptMap> conceptList=conceptService.findAll();
 				for(ConceptMap a:conceptList) {
-					if(a.getStatus()==0) {
+					if(a.getAcceptedByAdmin()==0) {
 						localconcept.add(a);
 					}
 				}
@@ -1461,17 +1462,22 @@ public class AdminViewController {
 			
 			for(Tutorial localTemp:tempTutorial) {
 				
-				String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
-				RestTemplate restTemp=new RestTemplate();
-				TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
-				
-				localTutorial.setTutorialId(localTemp.getTutorialId());
-				localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
-				localTutorial.setContributedBy(localTemp.getUser().getFname());
-				localTutorial.setStatus(localTemp.getStatus());
-				System.out.println(localTutorial.getOutline());
-				
-				tutorialListData.add(localTutorial);
+				try {
+					String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+					RestTemplate restTemp=new RestTemplate();
+					TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
+					
+					localTutorial.setTutorialId(localTemp.getTutorialId());
+					localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
+					localTutorial.setContributedBy(localTemp.getUser().getFname());
+					localTutorial.setStatus(localTemp.getStatus());
+					System.out.println(localTutorial.getOutline());
+					
+					tutorialListData.add(localTutorial);
+				} catch (RestClientException e) {
+					
+					e.printStackTrace();
+				}
 			}
 			
 		
@@ -1523,16 +1529,21 @@ public class AdminViewController {
 		
 		for(Tutorial localTemp:tempTutorial) {
 			
-			String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
-			RestTemplate restTemp=new RestTemplate();
-			TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
-			
-			localTutorial.setTutorialId(localTemp.getTutorialId());
-			localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
-			localTutorial.setContributedBy(localTemp.getUser().getFname());
-			localTutorial.setStatus(localTemp.getStatus());
-			
-			tutorialListData.add(localTutorial);
+			try {
+				String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+				RestTemplate restTemp=new RestTemplate();
+				TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
+				
+				localTutorial.setTutorialId(localTemp.getTutorialId());
+				localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
+				localTutorial.setContributedBy(localTemp.getUser().getFname());
+				localTutorial.setStatus(localTemp.getStatus());
+				
+				tutorialListData.add(localTutorial);
+			} catch (RestClientException e) {
+				
+				e.printStackTrace();
+			}
 		}
 		
 		

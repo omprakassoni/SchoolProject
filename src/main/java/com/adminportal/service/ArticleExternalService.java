@@ -30,5 +30,9 @@ public interface ArticleExternalService {
 	List<ArticleExternal> findAllByTopic(Topic topic);
 	
 	List<ArticleExternal> findALlByUser(User usr);
+	
+	boolean EnableAcceptedByAdminArticleContent(int status,int id);
+	
+	List<ArticleExternal> findAllByTopicAndStatus(Topic topic);
 
 }

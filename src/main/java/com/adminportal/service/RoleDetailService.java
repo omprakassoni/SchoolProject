@@ -11,5 +11,7 @@ import com.adminportal.domain.RoleDetail;
 public interface RoleDetailService {
 	
 	RoleDetail findByRoleName(String sub);
+	
+	int countRow();
 
 }

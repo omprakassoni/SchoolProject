@@ -20,6 +20,7 @@ import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
 import com.adminportal.repository.QuizQuestionRepository;
 import com.adminportal.service.QuizQuestionService;
+import com.spoken.Utility.ServiceUtility;
 
 @Service
 public class QuizQuestionServiceImpl implements QuizQuestionService{
@@ -91,6 +92,24 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 	public List<QuizQuestion> findALlByUser(User usr) {
 		
 		return quizRepo.findAllByuser(usr,"Quiz");
+	}
+
+	@Override
+	@Transactional
+	public boolean EnableAcceptedByAdminQuizContent(int status, int id) {
+		int status1=quizRepo.EnableAcceptedByAdminContent(status,ServiceUtility.getCurrentTime(), id);
+		
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public List<QuizQuestion> findAllByTopicAndStatus(Topic topic) {
+		
+		return quizRepo.findAllByTopicAndStatus(topic, 1,"Quiz");
 	}
 
 }

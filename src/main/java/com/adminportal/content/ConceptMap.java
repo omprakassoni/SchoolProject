@@ -51,6 +51,9 @@ public class ConceptMap {
 	@Column(name="status",nullable = false)
 	private int status;
 	
+	@Column(name="acceptedByAdmin",nullable = false)
+	private int acceptedByAdmin;
+	
 	@Column(name="remarks")
 	private String remark;
 	
@@ -82,7 +85,7 @@ public class ConceptMap {
 
 
 	public ConceptMap(int concepMapid, String type, Timestamp dateAdded, Timestamp dateModified, String url,
-			String description, int status, String remark, Topic topic, User user) {
+			String description, int status,int acceptedByAdmin, String remark, Topic topic, User user) {
 		super();
 		this.concepMapid = concepMapid;
 		this.type = type;
@@ -91,6 +94,7 @@ public class ConceptMap {
 		this.url = url;
 		this.description = description;
 		this.status = status;
+		this.acceptedByAdmin=acceptedByAdmin;
 		this.remark = remark;
 		this.topic = topic;
 		this.user = user;
@@ -184,6 +188,18 @@ public class ConceptMap {
 
 	public void setComment(List<Comment> comment) {
 		this.comment = comment;
+	}
+
+
+
+	public int getAcceptedByAdmin() {
+		return acceptedByAdmin;
+	}
+
+
+
+	public void setAcceptedByAdmin(int acceptedByAdmin) {
+		this.acceptedByAdmin = acceptedByAdmin;
 	}
 
 	

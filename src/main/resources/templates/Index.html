@@ -127,16 +127,16 @@
                             </div>
                     </div>
                     
-                    <div class="carousel-item" th:if="${Testimonial[1]!=null}">
+                    <div class="carousel-item" th:each="om,vik:${Testimonial}">
                     <div class="testimonial">
                             <!--Avatar-->
                            
                             <!--Content-->
                             <p>
-                                <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${Testimonial[1].getDescription()}"/><i class="fas fa-quote-right"></i>
+                                <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${om.getDescription()}"/><i class="fas fa-quote-right"></i>
                             </p>
-                            <h4 class="font-weight-bold" th:text="${Testimonial[1].getName()}"></h4>
-                            <h6 class="font-weight-bold my-3" th:text="${Testimonial[1].getOrganization()}"></h6>
+                            <h4 class="font-weight-bold" th:text="${om.getName()}"></h4>
+                            <h6 class="font-weight-bold my-3" th:text="${om.getOrganization()}"></h6>
             
                     </div>
                 </div>

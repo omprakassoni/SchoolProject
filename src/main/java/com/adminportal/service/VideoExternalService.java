@@ -30,5 +30,9 @@ public interface VideoExternalService {
 	List<VideoExternal> findAllByTopic(Topic topic);
 	
 	List<VideoExternal> findALlByUser(User usr);
+	
+	boolean EnableAcceptedByAdminVideoContent(int status,int id);
+	
+	List<VideoExternal> findAllByTopicAndStatus(Topic topic);
 
 }

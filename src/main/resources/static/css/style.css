@@ -498,6 +498,10 @@ a.bottom-text-w3ls {
 	color:red;
 }
 
+.SuccessClass{
+	color:green;
+}
+
 
 /* -----------------------------------------------------------Register Page Design -----------------------------------------------------------*/
 
@@ -572,6 +576,7 @@ p.spk-register-p {
 	text-align:center;
 }
 
+/***************************** Tile on Courses Selection *****************************************/
 
 
 

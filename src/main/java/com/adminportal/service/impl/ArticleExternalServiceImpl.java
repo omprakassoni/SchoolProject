@@ -19,6 +19,7 @@ import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
 import com.adminportal.repository.ArticleExternalRepository;
 import com.adminportal.service.ArticleExternalService;
+import com.spoken.Utility.ServiceUtility;
 
 @Service
 public class ArticleExternalServiceImpl implements ArticleExternalService{
@@ -88,6 +89,25 @@ public class ArticleExternalServiceImpl implements ArticleExternalService{
 		
 		
 		return articleRepo.findAllByuser(usr,"Article");
+	}
+	
+	@Override
+	@Transactional
+	public boolean EnableAcceptedByAdminArticleContent(int status, int id) {
+		
+		int status1=articleRepo.EnableAcceptedByAdminContent(status,ServiceUtility.getCurrentTime(), id);
+		
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	@Override
+	public List<ArticleExternal> findAllByTopicAndStatus(Topic topic) {
+		
+		
+		return articleRepo.findAllByTopicAndStatus(topic, 1,"Article");
 	}
 
 }

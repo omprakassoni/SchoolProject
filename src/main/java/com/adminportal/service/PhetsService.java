@@ -33,6 +33,10 @@ public interface PhetsService {
 	List<Phets> findAllByTopic(Topic topic);
 	
 	List<Phets> findALlByUser(User usr);
+	
+	boolean EnableAcceptedByAdminPhetContent(int status,int id);
+	
+	List<Phets> findAllByTopicAndStatus(Topic topic);
 
 
 }

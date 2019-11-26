@@ -45,6 +45,13 @@ public class ClassServiceImpl implements ClassService{
 		return local;
 	}
 
+	@Override
+	public int countRow() {
+		
+		
+		return (int) classRepo.count();
+	}
+
 	
 
 	

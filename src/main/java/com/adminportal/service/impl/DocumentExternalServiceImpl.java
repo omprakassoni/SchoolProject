@@ -20,6 +20,7 @@ import com.adminportal.content.Topic;
 import com.adminportal.domain.User;
 import com.adminportal.repository.DocumentExternalRepository;
 import com.adminportal.service.DocumentExternalService;
+import com.spoken.Utility.ServiceUtility;
 
 @Service
 public class DocumentExternalServiceImpl implements DocumentExternalService{
@@ -93,6 +94,23 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 	public List<DocumentExternal> findALlByUser(User usr) {
 		
 		return documentRepo.findAllByuser(usr,"Document");
+	}
+
+	@Override
+	@Transactional
+	public boolean EnableAcceptedByAdminDocumentContent(int status, int id) {
+		int status1=documentRepo.EnableAcceptedByAdminContent(status,ServiceUtility.getCurrentTime(), id);
+		if(status1>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public List<DocumentExternal> findAllByTopicAndStatus(Topic topic) {
+	
+		return documentRepo.findAllByTopicAndStatus(topic, 1,"Document");
 	}
 
 }

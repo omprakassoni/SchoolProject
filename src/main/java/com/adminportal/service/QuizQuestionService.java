@@ -32,5 +32,9 @@ public interface QuizQuestionService {
 	List<QuizQuestion> findAllByTopic(Topic topic);
 	
 	List<QuizQuestion> findALlByUser(User usr);
+	
+	boolean EnableAcceptedByAdminQuizContent(int status,int id);
+	
+	List<QuizQuestion> findAllByTopicAndStatus(Topic topic);
 
 }

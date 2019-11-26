@@ -36,8 +36,15 @@ public interface VideoExternalRepository extends CrudRepository<VideoExternal, I
 	@Query("update VideoExternal set status=?1 where videoId=?2")			//Enabling or disabling status of video based on primary key
 	int EnableVideoContent(int status,int id);
 	
+	@Query("from VideoExternal U where U.topic=?1 and U.status=?2 and U.type=?3")
+	List<VideoExternal> findAllByTopicAndStatus(Topic topic,int status,String type);
+	
 	@Query("from VideoExternal U where U.user=?1 and U.type=?2")			//listing video based on user and type
 	List<VideoExternal> findAllByuser(User usr,String type);
+	
+	@Modifying
+	@Query("update VideoExternal set acceptedByAdmin=?1,status=?1,dateApproved=?2 where videoId=?3")
+	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
 }
 
 
