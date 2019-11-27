@@ -13,5 +13,7 @@ public interface RoleDetailService {
 	RoleDetail findByRoleName(String sub);
 	
 	int countRow();
+	
+	void save(RoleDetail role);
 
 }

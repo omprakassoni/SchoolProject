@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -304,7 +305,13 @@ public class AdminViewController {
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		List<VideoExternal> videoList=videoService.findAll();
+		List<VideoExternal> videoListtemp=videoService.findAll();
+		List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+		for(VideoExternal temp:videoListtemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				videoList.add(temp);
+			}
+		}
 	
 		
 		
@@ -348,7 +355,13 @@ public class AdminViewController {
 		
 
 		
-		List<VideoExternal> videoList=videoService.findAll();
+		List<VideoExternal> videoListtemp=videoService.findAll();
+		List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+		for(VideoExternal temp:videoListtemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				videoList.add(temp);
+			}
+		}
 		
 		
 	
@@ -372,8 +385,13 @@ public class AdminViewController {
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		List<ArticleExternal> articleList=articleService.findAll();
-		
+		List<ArticleExternal> articleListTemp=articleService.findAll();
+		List<ArticleExternal> articleList=new ArrayList<ArticleExternal>();
+		for(ArticleExternal temp:articleListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				articleList.add(temp);
+			}
+		}
 		
 	
 		mv.addObject("Article",articleList);
@@ -412,7 +430,13 @@ public class AdminViewController {
 			mv.addObject("status", "Please try Again");
 		}
 		
-		List<ArticleExternal> articleList=articleService.findAll();
+		List<ArticleExternal> articleListTemp=articleService.findAll();
+		List<ArticleExternal> articleList=new ArrayList<ArticleExternal>();
+		for(ArticleExternal temp:articleListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				articleList.add(temp);
+			}
+		}
 
 		mv.addObject("Article",articleList);
 		
@@ -435,7 +459,13 @@ public class AdminViewController {
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		List<DocumentExternal> documentList=documentService.findAll();
+		List<DocumentExternal> documentListTemp=documentService.findAll();
+		List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
+		for(DocumentExternal temp:documentListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				documentList.add(temp);
+			}
+		}
 		
 		mv.addObject("Document",documentList);
 		
@@ -474,7 +504,13 @@ public class AdminViewController {
 			mv.addObject("status", "Please try Again");
 		}
 		
-		List<DocumentExternal> documentList=documentService.findAll();
+		List<DocumentExternal> documentListTemp=documentService.findAll();
+		List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
+		for(DocumentExternal temp:documentListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				documentList.add(temp);
+			}
+		}
 		
 		mv.addObject("Document",documentList);
 		
@@ -496,7 +532,13 @@ public class AdminViewController {
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 
-		List<Phets> phetList=phetService.findAll();
+		List<Phets> phetListTemp=phetService.findAll();
+		List<Phets> phetList=new ArrayList<Phets>();
+		for(Phets temp:phetListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				phetList.add(temp);
+			}
+		}
 		
 		mv.addObject("Phet",phetList);
 		
@@ -534,7 +576,13 @@ public class AdminViewController {
 			mv.addObject("status", "Please try Again");
 		}
 		
-		List<Phets> phetList=phetService.findAll();
+		List<Phets> phetListTemp=phetService.findAll();
+		List<Phets> phetList=new ArrayList<Phets>();
+		for(Phets temp:phetListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				phetList.add(temp);
+			}
+		}
 		
 		mv.addObject("Phet",phetList);
 		
@@ -556,7 +604,13 @@ public class AdminViewController {
 			mv.setViewName("redirect:/adminPortal");
 		}else {
 		
-		List<LessonPlan> lessonList=lessonService.findAll();
+		List<LessonPlan> lessonListTemp=lessonService.findAll();
+		List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
+		for(LessonPlan temp:lessonListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				lessonList.add(temp);
+			}
+		}
 	
 		mv.addObject("Lesson",lessonList);
 		mv.setViewName("lessonPlanList");
@@ -594,7 +648,13 @@ public class AdminViewController {
 		}
 		
 		
-		List<LessonPlan> lessonList=lessonService.findAll();
+		List<LessonPlan> lessonListTemp=lessonService.findAll();
+		List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
+		for(LessonPlan temp:lessonListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				lessonList.add(temp);
+			}
+		}
 		
 	
 		mv.addObject("Lesson",lessonList);
@@ -616,7 +676,13 @@ public class AdminViewController {
 		}else {
 		
 		
-		List<QuizQuestion> quizList=quizService.findAll();
+		List<QuizQuestion> quizListTemp=quizService.findAll();
+		List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
+		for(QuizQuestion temp:quizListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				quizList.add(temp);
+			}
+		}
 		
 		mv.addObject("Quiz",quizList );
 		mv.setViewName("quizList");
@@ -653,7 +719,13 @@ public class AdminViewController {
 			mv.addObject("status", "Please try Again");
 		}
 		
-		List<QuizQuestion> quizList=quizService.findAll();
+		List<QuizQuestion> quizListTemp=quizService.findAll();
+		List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
+		for(QuizQuestion temp:quizListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				quizList.add(temp);
+			}
+		}
 	
 		
 		mv.addObject("Quiz",quizList );
@@ -673,7 +745,13 @@ public class AdminViewController {
 		}else {
 		
 		
-		List<ConceptMap> ConceptMapList=conceptService.findAll();
+		List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
+		List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
+		for(ConceptMap temp:ConceptMapListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				ConceptMapList.add(temp);
+			}
+		}
 		
 		mv.addObject("ConceptMapList",ConceptMapList );
 		mv.setViewName("concepMapList");
@@ -711,7 +789,13 @@ public class AdminViewController {
 			mv.addObject("status", "Please try Again");
 		}
 		
-		List<ConceptMap> ConceptMapList=conceptService.findAll();
+		List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
+		List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
+		for(ConceptMap temp:ConceptMapListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				ConceptMapList.add(temp);
+			}
+		}
 	
 		
 		mv.addObject("ConceptMapList",ConceptMapList );
@@ -1463,7 +1547,7 @@ public class AdminViewController {
 			for(Tutorial localTemp:tempTutorial) {
 				
 				try {
-					String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+					String url="https://spoken-tutorial.org/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
 					RestTemplate restTemp=new RestTemplate();
 					TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
 					
@@ -1530,7 +1614,7 @@ public class AdminViewController {
 		for(Tutorial localTemp:tempTutorial) {
 			
 			try {
-				String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+				String url="https://spoken-tutorial.org/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
 				RestTemplate restTemp=new RestTemplate();
 				TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
 				

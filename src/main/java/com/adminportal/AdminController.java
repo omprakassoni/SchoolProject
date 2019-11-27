@@ -1035,7 +1035,7 @@ public class AdminController {
 
 			
 			userService.addUserToVideo(usr, videoMapping);							// persist Video Information
-			mv.addObject("Status", "Added Sucessfully");
+			mv.addObject("status", "Added Sucessfully");
 			
 		} catch (Exception e) {
 			

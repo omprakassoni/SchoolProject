@@ -42,7 +42,7 @@ public class ConceptMap {
 	@Column(name="url")
 	private String url;
 	
-	@Column(name="description",nullable = false,length = 10000)
+	@Column(name="description",length = 10000)
 	private String description;
 	
 	@Column(name="date_approved")

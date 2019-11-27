@@ -39,7 +39,7 @@ public class Phets {
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 
-	@Column(name="description",nullable = false,length = 10000)
+	@Column(name="description",length = 10000)
 	private String description;
 	
 	@Column(name="source")

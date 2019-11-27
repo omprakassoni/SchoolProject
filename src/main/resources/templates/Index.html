@@ -99,7 +99,7 @@
         
         
         
-        <section class="section-header"  style="background: lightblue" th:if="${Testimonial!= null}">
+        <section class="section-header"  style="background: lightblue" th:if="${TestimonialFirst!= null}">
             <div class="container">
                 <div class="section1">
 			         <h3 class="section-title-except-contact-us">Testimonials</h3>
@@ -113,30 +113,30 @@
                     <div class="carousel-inner" role="listbox">
                         <!--First slide-->
                        
-                        <div class="carousel-item active" th:if="${Testimonial[0]!=null}">
+                        <div class="carousel-item active" th:if="${TestimonialFirst!=null}">
                             <div class="testimonial">
                                 <!--Avatar-->
                             <!--Content-->
                                 <p>
-                                    <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${Testimonial[0].getDescription()}"/><i class="fas fa-quote-right"></i>
+                                    <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${TestimonialFirst.getDescription()}"/><i class="fas fa-quote-right"></i>
                                 </p>
-                                <h4 class="font-weight-bold" th:text="${Testimonial[0].getName()}"></h4>
-                                <h6 class="font-weight-bold my-3" th:text="${Testimonial[0].getOrganization()}"> </h6>
+                                <h4 class="font-weight-bold" th:text="${TestimonialFirst.getName()}"></h4>
+                                <h6 class="font-weight-bold my-3" th:text="${TestimonialFirst.getOrganization()}"> </h6>
        
            
                             </div>
                     </div>
                     
-                    <div class="carousel-item" th:each="om,vik:${Testimonial}">
+                    <div class="carousel-item" th:each="testi:${TestimonialRest}">
                     <div class="testimonial">
                             <!--Avatar-->
                            
                             <!--Content-->
                             <p>
-                                <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${om.getDescription()}"/><i class="fas fa-quote-right"></i>
+                                <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${testi.getDescription()}"/><i class="fas fa-quote-right"></i>
                             </p>
-                            <h4 class="font-weight-bold" th:text="${om.getName()}"></h4>
-                            <h6 class="font-weight-bold my-3" th:text="${om.getOrganization()}"></h6>
+                            <h4 class="font-weight-bold" th:text="${testi.getName()}"></h4>
+                            <h6 class="font-weight-bold my-3" th:text="${testi.getOrganization()}"></h6>
             
                     </div>
                 </div>

@@ -35,4 +35,12 @@ public class RoleDetailServiceImpl implements RoleDetailService {
 		return (int) roleRepo.count();
 	}
 
+
+
+	@Override
+	public void save(RoleDetail role) {
+		roleRepo.save(role);
+		
+	}
+
 }

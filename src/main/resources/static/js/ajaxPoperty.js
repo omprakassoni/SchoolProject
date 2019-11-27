@@ -69,7 +69,7 @@ $(function(){
 			$.ajax({
 				  	 type: "GET",
 				
-		       		 url: "http://10.177.6.18:8005/api/get_schoolfosslist/",
+		       		 url: "https://spoken-tutorial.org/api/get_schoolfosslist/",
 		       		 dataType: 'json',
 		       		 cache: false,
 		        	 timeout: 600000,
@@ -114,7 +114,7 @@ $(function(){
 			
 			$("#fossLanguage").prop('disabled', true);
 			
-			var urlLanguage="http://10.177.6.18:8005/api/get_fosslanguage/"+fossId+"/";
+			var urlLanguage="https://spoken-tutorial.org/api/get_fosslanguage/"+fossId+"/";
 			
 			
 			$.ajax({
@@ -163,7 +163,7 @@ $(function(){
 			
 			$("#fossTutorial").prop('disabled', true);
 			
-			var urlFossAndLanguage="http://10.177.6.18:8005/api/get_tutorials/"+fossId+"/"+fossLanguageId+"/";
+			var urlFossAndLanguage="https://spoken-tutorial.org/api/get_tutorials/"+fossId+"/"+fossLanguageId+"/";
 			
 			
 			$.ajax({

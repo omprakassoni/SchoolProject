@@ -167,15 +167,36 @@ public class HomeController {
 		
 		List<Events> eventData=eventService.getAllEventdata();
 		
+
+		
 		if(testidata.size()>0) {
-			mv.addObject("Testimonial", testidata);
+			
+			Testimonial temp1=testidata.get(0);
+			mv.addObject("TestimonialFirst", temp1);
+			
+			List<Testimonial> temp2=new ArrayList<Testimonial>();
+			for(int i=1;i<testidata.size();i++) {
+				temp2.add(testidata.get(i));
+			}
+			
+			mv.addObject("TestimonialRest", temp2);
+			
+			
 		}
 		
 		if(eventData.size()>0) {
-			mv.addObject("Events", eventData);
+			
+			List<Events> eventTemp=new ArrayList<Events>();
+			eventTemp.add(eventData.get(0));
+			for(int i=1;i<eventData.size();i++) {
+				eventTemp.add(eventData.get(i));
+				break;
+			}
+	
+			mv.addObject("Events", eventTemp);
 		}
 		
-	
+		
 		
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("Index");
@@ -570,7 +591,7 @@ public class HomeController {
 		for(Tutorial localTemp:localTutorial) {
 			
 			try {
-				String url="http://10.177.6.18:8005/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+				String url="https://spoken-tutorial.org/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
 				RestTemplate restTemp=new RestTemplate();
 				TutorialList localTut=restTemp.getForObject(url, TutorialList.class);
 				
