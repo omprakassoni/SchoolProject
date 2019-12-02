@@ -12,7 +12,7 @@
     </head>
     
     <body>
-    <div class="bg-poster" >
+    <div th:class="bg-poster" >
             
            
             	<!--  CODE FOR NAVBAR -->			
@@ -198,9 +198,10 @@
                         </div>
                           <p th:text="${event.getDescription()}"> 
                         </p>
-                        <div class="view">
+                     <!--     <div class="view">
                             <a href="#">View</a>
                         </div>
+                       -->
                     </div>
                 
           
@@ -251,10 +252,10 @@
                             </div>
                             <div class="address">
                             <div style="font-size: 25px"><strong>Follow Us</strong></div>
-                                <p><a href="https://www.youtube.com/user/SpokenTutorialIITB/" ><i class="fab fa-youtube font-color-youtube"></i></a>
-					               <a href="https://www.facebook.com/SpokenTutorial.org" ><i class="fab fa-facebook-f font-color-facebook"></i></a>
-					               <a href="https://plus.google.com/114550410376641567079" ><i class="fab fa-google-plus font-color-gooplus"></i></a>
-                                   <a href="" ><i class="fab fa-skype font-color-skype"></i></a>
+                                <p><a href="https://www.youtube.com/user/SpokenTutorialIITB/" target="_blank"><i class="fab fa-youtube font-color-youtube"></i></a>
+					               <a href="https://www.facebook.com/SpokenTutorial.org" target="_blank"><i class="fab fa-facebook-f font-color-facebook"></i></a>
+					               <a href="https://plus.google.com/114550410376641567079" target="_blank"><i class="fab fa-google-plus font-color-gooplus"></i></a>
+                                   <a  ><i class="fab fa-skype font-color-skype"></i></a>
                                 </p>
                             </div>
                         </div>

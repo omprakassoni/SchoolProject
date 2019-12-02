@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
@@ -24,7 +26,7 @@ import com.adminportal.service.UserService;
 import com.spoken.Utility.ServiceUtility;
 
 @SpringBootApplication
-public class AdminPortalSchoolProjectApplication implements CommandLineRunner {
+public class AdminPortalSchoolProjectApplication extends SpringBootServletInitializer implements CommandLineRunner  {
 	
 	@Autowired
 	private UserService userService;
@@ -32,14 +34,21 @@ public class AdminPortalSchoolProjectApplication implements CommandLineRunner {
 	@Autowired
 	private RoleDetailService roleService;
 	
-	@Autowired
-	private UserRoleService userRoleService;
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		
+		return builder.sources(AdminPortalSchoolProjectApplication.class);
+	}
+	
 
 	public static void main(String[] args) {
 		new java.io.File(HomeController.uploadDirectory).mkdir();
 		new java.io.File(HomeController.uploadTeacherDirectory).mkdir();
 		SpringApplication.run(AdminPortalSchoolProjectApplication.class, args);
 	}
+	
+	
+
 
 	@Override
 	public void run(String... args) throws Exception {

@@ -68,7 +68,7 @@
 				       <td><span th:with="roles=${user.getUserRoles()}">
 				      	  <span th:each="role:${roles}">
 				      		<span th:if="${role.getRole().getRoleId()==1}"><a class="btn btn-secondary detailUser" th:value="${user.getId()}" id="detailUser">Details</a></span>
-				      		<span th:if="${role.getRole().getRoleId()==3}"><h5><a href="#" class="pop" th:src="${user.getDocument()}">View Details</a></h5>
+				      		<span th:if="${role.getRole().getRoleId()==3}"><h5><a href="#" class="pop" th:src="@{${user.getDocument()}}">View Details</a></h5>
 				      		<br/>
 				      	  </span>
 				      	 </span>

@@ -83,15 +83,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 //		http.authorizeRequests()
 //			.antMatchers(PUBLIC_MATCHERS).permitAll()
-//			.anyRequest().authenticated()
+//			.anyRequest().authenticated();
 //			.and()
 //			.formLogin()
 //			.loginPage("/Login");
 //
 //		
-//		
+////		
 //		http
 //		.csrf().disable().cors().disable();
+		
 		
 		
 		

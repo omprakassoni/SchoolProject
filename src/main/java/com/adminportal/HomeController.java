@@ -215,18 +215,22 @@ public class HomeController {
 		
 		String userRole=null;
 		String username=req.getParameter("username");
-		String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
-		boolean status=false;
+		//String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
+		boolean statusPassword=false;
+		System.out.println(username);
+		System.out.println(req.getParameter("password"));
 		
-		User usr=(User) userService.existsByUser(username, password);			// check for existence of User
-		if(usr!=null) {
+		//User usr1=(User) userService.existsByUser(username, password);			// check for existence of User
+		User usr=userService.findByUsername(username);
+		statusPassword =ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());
+		if(statusPassword) {
 		List<UserRole> tempuserRole=usr.getUserRoles();
 		for(UserRole temp:tempuserRole) {
 			userRole=temp.getRole().getRoleName();
 			
 		}
 		}
-		if(usr!=null) {
+		if(statusPassword) {
 				
 				if(userRole.contentEquals("Teacher") ) {
 					

@@ -23,7 +23,7 @@
     		<div class="shadow-lg p-3 mb-5 bg-white rounded">
     		<form th:action="@{/home}"  method="post">
     			<div class="header ">Login here !</div>
-    			<div th:if="${param.error != null}" style="color:red;">Incorrect username or password.</div>
+    			<div th:if="${Error != null}" style="color:red;">Incorrect username or password.</div>
     			<div class="input-group mb-3">
   					<div class="input-group-prepend">
     				<span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>

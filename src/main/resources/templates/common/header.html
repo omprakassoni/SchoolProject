@@ -8,11 +8,11 @@
 <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
       
         
-        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-      	<link rel="stylesheet" href="/css/mdb.css" type="text/css"/>    
-        <link rel="stylesheet" href="/css/style.css"/>
-         <link rel="stylesheet" href="/css/all.min.css" type="text/css"/>
-         <link rel="stylesheet" href="/datatables.min.css" type="text/css"/>  
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+      	<link rel="stylesheet" th:href="@{/css/mdb.css}" type="text/css"/>    
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+         <link rel="stylesheet" th:href="@{/css/all.min.css}" type="text/css"/>
+         <link rel="stylesheet" th:href="@{/datatables.min.css}" type="text/css"/>  
        
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         
@@ -25,7 +25,7 @@
 		<div class="container" id="Home">
         <div class="row">
             <div class="col-2">
-                <a href="/" id="logo"><img src="/Images/logo.png"/></a>
+                <a th:href="@{/}" id="logo"><img th:src="@{/Images/logo.png}"/></a>
             </div>
             
             <div class="col-sm">
@@ -136,15 +136,15 @@
 			
 		<!--  	<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>   -->
 		
-		  	<script src="/js/jquery-3.4.1.min.js"></script>
-        	<script src="/js/bootstrap.min.js"></script>
+		  	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+        	<script th:src="@{/js/bootstrap.min.js}"></script>
         	
-        	<script src="/js/all.js"></script>
-         	<script src="/js/mdb.js"></script>  
+        	<script th:src="@{/js/all.js}"></script>
+         	<script th:src="@{/js/mdb.js}"></script>  
          	 
-         	<script src="/datatables.min.js"></script>  
+         	<script th:src="@{/datatables.min.js}"></script>  
         	
-        	<script src="/js/ajaxPoperty.js"></script>
+        	<script th:src="@{/js/ajaxPoperty.js}"></script>
         	
         
         	

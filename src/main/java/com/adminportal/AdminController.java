@@ -152,11 +152,13 @@ public class AdminController {
 	public ModelAndView adminHomepost(HttpServletRequest req,ModelAndView mv) {
 		
 		String username=req.getParameter("username");   // geeting username from the view
-		String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));  // encoding password entered by User.
+		
 		boolean status=false;
 		
-		User usr=(User) userService.existsByUser(username, password);   // check for user existence in database
-		if(usr!=null) {
+		User usr=userService.findByUsername(username);   // check for user existence in database
+		boolean passwordStatus=ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());   
+		
+		if(passwordStatus) {
 			List<UserRole> local=(List<UserRole>) usr.getUserRoles();
 			for(UserRole role:local) {
 				if(role.getRole().getRoleName().contentEquals("Admin")) {  // checking for admin role in user 

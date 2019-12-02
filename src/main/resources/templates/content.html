@@ -62,7 +62,7 @@
     			
       			<div class="tab-pane fade show active" id="" role="tabpanel" aria-labelledby="v-pills-home-tab">
         		
-        			<img class = "img-responsive" th:src="'/'+${TopicSelected.getPoster()}" style="width:100%;height:400px"/>
+        			<img class = "img-responsive" th:src="@{'/'+${TopicSelected.getPoster()}}" style="width:100%;height:400px"/>
         			 <br/>
         			<h3 th:text="${TopicSelected.getDescription()}"></h3>
           			
@@ -89,7 +89,7 @@
 								
 								<div class="col-6" >
 								
-									<img class = "img-responsive" th:src="'/'+${concept.getUrl()}" style="width:100%;height:300px"/>
+									<img class = "img-responsive" th:src="@{'/'+${concept.getUrl()}}" style="width:100%;height:300px"/>
 							
 								</div>
 								      
@@ -151,7 +151,7 @@
 			    
 			      <div class="tab-pane fade" id="v-pills-Phets" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 			      
-			    	<p style="float:right"><a href="#" >Check Out how to Use Stimulation</a></p>
+			    	<p style="float:right"><a href="https://spoken-tutorial.org/tutorial-search/?search_foss=PhET&search_language=English" >Check Out how to Use Phets</a></p>
 			    	
 			    	
 			      <div class="clearfix"></div>
@@ -310,7 +310,7 @@
 						
 							<div class="col-6">
 							
-								<a th:href="'/'+${document.getUrl()}" target="_blank"><h3> Check Out </h3></a>
+								<a th:href="@{'/'+${document.getUrl()}}" target="_blank"><h3> Check Out </h3></a>
 								
 							</div>			      
 			      
@@ -346,7 +346,7 @@
 						    </thead>
 						    <tbody>
 						    	<tr >
-						    		<td><h2><a th:href="'/'+${lesson.getLessonPlan()}" style="color:blue" target="_blank">Download</a></h2></td>
+						    		<td><h2><a th:href="@{'/'+${lesson.getLessonPlan()}}" style="color:blue" target="_blank">Download</a></h2></td>
 						    
 						    	</tr>
 						  
@@ -378,7 +378,7 @@
 						    <tbody>
 						    	<tr >
 						    		<td><h3>Question Set </h3></td>
-						    		<td><h2><a th:href="'/'+${quiz.getQuestion()}" style="color:blue" target="_blank">Download</a></h2></td>
+						    		<td><h2><a th:href="@{'/'+${quiz.getQuestion()}}" style="color:blue" target="_blank">Download</a></h2></td>
 						    		
 						    		
 						    		
@@ -389,7 +389,7 @@
 						    		<td>
 						    			<span th:if="${LoggedUserRole==null or LoggedUserRole=='Learner'}"></span>
 						    			<span th:unless="${LoggedUserRole==null or LoggedUserRole=='Learner'}">
-						    			<h2><a th:href="'/'+${quiz.getAnswer()}" style="color:blue" target="_blank">Download</a></h2></span>
+						    			<h2><a th:href="@{'/'+${quiz.getAnswer()}}" style="color:blue" target="_blank">Download</a></h2></span>
 						    		</td>
 						    		
 						    	</tr>

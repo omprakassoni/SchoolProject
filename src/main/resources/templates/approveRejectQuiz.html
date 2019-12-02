@@ -36,6 +36,7 @@
 				      <th>Date Added</th>
 				      <th>Question</th>
 				      <th>Answer</th>
+				      <th>status</th>
 				      <th>Contributed by</th>
 				      <th>Operation</th>
 				 
@@ -50,8 +51,11 @@
 				      <td><span th:text="${quiz.getRemark()}"></span></td>		
 				      <td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
 				      <td><span th:text="${quiz.getDateAdded()}"></span></td>
-				      <td><a href="#" class="pdfclass"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
-				      <td><a href="#" class="pdfclass"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+				      <td><a th:href="@{${quiz.getQuestion()}}" class="pdfclass" target="_blank"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+				      <td><a th:href="@{${quiz.getAnswer()}}" class="pdfclass" target="_blank"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+				        <td><span th:if="${quiz.isStatus()==1}"><div id="true"/></span>
+				      	  <span th:unless="${quiz.isStatus()==1}"><div id="false"/></span>
+				      </td>
 				      <td><a href=""><span th:text="${quiz.getUser().getFname()}"></span></a></td>
 				      
 				      <td><a class="btn btn-secondary commentQuiz" th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a>
@@ -84,28 +88,7 @@
 		</form>
 		
 		
-		<!-- Modal -->
-			<div class="modal fade" id="pdfmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			  <div class="modal-dialog modal-xl" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalCenterTitle">Pdf Viewer</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			      <embed src="" id="pdfpreview" style="width:100%; height:100%"/>
-			       
-			     
-			      <div class="modal-footer">
-			       
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			</div>
-			
+		
 			
 		<!-- Modal for recording comment -->
 			

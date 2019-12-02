@@ -37,7 +37,7 @@ import com.adminportal.HomeController;
 public class ServiceUtility {
 	
 	private static final String SALT="salt";
-	private static String uploadDirectory="src/main/resources/static"+"/Media/content/";
+	private static String uploadDirectory="/static"+"/Media/content/";
 	
 	public static BCryptPasswordEncoder passwordEncoder() {										// password encoding
 		

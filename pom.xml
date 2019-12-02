@@ -12,7 +12,8 @@
 	<artifactId>School_Project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>adminPortal_SchoolProject</name>
-	<description>admin part  for School Sysytem</description>
+	<description>admin part  for School System</description>
+	    <packaging>war</packaging> 
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -86,7 +87,13 @@
    			<groupId>com.fasterxml.jackson.core</groupId>
    			<artifactId>jackson-annotations</artifactId>
   		</dependency>
-	
+  		
+  		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>  
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
