@@ -1974,12 +1974,18 @@ public class HomeControllerRest {
 //		msg.add("Success");
 //		return msg;
 			
-		
+		String emailToIdentifyUser;
 		List<String> msg=new ArrayList<String>();
 		
 		
 		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		
+		if(data.isAdmin()) {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+		}else {
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		}
+
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
 		try {
@@ -2253,7 +2259,7 @@ public class HomeControllerRest {
 		String answerPath=null;
 		
 		if(!ServiceUtility.checkFileExtensionPDF(uploadAnswer)) {
-			
+			System.out.println("file error");
 			status.add("failure");
 			return status;
 			
@@ -2308,10 +2314,11 @@ public class HomeControllerRest {
 			status.add("Success");
 			
 			}else {
+				System.out.println("status error");
 				status.add("failure");
 			}
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 			status.add("failure");
 			
 		}

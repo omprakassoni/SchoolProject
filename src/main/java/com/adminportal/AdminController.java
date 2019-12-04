@@ -1281,7 +1281,7 @@ public class AdminController {
 			User usr=userService.findByUsername(emailToIdentifyUser);
 			
 			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
-			conceptMapping.add(new ConceptMap(conceptService.countRow()+10, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
+			conceptMapping.add(new ConceptMap(conceptService.countRow()+1, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
 			
 			
 

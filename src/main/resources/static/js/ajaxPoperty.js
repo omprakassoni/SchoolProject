@@ -1,6 +1,6 @@
 $(function(){
 	
-	var projectName="/School_Project-0.0.1-SNAPSHOT";
+	//var projectName="/School_Project-0.0.1-SNAPSHOT";
 	
 
 	
@@ -38,13 +38,17 @@ $(function(){
 		location.reload();
 	});
 	
-	$('#TestimonialModall').on('hidden.bs.modal', function () {
+	$('#TestimonialModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
 	
 	$('#EventModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
+	$('#ConceptMapModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
 	
 	
 	
@@ -230,7 +234,7 @@ $(function(){
 				$.ajax({
 				  	type: "POST",
 		        	contentType: "application/json",
-		       		 url: projectName+"/addContactForm",
+		       		 url: /*projectName+*/"/addContactForm",
 		       		 data: JSON.stringify(json),
 		       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -298,7 +302,7 @@ $(function(){
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByTestimonialID",
+	       		 url: /*projectName+*/"/loadByTestimonialID",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -346,7 +350,7 @@ $(function(){
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByEventID",
+	       		 url: /*projectName+*/"/loadByEventID",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -401,7 +405,7 @@ $(function(){
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/updateTestimonial",
+	       		 url: /*projectName+*/"/updateTestimonial",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -461,7 +465,7 @@ $(function(){
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/updateEvent",
+	       		 url: /*projectName+*/"/updateEvent",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -528,7 +532,7 @@ $(function(){
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassName",
+	       		 url: /*projectName+*/"/loadByClassName",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -580,7 +584,7 @@ $(function(){
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassnameAndSubject",
+	       		 url: /*projectName+*/"/loadByClassnameAndSubject",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -649,7 +653,7 @@ $(function(){
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassName",
+	       		 url: /*projectName+*/"/loadByClassName",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -701,7 +705,7 @@ $(function(){
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassnameAndSubject",
+	       		 url: /*projectName+*/"/loadByClassnameAndSubject",
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -771,7 +775,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: /*projectName+*/"/loadByClassName",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -826,7 +830,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: /*projectName+*/"/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -893,7 +897,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: /*projectName+*/"/loadByClassName",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -948,7 +952,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: /*projectName+*/"/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1016,7 +1020,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: /*projectName+*/"/loadByClassName",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1072,7 +1076,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: /*projectName+*/"/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1142,7 +1146,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: /*projectName+*/"/loadByClassName",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1197,7 +1201,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: /*projectName+*/"/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1263,7 +1267,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: /*projectName+*/"/loadByClassName",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1318,7 +1322,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url:/* projectName+*/"/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1391,7 +1395,7 @@ $(function(){
 				$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/validateEmail",
+			       		 url:/* projectName+*/"/validateEmail",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1446,7 +1450,7 @@ $(function(){
 				$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/validateEmail",
+			       		 url:/* projectName+*/"/validateEmail",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1501,7 +1505,7 @@ $(function(){
 				$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/validateEmail",
+			       		 url: /*projectName+*/"/validateEmail",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1567,7 +1571,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+'/loadByClassName',
+  			       		 url:/* projectName+*/'/loadByClassName',
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1622,7 +1626,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: /*projectName+*/"/loadByClassnameAndSubject",
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1709,7 +1713,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidity",
+			       		 url:/* projectName+*/"/loadByValidity",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1756,7 +1760,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityTopic",
+			       		 url: /*projectName+*/"/loadByValidityTopic",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1803,7 +1807,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityPhet",
+			       		 url: /*projectName+*/"/loadByValidityPhet",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1848,7 +1852,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityLesson",
+			       		 url: /*projectName+*/"/loadByValidityLesson",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1893,7 +1897,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityDocument",
+			       		 url: /*projectName+*/"/loadByValidityDocument",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1938,7 +1942,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityArticle",
+			       		 url:/* projectName+*/"/loadByValidityArticle",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1983,7 +1987,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityQuiz",
+			       		 url:/* projectName+*/"/loadByValidityQuiz",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2028,7 +2032,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityVideo",
+			       		 url: /*projectName+*/"/loadByValidityVideo",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2073,7 +2077,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityConcept",
+			       		 url:/* projectName+*/"/loadByValidityConcept",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2121,7 +2125,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityTutorial",
+			       		 url:/* projectName+*/"/loadByValidityTutorial",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2184,7 +2188,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByUser",
+			       		 url: /*projectName+*/"/loadByUser",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2262,7 +2266,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByClass",
+			       		 url: /*projectName+*/"/loadByClass",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2295,7 +2299,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadBySubject",
+			       		 url: /*projectName+*/"/loadBySubject",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2323,7 +2327,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadBySubjectClass",
+			       		 url: /*projectName+*/"/loadBySubjectClass",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2395,7 +2399,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/updateSubject",
+			       		 url: /*projectName+*/"/updateSubject",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2447,7 +2451,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByTopic",
+			       		 url:/* projectName+*/"/loadByTopic",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2470,7 +2474,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByTopicDesc",
+			       		 url: /*projectName+*/"/loadByTopicDesc",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2536,7 +2540,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByQuizQuestionID",
+			       		 url:/* projectName+*/"/loadByQuizQuestionID",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2617,7 +2621,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByVideoID",
+			       		 url:/* projectName+*/"/loadByVideoID",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2641,7 +2645,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByVideoIDSource",
+			       		 url:/* projectName+*/"/loadByVideoIDSource",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2704,7 +2708,7 @@ $(function(){
   	  					$.ajax({
   						  	type: "POST",
   				        	contentType: "application/json",
-  				       		 url: projectName+"/loadByConceptID",
+  				       		 url: /*projectName+*/"/loadByConceptID",
   				       		 data: JSON.stringify(json),
   				       		 beforeSend: function(xhr) {
   		                         xhr.setRequestHeader(header, token);
@@ -2775,7 +2779,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByArtcileID",
+			       		 url:/* projectName+*/"/loadByArtcileID",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2799,7 +2803,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByArtcileIDDesc",
+			       		 url: /*projectName+*/"/loadByArtcileIDDesc",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2865,7 +2869,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByDocumentID",
+			       		 url:/* projectName+*/"/loadByDocumentID",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2889,7 +2893,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByDocumentIDDesc",
+			       		 url: /*projectName+*/"/loadByDocumentIDDesc",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2994,7 +2998,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByphetID",
+			       		 url:/* projectName+*/"/loadByphetID",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3018,7 +3022,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByphetIDDesc",
+			       		 url:/* projectName+*/"/loadByphetIDDesc",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3093,7 +3097,7 @@ $(function(){
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByVideoComment",
+			       		 url:/* projectName+*/"/loadByVideoComment",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3136,7 +3140,7 @@ $(function(){
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url:/* projectName+*/"/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -3276,7 +3280,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnVideo",
+			       		 url: /*projectName+*/"/uploadCommentOnVideo",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3330,7 +3334,7 @@ $(function(){
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByArticleComment",
+			       		 url:/* projectName+*/"/loadByArticleComment",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3371,7 +3375,7 @@ $(function(){
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: /*projectName+*/"/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -3508,7 +3512,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnArticle",
+			       		 url: /*projectName+*/"/uploadCommentOnArticle",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3560,7 +3564,7 @@ $(function(){
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByDocumentComment",
+			       		 url:/* projectName+*/"/loadByDocumentComment",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3601,7 +3605,7 @@ $(function(){
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: /*projectName+*/"/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -3740,7 +3744,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnDocument",
+			       		 url:/* projectName+*/"/uploadCommentOnDocument",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3790,7 +3794,7 @@ $(function(){
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByConceptComment",
+			       		 url: /*projectName+*/"/loadByConceptComment",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3831,7 +3835,7 @@ $(function(){
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url:/* projectName+*/"/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -3970,7 +3974,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnConcept",
+			       		 url:/* projectName+*/"/uploadCommentOnConcept",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4023,7 +4027,7 @@ $(function(){
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByQuizComment",
+			       		 url: /*projectName+*/"/loadByQuizComment",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4064,7 +4068,7 @@ $(function(){
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: /*projectName+*/"/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -4204,7 +4208,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnQuiz",
+			       		 url:/* projectName+*/"/uploadCommentOnQuiz",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4254,7 +4258,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByLessonComment",
+			       		 url: /*projectName+*/"/loadByLessonComment",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4295,7 +4299,7 @@ $(function(){
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url:/* projectName+*/"/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -4432,7 +4436,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnLesson",
+			       		 url:/* projectName+*/"/uploadCommentOnLesson",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4483,7 +4487,7 @@ $(function(){
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByPhetComment",
+			       		 url:/* projectName+*/"/loadByPhetComment",
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4524,7 +4528,7 @@ $(function(){
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url:/* projectName+*/"/loadReplyOnComment",
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -4662,7 +4666,7 @@ $(function(){
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnPhet",
+			       		 url:/* projectName+*/"/uploadCommentOnPhet",
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4741,7 +4745,7 @@ $(function(){
   				$.ajax({
   					type: "POST",
   					contentType: "application/json",
-  					url: projectName+"/updatePassword",
+  					url:/* projectName+*/"/updatePassword",
   					data:JSON.stringify(json),
   					 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -4842,7 +4846,7 @@ $(function(){
   				$.ajax({
   					type: "POST",
   					contentType: "application/json",
-  					url: projectName+"/updatePassword",
+  					url:/* projectName+*/"/updatePassword",
   					data:JSON.stringify(json),
   					 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -4936,7 +4940,7 @@ $(function(){
   				$.ajax({
   					type: "POST",
   					contentType: "application/json",
-  					url: projectName+"/updatePassword",
+  					url:/* projectName+*/"/updatePassword",
   					data:JSON.stringify(json),
   					beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -5440,7 +5444,7 @@ function fire_ajax_submit_Topic(){
 	$.ajax({
 		type: "POST",
 		enctype: 'multipart/form-data',
-		url: projectName+"/updateTopic",
+		url:/* projectName+*/"/updateTopic",
 		data:data,
 		beforeSend: function(xhr) {
              xhr.setRequestHeader(header, token);
@@ -5488,7 +5492,7 @@ function fire_ajax_submit_Topic(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateQuiz",
+				url: /*projectName+*/"/updateQuiz",
 				data:data,
 				beforeSend: function(xhr) {
                     xhr.setRequestHeader(header, token);
@@ -5534,7 +5538,7 @@ function fire_ajax_submit_Topic(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateQuiz",
+				url: /*projectName+*/"/updateQuiz",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5581,7 +5585,7 @@ function fire_ajax_submit_Topic(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateVideo",
+				url:/* projectName+*/"/updateVideo",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5625,7 +5629,7 @@ function fire_ajax_submit_Topic(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateVideo",
+				url:/* projectName+*/"/updateVideo",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5675,7 +5679,7 @@ function fire_ajax_submit_Topic(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateConcept",
+				url: /*projectName+*/"/updateConcept",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5719,7 +5723,7 @@ function fire_ajax_submit_Topic(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateConcept",
+				url:/* projectName+*/"/updateConcept",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5768,7 +5772,7 @@ function fire_ajax_submit_Topic(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateArticle",
+				url: /*projectName+*/"/updateArticle",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5813,7 +5817,7 @@ function fire_ajax_submit_ArticleOnUser(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateArticle",
+				url: /*projectName+*/"/updateArticle",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5859,7 +5863,7 @@ function fire_ajax_submit_ArticleOnUser(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateDocument",
+				url: /*projectName+*/"/updateDocument",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5903,7 +5907,7 @@ function fire_ajax_submit_DocumentOnUser(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateDocument",
+				url:/* projectName+*/"/updateDocument",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5949,7 +5953,7 @@ function fire_ajax_submit_DocumentOnUser(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updatePhet",
+				url:/* projectName+*/"/updatePhet",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5993,7 +5997,7 @@ function fire_ajax_submit_DocumentOnUser(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updatePhet",
+				url:/* projectName+*/"/updatePhet",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6039,7 +6043,7 @@ function fire_ajax_submit_Lesson(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateLesson",
+				url:/* projectName+*/"/updateLesson",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6083,7 +6087,7 @@ function fire_ajax_submit_Lesson(){
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url: projectName+"/updateLesson",
+			url: /*projectName+*/"/updateLesson",
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);
@@ -6130,7 +6134,7 @@ function fire_ajax_submit_Lesson(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/addArticleFromUser",
+				url: /*projectName+*/"/addArticleFromUser",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6186,7 +6190,7 @@ function fire_ajax_submit_Lesson(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/addQuizFromUser",
+				url:/*projectName+*/"/addQuizFromUser",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6242,7 +6246,7 @@ function addLesson(){
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/addLessonFromUser",
+				url:/* projectName+*/"/addLessonFromUser",
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6293,7 +6297,7 @@ function addPhet(){
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url: projectName+"/addPhetFromUser",
+			url:/* projectName+*/"/addPhetFromUser",
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);
@@ -6349,7 +6353,7 @@ function addDocument(){
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url: projectName+"/addDocumentFromUser",
+			url: /*projectName+*/"/addDocumentFromUser",
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);
@@ -6404,7 +6408,7 @@ function addConcept(){
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url: projectName+"/addConceptFromUser",
+			url:/* projectName+*/"/addConceptFromUser",
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);
@@ -6459,7 +6463,7 @@ function addVideo(){
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url: projectName+"/addVideoFromUser",
+			url:/* projectName+*/"/addVideoFromUser",
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);

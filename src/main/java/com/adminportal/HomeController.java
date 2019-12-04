@@ -35,6 +35,8 @@ import javax.validation.Valid;
 import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.hibernate.annotations.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpRequest;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -148,6 +150,8 @@ public class HomeController {
 	private TutorialService tutorialService;
 	
 
+	
+
 	////////////////////////
 	
 	
@@ -195,6 +199,9 @@ public class HomeController {
 	
 			mv.addObject("Events", eventTemp);
 		}
+		
+		
+
 		
 		
 		
