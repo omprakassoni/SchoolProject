@@ -122,10 +122,21 @@
 						  	
 						  	<div class="table-responsive table-borderless">
 						  	<div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
-			     			<div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			     			<div id="FailurePassMismatch" style="display:none;color:red;font-size:18px;text-align:center">New Password and Confirm Password aren't same</div>
+			     			<div id="FailureCurPassWrong" style="display:none;color:red;font-size:18px;text-align:center">Current Password is Wrong</div>
 								  <table class="table">
 								    
 								    <tbody>
+								    
+								    	 <tr>
+								       
+								       
+								        <td><label for="currentPasswordLearnerParent">Enter your Current password</label></td>
+								        <td><input type="password" id="currentPasswordLearnerParent" class="form-control">
+										
+								      
+								      </tr>
+								      
 								      <tr>
 								       
 								       
@@ -305,10 +316,20 @@
 						  	
 						  	<div class="table-responsive table-borderless">
 						  	 <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
-			     			 <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			     			 <div id="FailurePassMismatch" style="display:none;color:red;font-size:18px;text-align:center">New Password and Confirm Password aren't same</div>
+			     			<div id="FailureCurPassWrong" style="display:none;color:red;font-size:18px;text-align:center">Current Password is Wrong</div>
 								  <table class="table">
 								    
 								    <tbody>
+								    
+								    	<tr>
+								       
+								       
+								        <td><label for="currentPasswordTeacher">Enter your Current password</label></td>
+								        <td><input type="password" id="currentPasswordTeacher" class="form-control">
+										
+								      
+								      </tr>
 								      <tr>
 								       
 								       
@@ -402,8 +423,8 @@
        							<label for="poster" class="header-right">Description</label> 
        					</div>
        					<div class="col-sm-4">
-       							<textarea class="form-control" placeholder="Enter Something" id="descriptionConceptMap" name="descriptionConceptMap" rows="3" required disabled></textarea>
-       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+       							<textarea class="form-control" placeholder="Enter Something" title="Max 10000 Character" id="descriptionConceptMap" name="descriptionConceptMap" rows="3" required disabled></textarea>
+       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUsername}"/>
        					</div>
        					
        					<div class="col-sm-2">
@@ -419,7 +440,7 @@
        							<label for="poster" class="header-right">Headline</label> 
        					</div>
        					<div class="col-sm-4">
-       							<input type="text" class="form-control-file" id="headlineConceptMap" name="headlineConceptMap" required disabled/>
+       							<input type="text" class="form-control-file" id="headlineConceptMap" title="Max 255 Character" name="headlineConceptMap" required disabled/>
        					</div>
        					
        					<div class="col-sm-2">
@@ -438,7 +459,7 @@
        						<label for="poster" class="header-right">Upload Image</label> 
        					</div>
        					<div class="col-sm-4">
-       						<input type="file" class="form-control-file" id="conceptMapImage" accept="image/*" name="conceptMapImage" required disabled/>
+       						<input type="file" class="form-control-file" id="conceptMapImage" accept="image/*" title="Upload JPEG/JPG file" name="conceptMapImage" required disabled/>
        					</div>
        					<div class="col-sm-2">
        					</div>
@@ -551,8 +572,8 @@
 						       							<label for="poster" class="header-right">Description</label> 
 						       					</div>
 						       					<div class="col-sm-4">
-						       							<textarea class="form-control" placeholder="Enter Something" id="descriptionPhet" name="description" rows="3" required disabled></textarea>
-						       								<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+						       							<textarea class="form-control" placeholder="Enter Something" title="Max 10000 Character" id="descriptionPhet" name="description" rows="3" required disabled></textarea>
+						       								<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUsername}"/>
 						       					</div>
 						       					
 						       					<div class="col-sm-2">
@@ -568,7 +589,7 @@
 						       							<label for="poster" class="header-right">Paste Embed Code</label> 
 						       					</div>
 						       					<div class="col-sm-4">
-						       							<textarea class="form-control" placeholder="Url to the Link" id="Embedphet" name="phet" rows="3" required disabled></textarea>
+						       							<textarea class="form-control" placeholder="Url to the Link" title="Paste Proper Embed Link" id="Embedphet" name="phet" rows="3" required disabled></textarea>
 						       					</div>
 						       					
 						       					<div class="col-sm-2">
@@ -587,7 +608,7 @@
 						       						<label for="poster" class="header-right">Source</label> 
 						       					</div>
 						       					<div class="col-sm-4">
-						       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourcePhet" required disabled/>
+						       						<input type="text" class="form-control" placeholder="Enter Source" title="Max 255 Character" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourcePhet" required disabled/>
 						       					</div>
 						       					<div class="col-sm-2">
 						       					</div>
@@ -691,8 +712,8 @@
 				       							<label for="poster" class="header-right">Description</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       							<textarea class="form-control" placeholder="Enter Something" id="descriptionArticle" name="description" rows="3" required disabled></textarea>
-				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       							<textarea class="form-control" placeholder="Enter Something" title="Max 10000 Character" id="descriptionArticle" name="description" rows="3" required disabled></textarea>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUsername}"/>
 				       					</div>
 				       					
 				       					<div class="col-sm-2">
@@ -708,7 +729,7 @@
 				       						<label for="poster" class="header-right">URL</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       						<input type="text" class="form-control" placeholder="Enter Url" name="url" aria-label="url" aria-describedby="basic-addon1" id="urlArticle" required disabled/>
+				       						<input type="text" class="form-control" placeholder="Enter Url" title="Enter Proper URL" name="url" aria-label="url" aria-describedby="basic-addon1" id="urlArticle" required disabled/>
 				       					</div>
 				       					<div class="col-sm-2">
 				       					</div>
@@ -723,7 +744,7 @@
 				       						<label for="poster" class="header-right">Source</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceArticle" required disabled/>
+				       						<input type="text" class="form-control" placeholder="Enter Source" title="Max 255 Character" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceArticle" required disabled/>
 				       					</div>
 				       					<div class="col-sm-2">
 				       					</div>
@@ -825,8 +846,8 @@
 				       							<label for="poster" class="header-right">Upload Lesson Plan</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       							<input type="file" class="form-control-file" accept="application/pdf" id="lesson" name="lesson" required disabled/>
-				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       							<input type="file" class="form-control-file" accept="application/pdf" title="upload PDF file only." id="lesson" name="lesson" required disabled/>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUsername}"/>
 				       					</div>
 				       					
 				       					<div class="col-sm-2">
@@ -931,8 +952,8 @@
 			       							<label for="poster" class="header-right">Description</label> 
 			       					</div>
 			       					<div class="col-sm-4">
-			       							<textarea class="form-control" placeholder="Enter Something" id="descriptionDocument" name="description" rows="3" required disabled></textarea>
-			       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+			       							<textarea class="form-control" placeholder="Enter Something" title="Max 10000 Character" id="descriptionDocument" name="description" rows="3" required disabled></textarea>
+			       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUsername}"/>
 			       					</div>
 			       					
 			       					<div class="col-sm-2">
@@ -948,7 +969,7 @@
 			       						<label for="poster" class="header-right">URL</label> 
 			       					</div>
 			       					<div class="col-sm-4">
-			       						<input type="file" class="form-control-file" id="UrlDocument" name="Question" accept="application/pdf" required disabled/>
+			       						<input type="file" class="form-control-file" id="UrlDocument" title="upload PDF file only." name="Question" accept="application/pdf" required disabled/>
 			       					</div>
 			       					<div class="col-sm-2">
 			       					</div>
@@ -963,7 +984,7 @@
 			       						<label for="poster" class="header-right">Source</label> 
 			       					</div>
 			       					<div class="col-sm-4">
-			       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceDocument" required disabled/>
+			       						<input type="text" class="form-control" placeholder="Enter Source" title="Max 255 Character" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceDocument" required disabled/>
 			       					</div>
 			       					<div class="col-sm-2">
 			       					</div>
@@ -1063,8 +1084,8 @@
 				       							<label for="poster" class="header-right">Description</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       							<textarea class="form-control" placeholder="Enter Something" id="descriptionVideo" name="description" rows="3" required disabled></textarea>
-				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       							<textarea class="form-control" placeholder="Enter Something" title="Max 10000 Character" id="descriptionVideo" name="description" rows="3" required disabled></textarea>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUsername}"/>
 				       					</div>
 				       					
 				       					<div class="col-sm-2">
@@ -1081,7 +1102,7 @@
 				       					</div>
 				       					<div class="col-sm-4">
 				       						
-				       						<textarea class="form-control" placeholder="Url to the Link" id="urlVideo" name="url" rows="3" required disabled></textarea>
+				       						<textarea class="form-control" placeholder="Url to the Link" title="Paste Embed URL" id="urlVideo" name="url" rows="3" required disabled></textarea>
 				       					</div>
 				       					<div class="col-sm-2">
 				       					</div>
@@ -1096,7 +1117,7 @@
 				       						<label for="poster" class="header-right">Source</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       						<input type="text" class="form-control" placeholder="Enter Source" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceVideo" required disabled/>
+				       						<input type="text" class="form-control" placeholder="Enter Source" title="Max 255 Character" name="source" aria-label="source" aria-describedby="basic-addon1" id="sourceVideo" required disabled/>
 				       					</div>
 				       					<div class="col-sm-2">
 				       					</div>
@@ -1200,8 +1221,8 @@
 				       							<label for="poster" class="header-right">Remarks</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       							<input type="text" class="form-control-file" id="remarksQuiz" name="remarks" required disabled/>
-				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUserView}"/>
+				       							<input type="text" class="form-control-file" title="Max 255 Character" id="remarksQuiz" name="remarks" required disabled/>
+				       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" th:value="${session.UserLogedUsername}"/>
 				       					</div>
 				       					
 				       					<div class="col-sm-2">
@@ -1218,7 +1239,7 @@
 				       							<label for="poster" class="header-right">Questions</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       							<input type="file" class="form-control-file" id="QuestionQuiz" accept="application/pdf" name="Question" required disabled/>
+				       							<input type="file" class="form-control-file" id="QuestionQuiz" title="upload PDF file only" accept="application/pdf" name="Question" required disabled/>
 				       					</div>
 				       					
 				       					<div class="col-sm-2">
@@ -1234,7 +1255,7 @@
 				       						<label for="poster" class="header-right">Answers</label> 
 				       					</div>
 				       					<div class="col-sm-4">
-				       						<input type="file" class="form-control-file" id="AnswerQuiz" accept="application/pdf"  name="Answer" required disabled/>
+				       						<input type="file" class="form-control-file" id="AnswerQuiz" title="upload PDF file only" accept="application/pdf"  name="Answer" required disabled/>
 				       					
 				       					</div>
 				       					<div class="col-sm-2">
@@ -1771,10 +1792,7 @@
       			<label><h1>Account Info</h1></label>
     			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-credential" role="tab" aria-controls="v-pills-home" aria-selected="true">Credential</a>
-				      <label><h1>Operations</h1></label>
-				      <a class="nav-link " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-AdminTask" role="tab" aria-controls="v-pills-home" aria-selected="true">Admin Portal</a>
-				     
-				     
+				  
     			</div>
   			</div>
   			<div class="col-1"></div>
@@ -1855,21 +1873,30 @@
 						  	
 						  	<div class="table-responsive table-borderless">
 						  	<div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
-			     			<div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
+			     			<div id="FailurePassMismatch" style="display:none;color:red;font-size:18px;text-align:center">New Password and Confirm Password aren't same</div>
+			     			<div id="FailureCurPassWrong" style="display:none;color:red;font-size:18px;text-align:center">Current Password is Wrong</div>
 								  <table class="table">
 								    
 								    <tbody>
+								    	 <tr>
+								       
+								       
+								        <td><label for="currentPassword">Enter your Current password</label></td>
+								        <td><input type="password" id="currentPassword" class="form-control">
+										<input type="hidden" name="userIdUpdateAdmin" id="userIdUpdateAdmin" th:value="${LoggedUser.getId()}"/></td>
+								      
+								      </tr>
+								    
 								      <tr>
 								       
-								       
-								        <td><label for="newPass">New Password</label></td>
+								        <td><label for="newPassAdmin">New Password</label></td>
 								        <td><input type="password" id="newPassAdmin" class="form-control">
-								        	 	<input type="hidden" name="userIdUpdateAdmin" th:value="${LoggedUser.getId()}"/></td>
+								        	 	
 								      
 								      </tr>
 								      <tr>
 								        
-								     	<td><label for="confPass">Confirm Password</label></td>
+								     	<td><label for="confPassAdmin">Confirm Password</label></td>
 								        <td><input type="password" id="confPassAdmin" class="form-control"></span></td>
 								      
 								      </tr>
@@ -1898,23 +1925,7 @@
         		
       			</div>
       			
-      				<div class="tab-pane fade show" id="v-pills-AdminTask" role="tabpanel" aria-labelledby="v-pills-home-tab">
-      					
-      					<div style="padding:30px;">
-      					
-      					<form action="adminPathUi" method="get">
-      					<input type="submit"  class="btn peach-gradient btn-lg" value="Admin Portal">
-      					</form>
-      					</div>
-      					
-      					
-      				</div>
-      				
       			
-      		
-			      
-			    
-  			  
   			  
   			</div>
 		</div>

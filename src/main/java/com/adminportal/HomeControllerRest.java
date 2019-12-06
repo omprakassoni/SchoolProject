@@ -313,9 +313,17 @@ public class HomeControllerRest {
 	@PostMapping("/updatePassword")
 	public @ResponseBody List<String> updateUserPassword(@Valid @RequestBody passwordUpdateAjaxQueryResolver localpass){
 		List<String> status=new ArrayList<String>();
+		boolean statusPassword=false;
 		
+		User usr=userService.findById(localpass.getUserId());
+		statusPassword =ServiceUtility.passwordEncoder().matches(localpass.getCurrentPassword(), usr.getPassword());
+		
+		if(statusPassword) {
 		if(userService.updateUserPassword(ServiceUtility.passwordEncoder().encode(localpass.getPassword()), localpass.getUserId())) {
 			status.add("Success");
+		}else {
+			status.add("failure");
+		}
 		}else {
 			status.add("failure");
 		}
@@ -1316,11 +1324,9 @@ public class HomeControllerRest {
 		
 		HttpSession session=req.getSession(false);
 		String emailToIdentifyUser;
-		if(data.isAdmin()) {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
-		}else {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
-		}
+		
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
+		
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
 		try {
@@ -1451,11 +1457,10 @@ public class HomeControllerRest {
 		
 		HttpSession session=req.getSession(false);
 		String emailToIdentifyUser;
-		if(data.isAdmin()) {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
-		}else {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
-		}
+	
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
+	
+		
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
 		try {
@@ -1546,11 +1551,10 @@ public class HomeControllerRest {
 		
 		HttpSession session=req.getSession(false);
 		String emailToIdentifyUser;
-		if(data.isAdmin()) {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
-		}else {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
-		}
+		
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
+	
+		
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
 		try {
@@ -1661,11 +1665,11 @@ public class HomeControllerRest {
 		
 		HttpSession session=req.getSession(false);
 		
-		if(data.isAdmin()) {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
-		}else {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
-		}
+	
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
+		
+			
+		
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
 		try {
@@ -1773,12 +1777,10 @@ public class HomeControllerRest {
 		
 		HttpSession session=req.getSession(false);
 		
-		if(data.isAdmin()) {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
-		}else {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
-		}
 		
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
+	
+			
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
 		try {
@@ -1865,11 +1867,9 @@ public class HomeControllerRest {
 		
 		HttpSession session=req.getSession(false);
 		
-		if(data.isAdmin()) {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
-		}else {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
-		}
+		 
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		
 		
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		
@@ -1980,11 +1980,9 @@ public class HomeControllerRest {
 		
 		HttpSession session=req.getSession(false);
 		
-		if(data.isAdmin()) {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
-		}else {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
-		}
+	
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
+	
 
 		User usr=userService.findByUsername(emailToIdentifyUser);
 		

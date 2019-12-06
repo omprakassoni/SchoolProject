@@ -68,7 +68,7 @@ import com.spoken.Utility.ServiceUtility;
 @Controller
 
 /* these are the Session variable to be used under session management  */
-@SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})
+@SessionAttributes({"UserLogedUsername","UserLogedName","UserLogedRole"})
 
 public class AdminController {
 	
@@ -136,7 +136,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);  // checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {     // checking for admin alive session
 			
-			mv.setViewName("redirect:/adminPortal");    // if no admin session is active--- redirect to login page.
+			mv.setViewName("redirect:/Login");    // if no admin session is active--- redirect to login page.
 		}else {
 						
 			mv.setViewName("home");   // if admin session alive the, redirect to homepage.
@@ -148,63 +148,63 @@ public class AdminController {
 	// Authentication Process under the admin module 
 	// only admin role access user can access adminn module.
 	
-	@RequestMapping(value = "/home",method = RequestMethod.POST)
-	public ModelAndView adminHomepost(HttpServletRequest req,ModelAndView mv) {
-		
-		String username=req.getParameter("username");   // geeting username from the view
-		
-		boolean status=false;
-		
-		User usr=userService.findByUsername(username);   // check for user existence in database
-		boolean passwordStatus=ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());   
-		
-		if(passwordStatus) {
-			List<UserRole> local=(List<UserRole>) usr.getUserRoles();
-			for(UserRole role:local) {
-				if(role.getRole().getRoleName().contentEquals("Admin")) {  // checking for admin role in user 
-					status=true;
-				}
-			}
-			
-			if(status) {
-				HttpSession session=req.getSession();
-				session.setAttribute("UserLogedAdmin", usr.getEmail());  // Setting session variable for session management.
-				session.setAttribute("UserNameAdmin", usr.getFname());
-				
-				usr.setLastLogin(ServiceUtility.getCurrentTime());
-				userService.save(usr);
-				
-				mv.setViewName("home");                         // redirecting to Homepage
-				
-			}else {
-				mv.setViewName("adminLoginPage");              // redirecting to login page if anything goes wrong.
-				
-			}
-			
-		
-			
-		}else {
-			mv.addObject("Error", "Login Credentials are Incorrect");  // Setting error Status for View.
-			mv.setViewName("adminLoginPage");
-
-			
-		}
-		
-
-
-		return mv;
-		
-	}
+//	@RequestMapping(value = "/home",method = RequestMethod.POST)
+//	public ModelAndView adminHomepost(HttpServletRequest req,ModelAndView mv) {
+//		
+//		String username=req.getParameter("username");   // geeting username from the view
+//		
+//		boolean status=false;
+//		
+//		User usr=userService.findByUsername(username);   // check for user existence in database
+//		boolean passwordStatus=ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());   
+//		
+//		if(passwordStatus) {
+//			List<UserRole> local=(List<UserRole>) usr.getUserRoles();
+//			for(UserRole role:local) {
+//				if(role.getRole().getRoleName().contentEquals("Admin")) {  // checking for admin role in user 
+//					status=true;
+//				}
+//			}
+//			
+//			if(status) {
+//				HttpSession session=req.getSession();
+//				session.setAttribute("UserLogedAdmin", usr.getEmail());  // Setting session variable for session management.
+//				session.setAttribute("UserNameAdmin", usr.getFname());
+//				
+//				usr.setLastLogin(ServiceUtility.getCurrentTime());
+//				userService.save(usr);
+//				
+//				mv.setViewName("home");                         // redirecting to Homepage
+//				
+//			}else {
+//				mv.setViewName("adminLoginPage");              // redirecting to login page if anything goes wrong.
+//				
+//			}
+//			
+//		
+//			
+//		}else {
+//			mv.addObject("Error", "Login Credentials are Incorrect");  // Setting error Status for View.
+//			mv.setViewName("adminLoginPage");
+//
+//			
+//		}
+//		
+//
+//
+//		return mv;
+//		
+//	}
 	
 	// Entry to Admin Module from User side Under the MyAccount Section.
 	
-	@RequestMapping(value = "/adminPathUi", method = RequestMethod.GET)
-	public ModelAndView adminPortalFromUI(HttpServletRequest req,ModelAndView mv) {
-		
-		mv.setViewName("redirect:/home");
-		
-		return mv;
-	}
+//	@RequestMapping(value = "/adminPathUi", method = RequestMethod.GET)
+//	public ModelAndView adminPortalFromUI(HttpServletRequest req,ModelAndView mv) {
+//		
+//		mv.setViewName("redirect:/home");
+//		
+//		return mv;
+//	}
 	
 	
 /*------------------------------------------ADD CLASS (ADMIN MODULE)-----------------------------------------------------------------*/
@@ -217,7 +217,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);                             // checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {                  // checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();   // fetching Class Tuple list
@@ -311,7 +311,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);										// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
@@ -358,7 +358,7 @@ public class AdminController {
 		if(ServiceUtility.chechExistSessionAdmin(session)) {								// checking for admin alive session
 		
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");			// fetching e-mail of user logged in.
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");			// fetching e-mail of user logged in.
 			
 			Class localClass=classService.findByClassName(className);									// fetching class tuple based on given data
 			Subject localSubject=subjectService.findBysubName(subjectName);								// fetching Subject tuple based on given data
@@ -413,7 +413,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);								// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
@@ -456,7 +456,7 @@ public class AdminController {
 		if(ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
 		
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");						// fetching e-mail of user logged in.
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");						// fetching e-mail of user logged in.
 
 			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Document/";	// PATH TO SAVE DOCUMENT UNDER TOPIC
 			
@@ -516,7 +516,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);									// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
@@ -557,7 +557,7 @@ public class AdminController {
 		
 		
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");   
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");   
 			
 
 			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Lessonplan/";  // path to store lesson Plan
@@ -627,7 +627,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);								// checking the last alive session
 			
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
@@ -707,7 +707,7 @@ public class AdminController {
 		
 				try {
 			
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 
 			Class localClass=classService.findByClassName(className);
 			Subject localSubject=subjectService.findBysubName(subjectName);
@@ -843,7 +843,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);								// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
@@ -866,7 +866,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);						// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
@@ -952,7 +952,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);					// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {		// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
@@ -1018,7 +1018,7 @@ public class AdminController {
 		if(ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 	
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 			
 			
 
@@ -1073,7 +1073,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);							// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
@@ -1162,7 +1162,7 @@ public class AdminController {
 			int indexToStart1=answerPath.indexOf('M');
 			String pathAnswer=answerPath.substring(indexToStart1, answerPath.length());
 			
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 			
 			User usr=userService.findByUsername(emailToIdentifyUser);
 			
@@ -1221,7 +1221,7 @@ public class AdminController {
 		HttpSession session=req.getSession();							// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
@@ -1261,7 +1261,7 @@ public class AdminController {
 		if(ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 		
 		try {
-			emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 
 			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/ConceptMap/";  // path to store Concept-map
 			
@@ -1320,7 +1320,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);							// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
@@ -1347,7 +1347,7 @@ public class AdminController {
 			int fossid=Integer.parseInt(req.getParameter("fossSelected"));
 			int stLanguageId=Integer.parseInt(req.getParameter("fossLanguageSelected"));
 			
-			String emailToIdentifyUser=(String) session.getAttribute("UserLogedAdmin");
+			String emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 			
 			User usr=userService.findByUsername(emailToIdentifyUser);
 			
@@ -1393,7 +1393,7 @@ public class AdminController {
 	public ModelAndView addTestimonialGet(HttpServletRequest req,ModelAndView mv) {
 		HttpSession session=req.getSession(false);						// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 				mv.setViewName("addTestimonial");							// setting view name
 				
@@ -1414,7 +1414,7 @@ public class AdminController {
 		String organization=req.getParameter("org");
 		String Desc=req.getParameter("description");
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {		// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 					
@@ -1451,7 +1451,7 @@ public class AdminController {
 		
 		HttpSession session=req.getSession(false);						// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 				mv.setViewName("addEvent");								// setting view name
@@ -1472,7 +1472,7 @@ public class AdminController {
 		
 		HttpSession session=req.getSession(false);										// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 					
@@ -1513,7 +1513,7 @@ public class AdminController {
 		
 		HttpSession session=req.getSession(false);										// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 			List<ContactForm> tempContact=contactService.getAllMessages();

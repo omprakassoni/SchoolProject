@@ -37,7 +37,7 @@ import com.adminportal.HomeController;
 public class ServiceUtility {
 	
 	private static final String SALT="salt";
-	private static String uploadDirectory="/static"+"/Media/content/";
+	private static String uploadDirectory="src/main/resources/static"+"/Media/content/";
 	
 	public static BCryptPasswordEncoder passwordEncoder() {										// password encoding
 		
@@ -132,13 +132,15 @@ public class ServiceUtility {
 	
 	public static boolean chechExistSessionAdmin(HttpSession session) {					// validate Exist session for admin
 		
-		boolean status=true;
+		boolean status=false;
 		if(session==null) {
 			status=false;
 		}else {
-			if(session.getAttribute("UserLogedAdmin")==null) {
+			if(session.getAttribute("UserLogedUsername")==null) {
 				status= false;
 				
+			}else if(session.getAttribute("UserLogedRole").equals("Admin")){
+				status=true;
 			}
 		}
 		
@@ -152,14 +154,13 @@ public class ServiceUtility {
 		if(session==null) {
 			status=false;
 		}else {
-			if(session.getAttribute("UserLogedUserView")==null) {
+			if(session.getAttribute("UserLogedUsername")==null) {
 				status= false;
 				
 			}
 		}
 		
 		return status;
-		
-	}
 	
+}
 }

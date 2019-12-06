@@ -2382,7 +2382,8 @@ $(function(){
   					
   					var data=[];
   					var i=0;
-  				
+  					
+  					$('#updateSubject').prop('disabled',false);
   					
   					$('#modalClass [type=checkbox]').each(function() {
 	       				   if($(this).is(':checked')){
@@ -2414,8 +2415,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#Success').css({"display": "block"});
+			    				 $('#updateSubject').prop('disabled',true);
+			    				 
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#Failure').css({"display": "block"});
+			    				 $('#updateSubject').prop('disabled',true);
+			    				 
 			    			 }
 			       		
 						},
@@ -3089,6 +3094,9 @@ $(function(){
   					};
   					
   					var html='';
+  					$('#videoComment').val('');
+  					$('#SuccessVideoComment').css({"display": "none"}); 
+	    			$('#FailureVideoComment').css({"display": "none"});
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -3295,8 +3303,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#SuccessVideoComment').css({"display": "block"});
+			    				 $('#videoComment').val('');
+			    				 $('.commentVideoModal').prop('disabled',true);
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureVideoComment').css({"display": "block"});
+			    				 $('#videoComment').val('');
+			    				 $('.commentVideoModal').prop('disabled',true);
 			    			 }
 			       		
 						},
@@ -3326,6 +3338,9 @@ $(function(){
   					};
   					
   					var html='';
+  					$('#articleComment').val('');
+  					$('#SuccessArticleComment').css({"display": "none"}); 
+	    			$('#FailureArticleComment').css({"display": "none"});
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -3527,8 +3542,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#SuccessArticleComment').css({"display": "block"});
+			    				 $('#articleComment').val('');
+			    				 $('.commentArticleModal').prop('disabled',true);
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureArticleComment').css({"display": "block"});
+			    				 $('#articleComment').val('');
+			    				 $('.commentArticleModal').prop('disabled',true);
 			    			 }
 			       		
 						},
@@ -3556,6 +3575,9 @@ $(function(){
   					};
   					
   					var html='';
+  					$('#documentComment').val('');
+  					$('#SuccessDocumentComment').css({"display": "none"}); 
+	    			$('#FailureDocumentComment').css({"display": "none"});
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -3759,8 +3781,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#SuccessDocumentComment').css({"display": "block"});
+			    				 $('#documentComment').val('');
+			    				 $('.commentDocumentModal').prop('disabled',true);
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureDocumentComment').css({"display": "block"});
+			    				 $('#documentComment').val('');
+			    				 $('.commentDocumentModal').prop('disabled',true);
 			    			 }
 			       		
 						},
@@ -3786,6 +3812,9 @@ $(function(){
   					};
   					
   					var html='';
+  					$('#conceptComment').val('');
+  					$('#SuccessConceptComment').css({"display": "none"}); 
+	    			$('#FailureConceptComment').css({"display": "none"});
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -3989,8 +4018,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#SuccessConceptComment').css({"display": "block"});
+			    				 $('#conceptComment').val('');
+			    				 $('.commentConceptModal').prop('disabled',true);
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureConceptComment').css({"display": "block"});
+			    				 $('#conceptComment').val('');
+			    				 $('.commentConceptModal').prop('disabled',true);
 			    			 }
 			       		
 						},
@@ -4010,6 +4043,7 @@ $(function(){
   				
   				
   				$('.commentQuiz').click(function(){
+  				
   					
   					var Id=$(this).attr('value');
   					
@@ -4018,6 +4052,9 @@ $(function(){
   					};
   					
   					
+  					$('#quizComment').val('');
+  					$('#SuccessQuizComment').css({"display": "none"}); 
+	    			$('#FailureQuizComment').css({"display": "none"});
   					var html='';
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -4223,8 +4260,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#SuccessQuizComment').css({"display": "block"});
+			    				 $('#quizComment').val('');
+			    				 $('.commentQuizModal').prop('disabled',true);
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureQuizComment').css({"display": "block"});
+			    				 $('#quizComment').val('');
+			    				 $('.commentQuizModal').prop('disabled',true);
 			    			 }
 			       		
 						},
@@ -4251,6 +4292,10 @@ $(function(){
   					};
   					
   					var html='';
+  					$('#lessonComment').val('');
+  					$('#SuccessLessonComment').css({"display": "none"}); 
+	    			$('#FailureLessonComment').css({"display": "none"});
+  					
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -4451,8 +4496,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#SuccessLessonComment').css({"display": "block"});
+			    				 $('#lessonComment').val('');
+			    				 $('.commentLessonModal').prop('disabled',true);
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureLessonComment').css({"display": "block"});
+			    				 $('#lessonComment').val('');
+			    				 $('.commentLessonModal').prop('disabled',true);
 			    			 }
 			       		
 						},
@@ -4479,6 +4528,9 @@ $(function(){
   					};
   					
   					var html='';
+  					$('#phetComment').val('');
+  					$('#SuccessPhetComment').css({"display": "none"}); 
+	    			$('#FailurePhetComment').css({"display": "none"});
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -4681,8 +4733,12 @@ $(function(){
 			    			
 			    			 if(data1[0]==="Success"){
 			    				 $('#SuccessPhetComment').css({"display": "block"});
+			    				 $('#phetComment').val('');
+			    				 $('.commentPhetModal').prop('disabled',true);
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailurePhetComment').css({"display": "block"});
+			    				 $('#phetComment').val('');
+			    				 $('.commentPhetModal').prop('disabled',true);
 			    			 }
 			       		
 						},
@@ -4725,6 +4781,7 @@ $(function(){
   				
   			$('#updatePasswordTeacher').click(function(){
   			
+  			var currPass=$('#currentPasswordTeacher').val();	
   			var userid=$('#userIdUpdateTeacher').val();
   			var pass=$('#newPassTeacher').val();
   			var confpass=$('#confPassTeacher').val();
@@ -4736,7 +4793,8 @@ $(function(){
   				
   				var json={
   					"password":pass,
-  					"userId":userid
+  					"userId":userid,
+  					"currentPassword":currPass
   					
   				};
   				
@@ -4755,20 +4813,23 @@ $(function(){
   					success:function(data){
   						 
   						 $('#Success').css({"display": "none"}); 
-  						 $('#Failure').css({"display": "none"});
+  						 $('#FailurePassMismatch').css({"display": "none"});
+  						 $('#FailureCurPassWrong').css({"display": "none"});
   						
   						 if(data[0]==="Success"){
   							 $('#Success').css({"display": "block"});
   							 $('#newPassTeacher').prop('value',"");
   							 $('#confPassTeacher').prop('value',"");
+  							 $('#currentPasswordTeacher').prop('value',"");
   							 $('#updatePasswordTeacher').prop('disabled',true);
   							 
   							 setTimeout(function() {
   					            $('#Success').fadeOut(1000)}, 4000);
   						 }else if(data[0]==="failure"){
-  							 $('#Failure').css({"display": "block"});
+  							 $('#FailureCurPassWrong').css({"display": "block"});
   							 $('#newPassTeacher').prop('value',"");
  							 $('#confPassTeacher').prop('value',"");
+ 							 $('#currentPasswordTeacher').prop('value',"");
  							 $('#updatePasswordTeacher').prop('disabled',true);
  							 
  							 setTimeout(function() {
@@ -4787,15 +4848,17 @@ $(function(){
   				
   			}else{
   				 $('#Success').css({"display": "none"}); 
-				 $('#Failure').css({"display": "none"});
-				 $('#Failure').css({"display": "block"});
+  				 $('#FailurePassMismatch').css({"display": "none"});
+				 $('#FailureCurPassWrong').css({"display": "none"});
+				 $('#FailurePassMismatch').css({"display": "block"});
 			
 				 setTimeout(function() {
-			            $('#Failure').fadeOut(1000)}, 4000);
+			            $('#FailurePassMismatch').fadeOut(1000)}, 4000);
 			  
 				 
 				 $('#newPassTeacher').prop('value',"");
 				 $('#confPassTeacher').prop('value',"");
+				 $('#currentPasswordTeacher').prop('value',"");
 				 
 				 $('#updatePasswordTeacher').prop('disabled',true);
   				
@@ -4828,6 +4891,7 @@ $(function(){
   				
   			$('#updatePasswordLearnerParent').click(function(){
   			
+  			var currPass=$('#currentPasswordLearnerParent').val();
   			var userid=$('#userIdUpdateLearnerParent').val();
   			var pass=$('#newPassLearnerParent').val();
   			var confpass=$('#confPassLearnerParent').val();
@@ -4839,7 +4903,8 @@ $(function(){
   				
   				var json={
   					"password":pass,
-  					"userId":userid
+  					"userId":userid,
+  					"currentPassword":currPass
   					
   				};
   				
@@ -4856,17 +4921,20 @@ $(function(){
   					success:function(data){
   						 
   						 $('#Success').css({"display": "none"}); 
-  						 $('#Failure').css({"display": "none"});
+  						 $('#FailurePassMismatch').css({"display": "none"});
+  						 $('#FailureCurPassWrong').css({"display": "none"});
   						
   						 if(data[0]==="Success"){
   							 $('#Success').css({"display": "block"});
   							 $('#newPassLearnerParent').prop('value',"");
   							 $('#confPassLearnerParent').prop('value',"");
+  							 $('#currentPasswordLearnerParent').prop('value',"");
   							 $('#updatePasswordLearnerParent').prop('disabled',true);
   						 }else if(data[0]==="failure"){
-  							 $('#Failure').css({"display": "block"});
+  							 $('#FailureCurPassWrong').css({"display": "block"});
   							 $('#newPassLearnerParent').prop('value',"");
  							 $('#confPassLearnerParent').prop('value',"");
+ 							 $('#currentPasswordLearnerParent').prop('value',"");
  							 $('#updatePasswordLearnerParent').prop('disabled',true);
   						 }
   						
@@ -4882,11 +4950,13 @@ $(function(){
   				
   			}else{
   				 $('#Success').css({"display": "none"}); 
-				 $('#Failure').css({"display": "none"});
-				 $('#Failure').css({"display": "block"});
+  				 $('#FailurePassMismatch').css({"display": "none"});
+				 $('#FailureCurPassWrong').css({"display": "none"});
+				 $('#FailurePassMismatch').css({"display": "block"});
 				 
 				 $('#newPassLearnerParent').prop('value',"");
 				 $('#confPassLearnerParent').prop('value',"");
+				 $('#currentPasswordLearnerParent').prop('value',"");
 				 
 				 $('#updatePasswordLearnerParent').prop('disabled',true);
   				
@@ -4922,6 +4992,7 @@ $(function(){
   				
   			$('#updatePasswordAdmin').click(function(){
   			
+  			var currPass=$('#currentPassword').val();
   			var userid=$('#userIdUpdateAdmin').val();
   			var pass=$('#newPassAdmin').val();
   			var confpass=$('#confPassAdmin').val();
@@ -4933,7 +5004,8 @@ $(function(){
   				
   				var json={
   					"password":pass,
-  					"userId":userid
+  					"userId":userid,
+  					"currentPassword":currPass
   					
   				};
   				
@@ -4950,17 +5022,21 @@ $(function(){
   					success:function(data){
   						 
   						 $('#Success').css({"display": "none"}); 
-  						 $('#Failure').css({"display": "none"});
+  						 $('#FailurePassMismatch').css({"display": "none"});
+  						 $('#FailureCurPassWrong').css({"display": "none"});
   						
   						 if(data[0]==="Success"){
   							 $('#Success').css({"display": "block"});
+  							 
   							 $('#newPassAdmin').prop('value',"");
   							 $('#confPassAdmin').prop('value',"");
+  							 $('#currentPassword').prop('value',"");
   							 $('#updatePasswordAdmin').prop('disabled',true);
   						 }else if(data[0]==="failure"){
-  							 $('#Failure').css({"display": "block"});
+  							 $('#FailureCurPassWrong').css({"display": "block"});
   							 $('#newPassAdmin').prop('value',"");
  							 $('#confPassAdmin').prop('value',"");
+ 							 $('#currentPassword').prop('value',"");
  							 $('#updatePasswordAdmin').prop('disabled',true);
   						 }
   						
@@ -4976,11 +5052,12 @@ $(function(){
   				
   			}else{
   				 $('#Success').css({"display": "none"}); 
-				 $('#Failure').css({"display": "none"});
-				 $('#Failure').css({"display": "block"});
+				 $('#FailurePassMismatch').css({"display": "none"});
+				 $('#FailurePassMismatch').css({"display": "block"});
 				 
 				 $('#newPassAdmin').prop('value',"");
 				 $('#confPassAdmin').prop('value',"");
+				 $('#currentPassword').prop('value',"");
 				 
 				 $('#updatePasswordAdmin').prop('disabled',true);
   				

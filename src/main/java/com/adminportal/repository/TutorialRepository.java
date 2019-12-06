@@ -17,6 +17,10 @@ public interface TutorialRepository extends CrudRepository<Tutorial, Integer>{
 	
 	List<Tutorial> findAllBytopic(Topic topic);			// listing list of tutorial
 	
+	
+	@Query("from Tutorial U where U.topic=?1 and U.status=?2")	
+	List<Tutorial> findAllByTopicAndStatus(Topic topic,int status);
+	
 	@Modifying
 	@Query("update Tutorial set status=?1 where tutorialId=?2")		// enable or disable tutorial to view
 	int enableDisableTutorial(int status,int id);

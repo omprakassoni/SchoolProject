@@ -56,6 +56,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adminportal.config.MailConstructor;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Class;
 import com.adminportal.content.ConceptMap;
@@ -89,12 +90,11 @@ import com.adminportal.service.TopicService;
 import com.adminportal.service.TutorialService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
-import com.spoken.Utility.MailConstructor;
 import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 
 @Controller
-@SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})  // Session Variable
+@SessionAttributes({"UserLogedUsername","UserLogedName","UserLogedRole"})  // Session Variable
 public class HomeController {
 	
 	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";   // Path to save resources
@@ -149,6 +149,12 @@ public class HomeController {
 	@Autowired
 	private TutorialService tutorialService;
 	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	@Autowired
+	private MailConstructor mailConstructor;
+	
 
 	
 
@@ -202,9 +208,6 @@ public class HomeController {
 		
 		
 
-		
-		
-		
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("Index");
 		return mv;
@@ -224,12 +227,11 @@ public class HomeController {
 		String username=req.getParameter("username");
 		//String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
 		boolean statusPassword=false;
-		System.out.println(username);
-		System.out.println(req.getParameter("password"));
 		
 		//User usr1=(User) userService.existsByUser(username, password);			// check for existence of User
 		User usr=userService.findByUsername(username);
 		statusPassword =ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());
+		System.out.println(statusPassword);
 		if(statusPassword) {
 		List<UserRole> tempuserRole=usr.getUserRoles();
 		for(UserRole temp:tempuserRole) {
@@ -244,8 +246,9 @@ public class HomeController {
 					if(usr.getRegistered()==1) {
 			
 						HttpSession session=req.getSession();
-						session.setAttribute("UserLogedUserView", usr.getEmail());		// setting Session variable 
-						session.setAttribute("UserNameUserSide", usr.getFname());
+						session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
+						session.setAttribute("UserLogedName", usr.getFname());
+						session.setAttribute("UserLogedRole", userRole);
 						
 						usr.setLastLogin(ServiceUtility.getCurrentTime());
 						userService.save(usr);
@@ -259,8 +262,9 @@ public class HomeController {
 				}else {
 					
 					HttpSession session=req.getSession();
-					session.setAttribute("UserLogedUserView", usr.getEmail());		// setting Session variable 
-					session.setAttribute("UserNameUserSide", usr.getFname());
+					session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
+					session.setAttribute("UserLogedName", usr.getFname());
+					session.setAttribute("UserLogedRole", userRole);
 					
 					usr.setLastLogin(ServiceUtility.getCurrentTime());
 					userService.save(usr);
@@ -293,12 +297,12 @@ public class HomeController {
 		
 		HttpSession session=req.getSession(false);						// CHECK FOR EXISTING ALIVE SESSION	
 		if(!ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 			
 			
-			String loggedUser=(String) session.getAttribute("UserLogedUserView");
+			String loggedUser=(String) session.getAttribute("UserLogedUsername");
 			User localUser=userService.findByUsername(loggedUser);
 			List<UserRole> localUserRole=localUser.getUserRoles();
 			for(UserRole temp:localUserRole) {
@@ -407,12 +411,17 @@ public class HomeController {
 			return mv;
 		}
 		
-		usr.setToken(UUID.randomUUID().toString());
+		String token=UUID.randomUUID().toString();
+		usr.setToken(token);
 		
 		userService.save(usr);
-		/**
-		 *  E-mail related code will be written here.
-		 */
+		
+		String appUrl = "http://"+req.getServerName()+":"+req.getServerPort()+req.getContextPath();
+		System.out.println(appUrl);
+		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, req.getLocale(), token, usr);
+		
+		mailSender.send(newEmail);
+		
 		
 	
 	
@@ -499,10 +508,10 @@ public class HomeController {
 	
 /*********************************** ADMIN PORTAL HYPERLINK ******************************************/	
 	
-	@RequestMapping(value = "/adminPortal")
-	public String adminHomepage() {
-		return "adminLoginPage";
-	}
+//	@RequestMapping(value = "/adminPortal")
+//	public String adminHomepage() {
+//		return "adminLoginPage";
+//	}
 	
 	
 /************************************************************************************************************************/
@@ -581,11 +590,11 @@ public class HomeController {
 		List<VideoExternal> localvideo=videoService.findAllByTopicAndStatus(localTopic);
 		List<Phets> localPhets=phetService.findAllByTopicAndStatus(localTopic);
 		List<ConceptMap> localConcept=conceptMapService.findAllByTopicAndStatus(localTopic);
-		List<Tutorial> localTutorial=tutorialService.getAllTutorialByTopic(localTopic);
+		List<Tutorial> localTutorial=tutorialService.findAllByTopicAndStatus(localTopic);
 		
 		if(ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
 			
-		String loggedUser=(String) session.getAttribute("UserLogedUserView");
+		String loggedUser=(String) session.getAttribute("UserLogedUsername");
 		User localUser=userService.findByUsername(loggedUser);
 		List<UserRole> localUserRole=localUser.getUserRoles();
 		for(UserRole temp:localUserRole) {

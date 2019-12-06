@@ -9,6 +9,13 @@ package com.spoken.Utility;
 public class passwordUpdateAjaxQueryResolver {
 	
 	String password;
+	String currentPassword;
+	public String getCurrentPassword() {
+		return currentPassword;
+	}
+	public void setCurrentPassword(String currentPassword) {
+		this.currentPassword = currentPassword;
+	}
 	int userId;
 	
 	public String getPassword() {

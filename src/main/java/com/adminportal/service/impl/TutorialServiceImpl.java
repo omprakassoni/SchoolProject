@@ -66,4 +66,11 @@ public class TutorialServiceImpl implements TutorialService{
 		return local.get();
 	}
 
+	@Override
+	public List<Tutorial> findAllByTopicAndStatus(Topic topic) {
+		
+		List<Tutorial> temp=tutorialRepo.findAllByTopicAndStatus(topic,1);
+		return temp;
+	}
+
 }

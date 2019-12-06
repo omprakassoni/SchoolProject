@@ -51,7 +51,7 @@ import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 
 @Controller
-@SessionAttributes({"UserLogedAdmin","UserNameAdmin","UserLogedUserView","UserNameUserSide"})
+@SessionAttributes({"UserLogedUsername","UserLogedName","UserLogedRole"})
 public class AdminViewController {
 	
 	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";
@@ -114,7 +114,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<User> usr= userService.findAll();
@@ -131,7 +131,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<User> usr= userService.findAll();
@@ -152,7 +152,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -189,7 +189,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<Subject> subjectList=subjectService.findAll();
@@ -209,7 +209,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -236,7 +236,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<Topic> topicList=topicService.findAll();
@@ -260,7 +260,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -302,7 +302,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<VideoExternal> videoListtemp=videoService.findAll();
@@ -333,7 +333,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -382,7 +382,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<ArticleExternal> articleListTemp=articleService.findAll();
@@ -411,7 +411,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -456,7 +456,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<DocumentExternal> documentListTemp=documentService.findAll();
@@ -485,7 +485,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -529,7 +529,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 
 		List<Phets> phetListTemp=phetService.findAll();
@@ -557,7 +557,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -601,7 +601,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		List<LessonPlan> lessonListTemp=lessonService.findAll();
@@ -628,7 +628,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -672,7 +672,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		
@@ -700,7 +700,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -741,7 +741,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 		
 		
@@ -770,7 +770,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}
@@ -814,7 +814,7 @@ public class AdminViewController {
 		
 		HttpSession session=req.getSession();
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<User> local=new ArrayList<User>();
 		
@@ -863,7 +863,7 @@ public class AdminViewController {
 		
 		HttpSession session=req.getSession();
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<User> local=new ArrayList<User>();
 		
@@ -909,7 +909,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<VideoExternal> localVideo=new ArrayList<VideoExternal>();
 			
@@ -954,7 +954,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<VideoExternal> localVideo=new ArrayList<VideoExternal>();
 			
@@ -995,7 +995,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<DocumentExternal> localdocument=new ArrayList<DocumentExternal>();
 			
@@ -1040,7 +1040,7 @@ public class AdminViewController {
 			HttpSession session=req.getSession(false);
 			
 			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/adminPortal");
+				mv.setViewName("redirect:/Login");
 			}else {
 				List<DocumentExternal> localdocument=new ArrayList<DocumentExternal>();
 				
@@ -1080,7 +1080,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<ArticleExternal> localarticle=new ArrayList<ArticleExternal>();
 			
@@ -1126,7 +1126,7 @@ public class AdminViewController {
 			HttpSession session=req.getSession(false);
 			
 			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/adminPortal");
+				mv.setViewName("redirect:/Login");
 			}else {
 				List<ArticleExternal> localarticle=new ArrayList<ArticleExternal>();
 				
@@ -1163,7 +1163,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<Phets> localphet=new ArrayList<Phets>();
 			
@@ -1210,7 +1210,7 @@ public class AdminViewController {
 			HttpSession session=req.getSession(false);
 			
 			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/adminPortal");
+				mv.setViewName("redirect:/Login");
 			}else {
 				List<Phets> localphet=new ArrayList<Phets>();
 				
@@ -1247,7 +1247,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<QuizQuestion> localQuiz=new ArrayList<QuizQuestion>();
 			
@@ -1293,7 +1293,7 @@ public class AdminViewController {
 			HttpSession session=req.getSession(false);
 			
 			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/adminPortal");
+				mv.setViewName("redirect:/Login");
 			}else {
 				List<QuizQuestion> localQuiz=new ArrayList<QuizQuestion>();
 				
@@ -1331,7 +1331,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<LessonPlan> localLesson=new ArrayList<LessonPlan>();
 			
@@ -1377,7 +1377,7 @@ public class AdminViewController {
 			HttpSession session=req.getSession(false);
 			
 			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/adminPortal");
+				mv.setViewName("redirect:/Login");
 			}else {
 				List<LessonPlan> localLesson=new ArrayList<LessonPlan>();
 				
@@ -1413,7 +1413,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession(false);
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			List<ConceptMap> localconcept=new ArrayList<ConceptMap>();
 			
@@ -1456,7 +1456,7 @@ public class AdminViewController {
 			HttpSession session=req.getSession(false);
 			
 			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/adminPortal");
+				mv.setViewName("redirect:/Login");
 			}else {
 				List<ConceptMap> localconcept=new ArrayList<ConceptMap>();
 				
@@ -1486,7 +1486,7 @@ public class AdminViewController {
 	public ModelAndView testimonialList(HttpServletRequest req,ModelAndView mv) {
 		HttpSession session=req.getSession(false);
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 			try{
@@ -1497,7 +1497,7 @@ public class AdminViewController {
 					mv.setViewName("testimonialList");
 				}
 			catch (Exception e) {
-				   mv.setViewName("redirect:/adminPortal");
+				   mv.setViewName("redirect:/Login");
 				
 			}
 		}
@@ -1510,7 +1510,7 @@ public class AdminViewController {
 	public ModelAndView eventList(HttpServletRequest req,ModelAndView mv) {
 		HttpSession session=req.getSession(false);
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 			
@@ -1522,7 +1522,7 @@ public class AdminViewController {
 					mv.setViewName("eventList");
 				}
 			catch (Exception e) {
-				 mv.setViewName("redirect:/adminPortal");
+				 mv.setViewName("redirect:/Login");
 				
 			}
 		}
@@ -1536,7 +1536,7 @@ public class AdminViewController {
 	public ModelAndView TutorialList(HttpServletRequest req,ModelAndView mv) {
 		HttpSession session=req.getSession(false);
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 		}else {
 			
 			List<Tutorial> tempTutorial=tutorialService.getAllTutorial();
@@ -1586,7 +1586,7 @@ public class AdminViewController {
 		HttpSession session=req.getSession();
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/adminPortal");
+			mv.setViewName("redirect:/Login");
 			return mv;
 			
 		}

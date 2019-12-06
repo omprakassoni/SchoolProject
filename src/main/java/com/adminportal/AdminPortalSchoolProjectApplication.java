@@ -16,6 +16,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
@@ -42,8 +43,8 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	
 
 	public static void main(String[] args) {
-		new java.io.File(HomeController.uploadDirectory).mkdir();
-		new java.io.File(HomeController.uploadTeacherDirectory).mkdir();
+//		new java.io.File(HomeController.uploadDirectory).mkdir();
+//		new java.io.File(HomeController.uploadTeacherDirectory).mkdir();
 		SpringApplication.run(AdminPortalSchoolProjectApplication.class, args);
 	}
 	
@@ -52,6 +53,9 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		new java.io.File(HomeController.uploadDirectory).mkdirs();
+		new java.io.File(HomeController.uploadTeacherDirectory).mkdirs();
 		
 		User usr=new User();
 		usr.setId(1);

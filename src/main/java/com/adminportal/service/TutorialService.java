@@ -21,5 +21,7 @@ public interface TutorialService {
 	boolean enableDisableTutorial(int status,int id);
 	
 	Tutorial getById(int tutorialID);
+	
+	List<Tutorial> findAllByTopicAndStatus(Topic topic);
 
 }
