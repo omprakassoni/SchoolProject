@@ -2508,6 +2508,9 @@ $(function(){
   				
   		// --------------------------------- START OF UPDATE PART OF TOPIC------------------------------------------------------------
   				
+  					$('#topicDesc').change(function(){
+					 	$("#updateTopic").prop('disabled', false);
+					});
 
   					$('#posterQ').change(function(){
   					 	$("#updateTopic").prop('disabled', false);
@@ -2577,18 +2580,17 @@ $(function(){
   				
   					$('#question').change(function(){
   						
-  						if ($('#question').get(0).files.length > 0 && $('#answer').get(0).files.length > 0) {
+  					
   							$("#updateQuiz").prop('disabled', false);
-  						}
+  						
   					 	
   					})
   				
   					
   					$('#answer').change(function(){
   						
-  						if ($('#question').get(0).files.length > 0 && $('#answer').get(0).files.length > 0) {
   							$("#updateQuiz").prop('disabled', false);
-  						}
+  					
   					})
   				
   					$('#updateQuiz').click(function(){
@@ -2599,13 +2601,13 @@ $(function(){
   						 fire_ajax_submit_Quiz(); 
   					});
   				
-  					$('#updateQuizOnUser').click(function(){
-						
-						 event.preventDefault();
-						
-
-						 fire_ajax_submit_QuizOnUser(); 
-					});
+//  					$('#updateQuizOnUser').click(function(){
+//						
+//						 event.preventDefault();
+//						
+//
+//						 fire_ajax_submit_QuizOnUser(); 
+//					});
   				
   				
   			/*--------------------------------------------------END--------------------------------------------------------------------------------*/
@@ -2690,13 +2692,13 @@ $(function(){
   						 fire_ajax_submit_Video(); 
   					});
   					
-  					$('#updateVideoOnUser').click(function(){
-  						
- 						 event.preventDefault();
- 						
-
- 						 fire_ajax_submit_VideoOnUser(); 
- 					});
+//  					$('#updateVideoOnUser').click(function(){
+//  						
+// 						 event.preventDefault();
+// 						
+//
+// 						 fire_ajax_submit_VideoOnUser(); 
+// 					});
   			/*----------------------------------------------------------------END-------------------------------------------------------------*/
   			 /*----------------------------------------- CALLING MODAL FOR CONCEPT-MAPS -----------------------------------------*/
   					
@@ -2743,10 +2745,16 @@ $(function(){
   	  			/* -------------------------------------------------------------END-----------------------------------------------------------*/
   	  				
   	  			/* --------------------------------------------START OF UPDATING CONCEPT--------------------------------------------------------*/
+  	  					$('#conceptDesc').change(function(){
+  					
+  	  						$('#updateConcept').prop('disabled',false);
+//  	  						$('#updateConceptOnUser').prop('disabled',false);
+  	  					})
+  	  				
   	  					$('#conceptImage').change(function(){
   					
   	  						$('#updateConcept').prop('disabled',false);
-  	  						$('#updateConceptOnUser').prop('disabled',false);
+//  	  						$('#updateConceptOnUser').prop('disabled',false);
   	  					})
   	  				
 
@@ -2759,13 +2767,13 @@ $(function(){
   	  						 fire_ajax_submit_Concept(); 
   	  					});
   	  					
-  	  					$('#updateConceptOnUser').click(function(){
-  	  						
-  	 						 event.preventDefault();
-  	 						
-
-  	 						 fire_ajax_submit_ConceptOnUser(); 
-  	 					});
+//  	  					$('#updateConceptOnUser').click(function(){
+//  	  						
+//  	 						 event.preventDefault();
+//  	 						
+//
+//  	 						 fire_ajax_submit_ConceptOnUser(); 
+//  	 					});
   	  			/*----------------------------------------------------------------END-------------------------------------------------------------*/
   				
   				
@@ -2846,13 +2854,13 @@ $(function(){
   						 fire_ajax_submit_Article(); 
   					});
   					
-  					$('#updateArticleOnUser').click(function(){
-  						
- 						 event.preventDefault();
- 						
-
- 						 fire_ajax_submit_ArticleOnUser(); 
- 					});
+//  					$('#updateArticleOnUser').click(function(){
+//  						
+// 						 event.preventDefault();
+// 						
+//
+// 						 fire_ajax_submit_ArticleOnUser(); 
+// 					});
   					
   					
   			/*----------------------------------------------------------------END-------------------------------------------------------------*/
@@ -2927,6 +2935,11 @@ $(function(){
   				
   				
   			/* --------------------------------------------START OF UPDATING DOCUMENT--------------------------------------------------------*/
+  				$('#documentDesc').change(function(){
+  					
+  					$('#updateDocument').prop('disabled',false);
+  				})
+  				
   				$('#document').change(function(){
   					
   					$('#updateDocument').prop('disabled',false);
@@ -2944,13 +2957,13 @@ $(function(){
   					});
   					
   					
-  				$('#updateDocumentOnUser').click(function(){
-  						
- 						 event.preventDefault();
- 						
-
- 						 fire_ajax_submit_DocumentOnUser(); 
- 					});
+//  				$('#updateDocumentOnUser').click(function(){
+//  						
+// 						 event.preventDefault();
+// 						
+//
+// 						 fire_ajax_submit_DocumentOnUser(); 
+// 					});
   			/*----------------------------------------------------------------END-------------------------------------------------------------*/
   			
   			/*------------------------------------------------ START TO CALL MODAL FROM LESSON PLAN--------------------------------------------*/
@@ -2975,13 +2988,13 @@ $(function(){
   						 fire_ajax_submit_Lesson(); 
   					});
   					
-  						$('#updateLessonOnUser').click(function(){
-  						
- 						 event.preventDefault();
- 						
-
- 						 fire_ajax_submit_LessonOnUser(); 
- 					});
+//  						$('#updateLessonOnUser').click(function(){
+//  						
+// 						 event.preventDefault();
+// 						
+//
+// 						 fire_ajax_submit_LessonOnUser(); 
+// 					});
  	  				
   	  				
   	  				
@@ -3065,13 +3078,13 @@ $(function(){
 					});
   					
   					
-  					$('#updatePhetOnUser').click(function(){
-						
-						 event.preventDefault();
-						
-
-						 fire_ajax_submit_PhetOnUser(); 
-					});
+//  					$('#updatePhetOnUser').click(function(){
+//						
+//						 event.preventDefault();
+//						
+//
+//						 fire_ajax_submit_PhetOnUser(); 
+//					});
   					
 		/*----------------------------------------------------------------END-------------------------------------------------------------*/
 			
@@ -3305,10 +3318,14 @@ $(function(){
 			    				 $('#SuccessVideoComment').css({"display": "block"});
 			    				 $('#videoComment').val('');
 			    				 $('.commentVideoModal').prop('disabled',true);
+			    				 $('.replyRowVideo').hide();
+			    				 $('#replyCommentVideo').val('');
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureVideoComment').css({"display": "block"});
 			    				 $('#videoComment').val('');
 			    				 $('.commentVideoModal').prop('disabled',true);
+			    				 $('.replyRowVideo').hide();
+			    				 $('#replyCommentVideo').val('');
 			    			 }
 			       		
 						},
@@ -3544,10 +3561,14 @@ $(function(){
 			    				 $('#SuccessArticleComment').css({"display": "block"});
 			    				 $('#articleComment').val('');
 			    				 $('.commentArticleModal').prop('disabled',true);
+			    				 $('.replyRowArticle').hide();
+			    				 $('#replyCommentArticle').val('');
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureArticleComment').css({"display": "block"});
 			    				 $('#articleComment').val('');
 			    				 $('.commentArticleModal').prop('disabled',true);
+			    				 $('.replyRowArticle').hide();
+			    				 $('#replyCommentArticle').val('');
 			    			 }
 			       		
 						},
@@ -3783,10 +3804,14 @@ $(function(){
 			    				 $('#SuccessDocumentComment').css({"display": "block"});
 			    				 $('#documentComment').val('');
 			    				 $('.commentDocumentModal').prop('disabled',true);
+			    				 $('.replyRowDocument').hide();
+			    				 $('#replyCommentDocument').val('');
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureDocumentComment').css({"display": "block"});
 			    				 $('#documentComment').val('');
 			    				 $('.commentDocumentModal').prop('disabled',true);
+			    				 $('.replyRowDocument').hide();
+			    				 $('#replyCommentDocument').val('');
 			    			 }
 			       		
 						},
@@ -4020,10 +4045,14 @@ $(function(){
 			    				 $('#SuccessConceptComment').css({"display": "block"});
 			    				 $('#conceptComment').val('');
 			    				 $('.commentConceptModal').prop('disabled',true);
+			    				 $('.replyRowConcept').hide();
+			    				 $('#replyCommentConcept').val('');
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureConceptComment').css({"display": "block"});
 			    				 $('#conceptComment').val('');
 			    				 $('.commentConceptModal').prop('disabled',true);
+			    				 $('.replyRowConcept').hide();
+			    				 $('#replyCommentConcept').val('');
 			    			 }
 			       		
 						},
@@ -4262,10 +4291,14 @@ $(function(){
 			    				 $('#SuccessQuizComment').css({"display": "block"});
 			    				 $('#quizComment').val('');
 			    				 $('.commentQuizModal').prop('disabled',true);
+			    				 $('.replyRowQuiz').hide();
+			    				 $('#replyCommentQuiz').val('');
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureQuizComment').css({"display": "block"});
 			    				 $('#quizComment').val('');
 			    				 $('.commentQuizModal').prop('disabled',true);
+			    				 $('.replyRowQuiz').hide();
+			    				 $('#replyCommentQuiz').val('');
 			    			 }
 			       		
 						},
@@ -4498,10 +4531,14 @@ $(function(){
 			    				 $('#SuccessLessonComment').css({"display": "block"});
 			    				 $('#lessonComment').val('');
 			    				 $('.commentLessonModal').prop('disabled',true);
+			    				 $('.replyRowLesson').hide();
+			    				 $('#replyCommentLesson').val('');
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailureLessonComment').css({"display": "block"});
 			    				 $('#lessonComment').val('');
 			    				 $('.commentLessonModal').prop('disabled',true);
+			    				 $('.replyRowLesson').hide();
+			    				 $('#replyCommentLesson').val('');
 			    			 }
 			       		
 						},
@@ -4735,10 +4772,14 @@ $(function(){
 			    				 $('#SuccessPhetComment').css({"display": "block"});
 			    				 $('#phetComment').val('');
 			    				 $('.commentPhetModal').prop('disabled',true);
+			    				 $('.replyRowPhet').hide();
+			    				 $('#replyCommentPhet').val('');
 			    			 }else if(data1[0]==="failure"){
 			    				 $('#FailurePhetComment').css({"display": "block"});
 			    				 $('#phetComment').val('');
 			    				 $('.commentPhetModal').prop('disabled',true);
+			    				 $('.replyRowPhet').hide();
+			    				 $('#replyCommentPhet').val('');
 			    			 }
 			       		
 						},
@@ -5538,10 +5579,13 @@ function fire_ajax_submit_Topic(){
 			
 			 if(data[0]==="Success"){
 				 $('#Success').css({"display": "block"});
+				 $("#updateTopic").prop('disabled', true);
 			 }else if(data[0]==="failure"){
 				 $('#Failure').css({"display": "block"});
+				 $("#updateTopic").prop('disabled', true);
 			 }else{
 				 $('#invalid-data').css({"display": "block"}); 
+				 $("#updateTopic").prop('disabled', true);
 			 }
 			
 		
@@ -5560,7 +5604,7 @@ function fire_ajax_submit_Topic(){
 
 	function fire_ajax_submit_Quiz(){
 	
-		var form=$('#uploadQuiz')[0];
+		var form=$('#uploadUpdateQuiz')[0];
 		var data=new FormData(form);
 		
 		var token = $("meta[name='_csrf']").attr("content");
@@ -5580,62 +5624,19 @@ function fire_ajax_submit_Topic(){
 				timeout: 600000,
 				success:function(data){
 					 
-					 $('#Success').css({"display": "none"}); 
-					 $('#invalid-data').css({"display": "none"}); 
-					 $('#Failure').css({"display": "none"});
-					
-					 if(data[0]==="Success"){
-						 $('#Success').css({"display": "block"});
-					 }else if(data[0]==="failure"){
-						 $('#Failure').css({"display": "block"});
-					 }else{
-						 $('#invalid-data').css({"display": "block"}); 
-					 }
-					
-				
-				},
-			
-			error : function(err){
-				console.log("not working. ERROR: "+JSON.stringify(err));
-				}
-	
-		});
-	}
-	
-	
-
-	function fire_ajax_submit_QuizOnUser(){
-	
-		var form=$('#uploadUserQuiz')[0];
-		var data=new FormData(form);
-		
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-	
-			$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url: /*projectName+*/"/updateQuiz",
-				data:data,
-				beforeSend: function(xhr) {
-                     xhr.setRequestHeader(header, token);
-	       		},
-				cache:false,
-				contentType:false,
-				processData:false,
-				timeout: 600000,
-				success:function(data){
-					 
 					 $('#SuccessQuiz').css({"display": "none"}); 
 					 $('#invalid-dataQuiz').css({"display": "none"}); 
 					 $('#FailureQuiz').css({"display": "none"});
 					
 					 if(data[0]==="Success"){
 						 $('#SuccessQuiz').css({"display": "block"});
+						 $("#updateQuiz").prop('disabled', true);
 					 }else if(data[0]==="failure"){
 						 $('#FailureQuiz').css({"display": "block"});
+						 $("#updateQuiz").prop('disabled', true);
 					 }else{
 						 $('#invalid-dataQuiz').css({"display": "block"}); 
+						 $("#updateQuiz").prop('disabled', true);
 					 }
 					
 				
@@ -5647,57 +5648,59 @@ function fire_ajax_submit_Topic(){
 	
 		});
 	}
+	
+	
+
+//	function fire_ajax_submit_QuizOnUser(){
+//	
+//		var form=$('#uploadUserQuiz')[0];
+//		var data=new FormData(form);
+//		
+//		var token = $("meta[name='_csrf']").attr("content");
+//		var header = $("meta[name='_csrf_header']").attr("content");
+//	
+//			$.ajax({
+//				type: "POST",
+//				enctype: 'multipart/form-data',
+//				url: /*projectName+*/"/updateQuiz",
+//				data:data,
+//				beforeSend: function(xhr) {
+//                     xhr.setRequestHeader(header, token);
+//	       		},
+//				cache:false,
+//				contentType:false,
+//				processData:false,
+//				timeout: 600000,
+//				success:function(data){
+//					 
+//					 $('#SuccessQuiz').css({"display": "none"}); 
+//					 $('#invalid-dataQuiz').css({"display": "none"}); 
+//					 $('#FailureQuiz').css({"display": "none"});
+//					
+//					 if(data[0]==="Success"){
+//						 $('#SuccessQuiz').css({"display": "block"});
+//					 }else if(data[0]==="failure"){
+//						 $('#FailureQuiz').css({"display": "block"});
+//					 }else{
+//						 $('#invalid-dataQuiz').css({"display": "block"}); 
+//					 }
+//					
+//				
+//				},
+//			
+//			error : function(err){
+//				console.log("not working. ERROR: "+JSON.stringify(err));
+//				}
+//	
+//		});
+//	}
 /* -------------------------------------------------------END--------------------------------------------------------------------------------------*/
 
 
 /* ---------------------------------------------AJAX FUNCTION FOR VIDEO--------------------------------------------------------------------*/
 	function fire_ajax_submit_Video(){
 		
-		var form=$('#uploadVideo')[0];
-		var data=new FormData(form);
-		
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-	
-			$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url:/* projectName+*/"/updateVideo",
-				data:data,
-				beforeSend: function(xhr) {
-                     xhr.setRequestHeader(header, token);
-	       		},
-				cache:false,
-				contentType:false,
-				processData:false,
-				timeout: 600000,
-				success:function(data){
-					
-					 $('#Success').css({"display": "none"}); 
-					 $('#invalid-data').css({"display": "none"}); 
-					 $('#Failure').css({"display": "none"});
-					
-					 if(data[0]==="Success"){
-						 $('#Success').css({"display": "block"});
-					 }else if(data[0]==="failure"){
-						 $('#Failure').css({"display": "block"});
-					 }else{
-						 $('#invalid-data').css({"display": "block"}); 
-					 }
-					
-				
-				},
-			
-			error : function(err){
-				console.log("not working. ERROR: "+JSON.stringify(err));
-				}
-	
-		});
-	}
-	
-	function fire_ajax_submit_VideoOnUser(){
-		
-		var form=$('#uploadUserVideo')[0];
+		var form=$('#uploadUpdateVideo')[0];
 		var data=new FormData(form);
 		
 		var token = $("meta[name='_csrf']").attr("content");
@@ -5738,6 +5741,50 @@ function fire_ajax_submit_Topic(){
 	
 		});
 	}
+	
+//	function fire_ajax_submit_VideoOnUser(){
+//		
+//		var form=$('#uploadUserVideo')[0];
+//		var data=new FormData(form);
+//		
+//		var token = $("meta[name='_csrf']").attr("content");
+//		var header = $("meta[name='_csrf_header']").attr("content");
+//	
+//			$.ajax({
+//				type: "POST",
+//				enctype: 'multipart/form-data',
+//				url:/* projectName+*/"/updateVideo",
+//				data:data,
+//				beforeSend: function(xhr) {
+//                     xhr.setRequestHeader(header, token);
+//	       		},
+//				cache:false,
+//				contentType:false,
+//				processData:false,
+//				timeout: 600000,
+//				success:function(data){
+//					
+//					 $('#SuccessVideo').css({"display": "none"}); 
+//					 $('#invalid-dataVideo').css({"display": "none"}); 
+//					 $('#FailureVideo').css({"display": "none"});
+//					
+//					 if(data[0]==="Success"){
+//						 $('#SuccessVideo').css({"display": "block"});
+//					 }else if(data[0]==="failure"){
+//						 $('#FailureVideo').css({"display": "block"});
+//					 }else{
+//						 $('#invalid-dataVideo').css({"display": "block"}); 
+//					 }
+//					
+//				
+//				},
+//			
+//			error : function(err){
+//				console.log("not working. ERROR: "+JSON.stringify(err));
+//				}
+//	
+//		});
+//	}
 /* -------------------------------------------------------END--------------------------------------------------------------------------------------*/
 
 	
@@ -5747,7 +5794,7 @@ function fire_ajax_submit_Topic(){
 
 	function fire_ajax_submit_Concept(){
 		
-		var form=$('#uploadConcept')[0];
+		var form=$('#uploadUpdateConcept')[0];
 		var data=new FormData(form);
 		
 		var token = $("meta[name='_csrf']").attr("content");
@@ -5767,60 +5814,22 @@ function fire_ajax_submit_Topic(){
 				timeout: 600000,
 				success:function(data){
 					
-					 $('#Success').css({"display": "none"}); 
-					 $('#invalid-data').css({"display": "none"}); 
-					 $('#Failure').css({"display": "none"});
-					
-					 if(data[0]==="Success"){
-						 $('#Success').css({"display": "block"});
-					 }else if(data[0]==="failure"){
-						 $('#Failure').css({"display": "block"});
-					 }else{
-						 $('#invalid-data').css({"display": "block"}); 
-					 }
-					
-				
-				},
-			
-			error : function(err){
-				console.log("not working. ERROR: "+JSON.stringify(err));
-				}
-	
-		});
-	}
-	
-	function fire_ajax_submit_ConceptOnUser(){
-		
-		var form=$('#uploadUserConcept')[0];
-		var data=new FormData(form);
-		
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-	
-			$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url:/* projectName+*/"/updateConcept",
-				data:data,
-				beforeSend: function(xhr) {
-                     xhr.setRequestHeader(header, token);
-	       		},
-				cache:false,
-				contentType:false,
-				processData:false,
-				timeout: 600000,
-				success:function(data){
-					
 					 $('#SuccessConcept').css({"display": "none"}); 
 					 $('#invalid-dataConcept').css({"display": "none"}); 
 					 $('#FailureConcept').css({"display": "none"});
 					
 					 if(data[0]==="Success"){
 						 $('#SuccessConcept').css({"display": "block"});
+						 $('#updateConcept').prop('disabled',true);
+	  					
 					 }else if(data[0]==="failure"){
 						 $('#FailureConcept').css({"display": "block"});
+						 $('#updateConcept').prop('disabled',true);
+	  						
 					 }else{
 						 $('#invalid-dataConcept').css({"display": "block"}); 
+						 $('#updateConcept').prop('disabled',true);
+	  			
 					 }
 					
 				
@@ -5832,60 +5841,104 @@ function fire_ajax_submit_Topic(){
 	
 		});
 	}
+	
+//	function fire_ajax_submit_ConceptOnUser(){
+//		
+//		var form=$('#uploadUserConcept')[0];
+//		var data=new FormData(form);
+//		
+//		var token = $("meta[name='_csrf']").attr("content");
+//		var header = $("meta[name='_csrf_header']").attr("content");
+//	
+//			$.ajax({
+//				type: "POST",
+//				enctype: 'multipart/form-data',
+//				url:/* projectName+*/"/updateConcept",
+//				data:data,
+//				beforeSend: function(xhr) {
+//                     xhr.setRequestHeader(header, token);
+//	       		},
+//				cache:false,
+//				contentType:false,
+//				processData:false,
+//				timeout: 600000,
+//				success:function(data){
+//					
+//					 $('#SuccessConcept').css({"display": "none"}); 
+//					 $('#invalid-dataConcept').css({"display": "none"}); 
+//					 $('#FailureConcept').css({"display": "none"});
+//					
+//					 if(data[0]==="Success"){
+//						 $('#SuccessConcept').css({"display": "block"});
+//					 }else if(data[0]==="failure"){
+//						 $('#FailureConcept').css({"display": "block"});
+//					 }else{
+//						 $('#invalid-dataConcept').css({"display": "block"}); 
+//					 }
+//					
+//				
+//				},
+//			
+//			error : function(err){
+//				console.log("not working. ERROR: "+JSON.stringify(err));
+//				}
+//	
+//		});
+//	}
 	
 	
 	
 /*--------------------------------------------------END---------------------------------------------------------------*
 
 /* ---------------------------------------------AJAX FUNCTION FOR ARTICLE--------------------------------------------------------------------*/
-	function fire_ajax_submit_Article(){
+//	function fire_ajax_submit_Article(){
+//		
+//		var form=$('#uploadArticle')[0];
+//		var data=new FormData(form);
+//		
+//		var token = $("meta[name='_csrf']").attr("content");
+//		var header = $("meta[name='_csrf_header']").attr("content");
+//	
+//			$.ajax({
+//				type: "POST",
+//				enctype: 'multipart/form-data',
+//				url: /*projectName+*/"/updateArticle",
+//				data:data,
+//				beforeSend: function(xhr) {
+//                     xhr.setRequestHeader(header, token);
+//	       		},
+//				cache:false,
+//				contentType:false,
+//				processData:false,
+//				timeout: 600000,
+//				success:function(data){
+//					 
+//					 $('#Success').css({"display": "none"}); 
+//					 $('#invalid-data').css({"display": "none"}); 
+//					 $('#Failure').css({"display": "none"});
+//					
+//					 if(data[0]==="Success"){
+//						 $('#Success').css({"display": "block"});
+//					 }else if(data[0]==="failure"){
+//						 $('#Failure').css({"display": "block"});
+//					 }else{
+//						 $('#invalid-data').css({"display": "block"}); 
+//					 }
+//					
+//				
+//				},
+//			
+//			error : function(err){
+//				console.log("not working. ERROR: "+JSON.stringify(err));
+//				}
+//	
+//		});
+//	}
+	
+	
+function fire_ajax_submit_Article(){
 		
-		var form=$('#uploadArticle')[0];
-		var data=new FormData(form);
-		
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-	
-			$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url: /*projectName+*/"/updateArticle",
-				data:data,
-				beforeSend: function(xhr) {
-                     xhr.setRequestHeader(header, token);
-	       		},
-				cache:false,
-				contentType:false,
-				processData:false,
-				timeout: 600000,
-				success:function(data){
-					 
-					 $('#Success').css({"display": "none"}); 
-					 $('#invalid-data').css({"display": "none"}); 
-					 $('#Failure').css({"display": "none"});
-					
-					 if(data[0]==="Success"){
-						 $('#Success').css({"display": "block"});
-					 }else if(data[0]==="failure"){
-						 $('#Failure').css({"display": "block"});
-					 }else{
-						 $('#invalid-data').css({"display": "block"}); 
-					 }
-					
-				
-				},
-			
-			error : function(err){
-				console.log("not working. ERROR: "+JSON.stringify(err));
-				}
-	
-		});
-	}
-	
-	
-function fire_ajax_submit_ArticleOnUser(){
-		
-		var form=$('#uploadUserArticle')[0];
+		var form=$('#uploadUpdateArticle')[0];
 		var data=new FormData(form);
 		
 		var token = $("meta[name='_csrf']").attr("content");
@@ -5931,7 +5984,7 @@ function fire_ajax_submit_ArticleOnUser(){
 /* ---------------------------------------------AJAX FUNCTION FOR DOCUMENT--------------------------------------------------------------------*/
 	function fire_ajax_submit_Document(){
 		
-		var form=$('#uploadDocument')[0];
+		var form=$('#uploadUpdateDocument')[0];
 		var data=new FormData(form);
 		
 		var token = $("meta[name='_csrf']").attr("content");
@@ -5951,60 +6004,18 @@ function fire_ajax_submit_ArticleOnUser(){
 				timeout: 600000,
 				success:function(data){
 					 
-					 $('#Success').css({"display": "none"}); 
-					 $('#invalid-data').css({"display": "none"}); 
-					 $('#Failure').css({"display": "none"});
-					
-					 if(data[0]==="Success"){
-						 $('#Success').css({"display": "block"});
-					 }else if(data[0]==="failure"){
-						 $('#Failure').css({"display": "block"});
-					 }else{
-						 $('#invalid-data').css({"display": "block"}); 
-					 }
-					
-				
-				},
-			
-			error : function(err){
-				console.log("not working. ERROR: "+JSON.stringify(err));
-				}
-	
-		});
-	}
-	
-function fire_ajax_submit_DocumentOnUser(){
-		
-		var form=$('#uploadUserDocument')[0];
-		var data=new FormData(form);
-		
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-	
-			$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url:/* projectName+*/"/updateDocument",
-				data:data,
-				beforeSend: function(xhr) {
-                     xhr.setRequestHeader(header, token);
-	       		},
-				cache:false,
-				contentType:false,
-				processData:false,
-				timeout: 600000,
-				success:function(data){
-					 
 					 $('#SuccessDocument').css({"display": "none"}); 
 					 $('#invalid-dataDocument').css({"display": "none"}); 
 					 $('#FailureDocument').css({"display": "none"});
 					
 					 if(data[0]==="Success"){
 						 $('#SuccessDocument').css({"display": "block"});
+						 $('#updateDocument').prop('disabled',true);
 					 }else if(data[0]==="failure"){
 						 $('#FailureDocument').css({"display": "block"});
 					 }else{
 						 $('#invalid-dataDocument').css({"display": "block"}); 
+						 $('#updateDocument').prop('disabled',true);
 					 }
 					
 				
@@ -6016,56 +6027,100 @@ function fire_ajax_submit_DocumentOnUser(){
 	
 		});
 	}
+	
+//function fire_ajax_submit_DocumentOnUser(){
+//		
+//		var form=$('#uploadUserDocument')[0];
+//		var data=new FormData(form);
+//		
+//		var token = $("meta[name='_csrf']").attr("content");
+//		var header = $("meta[name='_csrf_header']").attr("content");
+//	
+//			$.ajax({
+//				type: "POST",
+//				enctype: 'multipart/form-data',
+//				url:/* projectName+*/"/updateDocument",
+//				data:data,
+//				beforeSend: function(xhr) {
+//                     xhr.setRequestHeader(header, token);
+//	       		},
+//				cache:false,
+//				contentType:false,
+//				processData:false,
+//				timeout: 600000,
+//				success:function(data){
+//					 
+//					 $('#SuccessDocument').css({"display": "none"}); 
+//					 $('#invalid-dataDocument').css({"display": "none"}); 
+//					 $('#FailureDocument').css({"display": "none"});
+//					
+//					 if(data[0]==="Success"){
+//						 $('#SuccessDocument').css({"display": "block"});
+//					 }else if(data[0]==="failure"){
+//						 $('#FailureDocument').css({"display": "block"});
+//					 }else{
+//						 $('#invalid-dataDocument').css({"display": "block"}); 
+//					 }
+//					
+//				
+//				},
+//			
+//			error : function(err){
+//				console.log("not working. ERROR: "+JSON.stringify(err));
+//				}
+//	
+//		});
+//	}
 /* -------------------------------------------------------END--------------------------------------------------------------------------------------*/
 
 /* ---------------------------------------------AJAX FUNCTION FOR PHETS--------------------------------------------------------------------*/
+//	function fire_ajax_submit_Phet(){
+//		
+//		var form=$('#uploadPhet')[0];
+//		var data=new FormData(form);
+//		
+//		var token = $("meta[name='_csrf']").attr("content");
+//		var header = $("meta[name='_csrf_header']").attr("content");
+//	
+//			$.ajax({
+//				type: "POST",
+//				enctype: 'multipart/form-data',
+//				url:/* projectName+*/"/updatePhet",
+//				data:data,
+//				beforeSend: function(xhr) {
+//                     xhr.setRequestHeader(header, token);
+//	       		},
+//				cache:false,
+//				contentType:false,
+//				processData:false,
+//				timeout: 600000,
+//				success:function(data){
+//					 
+//					 $('#Success').css({"display": "none"}); 
+//					 $('#invalid-data').css({"display": "none"}); 
+//					 $('#Failure').css({"display": "none"});
+//					
+//					 if(data[0]==="Success"){
+//						 $('#Success').css({"display": "block"});
+//					 }else if(data[0]==="failure"){
+//						 $('#Failure').css({"display": "block"});
+//					 }else{
+//						 $('#invalid-data').css({"display": "block"}); 
+//					 }
+//					
+//				
+//				},
+//			
+//			error : function(err){
+//				console.log("not working. ERROR: "+JSON.stringify(err));
+//				}
+//	
+//		});
+//	}
+	
 	function fire_ajax_submit_Phet(){
 		
-		var form=$('#uploadPhet')[0];
-		var data=new FormData(form);
-		
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-	
-			$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url:/* projectName+*/"/updatePhet",
-				data:data,
-				beforeSend: function(xhr) {
-                     xhr.setRequestHeader(header, token);
-	       		},
-				cache:false,
-				contentType:false,
-				processData:false,
-				timeout: 600000,
-				success:function(data){
-					 
-					 $('#Success').css({"display": "none"}); 
-					 $('#invalid-data').css({"display": "none"}); 
-					 $('#Failure').css({"display": "none"});
-					
-					 if(data[0]==="Success"){
-						 $('#Success').css({"display": "block"});
-					 }else if(data[0]==="failure"){
-						 $('#Failure').css({"display": "block"});
-					 }else{
-						 $('#invalid-data').css({"display": "block"}); 
-					 }
-					
-				
-				},
-			
-			error : function(err){
-				console.log("not working. ERROR: "+JSON.stringify(err));
-				}
-	
-		});
-	}
-	
-	function fire_ajax_submit_PhetOnUser(){
-		
-		var form=$('#uploadUserPhet')[0];
+		var form=$('#uploadUpdatePhet')[0];
 		var data=new FormData(form);
 		
 		var token = $("meta[name='_csrf']").attr("content");
@@ -6111,7 +6166,7 @@ function fire_ajax_submit_DocumentOnUser(){
 /*-----------------------------------------------AJAX FUNCTION FOR LESSON PLAN-----------------------------------------------------------------------*/
 function fire_ajax_submit_Lesson(){
 		
-		var form=$('#uploadLesson')[0];
+		var form=$('#uploadUpdateLesson')[0];
 		var data=new FormData(form);
 		
 		var token = $("meta[name='_csrf']").attr("content");
@@ -6131,16 +6186,16 @@ function fire_ajax_submit_Lesson(){
 				timeout: 600000,
 				success:function(data){
 					 
-					 $('#Success').css({"display": "none"}); 
-					 $('#invalid-data').css({"display": "none"}); 
-					 $('#Failure').css({"display": "none"});
+					 $('#SuccessLesson').css({"display": "none"}); 
+					 $('#invalid-dataLesson').css({"display": "none"}); 
+					 $('#FailureLesson').css({"display": "none"});
 					
 					 if(data[0]==="Success"){
-						 $('#Success').css({"display": "block"});
+						 $('#SuccessLesson').css({"display": "block"});
 					 }else if(data[0]==="failure"){
-						 $('#Failure').css({"display": "block"});
+						 $('#FailureLesson').css({"display": "block"});
 					 }else{
-						 $('#invalid-data').css({"display": "block"}); 
+						 $('#invalid-dataLesson').css({"display": "block"}); 
 					 }
 					
 				
@@ -6153,49 +6208,49 @@ function fire_ajax_submit_Lesson(){
 		});
 	}
 
-	function fire_ajax_submit_LessonOnUser(){
-	
-	var form=$('#uploadUserLesson')[0];
-	var data=new FormData(form);
-	
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-
-		$.ajax({
-			type: "POST",
-			enctype: 'multipart/form-data',
-			url: /*projectName+*/"/updateLesson",
-			data:data,
-			beforeSend: function(xhr) {
-                 xhr.setRequestHeader(header, token);
-       		},
-			cache:false,
-			contentType:false,
-			processData:false,
-			timeout: 600000,
-			success:function(data){
-				 
-				 $('#SuccessLesson').css({"display": "none"}); 
-				 $('#invalid-dataLesson').css({"display": "none"}); 
-				 $('#FailureLesson').css({"display": "none"});
-				
-				 if(data[0]==="Success"){
-					 $('#SuccessLesson').css({"display": "block"});
-				 }else if(data[0]==="failure"){
-					 $('#FailureLesson').css({"display": "block"});
-				 }else{
-					 $('#invalid-dataLesson').css({"display": "block"}); 
-				 }
-				
-			
-			},
-		
-		error : function(err){
-			console.log("not working. ERROR: "+JSON.stringify(err));
-			}
-
-	});
-}
+//	function fire_ajax_submit_LessonOnUser(){
+//	
+//	var form=$('#uploadUserLesson')[0];
+//	var data=new FormData(form);
+//	
+//	var token = $("meta[name='_csrf']").attr("content");
+//	var header = $("meta[name='_csrf_header']").attr("content");
+//
+//		$.ajax({
+//			type: "POST",
+//			enctype: 'multipart/form-data',
+//			url: /*projectName+*/"/updateLesson",
+//			data:data,
+//			beforeSend: function(xhr) {
+//                 xhr.setRequestHeader(header, token);
+//       		},
+//			cache:false,
+//			contentType:false,
+//			processData:false,
+//			timeout: 600000,
+//			success:function(data){
+//				 
+//				 $('#SuccessLesson').css({"display": "none"}); 
+//				 $('#invalid-dataLesson').css({"display": "none"}); 
+//				 $('#FailureLesson').css({"display": "none"});
+//				
+//				 if(data[0]==="Success"){
+//					 $('#SuccessLesson').css({"display": "block"});
+//				 }else if(data[0]==="failure"){
+//					 $('#FailureLesson').css({"display": "block"});
+//				 }else{
+//					 $('#invalid-dataLesson').css({"display": "block"}); 
+//				 }
+//				
+//			
+//			},
+//		
+//		error : function(err){
+//			console.log("not working. ERROR: "+JSON.stringify(err));
+//			}
+//
+//	});
+//}
 	
 /**************************************************************START OF ADDING MATERIAL TO DATABASE********************************************/
 	
@@ -6228,8 +6283,10 @@ function fire_ajax_submit_Lesson(){
 					
 					 if(data[0]==="Success"){
 						 $('#SuccessArticleReturnStatusArticle').css({"display": "block"});
+						 $('#addArticlefromUser').prop('disabled',true);
 					 }else {
 						 $('#FailureArticleReturnStatusArticle').css({"display": "block"});
+						 $('#addArticlefromUser').prop('disabled',true);
 					 }
 					 
 					 $('#subjectArticle').prop('disabled',true);
@@ -6288,6 +6345,8 @@ function fire_ajax_submit_Lesson(){
 						 $('#FailureArticleReturnStatusQuiz').css({"display": "block"});
 					 }
 					 
+					 $('#addQuizfromUser').prop('disabled',true);
+					 
 					 $('#subjectQuiz').prop('disabled',true);
 					 
 					 $('#topicQuiz').prop('disabled',true);
@@ -6344,6 +6403,7 @@ function addLesson(){
 						 $('#FailureArticleReturnStatusLesson').css({"display": "block"});
 					 }
 					 
+					 $('#addLessonfromUser').prop('disabled',true);
 					 $('#subjectLesson').prop('disabled',true);
 					 
 					 $('#topicLesson').prop('disabled',true);
@@ -6395,6 +6455,7 @@ function addPhet(){
 					 $('#FailureArticleReturnStatusPhet').css({"display": "block"});
 				 }
 				 
+				 $('#addPhetfromUser').prop('disabled',true);
 				 $('#subjectPhet').prop('disabled',true);
 				 
 				 $('#topicPhet').prop('disabled',true);
@@ -6451,6 +6512,8 @@ function addDocument(){
 					 $('#FailureArticleReturnStatusDocument').css({"display": "block"});
 				 }
 				 
+				 $('#addDocumentfromUser').prop('disabled',true);
+				 
 				 $('#subjectDocument').prop('disabled',true);
 				 
 				 $('#topicDocument').prop('disabled',true);
@@ -6506,6 +6569,7 @@ function addConcept(){
 					 $('#FailureArticleReturnStatusConcept').css({"display": "block"});
 				 }
 				 
+				 $('#addConceptfromUser').prop('disabled',true);
 				 $('#subjectConcept').prop('disabled',true);
 				 
 				 $('#topicConcept').prop('disabled',true);
@@ -6560,6 +6624,8 @@ function addVideo(){
 				 }else {
 					 $('#FailureArticleReturnStatusVideo').css({"display": "block"});
 				 }
+				 
+				 $('#addVideofromUser').prop('disabled',true);
 				 
 				 $('#subjectVideo').prop('disabled',true);
 				 

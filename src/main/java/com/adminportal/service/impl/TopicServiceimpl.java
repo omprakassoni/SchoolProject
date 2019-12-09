@@ -87,7 +87,7 @@ public class TopicServiceimpl implements TopicService {
 	@Transactional
 	public boolean updateTopic( String desc, String poster, Timestamp date, int topicID) {
 		
-		int status=topicRepo.updateTopic( desc, poster, date, topicID);
+		int status=topicRepo.updateTopicDescAndQuiz( desc, poster, date, topicID);
 		if(status>0) {
 			return true;
 		}else {
@@ -96,10 +96,23 @@ public class TopicServiceimpl implements TopicService {
 		
 		
 	}
+	
 	@Override
 	public int countRow() {
 		
 		return (int) topicRepo.count();
+	}
+	
+	@Override
+	@Transactional
+	public boolean updateTopicDesc(String desc, Timestamp date, int topicId) {
+		
+		int status=topicRepo.updateTopicDesc( desc, date, topicId);
+		if(status>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	

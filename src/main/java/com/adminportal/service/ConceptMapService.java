@@ -21,6 +21,8 @@ public interface ConceptMapService {
 	
 	boolean updateConcept(String desc, String url,String remark,Timestamp date,int id);
 	
+	boolean updateConceptDesc(String desc,String remark,Timestamp date,int id);
+	
 	int countRow();
 	
 	boolean EnableConceptContent(int status,int id);

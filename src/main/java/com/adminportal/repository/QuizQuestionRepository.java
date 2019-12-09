@@ -46,6 +46,14 @@ public interface QuizQuestionRepository extends CrudRepository<QuizQuestion, Int
 	@Query("update QuizQuestion set acceptedByAdmin=?1,status=?1,dateApproved=?2 where quizQuestionId=?3")
 	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
 	
+	@Modifying
+	@Query("update QuizQuestion set question=?1, dateModified=?2 where quizQuestionId=?3")	//updating Quiz Information
+	int updateQuizQuestion(String question,Timestamp date,int quizId);
+	
+	@Modifying
+	@Query("update QuizQuestion set answer=?1, dateModified=?2 where quizQuestionId=?3")	//updating Quiz Information
+	int updateQuizAnswer(String answer,Timestamp date,int quizId);
+	
 }
 
 

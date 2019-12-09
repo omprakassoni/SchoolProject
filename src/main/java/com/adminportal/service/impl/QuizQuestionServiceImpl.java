@@ -112,4 +112,28 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		return quizRepo.findAllByTopicAndStatus(topic, 1,"Quiz");
 	}
 
+	@Override
+	@Transactional
+	public boolean updateQuizQuestion(String question, Timestamp date, int quizId) {
+		int status=quizRepo.updateQuizQuestion(question,  date, quizId);
+		if(status>0) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	@Transactional
+	public boolean updateQuizAnswer(String answer, Timestamp date, int quizId) {
+		int status=quizRepo.updateQuizAnswer(answer,date, quizId);
+		if(status>0) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
 }

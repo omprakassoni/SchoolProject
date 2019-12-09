@@ -59,7 +59,6 @@ public class AdminViewController {
 	
 	@Autowired
 	private ClassService classService;
-	
 	@Autowired
 	private SubjectClassService subjectClassService;
 	
@@ -1597,7 +1596,7 @@ public class AdminViewController {
 		 enableDisable="Disabled";
 		 
 		}else {
-			status=tutorialService.enableDisableTutorial(0, id);
+			status=tutorialService.enableDisableTutorial(1, id);
 			enableDisable="Enabled";
 		}
 		if(status) {

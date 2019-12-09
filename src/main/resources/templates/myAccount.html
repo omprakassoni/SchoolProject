@@ -1388,7 +1388,7 @@
 											      </td>
 											      
 											   
-											     <td><span th:if="${phet.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br/><br/>
+											     <td><span th:if="${phet.isStatus()==0}"><a class="btn btn-secondary detailPhets" th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br/><br/>
 											     	 <a class="btn btn-secondary commentPhet" th:value="${phet.getPhetId()}" id="commentPhet">Comment</a></span>
 											     </td>
 									     
@@ -1449,7 +1449,7 @@
 												      	  <span th:unless="${concept.getStatus()==1}"><div id="false"/></span>
 												      </td>
 												   	  
-													   <td><span th:if="${concept.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br/><br/>
+													   <td><span th:if="${concept.getStatus()==0}"><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br/><br/>
 											     	 <a class="btn btn-secondary commentConcept" th:value="${concept.getConcepMapid()}" id="commentConcept">Comment</a></span>
 												     
 												    </tr>
@@ -1508,7 +1508,7 @@
 														      </td>
 														      
 													
-														      <td><span th:if="${video.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a><br/><br/>
+														      <td><span th:if="${video.isStatus()==0}"><a class="btn btn-secondary detailVideo" th:value="${video.getVideoId()}" id="detailVideo">Update</a><br/><br/>
 														      	  <a class="btn btn-secondary commentVideo" th:value="${video.getVideoId()}" id="commentVideo">Comment</a></span>
 														      </td>
 														     
@@ -1567,7 +1567,7 @@
 											      </td>
 											      
 											   
-											      <td><span th:if="${article.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a><br/><br/>
+											      <td><span th:if="${article.isStatus()==0}"><a class="btn btn-secondary detailArticle" th:value="${article.getArticleId()}" id="detailArticle">Update</a><br/><br/>
 											      	  <a class="btn btn-secondary commentArticle" th:value="${article.getArticleId()}" id="commentArticle">Comment</a></span>
 											      </td>
 											     
@@ -1627,7 +1627,7 @@
 											      
 										
 											      
-											      <td><span th:if="${document.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a><br/><br/>
+											      <td><span th:if="${document.isStatus()==0}"><a class="btn btn-secondary detailDocument" th:value="${document.getDocumentId()}" id="detailDocument">Update</a><br/><br/>
 											      	  <a class="btn btn-secondary commentDocument" th:value="${document.getDocumentId()}" id="commentDocument">Comment</a></span>
 											      </td>
 											     
@@ -1679,7 +1679,7 @@
 													      	  <span th:unless="${lesson.isStatus()==1}"><div id="false"/></span>
 													      </td>
 													      <td>
-													      <span th:if="${lesson.getAcceptedByAdmin()==0}">
+													      <span th:if="${lesson.isStatus()==0}">
 				      										<a class="btn btn-secondary detailLesson" th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a><br/><br/>
 				      										<a class="btn btn-secondary commentLesson" th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a>
 				      									  </span>
@@ -1740,7 +1740,7 @@
 				      	  									<span th:unless="${quiz.isStatus()==1}"><div id="false"/></span>
 				      									</td>
 												      
-												      <td><span th:if="${quiz.getAcceptedByAdmin()==0}"><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br/><br/>
+												      <td><span th:if="${quiz.isStatus()==0}"><a class="btn btn-secondary detailQuiz" th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br/><br/>
 												      	  <a class="btn btn-secondary commentQuiz" th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a></span>
 												      </td>
 										     
@@ -1944,7 +1944,7 @@
 			<div class="modal fade" id="VideoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUserVideo">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateVideo">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Video</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1987,7 +1987,7 @@
 				      			</div>
 				   </div>
 				   	<div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateVideoOnUser" value="">Update</button>
+				      		<button class="btn btn-primary" id="updateVideo" value="">Update</button>
 				    </div>
 				      			
 				    </div>
@@ -2003,7 +2003,7 @@
 			<div class="modal fade" id="QuizModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserQuiz">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateQuiz">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Quiz</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2046,7 +2046,7 @@
 				      			</div>
 				   </div>
 				   <div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateQuizOnUser" value="" >Update</button>
+				      		<button class="btn btn-primary" id="updateQuiz" value="" disabled>Update</button>
 				    </div>	
 				    </div>
 				    </form>
@@ -2061,7 +2061,7 @@
 			<div class="modal fade" id="DocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserDocument">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateDocument">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2104,7 +2104,7 @@
 				      			</div>
 				   </div>
 				   	<div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateDocumentOnUser" value="" >Update</button>
+				      		<button class="btn btn-primary" id="updateDocument" value="" disabled>Update</button>
 				    </div>
 				      			
 				    </div>
@@ -2120,7 +2120,7 @@
 			<div class="modal fade" id="LessonPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserLesson">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateLesson">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2144,7 +2144,7 @@
 				      			</div>
 				   </div>
 				   	<div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateLessonOnUser" value="" >Update</button>
+				      		<button class="btn btn-primary" id="updateLesson" value="" >Update</button>
 				    </div>
 				      			
 				    </div>
@@ -2158,7 +2158,7 @@
 			<div class="modal fade" id="ArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserArticle">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateArticle">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Article</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2201,7 +2201,7 @@
 				      			</div>
 				   </div>
 				   	<div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateArticleOnUser" value="">Update</button>
+				      		<button class="btn btn-primary" id="updateArticle" value="">Update</button>
 				    </div>
 				      			
 				    </div>
@@ -2216,7 +2216,7 @@
 			<div class="modal fade" id="PhetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUserPhet">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdatePhet">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Phet</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2259,7 +2259,7 @@
 				      			</div>
 				   </div>
 				   	 <div class="modal-footer">
-				      		<button class="btn btn-primary" id="updatePhetOnUser" value="">Update</button>
+				      		<button class="btn btn-primary" id="updatePhet" value="">Update</button>
 				    </div>
 				      			
 				    </div>
@@ -2273,7 +2273,7 @@
 			<div class="modal fade" id="LessonPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUserLesson">
+			    <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateLesson">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Document</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2312,7 +2312,7 @@
 			<div class="modal fade" id="ConceptMapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
-			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUserConcept">
+			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateConcept">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Concept-Map</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2360,7 +2360,7 @@
 				   				
 				      		
 				      		 <div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateConceptOnUser" value="" disabled>Update</button>
+				      		<button class="btn btn-primary" id="updateConcept" value="" disabled>Update</button>
 				     		 </div>	
 				     		     
 				    </div>

@@ -108,4 +108,16 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 		return conceptRepo.findAllByTopicAndStatus(topic, 1,"ConceptMap");
 	}
 
+
+	@Override
+	@Transactional
+	public boolean updateConceptDesc(String desc, String remark, Timestamp date, int id) {
+		int status=conceptRepo.updateConceptMapDesc(desc, remark, date, id);
+		if(status>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 }

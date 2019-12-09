@@ -113,4 +113,16 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		return documentRepo.findAllByTopicAndStatus(topic, 1,"Document");
 	}
 
+	@Override
+	@Transactional
+	public boolean updateDocumentDesc(String desc, String source, Timestamp date, int Id) {
+	int temp=documentRepo.updateDocumentDesc(desc, source, date, Id);
+		
+		if(temp>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 }

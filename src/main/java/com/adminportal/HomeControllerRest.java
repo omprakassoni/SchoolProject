@@ -816,19 +816,31 @@ public class HomeControllerRest {
 	public @ResponseBody List<String> updateTopic(@RequestParam("posterQ") MultipartFile[] uploadfiles, @RequestParam("topicDesc") String desc, @RequestParam("TopicId") String TopicID){
 		List<String> msg=new ArrayList<String>();
 		
-	
+		boolean fileExist=true;
+		boolean status;
 		Topic temptopic=topicService.findById(Integer.parseInt(TopicID));
 		
-		if(!ServiceUtility.checkFileExtensionImage(uploadfiles)) {
-			msg.add("invalid-data'");
-			return msg;
+		for(MultipartFile temp:uploadfiles) {
+			if(temp.getSize()>0) {
+			
+			if(!ServiceUtility.checkFileExtensionImage(uploadfiles)) {
+				msg.add("invalid-data'");
+				return msg;
+			}
+			}else {
+				fileExist=false;
+			}
 		}
+			
+		
 
 		
 		if(!(desc.length()>0)) {
 			desc=temptopic.getDescription();
 		}
 			
+		
+		if(fileExist) {
 			String previousPath=deleteDirectory+temptopic.getPoster();
 			
 			Path fileToDeletePath=Paths.get(previousPath);
@@ -840,7 +852,8 @@ public class HomeControllerRest {
 			int indexToStart=newFilePath.indexOf('M');
 			String posterPath=newFilePath.substring(indexToStart, newFilePath.length());
 			
-			boolean status=topicService.updateTopic(desc, posterPath, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
+			status=topicService.updateTopic(desc, posterPath, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
+			
 			
 			if(status) {
 				
@@ -857,6 +870,19 @@ public class HomeControllerRest {
 				
 				msg.add("failure");
 				return msg;
+				
+			}
+			}else {
+				
+				status=topicService.updateTopicDesc(desc, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
+				
+				if(status) {
+					msg.add("Success");
+					return msg;
+				}else {
+					msg.add("failure");
+					return msg;
+				}
 				
 			}
 			
@@ -877,19 +903,39 @@ public class HomeControllerRest {
 	@PostMapping("/updateQuiz")
 	public @ResponseBody List<String> updateQuiz(@RequestParam("question") MultipartFile[] uploadQuestion, @RequestParam("answer") MultipartFile[] uploadAnswer, @RequestParam("quizId") String quizID){
 		List<String> msg=new ArrayList<String>();
-		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadAnswer)) {
-			msg.add("invalid-data");
-			return msg;
+		boolean fileExistAnswer=true;
+		boolean fileExistQuestion=true;
+		for(MultipartFile temp:uploadAnswer) {
+			
+			if(temp.getSize()>0) {
+				if(!ServiceUtility.checkFileExtensionPDF(uploadAnswer)) {
+					msg.add("invalid-data");
+					return msg;
+				}
+				
+			}else {
+				fileExistAnswer=false;
+			}
 		}
 		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
-			msg.add("invalid-data");
-			return msg;
-		}
 		
+		for(MultipartFile temp:uploadQuestion) {
+			
+			if(temp.getSize()>0) {
+				if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+					msg.add("invalid-data");
+					return msg;
+				}
+				
+			}else {
+				fileExistQuestion=false;
+			}
+		}
 		
 		QuizQuestion tempQuiz=quizService.findById(Integer.parseInt(quizID));
+		
+		
+		if(fileExistAnswer && fileExistQuestion) {
 		
 		String previousQuestion=deleteDirectory+tempQuiz.getQuestion();
 		String previousAnswer=deleteDirectory+tempQuiz.getAnswer();
@@ -936,8 +982,83 @@ public class HomeControllerRest {
 			msg.add("failure");
 			return msg;
 		}
+		}else if(fileExistAnswer) {
+			
+			String previousAnswer=deleteDirectory+tempQuiz.getAnswer();
+			
+			Path deletepreviousAnswer=Paths.get(previousAnswer);
+			
+			String pathToUploadAnswer=uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
+			
+			String answertemp=ServiceUtility.uploadFile(uploadAnswer, pathToUploadAnswer);
+			
+			System.out.println(previousAnswer);
+			
+			System.out.println(pathToUploadAnswer);
 		
+			int indexToStart=answertemp.indexOf('M');
+			String answer=answertemp.substring(indexToStart, answertemp.length());
+			
+			
+			boolean status=quizService.updateQuizAnswer(answer, ServiceUtility.getCurrentTime(), tempQuiz.getQuizQuestionId());
+			
+			if(status) {
+				try {
+					Files.delete(deletepreviousAnswer);
+					
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+				msg.add("Success");
+				return msg;
+				
+			}else {
+				
+				msg.add("failure");
+				return msg;
+			}
+			
+		}else if(fileExistQuestion) {
+			
+			String previousQuestion=deleteDirectory+tempQuiz.getQuestion();
+	
+			Path deletepreviousQuestion=Paths.get(previousQuestion);
+			
+			String pathToUploadQuestion=uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
+			
+			String questiontemp=ServiceUtility.uploadFile(uploadQuestion, pathToUploadQuestion);
+			
+			System.out.println(previousQuestion);
+
+			System.out.println(pathToUploadQuestion);
+			
+			int indexToStart=questiontemp.indexOf('M');
+			String question=questiontemp.substring(indexToStart, questiontemp.length());
+			
+			
+			boolean status=quizService.updateQuizQuestion(question, ServiceUtility.getCurrentTime(), tempQuiz.getQuizQuestionId());
+			
+			if(status) {
+				try {
+					Files.delete(deletepreviousQuestion);
+					
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+				msg.add("Success");
+				return msg;
+				
+			}else {
+				
+				msg.add("failure");
+				return msg;
+			}
+			
+		}
 		
+		return msg;
 		
 	}
 	
@@ -949,25 +1070,40 @@ public class HomeControllerRest {
 	@PostMapping("/updateDocument")
 	public @ResponseBody List<String> updateDocument(@RequestParam("document") MultipartFile[] uploadQuestion,@RequestParam("documentsource") String dSource,@RequestParam("documentId") String documentId,@RequestParam("documentDesc") String desc){
 		List<String> msg=new ArrayList<String>();
+		boolean fileExist=true;
 		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+		for(MultipartFile temp:uploadQuestion) {
+			
+			if(temp.getSize()>0) {
+			if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
 			msg.add("invalid-data");
 			return msg;
+			}
+			}else {
+				fileExist=false;
+			}
 		}
+		
+		
 		
 		DocumentExternal docuTemp=docuService.findByid(Integer.parseInt(documentId));
 		
-		String previousPath=deleteDirectory+docuTemp.getUrl();
-		Path deletePreviousPath=Paths.get(previousPath);
+		if(!(desc.length()>0)) {
+			desc=docuTemp.getDescription();
+		}
 		
-		String uploadDocument=uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+docuTemp.getTopic().getTopicName()+"/"+"Document/";
-		
-		String document=ServiceUtility.uploadFile(uploadQuestion, uploadDocument);
-		
-		int indexToStart=document.indexOf('M');
-		String documentToUpload=document.substring(indexToStart, document.length());
-		
-		if(desc.length()>0) {
+		if(fileExist) {
+			
+			String previousPath=deleteDirectory+docuTemp.getUrl();
+			Path deletePreviousPath=Paths.get(previousPath);
+			
+			String uploadDocument=uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+docuTemp.getTopic().getTopicName()+"/"+"Document/";
+			
+			String document=ServiceUtility.uploadFile(uploadQuestion, uploadDocument);
+			
+			int indexToStart=document.indexOf('M');
+			String documentToUpload=document.substring(indexToStart, document.length());
+			
 			boolean done=docuService.updateDocument(desc, dSource, documentToUpload, ServiceUtility.getCurrentTime(), docuTemp.getDocumentId());
 			
 			if(done) {
@@ -987,17 +1123,9 @@ public class HomeControllerRest {
 				return msg;
 			}
 		}else {
-			boolean done=docuService.updateDocument(docuTemp.getDescription(), dSource, documentToUpload, ServiceUtility.getCurrentTime(), docuTemp.getDocumentId());
+			boolean done=docuService.updateDocumentDesc(desc, dSource, ServiceUtility.getCurrentTime(), docuTemp.getDocumentId());
 			
 			if(done) {
-				try {
-					Files.delete(deletePreviousPath);
-					
-					
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
 				msg.add("Success");
 				return msg;
 			}else {
@@ -1017,24 +1145,40 @@ public class HomeControllerRest {
 	public @ResponseBody List<String> updateConcept(@RequestParam("conceptImage") MultipartFile[] conceptImage,@RequestParam("conceptDesc") String desc,@RequestParam("conceptId") String conceptId,@RequestParam("conceptHeadline") String remark){
 		List<String> msg=new ArrayList<String>();
 		
-		if(!ServiceUtility.checkFileExtensionImage(conceptImage)) {
+		boolean fileExist=true;
+		
+		for(MultipartFile temp:conceptImage) {
+			
+			if(temp.getSize()>0) {
+			if(!ServiceUtility.checkFileExtensionImage(conceptImage)) {
 			msg.add("invalid-data");
 			return msg;
+			}
+			}else {
+				fileExist=false;
+			}
 		}
 		
 		ConceptMap conceptTemp=concepMapService.findByid(Integer.parseInt(conceptId));
 		
-		String previousPath=deleteDirectory+conceptTemp.getUrl();
-		Path deletePreviousPath=Paths.get(previousPath);
 		
-		String uploadconceptImage=uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+conceptTemp.getTopic().getTopicName()+"/"+"ConceptMap/";
 		
-		String document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
+		if(!(desc.length()>0)) {
+			desc=conceptTemp.getDescription();
+		}
 		
-		int indexToStart=document.indexOf('M');
-		String documentToUpload=document.substring(indexToStart, document.length());
-		
-		if(desc.length()>0) {
+		if(fileExist) {
+			
+			String previousPath=deleteDirectory+conceptTemp.getUrl();
+			Path deletePreviousPath=Paths.get(previousPath);
+			
+			String uploadconceptImage=uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+conceptTemp.getTopic().getTopicName()+"/"+"ConceptMap/";
+			
+			String document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
+			
+			int indexToStart=document.indexOf('M');
+			String documentToUpload=document.substring(indexToStart, document.length());
+			
 			boolean done=concepMapService.updateConcept(desc, documentToUpload, remark, ServiceUtility.getCurrentTime(), conceptTemp.getConcepMapid());
 			if(done) {
 				try {
@@ -1054,16 +1198,8 @@ public class HomeControllerRest {
 			}
 		}else {
 			
-			boolean done=concepMapService.updateConcept(conceptTemp.getDescription(), documentToUpload, remark, ServiceUtility.getCurrentTime(), conceptTemp.getConcepMapid());
+			boolean done=concepMapService.updateConceptDesc(desc, remark, ServiceUtility.getCurrentTime(), conceptTemp.getConcepMapid());
 			if(done) {
-				try {
-					Files.delete(deletePreviousPath);
-					
-					
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
 				msg.add("Success");
 				return msg;
 			}else {
@@ -1868,7 +2004,7 @@ public class HomeControllerRest {
 		HttpSession session=req.getSession(false);
 		
 		 
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUserView");
+		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 		
 		
 		User usr=userService.findByUsername(emailToIdentifyUser);
@@ -2040,6 +2176,13 @@ public class HomeControllerRest {
 										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("url") String url){
 		List<String> status=new ArrayList<String>();
 		
+		if(!url.startsWith("http")) {												// validation against proper Url given against artcile file.
+			
+			status.add("failure");
+			
+			return status;
+			
+		}
 		
 		
 		try {
@@ -2080,6 +2223,8 @@ public class HomeControllerRest {
 			if(phet.length()>0) {
 				
 				if(!phet.startsWith("<iframe")) {
+					status.add("failure");
+					return status;
 					
 				}
 				try {
@@ -2091,10 +2236,16 @@ public class HomeControllerRest {
 					phetPath=urlUpload1;
 				
 				}catch(Exception e) {
-					
+					status.add("failure");
+					e.printStackTrace();
+					return status;
 				}
 				
 			}else {
+				
+				status.add("failure");
+				return status;
+				
 				
 			}
 			
@@ -2138,6 +2289,8 @@ public class HomeControllerRest {
 			if(url.length()>0) {
 				
 				if(!url.startsWith("<iframe")) {
+					status.add("failure");
+					return status;
 					
 				}
 				try {
@@ -2151,10 +2304,13 @@ public class HomeControllerRest {
 				}catch(Exception e) {
 					status.add("failure");
 					e.printStackTrace();
-					
+					return status;
 				}
 				
 			}else {
+				
+				status.add("failure");
+				return status;
 				
 			}
 			

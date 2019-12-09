@@ -46,6 +46,10 @@ public interface DocumentExternalRepository extends CrudRepository<DocumentExter
 	@Modifying
 	@Query("update DocumentExternal set acceptedByAdmin=?1,status=?1,dateApproved=?2 where documentId=?3")
 	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
+	
+	@Modifying
+	@Query("update DocumentExternal set description=?1 , source=?2, dateModified=?3 where documentId=?4")	//updating document Information
+	int updateDocumentDesc(String desc,String source,Timestamp date,int Id);
 }
 
 

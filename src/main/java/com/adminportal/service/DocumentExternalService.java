@@ -23,6 +23,8 @@ public interface DocumentExternalService {
 	DocumentExternal findByid(int id);
 	
 	boolean updateDocument(String desc,String source,String url,Timestamp date,int Id);
+	
+	boolean updateDocumentDesc(String desc,String source,Timestamp date,int Id);
 
 	int countRow();
 	

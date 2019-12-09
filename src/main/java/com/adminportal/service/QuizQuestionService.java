@@ -25,6 +25,10 @@ public interface QuizQuestionService {
 	
 	boolean updateQuiz(String question,String answer,Timestamp date,int quizId);
 	
+	boolean updateQuizQuestion(String question,Timestamp date,int quizId);
+	
+	boolean updateQuizAnswer(String answer,Timestamp date,int quizId);
+	
 	int countRow();
 	
 	boolean EnableQuizContent(int status,int id);

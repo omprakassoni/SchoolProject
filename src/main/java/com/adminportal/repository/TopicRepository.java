@@ -30,10 +30,14 @@ public interface TopicRepository extends CrudRepository<Topic, Integer> {
 	
 	@Modifying
 	@Query("update Topic set description=?1, poster=?2 , dateModified=?3 where topicId=?4")	//UPDATING TOPIC
-	int updateTopic(String desc,String poster,Timestamp date,int topicID);
+	int updateTopicDescAndQuiz(String desc,String poster,Timestamp date,int topicID);
 
 	@Modifying
 	@Query("update Topic set status=?1 where topicId=?2")		// DISABLE OR ENABLE TOPIC BASED ON TOPIC id
 	int disableTopic(int status,int topicId);
+	
+	@Modifying
+	@Query("update Topic set description=?1,dateModified=?2 where topicId=?3")
+	int updateTopicDesc(String desc,Timestamp date,int topicId);
 	
 }

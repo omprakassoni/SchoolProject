@@ -45,4 +45,8 @@ public interface ConceptMapRepository extends  CrudRepository<ConceptMap, Intege
 	@Modifying
 	@Query("update ConceptMap set acceptedByAdmin=?1,status=?1,dateApproved=?2 where concepMapid=?3")
 	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
+	
+	@Modifying
+	@Query("update ConceptMap set description=?1,remark=?2,dateModified=?3 where concepMapid=?4")	// updating Concept-map  Information
+	int updateConceptMapDesc(String desc,String remark,Timestamp date,int id);
 }
