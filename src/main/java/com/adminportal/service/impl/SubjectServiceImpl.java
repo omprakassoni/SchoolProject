@@ -249,4 +249,11 @@ public class SubjectServiceImpl implements SubjectService{
 		return (int) subjectRepo.count();
 	}
 
+	@Override
+	public Subject save(Subject sub) {
+		
+		Subject subj=subjectRepo.save(sub);
+		return subj;
+	}
+
 }

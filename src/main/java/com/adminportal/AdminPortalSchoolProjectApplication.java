@@ -18,9 +18,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
+
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
+
 import com.adminportal.service.RoleDetailService;
 import com.adminportal.service.UserRoleService;
 import com.adminportal.service.UserService;
@@ -34,6 +36,7 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	
 	@Autowired
 	private RoleDetailService roleService;
+	
 	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -100,6 +103,10 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 		
 		
 		userService.createUser(usr, userRoles);
+		
+		
+		
+	
 		
 		
 	}

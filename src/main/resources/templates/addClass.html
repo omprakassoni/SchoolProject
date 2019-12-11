@@ -16,6 +16,8 @@
      <div th:replace="common/header :: navbar-Admin"></div>
             <!-- NAVBAR DATA TOP-MOST -->
         
+     
+
        
        <div class="container">
        		<div class="header-child">
@@ -32,15 +34,11 @@
        					<form th:action="@{addClass}" method="post">
        						<div class="row">
        							<div class="col-sm-6">
-       								<label class="header-left" for="class">Select new class</label> 
+       								<label class="header-left" for="class">Enter new class</label> 
        							</div>
        							<div class="col-sm-6">
-       									<select class="form-control" name="classSelected" required>
-       										<option></option>
-       										<span th:each="classValue: ${classExist}">
-  											<option><span th:text="${classValue}"></span></option>
-  											</span>
-										</select>
+       							
+										<input type="text" class="form-control" name="classSelected" required/>
        							</div>
        							
        						</div>

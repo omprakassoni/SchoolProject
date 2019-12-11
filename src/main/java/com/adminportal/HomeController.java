@@ -689,6 +689,22 @@ public class HomeController {
 		return mv;
 	}
 	
+	/**********************CONTRIBUTOR DASHBOARD FROM CONTENT PAGE ********************************/
+	
+	@RequestMapping(path = "/content/myAccount", method = RequestMethod.GET)
+	public ModelAndView pathtoContributorDashboard(ModelAndView mv) {
+		mv.setViewName("redirect:/myAccount");
+		return mv;
+	}
+	
+/**********************ADMIN DASHBOARD FROM CONTENT PAGE ********************************/
+	
+	@RequestMapping(path = "/content/home", method = RequestMethod.GET)
+	public ModelAndView pathtoAdminDashboard(ModelAndView mv) {
+		mv.setViewName("redirect:/home");
+		return mv;
+	}
+	
 	
 	
 	// ------------------ MY MIND HYPERLINK***********************************************

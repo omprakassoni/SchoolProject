@@ -38,40 +38,40 @@
  	    							<a th:href="@{addClass}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add new entry for Class</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{addSubject}"><span class="font-property-add"><i class="fas fa-plus-circle "></i></span>Add new entry for Subject</a>
+ 	    							<a th:href="@{addSubject}"><span class="font-property-add"><i class="fas fa-plus-circle "></i></span>Add/View Subject</a>
  	    							</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addTopic}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add new entry for Topic</a>
+   									<a th:href="@{addTopic}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View Topic</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addQuiz}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload Quiz</a>
+   									<a th:href="@{addQuiz}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Quiz</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addVideo}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload Reference video</a>
+   									<a th:href="@{addVideo}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Reference video</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addArticle}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload Reference Article</a>
+   									<a th:href="@{addArticle}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Reference Article</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addDocument}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload Reference Document</a>
+   									<a th:href="@{addDocument}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Reference Document</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addLessonPlan}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload Lesson-plan</a>
+   									<a th:href="@{addLessonPlan}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Lesson-plan</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addPhets}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload phets</a>
+   									<a th:href="@{addPhets}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View phets</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addConceptMap}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload Concept-Maps</a>
+   									<a th:href="@{addConceptMap}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Concept-Maps</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addTestimonial}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add testimonial</a>
+   									<a th:href="@{addTestimonial}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View testimonial</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addEvent}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add Event</a>
+   									<a th:href="@{addEvent}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View Event</a>
    									</div>
    									<div class="col-sm-12 col-property">
-   									<a th:href="@{addTutorial}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add Tutorial</a>
+   									<a th:href="@{addTutorial}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View Tutorial</a>
    									</div>
  	    					</div>
  	    				</div>
@@ -84,40 +84,28 @@
  	    							<a th:href="@{userList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>List all users</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{subjectList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>List Subject</a>
+ 	    							<a th:href="@{approveRejectTeacher}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Teachers</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{topicList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>List Topic</a>
+ 	    							<a th:href="@{approveRejectVideo}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Reference Video</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{quizList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Quiz</a>
+ 	    							<a th:href="@{approveRejectDocument}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Reference Document</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{videoList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Reference video</a>
+ 	    							<a th:href="@{approveRejectArticle}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Reference Article</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{articleList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Reference Article</a>
+ 	    							<a th:href="@{approveRejectConcept}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Concept-maps</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{documentList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Reference Document</a>
+ 	    							<a th:href="@{approveRejectPhets}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Phets</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{lessonPlanList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Lesson-plan</a>
+ 	    							<a th:href="@{approveRejectQuiz}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Quiz</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{phetsList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View phets</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{conceptList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Concept-Maps</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{testimonialList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Testimonials</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{eventList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Events</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{tutorialList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Tutorial</a>
+ 	    							<a th:href="@{approveRejectLesson}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Lesson-plan</a>
  	    							</div>
  	    							<div class="col-sm-12 col-property">
  	    							<a th:href="@{contactInformation}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Feedbacks</a>
@@ -127,37 +115,6 @@
  	    				</div>
  	    				
  	    			</div>
- 	    			<div class="row">
- 	    					<div class="col-sm-11 shadow-lg p-3 mb-5 bg-white rounded">
- 	    						<div class="row">
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectTeacher}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Teachers</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectVideo}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Reference Video</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectDocument}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Reference Document</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectArticle}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Reference Article</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectConcept}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Concept-maps</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectPhets}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Phets</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectQuiz}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Quiz</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectLesson}"><span class="font-property-task"><i class="fas fa-tasks"></i></span>Approve/Reject Lesson-plan</a>
- 	    							</div>
- 	    					</div>
- 	    		
- 	    				</div>
- 	    		</div> 
  	    		</div>
  	    		<div class="col-sm-1">
  	    		</div>

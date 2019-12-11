@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.adminportal.content.ArticleExternal;
+
 import com.adminportal.content.Class;
 import com.adminportal.content.ConceptMap;
 import com.adminportal.content.ContactForm;
@@ -46,6 +49,7 @@ import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
 import com.adminportal.service.ArticleExternalService;
+
 import com.adminportal.service.ClassService;
 import com.adminportal.service.ConceptMapService;
 import com.adminportal.service.ContactFormService;
@@ -63,6 +67,7 @@ import com.adminportal.service.TutorialService;
 import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
+import com.spoken.Utility.TutorialList;
 
 /* Annotation used to declare class to accept url passed from view  */
 @Controller
@@ -125,6 +130,8 @@ public class AdminController {
 	@Autowired
 	private ContactFormService contactService;
 	
+
+	
 	
 	
 	
@@ -136,7 +143,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);  // checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {     // checking for admin alive session
 			
-			mv.setViewName("redirect:/Login");    // if no admin session is active--- redirect to login page.
+			mv.setViewName("redirect:/");    // if no admin session is active--- redirect to login page.
 		}else {
 						
 			mv.setViewName("home");   // if admin session alive the, redirect to homepage.
@@ -217,34 +224,11 @@ public class AdminController {
 		HttpSession session=req.getSession(false);                             // checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {                  // checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();   // fetching Class Tuple list
-		
-		ArrayList<String> newNonExistClass=new ArrayList<String>();
-		newNonExistClass.add("Class 1");
-		newNonExistClass.add("Class 2");
-		newNonExistClass.add("Class 3");
-		newNonExistClass.add("Class 4");
-		newNonExistClass.add("Class 5");
-		newNonExistClass.add("Class 6");
-		newNonExistClass.add("Class 7");
-		newNonExistClass.add("Class 8");
-		newNonExistClass.add("Class 9");
-		newNonExistClass.add("Class 10");
-		newNonExistClass.add("Class 11");
-		newNonExistClass.add("Class 12");
-		
-
-		
-		for(Class s:standard) {												 // Validating each class tuple against its non availability in database(Class)
-			if(newNonExistClass.contains(s.getClassName()))
-				newNonExistClass.remove(s.getClassName());
-		}
-
-		mv.addObject("classExist", newNonExistClass);						// Setting view Variable to available class not included in database till now.
 		mv.setViewName("addClass");
+		
 		}
 		
 		return mv;
@@ -261,37 +245,27 @@ public class AdminController {
 			mv.addObject("sessionTimeOut", "Session TimeOut");
 			
 		}else {
+			
+			boolean classExist=false;
+			ArrayList<Class> classTemp=(ArrayList<Class>) classService.findAll();
+			for(Class classtemp1:classTemp) {
+				if(classSelected.equalsIgnoreCase(classtemp1.getClassName())) {
+					classExist=true;
+				}
+			}
+			
+			if(!classExist) {
 			Class tempClass=new Class();											// creating object of class modal to add entry into database.
 			tempClass.setClass_id(classService.countRow()+1);
 			tempClass.setClassName(classSelected);
 			classService.save(tempClass);											// pushing data into database 
-			mv.addObject("status", "Added Successfully");                           // setting a status message for View
+			mv.addObject("status", "Added Successfully");
+			}else {
+				mv.addObject("sessionTimeOut", "Data Already Exist");
+			}
+										
 		}
 			
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();        // fetching Class Tuple list
-		
-		ArrayList<String> newNonExistClass=new ArrayList<String>();
-		newNonExistClass.add("Class 1");
-		newNonExistClass.add("Class 2");
-		newNonExistClass.add("Class 3");
-		newNonExistClass.add("Class 4");
-		newNonExistClass.add("Class 5");
-		newNonExistClass.add("Class 6");
-		newNonExistClass.add("Class 7");
-		newNonExistClass.add("Class 8");
-		newNonExistClass.add("Class 9");
-		newNonExistClass.add("Class 10");
-		newNonExistClass.add("Class 11");
-		newNonExistClass.add("Class 12");
-		
-		for(Class s:standard) {														// Validating each class tuple against its non availability in database(Class)
-			if(newNonExistClass.contains(s.getClassName()))
-				newNonExistClass.remove(s.getClassName());
-
-		}
-
-		mv.addObject("classExist", newNonExistClass);								// Setting view Variable to available class not included in database till now.
-		
 		mv.setViewName("addClass");													// returns to addClass View
 		
 		
@@ -299,7 +273,6 @@ public class AdminController {
 	}
 	
 	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
-
 	
 	/*------------------------------------------ADD ARTICLE (ADMIN MODULE)-----------------------------------------------------------------*/
 	
@@ -311,7 +284,7 @@ public class AdminController {
 		HttpSession session=req.getSession(false);										// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
@@ -319,7 +292,18 @@ public class AdminController {
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		mv.setViewName("addArticle");													// setting view name
 		
+		List<ArticleExternal> articleListTemp=articleService.findAll();
+		List<ArticleExternal> articleList=new ArrayList<ArticleExternal>();
+		for(ArticleExternal temp:articleListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				articleList.add(temp);
+			}
 		}
+		
+	
+		mv.addObject("Article",articleList);
+		}
+		mv.addObject("viewActive","active");
 		return mv;
 	}
 	
@@ -343,6 +327,19 @@ public class AdminController {
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 
 			mv.addObject("classExist", classExist);
+			
+			mv.addObject("addActive","active");
+			
+			List<ArticleExternal> articleListTemp=articleService.findAll();
+			List<ArticleExternal> articleList=new ArrayList<ArticleExternal>();
+			for(ArticleExternal temp:articleListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					articleList.add(temp);
+				}
+			}
+			
+		
+			mv.addObject("Article",articleList);
 		
 			mv.setViewName("addArticle");
 			
@@ -374,7 +371,7 @@ public class AdminController {
 
 
 			userService.addUserToArticle(usr, articlemapping);								// saving the article information into database.
-			mv.addObject("status", "Added Sucessfully");									// setting status for view(success)
+			mv.addObject("statusAdd", "Added Sucessfully");									// setting status for view(success)
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -387,12 +384,23 @@ public class AdminController {
 			
 		}
 		
+		List<ArticleExternal> articleListTemp=articleService.findAll();
+		List<ArticleExternal> articleList=new ArrayList<ArticleExternal>();
+		for(ArticleExternal temp:articleListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				articleList.add(temp);
+			}
+		}
 		
+	
+		mv.addObject("Article",articleList);
+		mv.addObject("addActive","active");
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();				// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);												// setting variable for view for displaying purpose
 
+		
 		mv.setViewName("addArticle");														// setting view name
 		
 		
@@ -413,14 +421,26 @@ public class AdminController {
 		HttpSession session=req.getSession(false);								// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 			
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
+		
+		List<DocumentExternal> documentListTemp=documentService.findAll();
+		List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
+		for(DocumentExternal temp:documentListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				documentList.add(temp);
+			}
+		}
+		
+		mv.addObject("Document",documentList);
+		
 		mv.setViewName("addDocument");											// setting view name
 		}
+		mv.addObject("viewActive","active");
 		return mv;
 		
 	}
@@ -445,6 +465,18 @@ public class AdminController {
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
 			mv.addObject("classExist", classExist);								// setting variable for view for displaying purpose
+			
+			mv.addObject("addActive","active");
+			
+			List<DocumentExternal> documentListTemp=documentService.findAll();
+			List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
+			for(DocumentExternal temp:documentListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					documentList.add(temp);
+				}
+			}
+			
+			mv.addObject("Document",documentList);
 			
 			mv.setViewName("addDocument");										// setting view name
 			
@@ -480,7 +512,7 @@ public class AdminController {
 
 
 			userService.addUserToDocument(usr, documentMapping);					// saving document data into database.		
-			mv.addObject("status", "Document Added Successfully");
+			mv.addObject("statusAdd", "Document Added Successfully");
 			
 		} catch (Exception e) {
 			
@@ -496,6 +528,18 @@ public class AdminController {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
+		
+		mv.addObject("addActive","active");
+		
+		List<DocumentExternal> documentListTemp=documentService.findAll();
+		List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
+		for(DocumentExternal temp:documentListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				documentList.add(temp);
+			}
+		}
+		
+		mv.addObject("Document",documentList);
 		
 		mv.setViewName("addDocument");													// setting view name
 		
@@ -516,13 +560,26 @@ public class AdminController {
 		HttpSession session=req.getSession(false);									// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		
+		List<LessonPlan> lessonListTemp=lessonService.findAll();
+		List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
+		for(LessonPlan temp:lessonListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				lessonList.add(temp);
+			}
+		}
+	
+		mv.addObject("Lesson",lessonList);
+		
 		mv.setViewName("addLessonPlan");											// setting view name
 		}
+		
+		mv.addObject("viewActive","active");
 		return mv;
 		
 	}
@@ -542,6 +599,18 @@ public class AdminController {
 		if(!ServiceUtility.checkFileExtensionPDF(lesson)) {							// validation against PDF document 
 			
 			mv.addObject("fileError", "Please Select PDF file");
+			
+			List<LessonPlan> lessonListTemp=lessonService.findAll();
+			List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
+			for(LessonPlan temp:lessonListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					lessonList.add(temp);
+				}
+			}
+		
+			mv.addObject("Lesson",lessonList);
+			
+			mv.addObject("addActive","active");
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 
@@ -584,7 +653,7 @@ public class AdminController {
 			
 			
 			userService.addUserToLessonplan(usr, lessonMapping);					// saving lessonPaln data
-			mv.addObject("status", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Sucessfully");
 			
 		} catch (Exception e) {
 		
@@ -604,8 +673,19 @@ public class AdminController {
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		
 		
-		mv.addObject("lessonStatus", "Added Sucessfully");							
+		mv.addObject("lessonStatus", "Added Sucessfully");	
 		
+		List<LessonPlan> lessonListTemp=lessonService.findAll();
+		List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
+		for(LessonPlan temp:lessonListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				lessonList.add(temp);
+			}
+		}
+	
+		mv.addObject("Lesson",lessonList);
+		
+		mv.addObject("addActive","active");
 			
 		mv.setViewName("addLessonPlan");												// setting view name
 			
@@ -627,14 +707,27 @@ public class AdminController {
 		HttpSession session=req.getSession(false);								// checking the last alive session
 			
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
+		
+		List<Phets> phetListTemp=phetService.findAll();
+		List<Phets> phetList=new ArrayList<Phets>();
+		for(Phets temp:phetListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				phetList.add(temp);
+			}
+		}
+		
+		mv.addObject("Phet",phetList);
+		
 		mv.setViewName("addPhets");												// setting view name
 		}
+		
+		mv.addObject("viewActive","active");
 		return mv;
 	
 	}
@@ -678,7 +771,19 @@ public class AdminController {
 
 				mv.addObject("classExist", classExist);
 				
+				List<Phets> phetListTemp=phetService.findAll();
+				List<Phets> phetList=new ArrayList<Phets>();
+				for(Phets temp:phetListTemp) {
+					if(temp.getAcceptedByAdmin()==1) {
+						phetList.add(temp);
+					}
+				}
+				
+				mv.addObject("Phet",phetList);
+				
 				mv.addObject("fileError", "Please specify Embed Code");
+				
+				mv.addObject("addActive","active");
 				
 				mv.setViewName("addPhets");
 				
@@ -694,6 +799,18 @@ public class AdminController {
 			mv.addObject("classExist", classExist);
 			
 			mv.addObject("failure", "Please Try Again");
+			
+			List<Phets> phetListTemp=phetService.findAll();
+			List<Phets> phetList=new ArrayList<Phets>();
+			for(Phets temp:phetListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					phetList.add(temp);
+				}
+			}
+			
+			mv.addObject("Phet",phetList);
+			
+			mv.addObject("addActive","active");
 			
 			mv.setViewName("addPhets");
 			
@@ -723,7 +840,7 @@ public class AdminController {
 
 			
 			userService.addUserToPhets(usr, phetMapping);							// persist Phet data 
-			mv.addObject("status", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Sucessfully");
 			
 			
 				} catch (Exception e) {
@@ -745,6 +862,18 @@ public class AdminController {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
+		
+		mv.addObject("addActive","active");
+		
+		List<Phets> phetListTemp=phetService.findAll();
+		List<Phets> phetList=new ArrayList<Phets>();
+		for(Phets temp:phetListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				phetList.add(temp);
+			}
+		}
+		
+		mv.addObject("Phet",phetList);
 		
 		mv.setViewName("addPhets");														// setting view name
 		
@@ -781,6 +910,9 @@ public class AdminController {
 			
 			mv.addObject("classExist", classExist);
 			mv.setViewName("addTopic");
+			List<Topic> topicList=topicService.findAll();
+			mv.addObject("Topic", topicList);
+			mv.addObject("addActive","active");
 			return mv;
 			
 			
@@ -817,7 +949,7 @@ public class AdminController {
 			addTopic.setStatus(1);
 			
 			subjectClassService.createTopic(addTopic, localsubjectClassMapping);
-			mv.addObject("status", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Sucessfully");
 			
 		} catch (Exception e) {
 			
@@ -832,7 +964,9 @@ public class AdminController {
 		
 		
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
+		
 		mv.setViewName("addTopic");
+		mv.addObject("addActive","active");
 		return mv;
 	}
 	
@@ -843,14 +977,18 @@ public class AdminController {
 		HttpSession session=req.getSession(false);								// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
 		mv.setViewName("addTopic");												// setting view name
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic", topicList);
 		}
+		mv.addObject("viewActive","active");
 		return mv;
 	}
 	
@@ -866,75 +1004,80 @@ public class AdminController {
 		HttpSession session=req.getSession(false);						// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		
-		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
-		ArrayList<String> newNonExistSubject =new ArrayList<String>();	
-		
-		newNonExistSubject.add("Maths");
-		newNonExistSubject.add("Science");
-		newNonExistSubject.add("Physics");
-		newNonExistSubject.add("Biology");
-		newNonExistSubject.add("Chemistry");
-		newNonExistSubject.add("English");
-		
-		for(Subject sub:subject) {
-			if(newNonExistSubject.contains(sub.getSubName()))
-				newNonExistSubject.remove(sub.getSubName());
-		}
-		
-		mv.addObject("subjectExist",newNonExistSubject);
 		mv.addObject("classExist",classExist);
 		
-		
 		mv.setViewName("addSubject");										// setting view name
+		
+		List<Subject> subjectList=subjectService.findAll();
+		mv.addObject("Subject", subjectList);
 		}
+		
+		mv.addObject("viewActive","active");
 		return mv;
 	}
 	
 	
 	// method to add Subject into database
 	@RequestMapping(value="/addSubject", method=RequestMethod.POST)
-	public ModelAndView addSubjectPost(@RequestParam(name="SelectedSubject") String selectedSubject,@RequestParam(name="SelectedClasses") List<String> selectedClasses,ModelAndView mv) throws Exception {
+	public ModelAndView addSubjectPost(HttpServletRequest req,@RequestParam(name="SelectedSubject") String selectedSubject,ModelAndView mv) {
 			
-		int i=0;             
-		Subject addsubject=new Subject();
-		addsubject.setSubId(subjectService.countRow()+1);
-		addsubject.setSubName(selectedSubject);
+		int i=0;     
+		boolean subjectExist=false;
+		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
+		for(Subject temp:subject) {
+			if(selectedSubject.equalsIgnoreCase(temp.getSubName())) {
+				subjectExist=true;
+			}
+		}
+		String[] selectedClasses=req.getParameterValues("SelectedClasses");
+		if(!subjectExist) {
 		
-		Set<SubjectClassMapping> subjectClassMapping=new HashSet<SubjectClassMapping>();
+			
+			Subject addsubject=new Subject();
+			addsubject.setSubId(subjectService.countRow()+1);
+			addsubject.setSubName(selectedSubject);
+			
+			
+			try {
+				Set<SubjectClassMapping> subjectClassMapping=new HashSet<SubjectClassMapping>();
+
+				for(String classes:selectedClasses) {
+					Class om=classService.findByClassName(classes);
+					subjectClassMapping.add(new SubjectClassMapping(subjectClassService.countRow()+i++,om,addsubject));
+				}
+
+
+				subjectClassService.createSubjectClass(addsubject, subjectClassMapping);
+
+				mv.addObject("statusAdd", "Added Sucessfully");
+			} catch (Exception e) {
+				
+				subjectService.save(addsubject);
+				mv.addObject("statusAdd", "Added Sucessfully");
+			}
+			
+				
+			
+		}else {
 	
-		for(String classes:selectedClasses) {
-			Class om=classService.findByClassName(classes);
-			subjectClassMapping.add(new SubjectClassMapping(subjectClassService.countRow()+i++,om,addsubject));
+			mv.addObject("statusAdd", "Subject Exist");
 		}
 		
-		subjectClassService.createSubjectClass(addsubject, subjectClassMapping);
 		
 		
-		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
+		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
-		ArrayList<String> newNonExistSubject =new ArrayList<String>();
+		mv.addObject("classExist",classExist);										// setting variable for view for displaying purpose								
+		mv.addObject("addActive","active");
 		
-		newNonExistSubject.add("Maths");
-		newNonExistSubject.add("Science");
-		newNonExistSubject.add("Physics");
-		newNonExistSubject.add("Biology");
-		newNonExistSubject.add("Chemistry");
-		newNonExistSubject.add("English");
-		
-		for(Subject sub:subject) {													// checking for the entries which doesn't part of database entries.
-			if(newNonExistSubject.contains(sub.getSubName()))
-				newNonExistSubject.remove(sub.getSubName());
-		}
-		
-		mv.addObject("subjectExist",newNonExistSubject);
-		mv.addObject("classExist",classExist);										// setting variable for view for displaying purpose
-		mv.addObject("status", "Added Sucessfully");								
+		List<Subject> subjectList=subjectService.findAll();
+		mv.addObject("Subject", subjectList);
 		
 		
 		mv.setViewName("addSubject");												// setting view name
@@ -952,14 +1095,29 @@ public class AdminController {
 		HttpSession session=req.getSession(false);					// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {		// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
 		mv.setViewName("addVideo");												// setting view name
+		List<VideoExternal> videoListtemp=videoService.findAll();
+		List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+		for(VideoExternal temp:videoListtemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				videoList.add(temp);
+			}
 		}
+	
+		
+		
+		
+		mv.addObject("Video",videoList);
+		
+		}
+		
+		mv.addObject("viewActive","active");
 		return mv;
 		
 	}
@@ -997,8 +1155,21 @@ public class AdminController {
 				ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 
 				mv.addObject("classExist", classExist);
-				
+				mv.addObject("addActive","active");
 				mv.setViewName("addVideo");
+				
+				List<VideoExternal> videoListtemp=videoService.findAll();
+				List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+				for(VideoExternal temp:videoListtemp) {
+					if(temp.getAcceptedByAdmin()==1) {
+						videoList.add(temp);
+					}
+				}
+			
+				
+				
+				
+				mv.addObject("Video",videoList);
 				
 				return mv;
 				
@@ -1037,7 +1208,7 @@ public class AdminController {
 
 			
 			userService.addUserToVideo(usr, videoMapping);							// persist Video Information
-			mv.addObject("status", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Sucessfully");
 			
 		} catch (Exception e) {
 			
@@ -1053,6 +1224,18 @@ public class AdminController {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		
+		List<VideoExternal> videoListtemp=videoService.findAll();
+		List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+		for(VideoExternal temp:videoListtemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				videoList.add(temp);
+			}
+		}
+	
+		
+		mv.addObject("Video",videoList);
+		mv.addObject("addActive","active");
 		
 		mv.setViewName("addVideo");													// setting view name
 			
@@ -1073,14 +1256,24 @@ public class AdminController {
 		HttpSession session=req.getSession(false);							// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
 		mv.setViewName("addQuiz");												// setting view name
+		List<QuizQuestion> quizListTemp=quizService.findAll();
+		List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
+		for(QuizQuestion temp:quizListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				quizList.add(temp);
+			}
 		}
+		
+		mv.addObject("Quiz",quizList );
+		}
+		mv.addObject("viewActive","active");
 		return mv;
 		
 		
@@ -1113,6 +1306,17 @@ public class AdminController {
 			mv.addObject("fileError", "Please Add only Pdf File");
 				
 			mv.setViewName("addQuiz");
+			mv.addObject("addActive","active");
+			
+			List<QuizQuestion> quizListTemp=quizService.findAll();
+			List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
+			for(QuizQuestion temp:quizListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					quizList.add(temp);
+				}
+			}
+			
+			mv.addObject("Quiz",quizList );
 			
 			return mv;
 			
@@ -1129,6 +1333,18 @@ public class AdminController {
 			mv.addObject("fileError", "Please Add only Pdf File");
 				
 			mv.setViewName("addQuiz");
+			mv.addObject("addActive","active");
+			
+			
+			List<QuizQuestion> quizListTemp=quizService.findAll();
+			List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
+			for(QuizQuestion temp:quizListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					quizList.add(temp);
+				}
+			}
+			
+			mv.addObject("Quiz",quizList );
 			
 			return mv;
 			
@@ -1180,7 +1396,7 @@ public class AdminController {
 			
 			userService.addUserToQuizQuestion(usr, quizMapping);   // persist Quiz details
 			
-			mv.addObject("status", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Sucessfully");
 			
 			}else {
 				mv.addObject("failure", " Try again Later");
@@ -1205,6 +1421,17 @@ public class AdminController {
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
 		
 		mv.addObject("quizStatus", "Added Sucessfully");
+		mv.addObject("addActive","active");
+		
+		List<QuizQuestion> quizListTemp=quizService.findAll();
+		List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
+		for(QuizQuestion temp:quizListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				quizList.add(temp);
+			}
+		}
+		
+		mv.addObject("Quiz",quizList );
 		
 		mv.setViewName("addQuiz");													// setting view name
 		
@@ -1221,11 +1448,22 @@ public class AdminController {
 		HttpSession session=req.getSession();							// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		
+		List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
+		List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
+		for(ConceptMap temp:ConceptMapListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				ConceptMapList.add(temp);
+			}
+		}
+		
+		mv.addObject("ConceptMapList",ConceptMapList );
+		mv.addObject("viewActive","active");
 		mv.setViewName("addConcpetMap");											// setting view name
 		}
 		return mv;
@@ -1250,6 +1488,18 @@ public class AdminController {
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 
 			mv.addObject("classExist", classExist);
+			
+			List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
+			List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
+			for(ConceptMap temp:ConceptMapListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					ConceptMapList.add(temp);
+				}
+			}
+			
+			mv.addObject("ConceptMapList",ConceptMapList );
+			
+			mv.addObject("addActive","active");
 			
 			mv.setViewName("addConcpetMap");
 			
@@ -1286,7 +1536,7 @@ public class AdminController {
 			
 
 			userService.addUserToConceptMap(usr, conceptMapping);						// persist Concept-map
-			mv.addObject("status", "Concept-Map Added Successfully");
+			mv.addObject("statusAdd", "Concept-Map Added Successfully");
 			
 		} catch (Exception e) {
 			
@@ -1302,6 +1552,18 @@ public class AdminController {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
+		
+		List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
+		List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
+		for(ConceptMap temp:ConceptMapListTemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				ConceptMapList.add(temp);
+			}
+		}
+		
+		mv.addObject("ConceptMapList",ConceptMapList );
+		
+		mv.addObject("addActive","active");
 		
 		mv.setViewName("addConcpetMap");												// setting view name
 		
@@ -1320,11 +1582,43 @@ public class AdminController {
 		HttpSession session=req.getSession(false);							// checking the last alive session
 		
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		mv.addObject("viewActive","active");
+		
+		List<Tutorial> tempTutorial=tutorialService.getAllTutorial();
+		
+		List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
+		
+		
+		for(Tutorial localTemp:tempTutorial) {
+			
+			try {
+				String url="https://spoken-tutorial.org/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+				RestTemplate restTemp=new RestTemplate();
+				TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
+				
+				localTutorial.setTutorialId(localTemp.getTutorialId());
+				localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
+				localTutorial.setContributedBy(localTemp.getUser().getFname());
+				localTutorial.setStatus(localTemp.getStatus());
+				System.out.println(localTutorial.getOutline());
+				
+				tutorialListData.add(localTutorial);
+			} catch (RestClientException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+	
+		
+		mv.addObject("Tutorials", tutorialListData);
+		
+		
 		mv.setViewName("addTutorial");												// setting view name
 		}
 		return mv;
@@ -1368,7 +1662,7 @@ public class AdminController {
 			
 			
 			userService.addUserToTutorial(usr, tempTutorial);				// persisting Tutorial
-			mv.addObject("status", "Tutorial Added Successfully");
+			mv.addObject("statusAdd", "Tutorial Added Successfully");
 			
 		
 			
@@ -1377,6 +1671,37 @@ public class AdminController {
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
+		
+		mv.addObject("addActive","active");
+		
+		List<Tutorial> tempTutorial=tutorialService.getAllTutorial();
+		
+		List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
+		
+		
+		for(Tutorial localTemp:tempTutorial) {
+			
+			try {
+				String url="https://spoken-tutorial.org/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+				RestTemplate restTemp=new RestTemplate();
+				TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
+				
+				localTutorial.setTutorialId(localTemp.getTutorialId());
+				localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
+				localTutorial.setContributedBy(localTemp.getUser().getFname());
+				localTutorial.setStatus(localTemp.getStatus());
+				System.out.println(localTutorial.getOutline());
+				
+				tutorialListData.add(localTutorial);
+			} catch (RestClientException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+	
+		
+		mv.addObject("Tutorials", tutorialListData);
 		
 		mv.setViewName("addTutorial");													// setting view name
 		
@@ -1393,8 +1718,11 @@ public class AdminController {
 	public ModelAndView addTestimonialGet(HttpServletRequest req,ModelAndView mv) {
 		HttpSession session=req.getSession(false);						// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
+				mv.addObject("viewActive","active");
+				List<Testimonial> local=testiService.findAll();
+				mv.addObject("Testimonial", local);
 				mv.setViewName("addTestimonial");							// setting view name
 				
 		}
@@ -1414,7 +1742,7 @@ public class AdminController {
 		String organization=req.getParameter("org");
 		String Desc=req.getParameter("description");
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {		// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 			
 					
@@ -1428,10 +1756,16 @@ public class AdminController {
 						
 						testiService.save(addtestData);
 						mv.addObject("returnStatus", "Data Added Sucessfully");
+						mv.addObject("addActive","active");
+						List<Testimonial> local=testiService.findAll();
+						mv.addObject("Testimonial", local);
 						mv.setViewName("addTestimonial");									// setting view name
 					} catch (Exception e) {
 						
 						mv.addObject("returnStatus", "Please Try Again");
+						mv.addObject("addActive","active");
+						List<Testimonial> local=testiService.findAll();
+						mv.addObject("Testimonial", local);
 						mv.setViewName("addTestimonial");
 						e.printStackTrace();
 					}
@@ -1451,9 +1785,11 @@ public class AdminController {
 		
 		HttpSession session=req.getSession(false);						// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
-			
+				List<Events> local=eventService.findAll();
+				mv.addObject("Events", local);
+				mv.addObject("viewActive","active");
 				mv.setViewName("addEvent");								// setting view name
 		}
 		
@@ -1472,7 +1808,7 @@ public class AdminController {
 		
 		HttpSession session=req.getSession(false);										// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 			
 					
@@ -1491,11 +1827,19 @@ public class AdminController {
 						
 						eventService.save(addEvent);	
 						
+						List<Events> local=eventService.findAll();
+						mv.addObject("Events", local);
+						mv.addObject("addActive","active");
+						
 						mv.addObject("returnStatus", "Data Added Sucessfully");
 						mv.setViewName("addEvent");											// setting view name
 					} catch (Exception e) {
 						
 						mv.addObject("returnStatus", "Please Try Again");
+						
+						List<Events> local=eventService.findAll();
+						mv.addObject("Events", local);
+						mv.addObject("addActive","active");
 						mv.setViewName("addEvent");											// setting view name
 						e.printStackTrace();
 					}
@@ -1513,7 +1857,7 @@ public class AdminController {
 		
 		HttpSession session=req.getSession(false);										// checking the last alive session
 		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
-			mv.setViewName("redirect:/Login");
+			mv.setViewName("redirect:/");
 		}else {
 			
 			List<ContactForm> tempContact=contactService.getAllMessages();

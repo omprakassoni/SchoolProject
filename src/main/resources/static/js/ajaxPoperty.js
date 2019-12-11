@@ -2,7 +2,6 @@ $(function(){
 	
 	//var projectName="/School_Project-0.0.1-SNAPSHOT";
 	
-
 	
 	/**************************** Reloading Page on closing of Modal ***********************************************/
 	
@@ -82,7 +81,7 @@ $(function(){
 		       			
 			       	    var html = '';
 			            var len = data.length;
-			            html += '<option value="0">Select Foss</option>';
+			           
 			            for (var i = 0; i < len; i++) {
 			             html += '<option value="' + data[i].id + '">'
 			               + data[i].foss
@@ -133,7 +132,7 @@ $(function(){
 		       			
 			       	    var html = '';
 			            var len = data.length;
-			            html += '<option value="0">Select Language</option>';
+			           
 			            for (var i = 0; i < len; i++) {
 			             html += '<option value="' + data[i].id + '">'
 			               + data[i].name
@@ -182,7 +181,7 @@ $(function(){
 		       			
 			       	    var html = '';
 			            var len = data.length;
-			            html += '<option value="0">Select Tutorial</option>';
+			          
 			            for (var i = 0; i < len; i++) {
 			             html += '<option value="' + data[i].id + '">'
 			               + data[i].tutorial_name
@@ -2940,12 +2939,12 @@ $(function(){
   					$('#updateDocument').prop('disabled',false);
   				})
   				
-  				$('#document').change(function(){
+  				$('#documentFile').change(function(){
   					
   					$('#updateDocument').prop('disabled',false);
   				})
   					
-  				
+ 
   				
   				
   				$('#updateDocument').click(function(){
@@ -5631,12 +5630,18 @@ function fire_ajax_submit_Topic(){
 					 if(data[0]==="Success"){
 						 $('#SuccessQuiz').css({"display": "block"});
 						 $("#updateQuiz").prop('disabled', true);
+						 $('#question').val('');
+						 $('#answer').val('');
 					 }else if(data[0]==="failure"){
 						 $('#FailureQuiz').css({"display": "block"});
 						 $("#updateQuiz").prop('disabled', true);
+						 $('#question').val('');
+						 $('#answer').val('');
 					 }else{
 						 $('#invalid-dataQuiz').css({"display": "block"}); 
 						 $("#updateQuiz").prop('disabled', true);
+						 $('#question').val('');
+						 $('#answer').val('');
 					 }
 					
 				
