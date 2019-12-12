@@ -37,6 +37,7 @@ import org.hibernate.annotations.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpRequest;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -74,6 +75,7 @@ import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
+import com.adminportal.repository.EventsRepository;
 import com.adminportal.service.ArticleExternalService;
 import com.adminportal.service.ClassService;
 import com.adminportal.service.ConceptMapService;
@@ -154,6 +156,9 @@ public class HomeController {
 	
 	@Autowired
 	private MailConstructor mailConstructor;
+	
+	@Autowired
+	private EventsRepository evenRepo;
 	
 
 	
@@ -241,7 +246,7 @@ public class HomeController {
 		}
 		if(statusPassword) {
 				
-				if(userRole.contentEquals("Teacher") ) {
+				//if(userRole.contentEquals("Teacher") ) {
 					
 					if(usr.getRegistered()==1) {
 			
@@ -259,19 +264,19 @@ public class HomeController {
 						mv.setViewName("Login");
 						
 					}
-				}else {
-					
-					HttpSession session=req.getSession();
-					session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
-					session.setAttribute("UserLogedName", usr.getFname());
-					session.setAttribute("UserLogedRole", userRole);
-					
-					usr.setLastLogin(ServiceUtility.getCurrentTime());
-					userService.save(usr);
-	
-					mv.setViewName("redirect:/");
-					
-				}
+//				}else {
+//					
+//					HttpSession session=req.getSession();
+//					session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
+//					session.setAttribute("UserLogedName", usr.getFname());
+//					session.setAttribute("UserLogedRole", userRole);
+//					
+//					usr.setLastLogin(ServiceUtility.getCurrentTime());
+//					userService.save(usr);
+//	
+//					mv.setViewName("redirect:/");
+//					
+//				}
 			
 		}else {
 			
@@ -519,14 +524,16 @@ public class HomeController {
 // ---------------------------------- Event List on USer Side ------------------------------------------
 	
 	@RequestMapping(value = "/eventsList")
-	public ModelAndView viewEvent(ModelAndView mv) {
+	public ModelAndView viewEvent(ModelAndView mv,@RequestParam(defaultValue = "0") int page) {
 		
-		List<Events> localEvent=eventService.findAll();
+		//List<Events> localEvent=eventService.findAll();
+		
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 	
 		
 		mv.addObject("classfromDatabase", standard);
-		mv.addObject("EventList", localEvent);
+		mv.addObject("EventList", evenRepo.findAll(new PageRequest(page, 6)));
+		mv.addObject("current",page);
 		mv.setViewName("events");
 		return mv;
 	}
@@ -697,10 +704,22 @@ public class HomeController {
 		return mv;
 	}
 	
+	@RequestMapping(path = "/eventsList/myAccount", method = RequestMethod.GET)
+	public ModelAndView pathtoContributorDashboardEvent(ModelAndView mv) {
+		mv.setViewName("redirect:/myAccount");
+		return mv;
+	}
+	
 /**********************ADMIN DASHBOARD FROM CONTENT PAGE ********************************/
 	
 	@RequestMapping(path = "/content/home", method = RequestMethod.GET)
 	public ModelAndView pathtoAdminDashboard(ModelAndView mv) {
+		mv.setViewName("redirect:/home");
+		return mv;
+	}
+	
+	@RequestMapping(path = "/eventsList/home", method = RequestMethod.GET)
+	public ModelAndView pathtoAdminDashboardEvent(ModelAndView mv) {
 		mv.setViewName("redirect:/home");
 		return mv;
 	}

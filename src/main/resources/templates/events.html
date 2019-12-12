@@ -18,7 +18,7 @@
             	<!--  CODE FOR NAVBAR -->			
     <div th:replace="common/header :: navbar"></div>
     
-    <div style="background-image: url(/Images/background.png); width:100%;height:100%">
+    <div style="background-image: url(/Images/background.png);background-size:cover">
     	<div class="container">
     		
     		<div style="background-color:rgb(10,42,102)">
@@ -27,8 +27,22 @@
     		
     		</div>
     		<br/>
-    		<br/>
+    		<div class="pagination" style="float:right">
+    			<nav aria-label="Page navigation example">
+    			<ul class="pagination pg-blue">
+    			<li class="page-item" th:each="i:${#numbers.sequence(0,EventList.totalPages-1)}" th:classappend="${current}==${i} ? 'active':''" >
+    			
+    			<a th:href="@{/eventsList/(page=${i})}" th:text="${i}" class="page-link" th:classappend="${current}==${i} ? 'active':''"/>
+    			
+    			</li>
     		
+    			</ul>
+    			</nav>
+    		
+    		</div>
+    		<br/>
+    		<br/>
+    		<div class="clearfix"></div>
     		<div class="row shadow-lg p-3 mb-5 bg-white rounded" th:each="event:${EventList}" >
     			<div class="col-2" style="border-right:1px solid #333">
     			<br/>
@@ -64,6 +78,7 @@
     		
     		
     		</div>
+    		
     	
     	
     	</div>
@@ -72,22 +87,12 @@
     
     
     </div>
+    		
     
     
     	
-        					<div>
-                            <h6>Leave a reply</h6>
-                            <textarea id="comment2372" placeholder="Comment*" name="comment" class="col-md-12 "></textarea><br>
-                            <div class="col-12 text-right pr-0">
-                                <button type="button" class="btn btn-danger btn-sm text-white  p-1 my-2" onclick="showComment(2372)">Close</button>
-                                <button type="button" class="btn btn-warning btn-sm text-white  p-1 my-2" onclick="saveComment('6', 'course', 2372)">Submit</button>
-                            </div>
-                        
-       
-        
-        
-        
-            
+        					
+         
        
     	
             

@@ -227,7 +227,10 @@ public class AdminController {
 			mv.setViewName("redirect:/");
 		}else {
 		
-		mv.setViewName("addClass");
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+			
+			mv.addObject("classExist",classExist);
+			mv.setViewName("addClass");
 		
 		}
 		
@@ -265,6 +268,10 @@ public class AdminController {
 			}
 										
 		}
+		
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+		
+		mv.addObject("classExist",classExist);
 			
 		mv.setViewName("addClass");													// returns to addClass View
 		

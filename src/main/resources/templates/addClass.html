@@ -43,6 +43,20 @@
        							
        						</div>
        						<br/>
+       						
+       						
+       							<div class="overflow-auto">	
+       								<h4 style="padding-left:80px;color:red">Already Available Class</h2>
+       								<span th:each="classValue:${classExist}">
+				 										 
+				  						<label style="padding-left:100px;color:#9d250c"> <span th:text="${classValue.getClassName()}"></span>
+				  						</label> <br/>
+									</span>
+       							
+       							</div>
+       						
+       						
+       						<br/>
        						<div class="row">
        							<div class="col-sm-4"></div>
        							
