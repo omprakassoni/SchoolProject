@@ -51,8 +51,8 @@
 				      <td><span th:text="${quiz.getRemark()}"></span></td>		
 				      <td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
 				      <td><span th:text="${quiz.getDateAdded()}"></span></td>
-				      <td><a th:href="@{${quiz.getQuestion()}}" class="pdfclass" target="_blank"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
-				      <td><a th:href="@{${quiz.getAnswer()}}" class="pdfclass" target="_blank"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+				      <td><a th:href="@{files/}+@{${quiz.getQuestion()}}" class="pdfclass" target="_blank"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+				      <td><a th:href="@{files/}+@{${quiz.getAnswer()}}" class="pdfclass" target="_blank"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
 				        <td><span th:if="${quiz.isStatus()==1}"><div id="true"/></span>
 				      	  <span th:unless="${quiz.isStatus()==1}"><div id="false"/></span>
 				      </td>

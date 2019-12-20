@@ -99,8 +99,8 @@ import com.spoken.Utility.TutorialList;
 @SessionAttributes({"UserLogedUsername","UserLogedName","UserLogedRole"})  // Session Variable
 public class HomeController {
 	
-	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";   // Path to save resources
-	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";	// path to save teacher Document
+	public static final String uploadDirectory="Media/content/";   // Path to save resources
+	public static final String uploadTeacherDirectory="Media/Teacher/";	// path to save teacher Document
 	
 	@Autowired
 	private ClassService classService;
@@ -234,36 +234,37 @@ public class HomeController {
 		boolean statusPassword=false;
 		
 		//User usr1=(User) userService.existsByUser(username, password);			// check for existence of User
-		User usr=userService.findByUsername(username);
-		statusPassword =ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());
-		System.out.println(statusPassword);
-		if(statusPassword) {
-		List<UserRole> tempuserRole=usr.getUserRoles();
-		for(UserRole temp:tempuserRole) {
-			userRole=temp.getRole().getRoleName();
-			
-		}
-		}
-		if(statusPassword) {
+		try {
+			User usr=userService.findByUsername(username);
+			statusPassword =ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());
+			System.out.println(statusPassword);
+			if(statusPassword) {
+			List<UserRole> tempuserRole=usr.getUserRoles();
+			for(UserRole temp:tempuserRole) {
+				userRole=temp.getRole().getRoleName();
 				
-				//if(userRole.contentEquals("Teacher") ) {
+			}
+			}
+			if(statusPassword) {
 					
-					if(usr.getRegistered()==1) {
+					//if(userRole.contentEquals("Teacher") ) {
+						
+						if(usr.getRegistered()==1) {
+				
+							HttpSession session=req.getSession();
+							session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
+							session.setAttribute("UserLogedName", usr.getFname());
+							session.setAttribute("UserLogedRole", userRole);
+							
+							usr.setLastLogin(ServiceUtility.getCurrentTime());
+							userService.save(usr);
 			
-						HttpSession session=req.getSession();
-						session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
-						session.setAttribute("UserLogedName", usr.getFname());
-						session.setAttribute("UserLogedRole", userRole);
-						
-						usr.setLastLogin(ServiceUtility.getCurrentTime());
-						userService.save(usr);
-		
-						mv.setViewName("redirect:/");
-					}else {
-						mv.addObject("Error", "Not verified yet..Please Try later");
-						mv.setViewName("Login");
-						
-					}
+							mv.setViewName("redirect:/");
+						}else {
+							mv.addObject("Error", "Not verified yet..Please Try later");
+							mv.setViewName("Login");
+							
+						}
 //				}else {
 //					
 //					HttpSession session=req.getSession();
@@ -277,13 +278,19 @@ public class HomeController {
 //					mv.setViewName("redirect:/");
 //					
 //				}
-			
-		}else {
+				
+			}else {
+				
+				mv.addObject("Error", "Login Credentials are Incorrect");
+				mv.setViewName("Login");
+				
+				
+			}
+		} catch (Exception e) {
 			
 			mv.addObject("Error", "Login Credentials are Incorrect");
 			mv.setViewName("Login");
-			
-			
+			e.printStackTrace();
 		}
 		
 

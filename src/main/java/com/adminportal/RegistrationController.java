@@ -17,6 +17,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,8 +38,8 @@ import com.spoken.Utility.ServiceUtility;
 @Controller
 public class RegistrationController {
 	
-	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";		/* path to which content will get stored */
-	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";  /* path to which teachers document will get stored */
+	public static final String uploadTeacherDirectory="Media/Teacher/";  /* path to which teachers document will get stored */
+	
 	
 	@Autowired
 	private UserService userService;
@@ -51,6 +52,9 @@ public class RegistrationController {
 	
 	@Autowired
 	private UserRoleService userRoleService;
+	
+	@Autowired
+	private Environment env;
 	
 /*------------------------------------------Registration Task Method (LEARNER)-----------------------------------------------------------------*/
 	
@@ -68,6 +72,16 @@ public class RegistrationController {
 		int pincode=Integer.parseInt(pincodeString);
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
 		
+		if(!ServiceUtility.checkEmailValidity(email)) {
+			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+			mv.addObject("classfromDatabase", standard);
+			
+			mv.addObject("FailureL", "Please Enter valid E-mail");
+			mv.addObject("checkedOptionLearner", "checked");
+			mv.setViewName("Signup");
+			
+			return mv;
+		}
 		
 		if(userService.existByEmail(email)) {										// check for already email exist
 			
@@ -143,6 +157,17 @@ public class RegistrationController {
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
 		
+		if(!ServiceUtility.checkEmailValidity(email)) {
+			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+			mv.addObject("classfromDatabase", standard);
+			
+			mv.addObject("FailureP", "Please Enter Valid E-mail");
+			mv.addObject("checkedOptionParent", "checked");
+			mv.setViewName("Signup");
+			
+			return mv;
+		}
+		
 		if(userService.existByEmail(email)) {											// check for already email exist
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
@@ -208,6 +233,17 @@ public class RegistrationController {
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
 		
+		if(!ServiceUtility.checkEmailValidity(email)) {
+			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+			mv.addObject("classfromDatabase", standard);
+			
+			mv.addObject("FailureT", "Please Enter Valid E-mail");
+			mv.addObject("checkedOptionTeacher", "checked");
+			mv.setViewName("Signup");
+			
+			return mv;
+		}
+		
 		if(!ServiceUtility.checkFileExtensionImage(uploadDocument)) {						// validate against Image file
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
@@ -247,9 +283,16 @@ public class RegistrationController {
 			
 		}
 		
-		String documentLocal=ServiceUtility.uploadFile(uploadDocument, uploadTeacherDirectory);
+		/***************** creating folder for Storing Teacher data *************************************/
 		
-		int indexToStart=documentLocal.indexOf('M');
+		boolean path_creation=ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email);
+		
+		
+		String pathtoUploadteacherData=env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email;
+		
+		String documentLocal=ServiceUtility.uploadFile(uploadDocument, pathtoUploadteacherData);
+		
+		int indexToStart=documentLocal.indexOf("Media");
 		
 		String document=documentLocal.substring(indexToStart, documentLocal.length());
 		

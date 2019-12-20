@@ -37,7 +37,7 @@
 			<div class="col-4" th:each="topic:${TopicListOnSubjectClass}"  >
 				 <!-- Card -->
 			<a th:href="'content/'+ ${topic.getTopicId()}">	
-			<div class="card card-image" th:style="'background-image:url(\''+ ${topic.getPoster()} + '\');'">
+			<div class="card card-image" th:style="'background-image:url(\''+@{files/}+@{${topic.getPoster()}} + '\');'">
 		
 			  <!-- Content -->
 			  <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">

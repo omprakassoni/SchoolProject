@@ -52,7 +52,7 @@
 				      <td><span th:text="${user.getSex()}"></span></td>
 				      <td><span th:text="${user.getEmail()}"></span></td>
 				      <td><span th:text="${user.getDateAdded()}"></span></td>
-				      <td><a href="#" class="pop"><img id="imagesource" th:src="@{${user.getDocument()}}" style="width:150px;height:100px"/></a></td>
+				      <td><a href="#" class="pop"><img id="imagesource" th:src="@{files/}+@{${user.getDocument()}}" style="width:150px;height:100px"/></a></td>
 				      
 				      <td><span th:if="${user.getRegistered()==1}"><div id="true"/></span>
 				      	  <span th:unless="${user.getRegistered()==1}"><div id="false"/></span>

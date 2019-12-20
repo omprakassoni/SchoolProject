@@ -208,8 +208,8 @@
 				     
     			</div>
   			</div>
-  			<div class="col-1"></div>
-  			<div class="col-8">
+  			
+  			<div class="col-9">
     			<div class="tab-content" id="v-pills-tabContent">
     			
     			<!--  CODE FOR COMMON THINGS TO DISPLAY -->
@@ -1444,7 +1444,7 @@
 												     
 												 
 												      
-												      <td><a href="#" class="pop"><img id="imagesource" th:src="@{${concept.getUrl()}}" style="width:150px;height:100px"/></a></td>
+												      <td><a href="#" class="pop"><img id="imagesource" th:src="@{/files/}+@{${concept.getUrl()}}" style="width:150px;height:100px"/></a></td>
 												       <td><span th:if="${concept.getStatus()==1}"><div id="true"/></span>
 												      	  <span th:unless="${concept.getStatus()==1}"><div id="false"/></span>
 												      </td>
@@ -1618,7 +1618,7 @@
 											      <td><span th:text="${document.getDescription()}"></span></td>
 											      <td><span th:text="${document.getDateAdded()}"></span></td>
 											      <td><span th:text="${document.getSource()}"></span></td>
-											      <td><a th:href="@{'/'+${document.getUrl()}}" target="_blank"><img id="pdfsource" th:src="${document.getUrl()}" alt="Document"></img></a></td>
+											      <td><a th:href="@{/files/}+@{${document.getUrl()}}" target="_blank"><img id="pdfsource" th:src="${document.getUrl()}" alt="Document"></img></a></td>
 											      
 											      
 											      <td><span th:if="${document.isStatus()==1}"><div id="true"/></span>
@@ -1673,7 +1673,7 @@
 													    <tr class="clickable-row">
 													      <td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>		
 													      <td><span th:text="${lesson.getDateAdded()}"></span></td>
-													      <td><a th:href="@{${lesson.getLessonPlan()}}" class="pdfclass" target="_class"><img id="pdfsource" th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+													      <td><a th:href="@{/files/}+@{${lesson.getLessonPlan()}}" class="pdfclass" target="_class"><img id="pdfsource" th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
 													   
 													      <td><span th:if="${lesson.isStatus()==1}"><div id="true"/></span>
 													      	  <span th:unless="${lesson.isStatus()==1}"><div id="false"/></span>
@@ -1734,8 +1734,8 @@
 												      <td><span th:text="${quiz.getRemark()}"></span></td>		
 												      <td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
 												      <td><span th:text="${quiz.getDateAdded()}"></span></td>
-												      <td><a th:href="@{'/'+${quiz.getQuestion()}}" class="pdfclass" target="_blank"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
-												      <td><a th:href="@{'/'+${quiz.getAnswer()}}" target="_blank" class="pdfclass"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+												      <td><a th:href="@{/files/}+@{${quiz.getQuestion()}}" class="pdfclass" target="_blank"><img id="pdfsource" th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+												      <td><a th:href="@{/files/}+@{${quiz.getAnswer()}}" target="_blank" class="pdfclass"><img id="pdfsource"th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
 												      <td><span th:if="${quiz.isStatus()==1}"><div id="true"/></span>
 				      	  									<span th:unless="${quiz.isStatus()==1}"><div id="false"/></span>
 				      									</td>
@@ -2765,7 +2765,27 @@
 			  </div>
 			</div>
 			</div>
-		
+	
+	  	<!-- Modal for Terms and Condition-->
+	  	
+			<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalCenterTitle">Terms and Conditions</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        ...
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					 </div>	
 			
 			
         

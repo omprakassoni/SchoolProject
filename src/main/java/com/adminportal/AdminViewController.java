@@ -56,8 +56,8 @@ import com.spoken.Utility.TutorialList;
 @SessionAttributes({"UserLogedUsername","UserLogedName","UserLogedRole"})
 public class AdminViewController {
 	
-	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";
-	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/";
+	public static final String uploadDirectory="Media/content/";
+	public static final String uploadTeacherDirectory="Media/Teacher/";
 
 	
 	@Autowired

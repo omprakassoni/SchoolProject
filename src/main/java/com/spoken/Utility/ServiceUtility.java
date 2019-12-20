@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
@@ -36,8 +37,10 @@ import com.adminportal.HomeController;
 
 public class ServiceUtility {
 	
+	static String projectPath="/var/school_data/";
 	private static final String SALT="salt";
-	private static String uploadDirectory="src/main/resources/static"+"/Media/content/";
+	private static String uploadDirectory="Media/content/";
+	
 	
 	public static BCryptPasswordEncoder passwordEncoder() {										// password encoding
 		
@@ -68,13 +71,13 @@ public class ServiceUtility {
 	public static boolean createclassSubjectFolder(String className,String subject,String topicName) {  // creating folder for topic
 		
 		boolean status=true;
-		if(!new File(uploadDirectory+className+"_"+subject+"/"+topicName+"/").exists()) {
-			if(new File(uploadDirectory+className+"_"+subject+"/"+topicName+"/").mkdirs()) {
+		if(!new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").exists()) {
+			if(new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").mkdirs()) {
 				
-				new File(uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Document/").mkdirs();
-				new File(uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Lessonplan/").mkdirs();
-				new File(uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Quiz/").mkdirs();
-				new File(uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"ConceptMap/").mkdirs();
+				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Document/").mkdirs();
+				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Lessonplan/").mkdirs();
+				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Quiz/").mkdirs();
+				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"ConceptMap/").mkdirs();
 			}
 		}
 		return status;
@@ -122,7 +125,7 @@ public class ServiceUtility {
 	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {			// validate file against Image Extension
 		
 		for(MultipartFile temp:imageFile) {
-			if(!temp.getOriginalFilename().endsWith(".jpg") && !temp.getOriginalFilename().endsWith(".jpeg")) {
+			if(!temp.getOriginalFilename().endsWith(".jpg") && !temp.getOriginalFilename().endsWith(".jpeg") && !temp.getOriginalFilename().endsWith(".png")) {
 				
 				return false;
 			}
@@ -163,4 +166,27 @@ public class ServiceUtility {
 		return status;
 	
 }
+	
+	
+	public static String presentDirectory() {
+		Path currentRelativePath = Paths.get("");
+		String currentpath = currentRelativePath.toAbsolutePath().toString();
+		return currentpath;
+		
+//		String temp=System.getProperty("user.dir");
+//		return temp;
+	}
+	
+	public static boolean checkEmailValidity(String email) {
+
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                            "[a-zA-Z0-9_+&*-]+)*@" + 
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                            "A-Z]{2,7}$"; 
+                              
+        Pattern pat = Pattern.compile(emailRegex); 
+        if (email == null) 
+            return false; 
+        return pat.matcher(email).matches(); 
+	}
 }

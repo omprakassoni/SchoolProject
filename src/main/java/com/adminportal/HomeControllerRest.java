@@ -25,6 +25,7 @@ import javax.validation.Valid;
 import org.apache.tomcat.jni.File;
 import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -94,9 +95,11 @@ import antlr.debug.Event;
 @RestController
 public class HomeControllerRest {
 	
-	public static String uploadDirectory="src/main/resources/static"+"/Media/content/";
+	public static String uploadDirectory="Media/content/";
 	
-	public static String deleteDirectory="src/main/resources/static/";
+	public static String deleteDirectory="";
+	
+	//public static final String folerAfterPwd="/webapps/";
 		
 	@Autowired
 	private ClassService classService;
@@ -152,6 +155,9 @@ public class HomeControllerRest {
 	
 	@Autowired
 	private TutorialService tutorialService;
+	
+	@Autowired
+	private Environment env;
 	
 	/*--------------------------------------TAKING CONTACT FORM DATA FROM INDEX PAGE ------------------------------------------------------*/
 	@PostMapping("/addContactForm")
@@ -841,15 +847,15 @@ public class HomeControllerRest {
 			
 		
 		if(fileExist) {
-			String previousPath=deleteDirectory+temptopic.getPoster();
+			String previousPath=env.getProperty("spring.applicationexternalPath.name")+temptopic.getPoster();
 			
 			Path fileToDeletePath=Paths.get(previousPath);
 			
-			String pathToUpload=uploadDirectory+temptopic.getSubjectClassMapping().getStandard().getClassName()+"_"+temptopic.getSubjectClassMapping().getSub().getSubName()+"/"+temptopic.getTopicName()+"/";
+			String pathToUpload=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+temptopic.getSubjectClassMapping().getStandard().getClassName()+"_"+temptopic.getSubjectClassMapping().getSub().getSubName()+"/"+temptopic.getTopicName()+"/";
 			System.out.println(pathToUpload);
 			String newFilePath=ServiceUtility.uploadFile(uploadfiles, pathToUpload);
 			
-			int indexToStart=newFilePath.indexOf('M');
+			int indexToStart=newFilePath.indexOf("Media");
 			String posterPath=newFilePath.substring(indexToStart, newFilePath.length());
 			
 			status=topicService.updateTopic(desc, posterPath, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
@@ -937,16 +943,16 @@ public class HomeControllerRest {
 		
 		if(fileExistAnswer && fileExistQuestion) {
 		
-		String previousQuestion=deleteDirectory+tempQuiz.getQuestion();
-		String previousAnswer=deleteDirectory+tempQuiz.getAnswer();
+		String previousQuestion=env.getProperty("spring.applicationexternalPath.name")+tempQuiz.getQuestion();
+		String previousAnswer=env.getProperty("spring.applicationexternalPath.name")+tempQuiz.getAnswer();
 		
 		Path deletepreviousQuestion=Paths.get(previousQuestion);
 		
 		Path deletepreviousAnswer=Paths.get(previousAnswer);
 		
-		String pathToUploadQuestion=uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
+		String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
 		
-		String pathToUploadAnswer=uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
+		String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
 		
 		String questiontemp=ServiceUtility.uploadFile(uploadQuestion, pathToUploadQuestion);
 		String answertemp=ServiceUtility.uploadFile(uploadAnswer, pathToUploadAnswer);
@@ -956,10 +962,10 @@ public class HomeControllerRest {
 		System.out.println(pathToUploadAnswer);
 		System.out.println(pathToUploadQuestion);
 		
-		int indexToStart=questiontemp.indexOf('M');
+		int indexToStart=questiontemp.indexOf("Media");
 		String question=questiontemp.substring(indexToStart, questiontemp.length());
 		
-		indexToStart=answertemp.indexOf('M');
+		indexToStart=answertemp.indexOf("Media");
 		String answer=answertemp.substring(indexToStart, answertemp.length());
 		
 		
@@ -984,11 +990,11 @@ public class HomeControllerRest {
 		}
 		}else if(fileExistAnswer) {
 			
-			String previousAnswer=deleteDirectory+tempQuiz.getAnswer();
+			String previousAnswer=env.getProperty("spring.applicationexternalPath.name")+tempQuiz.getAnswer();
 			
 			Path deletepreviousAnswer=Paths.get(previousAnswer);
 			
-			String pathToUploadAnswer=uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
+			String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
 			
 			String answertemp=ServiceUtility.uploadFile(uploadAnswer, pathToUploadAnswer);
 			
@@ -996,7 +1002,7 @@ public class HomeControllerRest {
 			
 			System.out.println(pathToUploadAnswer);
 		
-			int indexToStart=answertemp.indexOf('M');
+			int indexToStart=answertemp.indexOf("Media");
 			String answer=answertemp.substring(indexToStart, answertemp.length());
 			
 			
@@ -1021,11 +1027,11 @@ public class HomeControllerRest {
 			
 		}else if(fileExistQuestion) {
 			
-			String previousQuestion=deleteDirectory+tempQuiz.getQuestion();
+			String previousQuestion=env.getProperty("spring.applicationexternalPath.name")+tempQuiz.getQuestion();
 	
 			Path deletepreviousQuestion=Paths.get(previousQuestion);
 			
-			String pathToUploadQuestion=uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
+			String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
 			
 			String questiontemp=ServiceUtility.uploadFile(uploadQuestion, pathToUploadQuestion);
 			
@@ -1033,7 +1039,7 @@ public class HomeControllerRest {
 
 			System.out.println(pathToUploadQuestion);
 			
-			int indexToStart=questiontemp.indexOf('M');
+			int indexToStart=questiontemp.indexOf("Media");
 			String question=questiontemp.substring(indexToStart, questiontemp.length());
 			
 			
@@ -1094,14 +1100,14 @@ public class HomeControllerRest {
 		
 		if(fileExist) {
 			
-			String previousPath=deleteDirectory+docuTemp.getUrl();
+			String previousPath=env.getProperty("spring.applicationexternalPath.name")+docuTemp.getUrl();
 			Path deletePreviousPath=Paths.get(previousPath);
 			
-			String uploadDocument=uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+docuTemp.getTopic().getTopicName()+"/"+"Document/";
+			String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+docuTemp.getTopic().getTopicName()+"/"+"Document/";
 			
 			String document=ServiceUtility.uploadFile(uploadQuestion, uploadDocument);
 			
-			int indexToStart=document.indexOf('M');
+			int indexToStart=document.indexOf("Media");
 			String documentToUpload=document.substring(indexToStart, document.length());
 			
 			boolean done=docuService.updateDocument(desc, dSource, documentToUpload, ServiceUtility.getCurrentTime(), docuTemp.getDocumentId());
@@ -1169,14 +1175,14 @@ public class HomeControllerRest {
 		
 		if(fileExist) {
 			
-			String previousPath=deleteDirectory+conceptTemp.getUrl();
+			String previousPath=env.getProperty("spring.applicationexternalPath.name")+conceptTemp.getUrl();
 			Path deletePreviousPath=Paths.get(previousPath);
 			
-			String uploadconceptImage=uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+conceptTemp.getTopic().getTopicName()+"/"+"ConceptMap/";
+			String uploadconceptImage=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+conceptTemp.getTopic().getTopicName()+"/"+"ConceptMap/";
 			
 			String document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
 			
-			int indexToStart=document.indexOf('M');
+			int indexToStart=document.indexOf("Media");
 			String documentToUpload=document.substring(indexToStart, document.length());
 			
 			boolean done=concepMapService.updateConcept(desc, documentToUpload, remark, ServiceUtility.getCurrentTime(), conceptTemp.getConcepMapid());
@@ -1341,14 +1347,14 @@ public class HomeControllerRest {
 		
 		LessonPlan lessonTemp=lessonService.findById(Integer.parseInt(documentId));
 		
-		String previousPath=deleteDirectory+lessonTemp.getLessonPlan();
+		String previousPath=env.getProperty("spring.applicationexternalPath.name")+lessonTemp.getLessonPlan();
 		Path deletePreviousPath=Paths.get(previousPath);
 		
-		String uploadDocument=uploadDirectory+lessonTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+lessonTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+lessonTemp.getTopic().getTopicName()+"/"+"Lessonplan/";
+		String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+lessonTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+lessonTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+lessonTemp.getTopic().getTopicName()+"/"+"Lessonplan/";
 		
 		String document=ServiceUtility.uploadFile(uploadLessonPlan, uploadDocument);
 		
-		int indexToStart=document.indexOf('M');
+		int indexToStart=document.indexOf("Media");
 		String documentToUpload=document.substring(indexToStart, document.length());
 		
 		System.out.println(lessonTemp.getLessonPlanId());
@@ -2363,12 +2369,12 @@ public class HomeControllerRest {
 			
 		}
 		
-		String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Lessonplan/";
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Lessonplan/";
 		
 		try {
 			String path1=ServiceUtility.uploadFile(uploadLessonPlan, createFolder);
 			
-			int indexToStart=path1.indexOf('M');
+			int indexToStart=path1.indexOf("Media");
 			String path=path1.substring(indexToStart, path1.length());
 			
 			
@@ -2426,7 +2432,7 @@ public class HomeControllerRest {
 		}
 		
 		try {
-			String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Quiz/"+remark+"/";
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Quiz/"+remark+"/";
 			boolean b=ServiceUtility.createFolder(createFolder);
 			
 			String CreateFolderQuestion=createFolder+"Question/";
@@ -2441,10 +2447,10 @@ public class HomeControllerRest {
 			answerPath=ServiceUtility.uploadFile(uploadAnswer, CreateFolderAnswer);
 			
 			
-			int indexToStart=questionPath.indexOf('M');
+			int indexToStart=questionPath.indexOf("Media");
 			String pathQuestion=questionPath.substring(indexToStart, questionPath.length());
 			
-			int indexToStart1=answerPath.indexOf('M');
+			int indexToStart1=answerPath.indexOf("Media");
 			String pathAnswer=answerPath.substring(indexToStart1, answerPath.length());
 			
 
@@ -2496,7 +2502,7 @@ public class HomeControllerRest {
 			
 		}
 		
-		String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Document/";
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Document/";
 		
 		
 		try {
@@ -2504,7 +2510,7 @@ public class HomeControllerRest {
 			
 			
 			
-			int indexToStart=path1.indexOf('M');
+			int indexToStart=path1.indexOf("Media");
 			String path=path1.substring(indexToStart, path1.length());
 			
 
@@ -2550,7 +2556,7 @@ public class HomeControllerRest {
 			
 		}
 		
-		String createFolder=uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/ConceptMap/";
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/ConceptMap/";
 		
 		
 		try {
@@ -2558,7 +2564,7 @@ public class HomeControllerRest {
 			
 			
 			
-			int indexToStart=path1.indexOf('M');
+			int indexToStart=path1.indexOf("Media");
 			String path=path1.substring(indexToStart, path1.length());
 			
 

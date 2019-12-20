@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,9 +78,8 @@ import com.spoken.Utility.TutorialList;
 
 public class AdminController {
 	
-	public static final String uploadDirectory="src/main/resources/static"+"/Media/content/";  /* path to which content will get stored */
-	public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/"; /* path to which teachers document will get stored */
-	
+	public static final String uploadDirectory="Media/content/";  /* path to which content will get stored */
+	//public static final String uploadTeacherDirectory="src/main/resources/static/Media/Teacher/"; /* path to which teachers document will get stored */;
 	/* Dependency Injection via creating reference to service class */
 	
 	@Autowired
@@ -129,6 +129,9 @@ public class AdminController {
 	
 	@Autowired
 	private ContactFormService contactService;
+	
+	@Autowired
+	private Environment env;
 	
 
 	
@@ -497,11 +500,11 @@ public class AdminController {
 		try {
 			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");						// fetching e-mail of user logged in.
 
-			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Document/";	// PATH TO SAVE DOCUMENT UNDER TOPIC
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Document/";	// PATH TO SAVE DOCUMENT UNDER TOPIC
 			
 			path1=ServiceUtility.uploadFile(document, createFolder);									// 	upload file to path mentioned
 			
-			int indexToStart=path1.indexOf('M');														// extracting path starting from MEDIA to save in database
+			int indexToStart=path1.indexOf("Media");														// extracting path starting from MEDIA to save in database
 			String path=path1.substring(indexToStart, path1.length());
 			
 
@@ -636,11 +639,11 @@ public class AdminController {
 			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");   
 			
 
-			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Lessonplan/";  // path to store lesson Plan
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Lessonplan/";  // path to store lesson Plan
 			
 			path1=ServiceUtility.uploadFile(lesson, createFolder);					// uploading lesson plan to path given
 			
-			int indexToStart=path1.indexOf('M');									// extract path starting from MEDIA to persist .
+			int indexToStart=path1.indexOf("Media");									// extract path starting from MEDIA to persist .
 			String path=path1.substring(indexToStart, path1.length());
 			
 			
@@ -930,13 +933,13 @@ public class AdminController {
 			
 
 			
-			uploadDirectoryPoster=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/"; // path to upload Quiz File
+			uploadDirectoryPoster=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+subjectName+"/"+topicName+"/"; // path to upload Quiz File
 			System.out.println(uploadDirectoryPoster);
 				
 			path1=ServiceUtility.uploadFile(poster, uploadDirectoryPoster);
 				
 	
-			int indexToStart=path1.indexOf('M');						// extract path starting from MEDIA to persist .
+			int indexToStart=path1.indexOf("Media");						// extract path starting from MEDIA to persist .
 			String path=path1.substring(indexToStart, path1.length());
 			
 			Class localClass=classService.findByClassName(className);
@@ -966,6 +969,9 @@ public class AdminController {
 		}
 		
 		
+		List<Topic> topicList=topicService.findAll();
+		
+		mv.addObject("Topic", topicList);
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 		
@@ -1361,7 +1367,7 @@ public class AdminController {
 		
 		
 		
-		String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Quiz/"+remarks+"/";  // path to save question and answer
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+subjectName+"/"+topicName+"/Quiz/"+remarks+"/";  // path to save question and answer
 		boolean b=ServiceUtility.createFolder(createFolder);
 		
 		String CreateFolderQuestion=createFolder+"Question/";
@@ -1379,10 +1385,10 @@ public class AdminController {
 			answerPath=ServiceUtility.uploadFile(answer, CreateFolderAnswer);
 			
 			
-			int indexToStart=questionPath.indexOf('M');
+			int indexToStart=questionPath.indexOf("Media");
 			String pathQuestion=questionPath.substring(indexToStart, questionPath.length());
 			
-			int indexToStart1=answerPath.indexOf('M');
+			int indexToStart1=answerPath.indexOf("Media");
 			String pathAnswer=answerPath.substring(indexToStart1, answerPath.length());
 			
 			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
@@ -1520,11 +1526,11 @@ public class AdminController {
 		try {
 			emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 
-			String createFolder=uploadDirectory+className+"_"+subjectName+"/"+topicName+"/ConceptMap/";  // path to store Concept-map
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+subjectName+"/"+topicName+"/ConceptMap/";  // path to store Concept-map
 			
 			path1=ServiceUtility.uploadFile(conceptMapImage, createFolder);
 			
-			int indexToStart=path1.indexOf('M');										// extracting proper Path from Actual path
+			int indexToStart=path1.indexOf("Media");										// extracting proper Path from Actual path
 			String path=path1.substring(indexToStart, path1.length());
 			
 

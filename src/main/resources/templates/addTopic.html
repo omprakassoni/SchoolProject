@@ -61,7 +61,7 @@
 				      <td><span th:text="${topic.getSubjectClassMapping().getStandard().getClassName()}"></span></td>
 				      <td><span th:text="${topic.getSubjectClassMapping().getSub().getSubName()}"></span></td>
 				      
-				      <td><a href="#" class="pop"><img id="imagesource" th:src="@{${topic.getPoster()}}" style="width:150px;height:100px"/></a></td>
+				      <td><a href="#" class="pop"><img id="imagesource" th:src="@{files/}+@{${topic.getPoster()}}" style="width:150px;height:100px"/></a></td>
 				       <td><span th:if="${topic.getStatus()==1}"><div id="true"/></span>
 				      	  <span th:unless="${topic.getStatus()==1}"><div id="false"/></span>
 				      </td>

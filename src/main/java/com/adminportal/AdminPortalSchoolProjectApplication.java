@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-
+import org.springframework.core.env.Environment;
 
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
@@ -36,6 +36,9 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	
 	@Autowired
 	private RoleDetailService roleService;
+	
+	@Autowired
+	private Environment env;
 	
 	
 	@Override
@@ -57,9 +60,12 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	@Override
 	public void run(String... args) throws Exception {
 		
-		new java.io.File(HomeController.uploadDirectory).mkdirs();
-		new java.io.File(HomeController.uploadTeacherDirectory).mkdirs();
+		boolean vik=new java.io.File(env.getProperty("spring.applicationexternalPath.name")+HomeController.uploadDirectory).mkdirs();
+		new java.io.File(env.getProperty("spring.applicationexternalPath.name")+HomeController.uploadTeacherDirectory).mkdirs();
+		System.out.println(vik);
+		System.out.println(env.getProperty("spring.applicationexternalPath.name")+HomeController.uploadDirectory);
 		
+		System.out.println("starting of application");
 		User usr=new User();
 		usr.setId(1);
 		usr.setFname("spoken");
