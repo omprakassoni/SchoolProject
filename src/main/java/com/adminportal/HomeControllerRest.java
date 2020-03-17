@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -382,6 +383,7 @@ public class HomeControllerRest {
 			subjectName.add(s.getSub().getSubName());
 		}
 		
+		Collections.sort(subjectName);
 		
 		return subjectName;
 		
@@ -389,6 +391,32 @@ public class HomeControllerRest {
 	
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
+	/*------------------------------------- LOAD CLASS BY SUBJECT NAME------------------------------------------------------*/
+	
+	@PostMapping("/loadBySubjectName")
+	public @ResponseBody List<Integer> loadBySubjectName(@Valid @RequestBody Subject subjectSelected,Model om1 ){
+		
+		List<Integer> subjectName=new ArrayList<Integer>();
+		
+		Subject tempSubject=subjectService.findBySubjectName(subjectSelected.getSubName());
+		
+		System.out.println(tempSubject.getSubId());
+		
+		List<SubjectClassMapping> temp=(ArrayList<SubjectClassMapping>) subjectClassService.getClassFromSubject(tempSubject);
+		
+		for(SubjectClassMapping s:temp) {
+			System.out.println(s.getStandard().getClassName());
+			subjectName.add(s.getStandard().getClassName());
+		}
+		
+		Collections.sort(subjectName);
+		
+		return subjectName;
+		
+	}
+	
+	
+	/*------------------------------------------ END ---------------------------------------------------------------*/
 	
 	/*--------------------------------------------------LOAD BY CLASS NAME AND SUBJECT NAME----------------------------------------------------------------------*/
 	
@@ -412,6 +440,7 @@ public class HomeControllerRest {
 			topicName.add(local.getTopicName());
 		}
 	
+		Collections.sort(topicName);
 		
 		return topicName;
 		
@@ -560,8 +589,8 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOAD BY CLASS NAME----------------------------------------------------------------------*/
 		
 	@PostMapping("/loadByClass")
-	public List<String> loadByClass() {
-		List< String> local=new ArrayList<String>();
+	public List<Integer> loadByClass() {
+		List< Integer> local=new ArrayList<Integer>();
 		
 		List<Class> localClass=classService.findAll();
 		
@@ -576,8 +605,8 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOAD BY SUBJECT CLASS----------------------------------------------------------------------*/
 	
 	@PostMapping("/loadBySubjectClass")
-	public Set<String> loadBySubjectClass(@Valid @RequestBody Subject sub){
-		Set<String> subName= new HashSet<String>();
+	public Set<Integer> loadBySubjectClass(@Valid @RequestBody Subject sub){
+		Set<Integer> subName= new HashSet<Integer>();
 		
 		Subject localSub=subjectService.findById(sub.getSubId());
 		
@@ -789,15 +818,18 @@ public class HomeControllerRest {
 		Set<SubjectClassMapping> subjectClassMapping=new HashSet<SubjectClassMapping>();
 		
 		if(size>1) {
-			String sub=data.get(size-1);
+			String sub=data.get(size-2);
 			int idsub=Integer.parseInt(sub);
 			System.out.println(sub);
 			Subject subject=subjectService.findById(idsub);
 			
-			for(int i=0;i<size-1;i++) {
-				Class classTemp=classService.findByClassName(data.get(i));
-				subjectClassMapping.add(new SubjectClassMapping(subjectClassService.countRow()+index++,classTemp,subject));
+			subjectService.updateSubjectName(data.get(size-1), idsub);
 				
+			
+			for(int i=0;i<size-2;i++) {
+				Class classTemp=classService.findByClassName(Integer.parseInt(data.get(i)));
+				subjectClassMapping.add(new SubjectClassMapping(subjectClassService.countRow()+index++,classTemp,subject));
+				System.out.println(classTemp.getClassName());
 			}
 			
 			subjectClassService.createSubjectClass(subject, subjectClassMapping);
@@ -819,7 +851,7 @@ public class HomeControllerRest {
 	/*--------------------------------------------------UPDATING TOPIC----------------------------------------------------------------------*/
 	
 	@PostMapping("/updateTopic")
-	public @ResponseBody List<String> updateTopic(@RequestParam("posterQ") MultipartFile[] uploadfiles, @RequestParam("topicDesc") String desc, @RequestParam("TopicId") String TopicID){
+	public @ResponseBody List<String> updateTopic(@RequestParam("posterQ") MultipartFile[] uploadfiles, @RequestParam("topicDesc") String desc, @RequestParam("TopicId") String TopicID, @RequestParam("TopicName") String topicName) throws Exception{
 		List<String> msg=new ArrayList<String>();
 		
 		boolean fileExist=true;
@@ -858,7 +890,7 @@ public class HomeControllerRest {
 			int indexToStart=newFilePath.indexOf("Media");
 			String posterPath=newFilePath.substring(indexToStart, newFilePath.length());
 			
-			status=topicService.updateTopic(desc, posterPath, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
+			status=topicService.updateTopic(desc, posterPath,topicName, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
 			
 			
 			if(status) {
@@ -880,7 +912,7 @@ public class HomeControllerRest {
 			}
 			}else {
 				
-				status=topicService.updateTopicDesc(desc, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
+				status=topicService.updateTopicDesc(desc,topicName, ServiceUtility.getCurrentTime(), temptopic.getTopicId());
 				
 				if(status) {
 					msg.add("Success");
@@ -907,7 +939,7 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/updateQuiz")
-	public @ResponseBody List<String> updateQuiz(@RequestParam("question") MultipartFile[] uploadQuestion, @RequestParam("answer") MultipartFile[] uploadAnswer, @RequestParam("quizId") String quizID){
+	public @ResponseBody List<String> updateQuiz(@RequestParam("question") MultipartFile[] uploadQuestion, @RequestParam("answer") MultipartFile[] uploadAnswer, @RequestParam("quizId") String quizID) throws Exception{
 		List<String> msg=new ArrayList<String>();
 		boolean fileExistAnswer=true;
 		boolean fileExistQuestion=true;
@@ -1074,7 +1106,7 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/updateDocument")
-	public @ResponseBody List<String> updateDocument(@RequestParam("document") MultipartFile[] uploadQuestion,@RequestParam("documentsource") String dSource,@RequestParam("documentId") String documentId,@RequestParam("documentDesc") String desc){
+	public @ResponseBody List<String> updateDocument(@RequestParam("document") MultipartFile[] uploadQuestion,@RequestParam("documentsource") String dSource,@RequestParam("documentId") String documentId,@RequestParam("documentDesc") String desc) throws Exception{
 		List<String> msg=new ArrayList<String>();
 		boolean fileExist=true;
 		
@@ -1148,7 +1180,7 @@ public class HomeControllerRest {
 	/*--------------------------------------------------UPDATING CONCEPT-MAP-------------------------------------------------------------*/
 	
 	@PostMapping("/updateConcept")
-	public @ResponseBody List<String> updateConcept(@RequestParam("conceptImage") MultipartFile[] conceptImage,@RequestParam("conceptDesc") String desc,@RequestParam("conceptId") String conceptId,@RequestParam("conceptHeadline") String remark){
+	public @ResponseBody List<String> updateConcept(@RequestParam("conceptImage") MultipartFile[] conceptImage,@RequestParam("conceptDesc") String desc,@RequestParam("conceptId") String conceptId,@RequestParam("conceptHeadline") String remark) throws Exception{
 		List<String> msg=new ArrayList<String>();
 		
 		boolean fileExist=true;
@@ -1337,7 +1369,7 @@ public class HomeControllerRest {
 	/*--------------------------------------------------UPDATING Lesson Plan----------------------------------------------------------------------*/
 	
 	@PostMapping("/updateLesson")
-	public @ResponseBody List<String> updateLesson(@RequestParam("lessonPlan") MultipartFile[] uploadLessonPlan,@RequestParam("lessonId") String documentId){
+	public @ResponseBody List<String> updateLesson(@RequestParam("lessonPlan") MultipartFile[] uploadLessonPlan,@RequestParam("lessonId") String documentId) throws Exception{
 		List<String> msg=new ArrayList<String>();
 		
 		if(!ServiceUtility.checkFileExtensionPDF(uploadLessonPlan)) {
@@ -2192,7 +2224,7 @@ public class HomeControllerRest {
 		
 		
 		try {
-			Class localClass=classService.findByClassName(classSelected);
+			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
@@ -2256,7 +2288,7 @@ public class HomeControllerRest {
 			}
 			
 
-			Class localClass=classService.findByClassName(classSelected);
+			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
@@ -2323,7 +2355,7 @@ public class HomeControllerRest {
 
 			
 
-			Class localClass=classService.findByClassName(classSelected);
+			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
@@ -2380,7 +2412,7 @@ public class HomeControllerRest {
 			
 			
 
-			Class localClass=classService.findByClassName(classSelected);
+			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
@@ -2457,7 +2489,7 @@ public class HomeControllerRest {
 			
 			User usr=userService.findByUsername(userID);
 			
-			Class localClass=classService.findByClassName(classSelected);
+			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
@@ -2498,6 +2530,7 @@ public class HomeControllerRest {
 		if(!ServiceUtility.checkFileExtensionPDF(uploadDocument)) {
 			
 			status.add("failure");
+			System.out.println("fail-document");
 			return status;
 			
 		}
@@ -2514,7 +2547,7 @@ public class HomeControllerRest {
 			String path=path1.substring(indexToStart, path1.length());
 			
 
-			Class localClass=classService.findByClassName(classSelected);
+			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
@@ -2533,6 +2566,7 @@ public class HomeControllerRest {
 		} catch (Exception e) {
 			
 			status.add("failure");
+			e.printStackTrace();
 			
 		}
 		
@@ -2568,7 +2602,7 @@ public class HomeControllerRest {
 			String path=path1.substring(indexToStart, path1.length());
 			
 
-			Class localClass=classService.findByClassName(classSelected);
+			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
 			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);

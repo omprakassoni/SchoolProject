@@ -1,435 +1,528 @@
 <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head >
-    
-     <div th:replace="common/header :: common-header">
-    
-    	</div>
-    
-    	<title> Content</title>
-    
-    
-    
-        
-    </head>
-    <body >
-    
-    	<!--  CODE FOR NAVBAR -->			
-    <div th:replace="common/header :: navbar"></div>
-    
-    <!--  CODE FOR DISPLAYING SUBJECTNAME AND CLASSNAME ALONG WITH TOPICNAME -->
-    
-    
-    <div class="" style="background-color:rgb(10,42,102)">
-    	<div class="container">
-    		
-    		<span style="display:flex">
-    		<h4 style="color:white ;margin-bottom:0px"><span th:text="${classSelected}"></span>/</h4>
-    		
-    		<h4 style="color:white;margin-bottom:0px"><span th:text="${subjectSelected}"></span></h4>
-    	
-    		
-    		</span>
-    		<h1 style="color:white;font-weight:bold"><span th:text="${TopicSelected.getTopicName()}"></span></h1>
-    	
-    	
-    	</div>
-    </div>
-    
-  
-  <!--  CODE FOR ENTIRE CONTENT  --> 
-  
-    <div class="container-fluid" style="padding:50px">          
-		<div class="row">
-  			<div class="col-3">
-      			<label><h1>Resources</h1></label>
-    			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-				      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-Concept-map" role="tab" aria-controls="v-pills-home" aria-selected="true">Concept-Maps</a>
-				      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-Tutorial" role="tab" aria-controls="v-pills-profile" aria-selected="false">Tutorial</a>
-				      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-Phets" role="tab" aria-controls="v-pills-messages" aria-selected="false">Phets</a>
-				      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-Links" role="tab" aria-controls="v-pills-settings" aria-selected="false">Links</a>
-				      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-Lesson-plan" role="tab" aria-controls="v-pills-settings" aria-selected="false">Lesson Plan</a>
-				      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-Quiz" role="tab" aria-controls="v-pills-settings" aria-selected="false">Quiz</a>
-    			</div>
-  			</div>
-  			
-  			<div class="col-9">
-    			<div class="tab-content" id="v-pills-tabContent">
-    			
-    			<!-- Description of topic with poster will get displayed to the User on first visit of the Website   -->
-    			
-    			
-      			<div class="tab-pane fade show active" id="" role="tabpanel" aria-labelledby="v-pills-home-tab">
-        		
-        			<img class = "img-responsive" th:src="@{/files/}+@{${TopicSelected.getPoster()}}" style="width:100%;height:400px"/>
-        			 <br/>
-        			<h3 th:text="${TopicSelected.getDescription()}"></h3>
-          			
-      			</div>
-      			
-      			
-      			<!--  CODE FOR CONCEPTS-MAPS       -->
-      			
-      			<div class="tab-pane fade show" id="v-pills-Concept-map" role="tabpanel" aria-labelledby="v-pills-home-tab">
-        		
-        			<div class="clearfix"></div>
-				      <div class="row" th:each="concept:${ConceptOnTopic}" style="padding:10px">
-				      	
-				      	
-				      			<div class="col-12">
-				      			<h2 th:text="${concept.getRemark()}" style="color:blue"></h2>
-	                          	</div>
-				      		
-				 
-				      
-								<div class="col-6">
-									<h4 th:text="${concept.getDescription()}"></h4>
-								</div>
-								
-								<div class="col-6" >
-								
-									<img class = "img-responsive" th:src="@{/files/}+@{${concept.getUrl()}}" style="width:100%;height:300px"/>
-							
-								</div>
-								      
-				      
-				      
-				      </div>
-			      
-			      <span th:if="${ConceptError}">
-							<h1 style="text-align:center;color:red;" th:text="${ConceptError}"/>
-				  </span>	
-			      
-        			
-			      
-        		
-        		
-      			</div>
-      			
-      			<!--  CODE FOR TUTORIAL -->
-      			
-			      <div class="tab-pane fade" id="v-pills-Tutorial" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-			      	  
-			      	  <div class="clearfix"></div>
-			      		<div class="row" th:each="tutorial:${TutorialOnTopic}" style="padding:10px">
-			      	
-			      		<div class="col-4">
-			      			
-			      			
-			      				<a th:href="${tutorial.getVideo_url()}" target="_blank"><img th:src="${tutorial.getThumbnail_path()}" style="width:80%;height:80%"/></a>
-			      			
-                            
-			      			
-			      		</div>
-			      
-						<div class="col-1">
-						</div>
-						
-						<div class="col-7" >
-						
-							<h3 th:text="${tutorial.getTut_name()}"></h3><br/>
-							<pre><h6 th:text="${tutorial.getOutline()}"></h6></pre>
-							
-						</div>	
-						
-							      
-			      
-			      
-			      </div>
-			      
-			      
-			      
-			      
-			       <span th:if="${TutorialError}">
-							<h1 style="text-align:center;color:red;" th:text="${TutorialError}"/>
-				  </span>	
-			      
-			      </div>
-			      
-			    <!-- CODE FOR PHETS -->
-			    
-			      <div class="tab-pane fade" id="v-pills-Phets" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-			      
-			    	<p style="float:right"><a href="https://spoken-tutorial.org/tutorial-search/?search_foss=PhET&search_language=English" >Check Out how to Use Phets</a></p>
-			    	
-			    	
-			      <div class="clearfix"></div>
-			      <div class="row" th:each="phet:${PhetOnTopic}" style="padding:10px">
-			      	
-			      		<div class="col-4">
-			      			<div class="embed-responsive embed-responsive-16by9">
-			      			
-                                        <iframe class="embed-responsive-item" th:src="${phet.getUrl()}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
-                             </div>
-			      			
-			      		</div>
-			      
-						<div class="col-1">
-						</div>
-						
-						<div class="col-7" style="padding-top:30px">
-						
-							<h3 th:text="${phet.getDescription()}"></h3>
-							
-						</div>	
-						
-							      
-			      
-			      
-			      </div>
-			      
-			      <span th:if="${PhetError}">
-							<h1 style="text-align:center;color:red;" th:text="${PhetError}"/>
-				  </span>	
-			      
-			     
-			      </div>
-			      
-			      <!--  CODE FOR LINKS -->
-			      
-			      <div class="tab-pane fade" id="v-pills-Links" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-			      
-			      <ul class="nav nav-tabs" id="myTab" role="tablist">
-						  <li class="nav-item">
-						    <a class="nav-link active" id="video-tab" data-toggle="tab" href="#Video" role="tab" aria-controls="home"
-						      aria-selected="true">Video</a>
-						  </li>
-						  <li class="nav-item">
-						    <a class="nav-link" id="link-tab" data-toggle="tab" href="#Links" role="tab" aria-controls="profile"
-						      aria-selected="false">Links</a>
-						  </li>
-						  <li class="nav-item">
-						    <a class="nav-link" id="document-tab" data-toggle="tab" href="#Document" role="tab" aria-controls="contact"
-						      aria-selected="false">Document</a>
-						  </li>
-				</ul>
-						<div class="tab-content" id="myTabContent">
-						  <div class="tab-pane fade show active" id="Video" role="tabpanel" aria-labelledby="Video-tab">
-						  
-						  	<div class="clearfix"></div>
-			     			 <div class="row" th:each="video:${VideoOnTopic}" style="padding-top:30px">
-			      	
-			      				<div class="col-4">
-			      					<div class="embed-responsive embed-responsive-16by9">
-			      			
-                                        <iframe class="embed-responsive-item" th:src="${video.getUrl()}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
-                            		 </div>
-                            		 <Strong style="display:flex;padding-top:10px;font-weight:900;text-align:center"><h5 >Source</h5> <h5 style="padding-left:15px;color:red" th:text="${video.getSource()}"> </h5></Strong>
-			      			
-			      				</div>
-			      
-							<div class="col-1">
-							</div>
-						
-							<div class="col-7" style="padding-top:30px">
-							
-								<h3 th:text="${video.getDescription()}"></h3>
-								
-							</div>			      
-			      
-			      
-			      			</div>
-			      			
-			      			<span th:if="${VideoError}">
-									<h1 style="text-align:center;color:red;" th:text="${VideoError}"/>
-							 </span>
-						 
-						  
-						  </div>
-						  
-						  
-						  <div class="tab-pane fade" id="Links" role="tabpanel" aria-labelledby="Links-tab">
-						  
-						  <div class="row" style="padding-top:30px">
-						  	<div class="col-6">
-						  		<h2>Description</h2>
-						  	
-						  	</div>
-						  	<div class="col-6">
-						  		<h2>URL</h2>
-						  	</div>
-						  </div>
-						  <hr/>
-						  
-						  	
-						  	 <div class="row" th:each="link:${ArticleOnTopic}" style="padding-bottom:30px">
-			      	
-			      				<div class="col-6">
-			      					
-			      					<h3 th:text="${link.getDescription()}"></h3>
-                            		 <Strong style="display:flex;padding-top:10px;font-weight:900;text-align:center;color:#660000"><h5 >Source</h5> <h5 style="padding-left:15px;color:red" th:text="${link.getSource()}"> </h5></Strong>
-			      			
-			      				</div>
-			      
-							
-						
-							<div class="col-6">
-							
-								<a th:href="${link.getUrl()}" target="_blank"><h3 th:text="${link.getUrl()}"></h3></a>
-								
-							</div>			      
-			      
-			      			<hr/>
-			      			</div>
-						  
-						    <span th:if="${ArticleError}">
-									<h1 style="text-align:center;color:red;" th:text="${ArticleError}"/>
-							 </span>
-				
-						 
-						  
-						  
-						  </div>
-						  <div class="tab-pane fade" id="Document" role="tabpanel" aria-labelledby="Document-tab">
-						  
-						  
-						  
-						  <div class="row" style="padding-top:30px">
-						  	<div class="col-6">
-						  		<h2>Description</h2>
-						  	
-						  	</div>
-						  	<div class="col-6">
-						  		<h2>Document</h2>
-						  	</div>
-						  </div>
-						  <hr/>
-						  
-						  	
-						  	 <div class="row" th:each="document:${DocumentOnTopic}" style="padding-bottom:30px">
-			      	
-			      				<div class="col-6">
-			      					
-			      					<h3 th:text="${document.getDescription()}"></h3>
-                            		 <Strong style="display:flex;padding-top:10px;font-weight:900;text-align:center;color:#660000"><h5 >Source</h5> <h5 style="padding-left:15px;color:red" th:text="${document.getSource()}"> </h5></Strong>
-			      			
-			      				</div>
-			      
-							
-						
-							<div class="col-6">
-							
-								<a th:href="@{/files/}+@{${document.getUrl()}}" target="_blank"><h3> Check Out </h3></a>
-								
-							</div>			      
-			      
-			      
-			      			</div>
-			      			
-			      			  <span th:if="${DocumentError}">
-									<h1 style="text-align:center;color:red;" th:text="${DocumentError}"/>
-							  </span>
-						  
-				
-						  
-						  
-						  
-						  </div>
-						</div>
-						
-					
-			      </div>
-			      
-			      
-			      <!--  CODE FOR LESSON PLAN -->
-			      
-			      <div class="tab-pane fade" id="v-pills-Lesson-plan" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-			      
-			      		<div class="table-responsive" th:each="lesson:${LessonOnTopic}" style="padding-bottom:10px">
-						  <table class="table" >
-						    <thead>
-						      <tr>
-				
-						         <th colspan=""><h2>Lesson Plan</h2></th>
-						      </tr>
-						    </thead>
-						    <tbody>
-						    	<tr >
-						    		<td><h2><a th:href="@{/files/}+@{${lesson.getLessonPlan()}}" style="color:blue" target="_blank">Download</a></h2></td>
-						    
-						    	</tr>
-						  
-						    </tbody>
-						    </table>
-					
-			      </div>
-			      
-			        <span th:if="${LessonError}">
-					<h1 style="text-align:center;color:red;" th:text="${LessonError}"/>
-					</span>
-			      
-			      
-			     
-			      </div>
-			      
-			      <!-- CODE FOR QUIZ -->
-			      
-			      <div class="tab-pane fade" id="v-pills-Quiz" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-			      
-			      <div class="table-responsive" th:each="quiz:${QuizOnTopic}" style="padding-bottom:10px">
-						  <table class="table" >
-						    <thead>
-						      <tr>
-				
-						         <th colspan="4"><h2 th:text="${quiz.getRemark()}"></h2></th>
-						      </tr>
-						    </thead>
-						    <tbody>
-						    	<tr >
-						    		<td><h3>Question Set </h3></td>
-						    		<td><h2><a th:href="@{/files/}+@{${quiz.getQuestion()}}" style="color:blue" target="_blank">Download</a></h2></td>
-						    		
-						    		
-						    		
-						    		<td>
-						    			<span th:if="${LoggedUserRole==null or LoggedUserRole=='Learner'}"></span>
-						    			<span th:unless="${LoggedUserRole==null or LoggedUserRole=='Learner'}"><h3>Answer</h3></span> 
-						    		</td>
-						    		<td>
-						    			<span th:if="${LoggedUserRole==null or LoggedUserRole=='Learner'}"></span>
-						    			<span th:unless="${LoggedUserRole==null or LoggedUserRole=='Learner'}">
-						    			<h2><a th:href="@{/files/}+@{${quiz.getAnswer()}}" style="color:blue" target="_blank">Download</a></h2></span>
-						    		</td>
-						    		
-						    	</tr>
-						
-						    </tbody>
-						   </table>
-									      
-			       
-			      
-			      
-			      </div>
-			      
-			      <span th:if="${QuizError}">
-					<h1 style="text-align:center;color:red;" th:text="${QuizError}"/>
-				</span>
-  			  </div>
-  			  
-  			  
-  			</div>
+<head>
+
+<div th:replace="common/header :: common-header"></div>
+
+<title>Content</title>
+
+
+
+
+</head>
+<body>
+
+	<!--  CODE FOR NAVBAR -->
+	<div th:replace="common/header :: navbar"></div>
+
+	<!--  CODE FOR DISPLAYING SUBJECTNAME AND CLASSNAME ALONG WITH TOPICNAME -->
+
+
+	<div class="" style="background-color: rgb(10, 42, 102)">
+		<div class="container">
+
+			<span style="display: flex">
+				<h4 style="color: white; margin-bottom: 0px">
+					<span th:text="'Class '+${classSelected}"></span>/
+				</h4>
+
+				<h4 style="color: white; margin-bottom: 0px">
+					<span th:text="${subjectSelected}"></span>
+				</h4>
+
+
+			</span>
+			<h1 style="color: white; font-weight: bold">
+				<span th:text="${TopicSelected.getTopicName()}"></span>
+			</h1>
+
+
 		</div>
-       
-	</div>  
-    
-    
-  <!--  END OF CONTENT -->  
-    
-	
-		
-		
-		
+	</div>
+
+
+	<!--  CODE FOR ENTIRE CONTENT  -->
+
+
+
+
+	<div class="container-fluid" style="padding: 50px">
+		<div class="row">
+
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<label><h1>Resources</h1></label>
+				<div class="nav flex-column nav-pills" id="v-pills-tab"
+					role="tablist" aria-orientation="vertical">
+					<a class="nav-link" id="v-pills-home-tab" data-toggle="pill"
+						href="#v-pills-Concept-map" role="tab"
+						aria-controls="v-pills-home" aria-selected="true">Concept-Maps</a>
+					<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill"
+						href="#v-pills-Tutorial" role="tab"
+						aria-controls="v-pills-profile" aria-selected="false">Tutorial</a>
+					<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill"
+						href="#v-pills-Phets" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">Phets</a> <a class="nav-link"
+						id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-Links"
+						role="tab" aria-controls="v-pills-settings" aria-selected="false">Links</a>
+					<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill"
+						href="#v-pills-Lesson-plan" role="tab"
+						aria-controls="v-pills-settings" aria-selected="false">Lesson
+						Plan</a> <a class="nav-link" id="v-pills-settings-tab"
+						data-toggle="pill" href="#v-pills-Quiz" role="tab"
+						aria-controls="v-pills-settings" aria-selected="false">Quiz</a>
+				</div>
+			</div>
+
+
+
+
+			<div class="col-xs-12 col-sm-6 col-md-9 col-lg-9">
+				<div class="tab-content" id="v-pills-tabContent">
+
+					<!-- Description of topic with poster will get displayed to the User on first visit of the Website   -->
+
+
+					<div class="tab-pane fade show active" id="" role="tabpanel"
+						aria-labelledby="v-pills-home-tab">
+
+						<img class="img-responsive"
+							th:src="@{/files/}+@{${TopicSelected.getPoster()}}"
+							style="width: 100%; height: 400px" /> <br />
+						<h3 th:text="${TopicSelected.getDescription()}"></h3>
+
+					</div>
+
+
+					<!--  CODE FOR CONCEPTS-MAPS       -->
+
+					<div class="tab-pane fade show" id="v-pills-Concept-map"
+						role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+						<div class="clearfix"></div>
+						<div class="row" th:each="concept:${ConceptOnTopic}"
+							style="padding: 10px">
+
+
+							<div class="col-12">
+								<h2 th:text="${concept.getRemark()}" style="color: blue"></h2>
+							</div>
+
+
+
+							<div class="col-6">
+								<h4 th:text="${concept.getDescription()}"></h4>
+							</div>
+
+							<div class="col-6">
+
+								<img class="img-responsive"
+									th:src="@{/files/}+@{${concept.getUrl()}}"
+									style="width: 100%; height: 300px" />
+
+							</div>
+
+
+
+						</div>
+
+						<span th:if="${ConceptError}">
+							<h1 style="text-align: center; color: red;"
+								th:text="${ConceptError}" />
+						</span>
+
+
+
+
+
+					</div>
+
+					<!--  CODE FOR TUTORIAL -->
+
+					<div class="tab-pane fade" id="v-pills-Tutorial" role="tabpanel"
+						aria-labelledby="v-pills-profile-tab">
+
+						<div class="clearfix"></div>
+						<div class="row" th:each="tutorial:${TutorialOnTopic}"
+							style="padding: 10px">
+
+							<div class="col-4">
+
+
+								<a th:href="${tutorial.getVideo_url()}" target="_blank"><img
+									th:src="${tutorial.getThumbnail_path()}"
+									style="width: 80%; height: 80%" /></a>
+
+
+
+							</div>
+
+							<div class="col-1"></div>
+
+							<div class="col-7">
+
+								<h3 th:text="${tutorial.getTut_name()}"></h3>
+								<br />
+								<pre>
+									<h6 th:text="${tutorial.getOutline()}"></h6>
+								</pre>
+
+							</div>
+
+
+
+
+						</div>
+
+
+
+
+						<span th:if="${TutorialError}">
+							<h1 style="text-align: center; color: red;"
+								th:text="${TutorialError}" />
+						</span>
+
+					</div>
+
+					<!-- CODE FOR PHETS -->
+
+					<div class="tab-pane fade" id="v-pills-Phets" role="tabpanel"
+						aria-labelledby="v-pills-messages-tab">
+
+						<p style="float: right">
+							<a
+								href="https://spoken-tutorial.org/tutorial-search/?search_foss=PhET&search_language=English">Check
+								Out how to Use Phets</a>
+						</p>
+
+
+						<div class="clearfix"></div>
+						<div class="row" th:each="phet:${PhetOnTopic}"
+							style="padding: 10px">
+
+							<div class="col-4">
+								<div class="embed-responsive embed-responsive-16by9">
+
+									<iframe class="embed-responsive-item" th:src="${phet.getUrl()}"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+
+							</div>
+
+							<div class="col-1"></div>
+
+							<div class="col-7" style="padding-top: 30px">
+
+								<h3 th:text="${phet.getDescription()}"></h3>
+
+							</div>
+
+
+
+
+						</div>
+
+						<span th:if="${PhetError}">
+							<h1 style="text-align: center; color: red;"
+								th:text="${PhetError}" />
+						</span>
+
+
+					</div>
+
+					<!--  CODE FOR LINKS -->
+
+					<div class="tab-pane fade" id="v-pills-Links" role="tabpanel"
+						aria-labelledby="v-pills-settings-tab">
+
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item"><a class="nav-link active"
+								id="video-tab" data-toggle="tab" href="#Video" role="tab"
+								aria-controls="home" aria-selected="true">Video</a></li>
+							<li class="nav-item"><a class="nav-link" id="link-tab"
+								data-toggle="tab" href="#Links" role="tab"
+								aria-controls="profile" aria-selected="false">Links</a></li>
+							<li class="nav-item"><a class="nav-link" id="document-tab"
+								data-toggle="tab" href="#Document" role="tab"
+								aria-controls="contact" aria-selected="false">Document</a></li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="Video" role="tabpanel"
+								aria-labelledby="Video-tab">
+
+								<div class="clearfix"></div>
+								<div class="row" th:each="video:${VideoOnTopic}"
+									style="padding-top: 30px">
+
+									<div class="col-4">
+										<div class="embed-responsive embed-responsive-16by9">
+
+											<iframe class="embed-responsive-item"
+												th:src="${video.getUrl()}" frameborder="0"
+												allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen></iframe>
+										</div>
+										<Strong
+											style="display: flex; padding-top: 10px; font-weight: 900; text-align: center"><h5>Source</h5>
+											<h5 style="padding-left: 15px; color: red"
+												th:text="${video.getSource()}"></h5></Strong>
+
+									</div>
+
+									<div class="col-1"></div>
+
+									<div class="col-7" style="padding-top: 30px">
+
+										<h3 th:text="${video.getDescription()}"></h3>
+
+									</div>
+
+
+								</div>
+
+								<span th:if="${VideoError}">
+									<h1 style="text-align: center; color: red;"
+										th:text="${VideoError}" />
+								</span>
+
+
+							</div>
+
+
+							<div class="tab-pane fade" id="Links" role="tabpanel"
+								aria-labelledby="Links-tab">
+
+								<div class="row" style="padding-top: 30px">
+									<div class="col-6">
+										<h2>Description</h2>
+
+									</div>
+									<div class="col-6">
+										<h2>URL</h2>
+									</div>
+								</div>
+								<hr />
+
+
+								<div class="row" th:each="link:${ArticleOnTopic}"
+									style="padding-bottom: 30px">
+
+									<div class="col-6">
+
+										<h3 th:text="${link.getDescription()}"></h3>
+										<Strong
+											style="display: flex; padding-top: 10px; font-weight: 900; text-align: center; color: #660000"><h5>Source</h5>
+											<h5 style="padding-left: 15px; color: red"
+												th:text="${link.getSource()}"></h5></Strong>
+
+									</div>
+
+
+
+									<div class="col-6">
+
+										<a th:href="${link.getUrl()}" target="_blank"><h3
+												th:text="${link.getUrl()}"></h3></a>
+
+									</div>
+
+									<hr />
+								</div>
+
+								<span th:if="${ArticleError}">
+									<h1 style="text-align: center; color: red;"
+										th:text="${ArticleError}" />
+								</span>
+
+
+
+
+							</div>
+							<div class="tab-pane fade" id="Document" role="tabpanel"
+								aria-labelledby="Document-tab">
+
+
+
+								<div class="row" style="padding-top: 30px">
+									<div class="col-6">
+										<h2>Description</h2>
+
+									</div>
+									<div class="col-6">
+										<h2>Document</h2>
+									</div>
+								</div>
+								<hr />
+
+
+								<div class="row" th:each="document:${DocumentOnTopic}"
+									style="padding-bottom: 30px">
+
+									<div class="col-6">
+
+										<h3 th:text="${document.getDescription()}"></h3>
+										<Strong
+											style="display: flex; padding-top: 10px; font-weight: 900; text-align: center; color: #660000"><h5>Source</h5>
+											<h5 style="padding-left: 15px; color: red"
+												th:text="${document.getSource()}"></h5></Strong>
+
+									</div>
+
+
+
+									<div class="col-6">
+
+										<a th:href="@{/files/}+@{${document.getUrl()}}"
+											target="_blank"><h3>Check Out</h3></a>
+
+									</div>
+
+
+								</div>
+
+								<span th:if="${DocumentError}">
+									<h1 style="text-align: center; color: red;"
+										th:text="${DocumentError}" />
+								</span>
+
+
+
+
+
+							</div>
+						</div>
+
+
+					</div>
+
+
+					<!--  CODE FOR LESSON PLAN -->
+
+					<div class="tab-pane fade" id="v-pills-Lesson-plan" role="tabpanel"
+						aria-labelledby="v-pills-settings-tab">
+
+						<div class="table-responsive" th:each="lesson:${LessonOnTopic}"
+							style="padding-bottom: 10px">
+							<table class="table">
+								<thead>
+									<tr>
+
+										<th colspan=""><h2>Lesson Plan</h2></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><h2>
+												<a th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
+													style="color: blue" target="_blank">Download</a>
+											</h2></td>
+
+									</tr>
+
+								</tbody>
+							</table>
+
+						</div>
+
+						<span th:if="${LessonError}">
+							<h1 style="text-align: center; color: red;"
+								th:text="${LessonError}" />
+						</span>
+
+
+
+					</div>
+
+					<!-- CODE FOR QUIZ -->
+
+					<div class="tab-pane fade" id="v-pills-Quiz" role="tabpanel"
+						aria-labelledby="v-pills-settings-tab">
+
+						<div class="table-responsive" th:each="quiz:${QuizOnTopic}"
+							style="padding-bottom: 10px">
+							<table class="table">
+								<thead>
+									<tr>
+
+										<th colspan="4"><h2 th:text="${quiz.getRemark()}"></h2></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><h3>Question Set</h3></td>
+										<td><h2>
+												<a th:href="@{/files/}+@{${quiz.getQuestion()}}"
+													style="color: blue" target="_blank">Download</a>
+											</h2></td>
+
+
+
+										<td><span
+											th:if="${LoggedUserRole==null or LoggedUserRole=='Learner'}"></span>
+											<span
+											th:unless="${LoggedUserRole==null or LoggedUserRole=='Learner'}"><h3>Answer</h3></span>
+										</td>
+										<td><span
+											th:if="${LoggedUserRole==null or LoggedUserRole=='Learner'}"></span>
+											<span
+											th:unless="${LoggedUserRole==null or LoggedUserRole=='Learner'}">
+												<h2>
+													<a th:href="@{/files/}+@{${quiz.getAnswer()}}"
+														style="color: blue" target="_blank">Download</a>
+												</h2>
+										</span></td>
+
+									</tr>
+
+								</tbody>
+							</table>
+
+
+
+
+						</div>
+
+						<span th:if="${QuizError}">
+							<h1 style="text-align: center; color: red;"
+								th:text="${QuizError}" />
+						</span>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+
+		<!--  END OF CONTENT -->
+
+
+
+
+
 		<span th:if="${NoTopicAvailable}">
-					<h1 style="text-align:center;color:red;" th:text="${NoTopicAvailable}"/>
+			<h1 style="text-align: center; color: red;"
+				th:text="${NoTopicAvailable}" />
 		</span>
-		
-			
-			
-        
-    
-        	<!--  COMMON CODE FOR LIBRARY ADDED -->
-       <div th:replace="common/header :: body-bottom-scripts"></div>
-    </body>
+
+
+
+
+
+		<!--  COMMON CODE FOR LIBRARY ADDED -->
+		<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+		<script>
+		    $("#menu-toggle").click(function(e) {
+		      e.preventDefault();
+		      $("#wrapper").toggleClass("toggled");
+		    });
+  		</script>
+</body>
 
 </html>

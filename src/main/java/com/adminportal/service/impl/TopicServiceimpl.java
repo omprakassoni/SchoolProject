@@ -85,9 +85,9 @@ public class TopicServiceimpl implements TopicService {
 	}
 	@Override
 	@Transactional
-	public boolean updateTopic( String desc, String poster, Timestamp date, int topicID) {
+	public boolean updateTopic( String desc, String poster,String topicName, Timestamp date, int topicID) {
 		
-		int status=topicRepo.updateTopicDescAndQuiz( desc, poster, date, topicID);
+		int status=topicRepo.updateTopicDescAndQuiz( desc, poster,topicName, date, topicID);
 		if(status>0) {
 			return true;
 		}else {
@@ -105,9 +105,27 @@ public class TopicServiceimpl implements TopicService {
 	
 	@Override
 	@Transactional
-	public boolean updateTopicDesc(String desc, Timestamp date, int topicId) {
+	public boolean updateTopicDesc(String desc,String topicName, Timestamp date, int topicId) {
 		
-		int status=topicRepo.updateTopicDesc( desc, date, topicId);
+		int status=topicRepo.updateTopicDesc( desc, topicName,date, topicId);
+		if(status>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	@Override
+	public List<Topic> findBySubjectClassMppaing(List<SubjectClassMapping> tempSubjectClass) {
+		
+		return topicRepo.findAllByStandard((ArrayList<SubjectClassMapping>) tempSubjectClass);
+	}
+	
+	
+	@Override
+	@Transactional
+	public boolean updateTopicPoster(String path, int topicId) {
+		
+		int status=topicRepo.updateTopicPoster(path, topicId);
 		if(status>0) {
 			return true;
 		}else {

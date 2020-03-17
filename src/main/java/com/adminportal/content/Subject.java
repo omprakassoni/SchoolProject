@@ -6,6 +6,7 @@
 
 package com.adminportal.content;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,9 +17,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+
+import com.adminportal.domain.User;
 
 @Entity
 @Table(name="Subject")
@@ -32,14 +37,16 @@ public class Subject {
 	@Column(name="sub_name",nullable = false)
 	private String subName;
 	
+	@Column(name="date_added",nullable = false)
+	private Timestamp dateAdded;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="user_id")
+	private User user;
 
 	@OneToMany(mappedBy ="sub",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<SubjectClassMapping> subClasMapp=new HashSet<SubjectClassMapping>();
 
-	
-
-	
 	
 	public int getSubId() {
 		return subId;
@@ -64,5 +71,23 @@ public class Subject {
 	public void setSubClasMapp(Set<SubjectClassMapping> subClasMapp) {
 		this.subClasMapp = subClasMapp;
 	}
+
+	public Timestamp getDateAdded() {
+		return dateAdded;
+	}
+
+	public void setDateAdded(Timestamp dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
 
 }

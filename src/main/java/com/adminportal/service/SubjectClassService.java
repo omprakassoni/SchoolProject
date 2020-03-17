@@ -26,8 +26,11 @@ public interface SubjectClassService {
 	
 	SubjectClassMapping findBysubAndstandard(Class tempClass,Subject subject);
 	
+	List<SubjectClassMapping> getClassFromMapping(Class classTemp);
+	
 	int countRow();
 	
+	List<SubjectClassMapping> getClassFromSubject(Subject subTemp);
 	
 	
 }

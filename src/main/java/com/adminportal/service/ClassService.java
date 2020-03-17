@@ -12,7 +12,7 @@ import com.adminportal.content.Class;
 
 public interface ClassService {
 	
-	Class findByClassName(String className);
+	Class findByClassName(int className);
 	
 	List<Class> findAll();
 	

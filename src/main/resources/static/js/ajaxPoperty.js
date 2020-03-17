@@ -1,6 +1,8 @@
 $(function(){
 	
 	var projectName="/schoolProject";
+	var DeploymentType=1;   //   use 0 -> Production Level
+							//	 use 1 -> Inhouse Level code
 	
 	
 	/**************************** Reloading Page on closing of Modal ***********************************************/
@@ -50,10 +52,114 @@ $(function(){
 	
 	
 	
+	/*-------------------------------------- Password Error Operation ----------------------------------------------*/
+	
+	$('#passwordL').change(function(){
+		
+		$('#passwordIncorrectL').css({"display": "none"});
+		
+		var password=$(this).val();
+		
+		if(password.length<6){
+			$('#passwordIncorrectL').css({"display": "block"});
+			$("#registerL").prop('disabled', true);
+		}else{
+			
+			$("#registerL").prop('disabled', false);
+		}
+		
+		
+	})
+	
+	$('#password2L').change(function(){
+		
+		$('#ConfIncorrectL').css({"display": "none"});
+	
+		
+		var password=$(this).val();
+		
+		if(password !== $('#passwordL').val()){
+			$('#ConfIncorrectL').css({"display": "block"});
+			$("#registerL").prop('disabled', true);
+		}else{
+			$("#registerL").prop('disabled', false);
+		}
+		
+		
+	})
+	
+	/*****************************************************/
+	
+		$('#passwordP').change(function(){
+		
+		$('#passwordIncorrectP').css({"display": "none"});
+		
+		var password=$(this).val();
+		
+		if(password.length<6){
+			$('#passwordIncorrectP').css({"display": "block"});
+			$("#registerP").prop('disabled', true);
+		}else{
+			$("#registerP").prop('disabled', false);
+		}
+		
+		
+	})
+	
+	$('#ConfpasswordP').change(function(){
+		
+		$('#ConfIncorrectP').css({"display": "none"});
+	
+		
+		var password=$(this).val();
+		
+		if(password !== $('#passwordP').val()){
+			$('#ConfIncorrectP').css({"display": "block"});
+			$("#registerP").prop('disabled', true);
+		}else{
+			$("#registerP").prop('disabled', false);
+		}
+		
+		
+	})
+	
+	/*-------------------------------------------------*/
+	
+		$('#passwordT').change(function(){
+		
+		$('#passwordIncorrectT').css({"display": "none"});
+		
+		var password=$(this).val();
+		
+		if(password.length<6){
+			$('#passwordIncorrectT').css({"display": "block"});
+			$("#registerT").prop('disabled', true);
+		}else{
+			$("#registerT").prop('disabled', false);
+		}
+		
+		
+	})
+	
+	$('#ConfpasswordT').change(function(){
+		
+		$('#ConfIncorrectT').css({"display": "none"});
+	
+		
+		var password=$(this).val();
+		
+		if(password !== $('#passwordT').val()){
+			$('#ConfIncorrectT').css({"display": "block"});
+			$("#registerT").prop('disabled', true);
+		}else{
+			$("#registerT").prop('disabled', false);
+		}
+		
+		
+	})
 	
 	
-	
-	
+	/*------------------------------------------------ END ----------------------------------------------------------*/
 	
 	/*****************************************END *********************************************************************/
 	
@@ -212,6 +318,53 @@ $(function(){
 	
 	// JQUERY AJAX CALL TO TAKE CONTACT DATA FROM USER SIDE ----------------------------------------
 	
+		
+		$('#name').change(function(){
+			var name=$('#name').val();
+			var email=$('#email').val();
+			var desc=$('#message').val();
+  			
+  			
+  			$("#contactForm").prop('disabled', true);
+			
+  			if(name.length>0&& email.length>0 && desc.length>0){
+  				$("#contactForm").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  		$('#email').change(function(){
+			var name=$('#name').val();
+			var email=$('#email').val();
+			var desc=$('#message').val();
+  			
+  			
+  			$("#contactForm").prop('disabled', true);
+			
+  			if(name.length>0&& email.length>0 && desc.length>0){
+  				$("#contactForm").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+  		
+  		$('#message').change(function(){
+			var name=$('#name').val();
+			var email=$('#email').val();
+			var desc=$('#message').val();
+  			
+  			
+  			$("#contactForm").prop('disabled', true);
+			
+  			if(name.length>0&& email.length>0 && desc.length>0){
+  				$("#contactForm").prop('disabled', false);
+  			}
+  			
+  			
+  		})
+		
+  		
 	
 		$('#contactForm').click(function(){
 			var name=$('#name').val();
@@ -225,15 +378,23 @@ $(function(){
 						"email":email,
 				};
 				var jsdata= JSON.stringify(json);
+				var urlPassed;
 				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/addContactForm";
+			
+	        	}else{
+	        		urlPassed= projectName+"/addContactForm";
+			
+	        	}
 				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
 				$.ajax({
-				  	type: "POST",
-		        	contentType: "application/json",
-		       		 url: projectName+"/addContactForm",
+				  	 type: "POST",
+		        	 contentType: "application/json",
+		       		 url: urlPassed,
 		       		 data: JSON.stringify(json),
 		       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -295,13 +456,23 @@ $(function(){
 					"testimonialId":testi_id
 				};
 				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/loadByTestimonialID";
+			
+	        	}else{
+	        		urlPassed= projectName+"/loadByTestimonialID";
+			
+	        	}
+				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByTestimonialID",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -343,13 +514,23 @@ $(function(){
 					"eventId":event_id
 				};
 				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/loadByEventID";
+			
+	        	}else{
+	        		urlPassed= projectName+"/loadByEventID";
+			
+	        	}
+				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByEventID",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -398,13 +579,23 @@ $(function(){
 					
 				};
 				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/updateTestimonial";
+			
+	        	}else{
+	        		urlPassed= projectName+"/updateTestimonial";
+			
+	        	}
+				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/updateTestimonial",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -461,10 +652,20 @@ $(function(){
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/updateEvent";
+			
+	        	}else{
+	        		urlPassed= projectName+"/updateEvent";
+			
+	        	}
+				
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/updateEvent",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -526,12 +727,21 @@ $(function(){
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
-
+			var urlPassed;
+			
+			if(DeploymentType){								// Url Creation based on depolyment 
+				urlPassed= "/loadByClassName";
+		
+        	}else{
+        		urlPassed= projectName+"/loadByClassName";
+		
+        	}
+			
 		
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassName",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -579,11 +789,21 @@ $(function(){
 			
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			var urlPassed;
+			
+			if(DeploymentType){								// Url Creation based on depolyment 
+				urlPassed= "/loadByClassnameAndSubject";
+		
+        	}else{
+        		urlPassed= projectName+"/loadByClassnameAndSubject";
+		
+        	}
 		
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassnameAndSubject",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -648,11 +868,20 @@ $(function(){
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
 
+			var urlPassed;
+			
+			if(DeploymentType){								// Url Creation based on depolyment 
+				urlPassed= "/loadByClassName";
+		
+        	}else{
+        		urlPassed= projectName+"/loadByClassName";
+		
+        	}
 		
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassName",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -698,13 +927,23 @@ $(function(){
 					
 			};
 			
+			var urlPassed;
+			
+			if(DeploymentType){								// Url Creation based on depolyment 
+				urlPassed= "/loadByClassnameAndSubject";
+		
+        	}else{
+        		urlPassed= projectName+"/loadByClassnameAndSubject";
+		
+        	}
+			
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 		
 			$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: projectName+"/loadByClassnameAndSubject",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(json),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -771,10 +1010,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -826,10 +1075,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassnameAndSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -893,10 +1152,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -948,10 +1217,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassnameAndSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1015,11 +1294,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   		
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1072,10 +1361,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassnameAndSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1138,6 +1437,16 @@ $(function(){
   					};
   					
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
+  					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   		
@@ -1145,7 +1454,7 @@ $(function(){
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1197,10 +1506,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassnameAndSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1263,10 +1582,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassName",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1318,10 +1647,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   				
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassnameAndSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  				
+  		        	}
+  					
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1390,13 +1729,23 @@ $(function(){
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/validateEmail";
+			
+	        	}else{
+	        		urlPassed= projectName+"/validateEmail";
+			
+	        	}
+				
 				if(data[0].length>0){
 				if(validateEmail(data)){
 				
 				$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/validateEmail",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1448,13 +1797,23 @@ $(function(){
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/validateEmail";
+			
+	        	}else{
+	        		urlPassed= projectName+"/validateEmail";
+			
+	        	}
+				
 				if(data[0].length>0){
 				if(validateEmail(data)){
 				
 				$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/validateEmail",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1506,13 +1865,23 @@ $(function(){
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/validateEmail";
+			
+	        	}else{
+	        		urlPassed= projectName+"/validateEmail";
+			
+	        	}
+				
 				if(data[0].length>0){
 				if(validateEmail(data)){
 				
 				$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/validateEmail",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1562,10 +1931,142 @@ $(function(){
 	
 	
 	//------------------------------------------------------------------END-----------------------------------------------------------
-	
+	//------------------------------------------ HOMEPAGE SUBJECT AND CLASS LOGIC ---------------------------------------
+				
+			
+			$('#inputClass').change(function(){
+  					
+  					var classname=$(this).find(":selected").val().substring(6);
+  					var json={
+  							"className":classname,
+  					};
+  					
+  					if($('#subjectHome').find(":selected").val() === "Select Subject" || $('#subjectHome').find(":selected").val() === "0" ){
+  					
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
+  		
+  				
+  					$.ajax({
+  					  	type: "POST",
+  			        	contentType: "application/json",
+  			       		 url: urlPassed,
+  			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
+  			       		 dataType: 'json',
+  			       		 cache: false,
+  			        	 timeout: 600000,
+  			       		 success: function (data){
+  			       	    var html = '';
+  			            var len = data.length;
+  			            html += '<option value="Select Subject">Select Subject</option>';
+  			            for (var i = 0; i < len; i++) {
+  			             html += '<option value="' + data[i] + '">'
+  			               + data[i]
+  			               + '</option>';
+  			            }
+  			            html += '</option>';
+  			            
+  			           
+  			            $('#subjectHome').html(html);
+  			            
+  						},
+  						
+  						error : function(err){
+  							console.log("not working. ERROR: "+JSON.stringify(err));
+  						}
+  						
+  						
+  					});
+  					
+  					}
+  				
+  					
+  				});
+  				
+  				
+  				$('#subjectHome').change(function(){
+  					
+  					var subjectName=$(this).find(":selected").val();
+  					var json={
+  							"subName":subjectName,
+  					};
+  					
+  					if($('#inputClass').find(":selected").val() === "Select Class" || $('#inputClass').find(":selected").val() === "0" ){
+  					
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadBySubjectName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadBySubjectName";
+  				
+  		        	}
+  		
+  				
+  					$.ajax({
+  					  	type: "POST",
+  			        	contentType: "application/json",
+  			       		 url: urlPassed,
+  			       		 data: JSON.stringify(json),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
+  			       		 dataType: 'json',
+  			       		 cache: false,
+  			        	 timeout: 600000,
+  			       		 success: function (data){
+  			       	    var html = '';
+  			            var len = data.length;
+  			            html += '<option value="Select Class">Select Class</option>';
+  			            for (var i = 0; i < len; i++) {
+  			             html += '<option value="Class ' + data[i] + '">Class '
+  			               + data[i]
+  			               + '</option>';
+  			            }
+  			            html += '</option>';
+  			            
+  			           
+  			            $('#inputClass').html(html);
+  			            
+  						},
+  						
+  						error : function(err){
+  							console.log("not working. ERROR: "+JSON.stringify(err));
+  						}
+  						
+  						
+  					});
+  					
+  					}
+  				
+  					
+  				});
+			
+			
   		// ------------------------------------------------ADDING TOPIC TO VIEW-----------------------------------------------------
   				
-  				$('#classSelected,#inputClass').change(function(){
+  				$('#classSelected').change(function(){
   					
   					var classname=$(this).find(":selected").val();
   					var json={
@@ -1574,12 +2075,23 @@ $(function(){
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
   		
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+'/loadByClassName',
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1630,11 +2142,21 @@ $(function(){
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassnameAndSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  				
+  		        	}
   				
   					$.ajax({
   					  	type: "POST",
   			        	contentType: "application/json",
-  			       		 url: projectName+"/loadByClassnameAndSubject",
+  			       		 url: urlPassed,
   			       		 data: JSON.stringify(json),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -1718,10 +2240,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidity";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidity";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url:projectName+"/loadByValidity",
+			       		 url:urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1765,10 +2297,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityTopic";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityTopic";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityTopic",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1810,12 +2352,22 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityPhet";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityPhet";
+  				
+  		        	}
+  					
   					
   					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityPhet",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1857,10 +2409,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityLesson";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityLesson";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityLesson",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1902,10 +2464,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityDocument";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityDocument";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityDocument",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1947,10 +2519,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityArticle";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityArticle";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityArticle",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -1992,10 +2574,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityQuiz";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityQuiz";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityQuiz",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2037,10 +2629,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityVideo";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityVideo";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityVideo",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2082,10 +2684,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityConcept";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityConcept";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url:projectName+"/loadByValidityConcept",
+			       		 url:urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2128,12 +2740,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByValidityTutorial";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByValidityTutorial";
+  				
+  		        	}
   					
   					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByValidityTutorial",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2193,10 +2814,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByUser";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByUser";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByUser",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2225,15 +2856,7 @@ $(function(){
 						
 					});
   					
-//  					$('#FirstName').attr('value','Om Prakash');
-//  					$('#LastName').attr('value','Om Prakash');
-//  					$('#Email').attr('value','Om Prakash');
-//  					$('#Sex').attr('value','Om Prakash');
-//  					$('#Role').attr('value','Om Prakash');
-//  					$('#Dob').attr('value','Om Prakash');
-//  					$('#SchoolN').attr('value','Om Prakash');
-//  					$('#SchoolA').attr('value','Om Prakash');
-//  					$('#Pincode').attr('value','Om Prakash');
+
   					
   					$('#LearnerModal').modal('show');
   				})
@@ -2271,10 +2894,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClass";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClass";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByClass",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2304,10 +2937,21 @@ $(function(){
 						
 					});
   					
+  					
+  					
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadBySubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadBySubject";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadBySubject",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2332,10 +2976,20 @@ $(function(){
 						
 					});
   					
+  					
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadBySubjectClass";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadBySubjectClass";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadBySubjectClass",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2399,16 +3053,27 @@ $(function(){
 	       					}
 	       				});
   					
-  					data[i]=$(this).val();
+  					data[i++]=$(this).val();
+  					data[i]=$('#SubjectName').val();
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/updateSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/updateSubject";
+  				
+  		        	}
   			
   					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/updateSubject",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2461,10 +3126,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByTopic";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByTopic";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByTopic",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2484,10 +3159,20 @@ $(function(){
 						
 					});
   					
+  				
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByTopicDesc";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByTopicDesc";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByTopicDesc",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2515,6 +3200,10 @@ $(function(){
   		//-----------------------------------------------------END-----------------------------------------------------------------	
   				
   		// --------------------------------- START OF UPDATE PART OF TOPIC------------------------------------------------------------
+  					
+  					$('#topicName').change(function(){
+  						$("#updateTopic").prop('disabled', false);
+  					});
   				
   					$('#topicDesc').change(function(){
 					 	$("#updateTopic").prop('disabled', false);
@@ -2553,10 +3242,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByQuizQuestionID";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByQuizQuestionID";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByQuizQuestionID",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2633,10 +3332,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByVideoID";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByVideoID";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByVideoID",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2657,10 +3366,21 @@ $(function(){
 					});
   					
   					
+  	
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByVideoIDSource";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByVideoIDSource";
+  				
+  		        	}
+  					
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByVideoIDSource",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2720,10 +3440,20 @@ $(function(){
   	  					var token = $("meta[name='_csrf']").attr("content");
   	  					var header = $("meta[name='_csrf_header']").attr("content");
   	  					
+  	  					var urlPassed;
+  					
+  	  					if(DeploymentType){								// Url Creation based on depolyment 
+  	  						urlPassed= "/loadByConceptID";
+  				
+  	  					}else{
+  		        		urlPassed= projectName+"/loadByConceptID";
+  				
+  	  					}
+  	  					
   	  					$.ajax({
   						  	type: "POST",
   				        	contentType: "application/json",
-  				       		 url: projectName+"/loadByConceptID",
+  				       		 url: urlPassed,
   				       		 data: JSON.stringify(json),
   				       		 beforeSend: function(xhr) {
   		                         xhr.setRequestHeader(header, token);
@@ -2797,10 +3527,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByArtcileID";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByArtcileID";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url:projectName+"/loadByArtcileID",
+			       		 url:urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2821,10 +3561,20 @@ $(function(){
 					});
   					
   					
+  			
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByArtcileIDDesc";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByArtcileIDDesc";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByArtcileIDDesc",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2887,10 +3637,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByDocumentID";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByDocumentID";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByDocumentID",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -2911,10 +3671,20 @@ $(function(){
 					});
   					
   					
+  				
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByDocumentIDDesc";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByDocumentIDDesc";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByDocumentIDDesc",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3021,10 +3791,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByphetID";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByphetID";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByphetID",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3045,10 +3825,20 @@ $(function(){
 					});
   					
   					
+  					
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByphetIDDesc";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByphetIDDesc";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url:projectName+"/loadByphetIDDesc",
+			       		 url:urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3122,11 +3912,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByVideoComment";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByVideoComment";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url:projectName+"/loadByVideoComment",
+			       		 url:urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3162,14 +3962,23 @@ $(function(){
 					       					 "commentid":data[i].comId
 					       			 };
 					       			 
-					       			
+					       		
+									
+									if(DeploymentType){								// Url Creation based on depolyment 
+										urlPassed= "/loadReplyOnComment";
+								
+						        	}else{
+						        		urlPassed= projectName+"/loadReplyOnComment";
+								
+						        	}
+					       			 
 					       			
 					       			$.ajax({
 					       				
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: urlPassed,
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -3305,11 +4114,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/uploadCommentOnVideo";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/uploadCommentOnVideo";
+  				
+  		        	}
+  					
   					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnVideo",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3370,11 +4189,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByArticleComment";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByArticleComment";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByArticleComment",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3408,14 +4237,22 @@ $(function(){
 					       					 "commentid":data[i].comId
 					       			 };
 					       			 
-					       			
+					       		
+									
+									if(DeploymentType){								// Url Creation based on depolyment 
+										urlPassed= "/loadReplyOnComment";
+								
+						        	}else{
+						        		urlPassed= projectName+"/loadReplyOnComment";
+								
+						        	}
 					       			
 					       			$.ajax({
 					       				
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: urlPassed,
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -3549,10 +4386,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/uploadCommentOnArticle";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/uploadCommentOnArticle";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnArticle",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3611,11 +4458,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByDocumentComment";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByDocumentComment";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByDocumentComment",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3650,13 +4507,21 @@ $(function(){
 					       			 };
 					       			 
 					       			
+									
+									if(DeploymentType){								// Url Creation based on depolyment 
+										urlPassed= "/loadReplyOnComment";
+								
+						        	}else{
+						        		urlPassed= projectName+"/loadReplyOnComment";
+								
+						        	}
 					       			
 					       			$.ajax({
 					       				
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: urlPassed,
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -3792,10 +4657,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/uploadCommentOnDocument";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/uploadCommentOnDocument";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnDocument",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3852,11 +4727,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByConceptComment";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByConceptComment";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByConceptComment",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -3891,13 +4776,21 @@ $(function(){
 					       			 };
 					       			 
 					       			
+									
+									if(DeploymentType){								// Url Creation based on depolyment 
+										urlPassed= "/loadReplyOnComment";
+								
+						        	}else{
+						        		urlPassed= projectName+"/loadReplyOnComment";
+								
+						        	}
 					       			
 					       			$.ajax({
 					       				
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: urlPassed,
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -4033,10 +4926,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/uploadCommentOnConcept";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/uploadCommentOnConcept";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnConcept",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4097,11 +5000,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByQuizComment";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByQuizComment";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByQuizComment",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4135,14 +5048,22 @@ $(function(){
 					       					 "commentid":data[i].comId
 					       			 };
 					       			 
-					       			
+					       		
+									
+									if(DeploymentType){								// Url Creation based on depolyment 
+										urlPassed= "/loadReplyOnComment";
+								
+						        	}else{
+						        		urlPassed= projectName+"/loadReplyOnComment";
+								
+						        	}
 					       			
 					       			$.ajax({
 					       				
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: urlPassed,
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -4279,10 +5200,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/uploadCommentOnQuiz";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/uploadCommentOnQuiz";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnQuiz",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4341,10 +5272,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByLessonComment";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByLessonComment";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/loadByLessonComment",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4379,13 +5320,21 @@ $(function(){
 					       			 };
 					       			 
 					       			
+									
+									if(DeploymentType){								// Url Creation based on depolyment 
+										urlPassed= "/loadReplyOnComment";
+								
+						        	}else{
+						        		urlPassed= projectName+"/loadReplyOnComment";
+								
+						        	}
 					       			
 					       			$.ajax({
 					       				
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: urlPassed,
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -4519,10 +5468,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/uploadCommentOnLesson";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/uploadCommentOnLesson";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnLesson",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4580,11 +5539,21 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByPhetComment";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByPhetComment";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 					  	
 			        	contentType: "application/json",
-			       		 url:projectName+"/loadByPhetComment",
+			       		 url:urlPassed,
 			       		 data: JSON.stringify(json),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4620,12 +5589,21 @@ $(function(){
 					       			 
 					       			
 					       			
+									
+									if(DeploymentType){								// Url Creation based on depolyment 
+										urlPassed= "/loadReplyOnComment";
+								
+						        	}else{
+						        		urlPassed= projectName+"/loadReplyOnComment";
+								
+						        	}
+					       			
 					       			$.ajax({
 					       				
 									  	type: "POST",
 									  	async:false,
 							        	contentType: "application/json",
-							       		 url: projectName+"/loadReplyOnComment",
+							       		 url: urlPassed,
 							       		 data: JSON.stringify(jsonReply),
 							       		 beforeSend: function(xhr) {
 					                         xhr.setRequestHeader(header, token);
@@ -4760,10 +5738,20 @@ $(function(){
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/uploadCommentOnPhet";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/uploadCommentOnPhet";
+  				
+  		        	}
+  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
-			       		 url: projectName+"/uploadCommentOnPhet",
+			       		 url: urlPassed,
 			       		 data: JSON.stringify(data),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
@@ -4838,6 +5826,16 @@ $(function(){
   			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
+			var urlPassed;
+			
+			if(DeploymentType){								// Url Creation based on depolyment 
+				urlPassed= "/updatePassword";
+		
+        	}else{
+        		urlPassed= projectName+"/updatePassword";
+		
+        	}
+			
   			if(pass === confpass){
   				
   				var json={
@@ -4852,7 +5850,7 @@ $(function(){
   				$.ajax({
   					type: "POST",
   					contentType: "application/json",
-  					url: projectName+"/updatePassword",
+  					url: urlPassed,
   					data:JSON.stringify(json),
   					 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -4948,6 +5946,16 @@ $(function(){
   			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
+			var urlPassed;
+			
+			if(DeploymentType){								// Url Creation based on depolyment 
+				urlPassed= "/updatePassword";
+		
+        	}else{
+        		urlPassed= projectName+"/updatePassword";
+		
+        	}
+			
   			if(pass === confpass){
   				
   				var json={
@@ -4960,7 +5968,7 @@ $(function(){
   				$.ajax({
   					type: "POST",
   					contentType: "application/json",
-  					url: projectName+"/updatePassword",
+  					url: urlPassed,
   					data:JSON.stringify(json),
   					 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -5049,6 +6057,16 @@ $(function(){
   			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
+			var urlPassed;
+			
+			if(DeploymentType){								// Url Creation based on depolyment 
+				urlPassed= "/updatePassword";
+		
+        	}else{
+        		urlPassed= projectName+"/updatePassword";
+		
+        	}
+			
   			if(pass === confpass){
   				
   				var json={
@@ -5061,7 +6079,7 @@ $(function(){
   				$.ajax({
   					type: "POST",
   					contentType: "application/json",
-  					url: projectName+"/updatePassword",
+  					url: urlPassed,
   					data:JSON.stringify(json),
   					beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
@@ -5559,6 +6577,10 @@ $(document).ready(function () {
   	
 var projectName="/schoolProject";
 
+var DeploymentType=1;   //   use 0 -> Production Level
+						//	 use 1 -> Inhouse Level code
+
+
 function fire_ajax_submit_Topic(){
 
 		var form=$('#uploadTopic')[0];
@@ -5566,11 +6588,21 @@ function fire_ajax_submit_Topic(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateTopic";
+	
+    	}else{
+    		urlPassed= projectName+"/updateTopic";
+	
+    	}
 			
 	$.ajax({
 		type: "POST",
 		enctype: 'multipart/form-data',
-		url: projectName+"/updateTopic",
+		url: urlPassed,
 		data:data,
 		beforeSend: function(xhr) {
              xhr.setRequestHeader(header, token);
@@ -5617,11 +6649,21 @@ function fire_ajax_submit_Topic(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateQuiz";
+	
+    	}else{
+    		urlPassed= projectName+"/updateQuiz";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateQuiz",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                     xhr.setRequestHeader(header, token);
@@ -5719,11 +6761,21 @@ function fire_ajax_submit_Topic(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateVideo";
+	
+    	}else{
+    		urlPassed= projectName+"/updateVideo";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateVideo",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5813,11 +6865,21 @@ function fire_ajax_submit_Topic(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateConcept";
+	
+    	}else{
+    		urlPassed= projectName+"/updateConcept";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateConcept",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -5957,11 +7019,21 @@ function fire_ajax_submit_Article(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateArticle";
+	
+    	}else{
+    		urlPassed= projectName+"/updateArticle";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateArticle",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6003,11 +7075,21 @@ function fire_ajax_submit_Article(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateDocument";
+	
+    	}else{
+    		urlPassed= projectName+"/updateDocument";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateDocument",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6139,11 +7221,21 @@ function fire_ajax_submit_Article(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updatePhet";
+	
+    	}else{
+    		urlPassed= projectName+"/updatePhet";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updatePhet",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6185,11 +7277,21 @@ function fire_ajax_submit_Lesson(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateLesson";
+	
+    	}else{
+    		urlPassed= projectName+"/updateLesson";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/updateLesson",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6276,11 +7378,21 @@ function fire_ajax_submit_Lesson(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/addArticleFromUser";
+	
+    	}else{
+    		urlPassed= projectName+"/addArticleFromUser";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/addArticleFromUser",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6334,11 +7446,21 @@ function fire_ajax_submit_Lesson(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/addQuizFromUser";
+	
+    	}else{
+    		urlPassed= projectName+"/addQuizFromUser";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url:projectName+"/addQuizFromUser",
+				url:urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6392,11 +7514,21 @@ function addLesson(){
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/addLessonFromUser";
+	
+    	}else{
+    		urlPassed= projectName+"/addLessonFromUser";
+	
+    	}
 	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
-				url: projectName+"/addLessonFromUser",
+				url: urlPassed,
 				data:data,
 				beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -6444,11 +7576,21 @@ function addPhet(){
 	
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var urlPassed;
+	
+	if(DeploymentType){								// Url Creation based on depolyment 
+		urlPassed= "/addPhetFromUser";
+
+	}else{
+		urlPassed= projectName+"/addPhetFromUser";
+
+	}
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url:projectName+"/addPhetFromUser",
+			url:urlPassed,
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);
@@ -6501,11 +7643,21 @@ function addDocument(){
 	
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var urlPassed;
+	
+	if(DeploymentType){								// Url Creation based on depolyment 
+		urlPassed= "/addDocumentFromUser";
+
+	}else{
+		urlPassed= projectName+"/addDocumentFromUser";
+
+	}
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url: projectName+"/addDocumentFromUser",
+			url: urlPassed,
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);
@@ -6558,11 +7710,21 @@ function addConcept(){
 	
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var urlPassed;
+	
+	if(DeploymentType){								// Url Creation based on depolyment 
+		urlPassed= "/addConceptFromUser";
+
+	}else{
+		urlPassed= projectName+"/addConceptFromUser";
+
+	}
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url:projectName+"/addConceptFromUser",
+			url:urlPassed,
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);
@@ -6614,11 +7776,21 @@ function addVideo(){
 	
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var urlPassed;
+	
+	if(DeploymentType){								// Url Creation based on depolyment 
+		urlPassed= "/addVideoFromUser";
+
+	}else{
+		urlPassed= projectName+"/addVideoFromUser";
+
+	}
 
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
-			url: projectName+"/addVideoFromUser",
+			url: urlPassed,
 			data:data,
 			beforeSend: function(xhr) {
                  xhr.setRequestHeader(header, token);

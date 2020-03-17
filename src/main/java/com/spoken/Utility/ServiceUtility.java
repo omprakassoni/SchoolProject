@@ -68,7 +68,7 @@ public class ServiceUtility {
 	
 	
 	 
-	public static boolean createclassSubjectFolder(String className,String subject,String topicName) {  // creating folder for topic
+	public static boolean createclassSubjectFolder(String className,String subject,String topicName) throws Exception{  // creating folder for topic
 		
 		boolean status=true;
 		if(!new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").exists()) {
@@ -92,19 +92,16 @@ public class ServiceUtility {
 		
 	}
 	
-	public static String uploadFile(MultipartFile[] uploadFile,String pathToUpload) {		// uploading file
+	public static String uploadFile(MultipartFile[] uploadFile,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
 		for(MultipartFile file:uploadFile) {
 			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
 		
-			try {
+			
 				Files.write(fileNameAndPath, file.getBytes());
 				System.out.println(fileNameAndPath.toString());
 				path=fileNameAndPath.toString();
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
+			
 			}
 		
 		return path;
@@ -133,39 +130,39 @@ public class ServiceUtility {
 		return true;
 	}
 	
-	public static boolean chechExistSessionAdmin(HttpSession session) {					// validate Exist session for admin
-		
-		boolean status=false;
-		if(session==null) {
-			status=false;
-		}else {
-			if(session.getAttribute("UserLogedUsername")==null) {
-				status= false;
-				
-			}else if(session.getAttribute("UserLogedRole").equals("Admin")){
-				status=true;
-			}
-		}
-		
-		return status;
-		
-	}
+//	public static boolean chechExistSessionAdmin(HttpSession session) {					// validate Exist session for admin
+//		
+//		boolean status=false;
+//		if(session==null) {
+//			status=false;
+//		}else {
+//			if(session.getAttribute("UserLogedUsername")==null) {
+//				status= false;
+//				
+//			}else if(session.getAttribute("UserLogedRole").equals("Admin")){
+//				status=true;
+//			}
+//		}
+//		
+//		return status;
+//		
+//	}
 	
-	public static boolean chechExistSessionUser(HttpSession session) {					// validate exist session for user
-		
-		boolean status=true;
-		if(session==null) {
-			status=false;
-		}else {
-			if(session.getAttribute("UserLogedUsername")==null) {
-				status= false;
-				
-			}
-		}
-		
-		return status;
-	
-}
+//	public static boolean chechExistSessionUser(HttpSession session) {					// validate exist session for user
+//		
+//		boolean status=true;
+//		if(session==null) {
+//			status=false;
+//		}else {
+//			if(session.getAttribute("UserLogedUsername")==null) {
+//				status= false;
+//				
+//			}
+//		}
+//		
+//		return status;
+//	
+//}
 	
 	
 	public static String presentDirectory() {

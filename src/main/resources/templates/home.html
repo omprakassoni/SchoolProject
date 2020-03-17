@@ -1,152 +1,181 @@
 <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head >
-    
-     <div th:replace="common/header :: common-header">
-    
-    	</div>
-    
-    	<title> Home</title>
-  
-  	<script>
+<head>
+
+<div th:replace="common/header :: common-header"></div>
+
+<title>Home</title>
+
+<script>
 			$(document).ready(function(){
     				$(".toast").toast();
 			});
 	</script>
-            
-    </head>
-    
-    <body>
-    
-    <div th:replace="common/header :: navbar-Admin"></div>
-    
-  	
-            <!-- NAVBAR DATA TOP-MOST 
+
+</head>
+
+<body>
+
+	<div th:replace="common/header :: navbar-Admin"></div>
+
+
+	<!-- NAVBAR DATA TOP-MOST 
         <nav class="navbar navbar-light" style="background-color:80b3ff">
   			<a href="#" class="navbar-brand"><img src="Images/logo.png"><strong>Admin Portal</strong> </a>
   			<center><span th:text="${session.UserLoged}"></span></center>
   			<center><a th:href="@{/logout}" >SignOut</a></center>
  	    </nav> -->
- 	    
- 	    <div class="sectionHome">
- 	    	<div class="row">
- 	    		<div class="col-sm-7 ">
- 	    			<div class="row">
- 	    				<div class="col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
- 	    					<div class="row">
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{addClass}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add new entry for Class</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{addSubject}"><span class="font-property-add"><i class="fas fa-plus-circle "></i></span>Add/View Subject</a>
- 	    							</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addTopic}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View Topic</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addQuiz}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Quiz</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addVideo}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Reference video</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addArticle}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Reference Article</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addDocument}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Reference Document</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addLessonPlan}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Lesson-plan</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addPhets}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View phets</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addConceptMap}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View Concept-Maps</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addTestimonial}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View testimonial</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addEvent}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View Event</a>
-   									</div>
-   									<div class="col-sm-12 col-property">
-   									<a th:href="@{addTutorial}"><span class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View Tutorial</a>
-   									</div>
- 	    					</div>
- 	    				</div>
- 	    				<div class="col-sm-1">
- 	    				</div>
- 	    				
- 	    				<div class="col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
- 	    					<div class="row">
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{userList}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>List all users</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectTeacher}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Teachers</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectVideo}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Reference Video</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectDocument}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Reference Document</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectArticle}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Reference Article</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectConcept}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Concept-maps</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectPhets}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Phets</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectQuiz}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Quiz</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{approveRejectLesson}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject Lesson-plan</a>
- 	    							</div>
- 	    							<div class="col-sm-12 col-property">
- 	    							<a th:href="@{contactInformation}"><span class="font-property-view"><i class="fas fa-binoculars"></i></span>View Feedbacks</a>
- 	    							</div>
- 	    				
- 	    					</div>
- 	    				</div>
- 	    				
- 	    			</div>
- 	    		</div>
- 	    		<div class="col-sm-1">
- 	    		</div>
- 	    	
- 		   	
- 	    		<div class="col-sm-4 shadow-lg p-3 mb-5 bg-white rounded overflow-y">
- 	    			<center><label class="Notify"> Notifications </label></center>
- 	    			<div class="row">
- 	    		
- 	    			
- 	    				
- 	    			</div>
- 	    			
- 	    		</div>
- 	    		
- 	    	</div>
- 	    	
- 	  	
- 	   </div>
- 	    
- 	    
- 	    
-       
-          <link rel="stylesheet" href="css/mdb.css" type="text/css"/>  
-     
-      				<!--  COMMON CODE FOR LIBRARY ADDED -->
-        <div th:replace="common/header :: body-bottom-scripts"></div>
 
-		
-		<script src="js/mdb.js"></script>
-        
-    </body>
+	<div class="sectionHome">
+		<div class="row">
+			<div class="col-sm-7 ">
+				<div class="row">
+					<div class="col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
+						<div class="row">
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addClass}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Add new entry for Class</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addSubject}"><span class="font-property-add"><i
+										class="fas fa-plus-circle "></i></span>Add/View Subject</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addTopic}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Add/View Topic</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addQuiz}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Upload/View Quiz</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addVideo}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Upload/View Reference video</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addArticle}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Upload/View Reference Article</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addDocument}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Upload/View Reference Document</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addLessonPlan}"><span
+									class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View
+									Lesson-plan</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addPhets}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Upload/View phets</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addConceptMap}"><span
+									class="font-property-add"><i class="fas fa-plus-circle"></i></span>Upload/View
+									Concept-Maps</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addTestimonial}"><span
+									class="font-property-add"><i class="fas fa-plus-circle"></i></span>Add/View
+									testimonial</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addEvent}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Add/View Event</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/addTutorial}"><span class="font-property-add"><i
+										class="fas fa-plus-circle"></i></span>Add/View Tutorial</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-1"></div>
+
+					<div class="col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
+						<div class="row">
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/userList}"><span class="font-property-view"><i
+										class="fas fa-binoculars"></i></span>List all users</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectTeacher}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Teachers</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectVideo}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Reference Video</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectDocument}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Reference Document</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectArticle}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Reference Article</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectConcept}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Concept-maps</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectPhets}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Phets</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectQuiz}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Quiz</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/approveRejectLesson}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>Approve/Reject
+									Lesson-plan</a>
+							</div>
+							<div class="col-sm-12 col-property">
+								<a th:href="@{admin/contactInformation}"><span
+									class="font-property-view"><i class="fas fa-binoculars"></i></span>View
+									Feedbacks</a>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-sm-1"></div>
+
+
+			<div class="col-sm-4 shadow-lg p-3 mb-5 bg-white rounded overflow-y">
+				<center>
+					<label class="Notify"> Notifications </label>
+				</center>
+				<div class="row"></div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+
+
+	<link rel="stylesheet" href="css/mdb.css" type="text/css" />
+
+	<!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+	<script src="js/mdb.js"></script>
+
+</body>
 
 
 </html>

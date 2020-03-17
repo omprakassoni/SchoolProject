@@ -1,294 +1,348 @@
 <!Doctype>
-<html  xmlns:th="http://www.w3.org/1000/xhtml">
-    <head >
-    
-     <div th:replace="common/header :: common-header">
-    
-    	</div>
-    
-    	<title> Homepage</title>
-  
-            
-    </head>
-    
-    <body>
-    <div th:class="bg-poster" >
-            
-           
-            	<!--  CODE FOR NAVBAR -->			
-    <div th:replace="common/header :: navbar"></div>
+<html xmlns:th="http://www.w3.org/1000/xhtml">
+<head>
 
-        
-        </div>
-            
-        
-     
-        <section class="section-header" style="background:#a5b5b3">
-            <div class="container">
-                <div class="section1">
-                    <h3 class="section-title-except-contact-us">Check out Our Latest Videos</h3>
-                    <div class="line" style="width:20%"></div>
-                </div>
-                
-                <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-interval="1000">
-                            <div class="row">
-                                <div class="col-sm-6 column-video-property">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ru032Mfsfig" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
-                                        </div>
-                                </div>
-                                
-                                <div class="col-sm-6 column-video-property">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/8Posj4WMo0o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" data-interval="5000">
-                            <div class="row">
-                                <div class="col-sm-6 column-video-property">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xFQgt47_R2Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
-                                        </div>
-                                </div>
-                                
-                                <div class="col-sm-6 column-video-property">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/8Posj4WMo0o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe>
-                                        </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="carousel-item" data-interval="5000"> 
-                            <div class="row">
-                                <div class="col-sm-6 column-video-property">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ru032Mfsfig" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                        </div>
-                                </div>
-                                
-                                <div class="col-sm-6 column-video-property">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/8Posj4WMo0o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                        </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    
-                    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-                        <span class="sr-only">Next</span>
-                    </a>
-              </div>
-            
-            </div>
-        
-        
-        </section>
-        
-        
-        
-        
-        
-        <section class="section-header"  style="background: lightblue" th:if="${TestimonialFirst!= null}">
-            <div class="container">
-                <div class="section1">
-			         <h3 class="section-title-except-contact-us">Testimonials</h3>
-                     <div class="line" style="width: 9%"></div>
-                </div>
-                
-                <div class="wrapper-carousel-fix">
-                    <!-- Carousel Wrapper -->
-                    <div id="carousel-example-1" class="carousel no-flex testimonial-carousel slide" data-ride="carousel" data-interval="false">
-                    <!--Slides-->
-                    <div class="carousel-inner" role="listbox">
-                        <!--First slide-->
-                       
-                        <div class="carousel-item active" th:if="${TestimonialFirst!=null}">
-                            <div class="testimonial">
-                                <!--Avatar-->
-                            <!--Content-->
-                                <p>
-                                    <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${TestimonialFirst.getDescription()}"/><i class="fas fa-quote-right"></i>
-                                </p>
-                                <h4 class="font-weight-bold" th:text="${TestimonialFirst.getName()}"></h4>
-                                <h6 class="font-weight-bold my-3" th:text="${TestimonialFirst.getOrganization()}"> </h6>
-       
-           
-                            </div>
-                    </div>
-                    
-                    <div class="carousel-item" th:each="testi:${TestimonialRest}">
-                    <div class="testimonial">
-                            <!--Avatar-->
-                           
-                            <!--Content-->
-                            <p>
-                                <i class="fas fa-quote-left"></i> <span style="font-size:18px" th:text="${testi.getDescription()}"/><i class="fas fa-quote-right"></i>
-                            </p>
-                            <h4 class="font-weight-bold" th:text="${testi.getName()}"></h4>
-                            <h6 class="font-weight-bold my-3" th:text="${testi.getOrganization()}"></h6>
-            
-                    </div>
-                </div>
-        <!--Second slide-->
-       
-       	
-                        
-        <!--Third slide-->
-        	
-               
-       
-       	
-                        
-        <!--Third slide-->
-        	
-       
-        <!--Third slide-->
-      
-      </div>
-      <!--Slides-->
-      <!--Controls-->
-                    <a class="carousel-control-prev " href="#carousel-example-1" role="button" data-slide="prev">
-                        <span class="icon-prev carousel-control-prev-icon " aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                        
-                    <a class="carousel-control-next right carousel-control" href="#carousel-example-1" role="button" data-slide="next">
-                        <span class="icon-next carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-      <!--Controls-->
-    </div>
-    <!-- Carousel Wrapper -->
-  </div>
-            
-            
-            </div>
-        </section>
-        
-        
-        
-        
-        
-        
-        
-        <!-- Event Announcement Section  -->
-        <section class="section-header" id="Event" th:if="${Events != null}">
-            <div class="container">
-                <div class="section1">
-			         <h3 class="section-title-except-contact-us">Events</h3>
-                     <div class="line"></div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-sm-6 base-content" th:each="event:${Events}">
-                        <div class="base-heading">
-                            <h4> <div th:text="${#calendars.day(event.getDateToHappen())} "/>  <span th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span></h4>
-                            <h6 th:text="${event.getHeadline()}"> t</h6>
-                        </div>
-                          <p th:text="${event.getDescription()}"> 
-                        </p>
-                     <!--     <div class="view">
+<div th:replace="common/header :: common-header"></div>
+
+<title>Homepage</title>
+
+
+</head>
+
+<body>
+
+<div sec:authorize="isAuthenticated()"> 
+									  
+									  	Welcome <span style="color: lime;" sec:authentication="
+									  	name"></span> |
+									
+								
+</div>
+
+	<div th:class="bg-poster">
+
+
+		<!--  CODE FOR NAVBAR -->
+		<div th:replace="common/header :: navbar"></div>
+
+
+	</div>
+
+
+
+	<section class="section-header" style="background: #a5b5b3">
+		<div class="container">
+			<div class="section1">
+				<h3 class="section-title-except-contact-us">Check out Our
+					Latest Videos</h3>
+				<div class="line" style="width: 20%"></div>
+			</div>
+
+			<div id="carouselExampleInterval" class="carousel slide"
+				data-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active" data-interval="1000">
+						<div class="row">
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/ru032Mfsfig"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/8Posj4WMo0o"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item" data-interval="5000">
+						<div class="row">
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/xFQgt47_R2Y"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/8Posj4WMo0o"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="carousel-item" data-interval="5000">
+						<div class="row">
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/ru032Mfsfig"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/8Posj4WMo0o"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<a class="carousel-control-prev" href="#carouselExampleInterval"
+					role="button" data-slide="prev"> <span class="sr-only">Previous</span>
+				</a> <a class="carousel-control-next" href="#carouselExampleInterval"
+					role="button" data-slide="next"> <span class="sr-only">Next</span>
+				</a>
+			</div>
+
+		</div>
+
+
+	</section>
+
+
+
+
+
+	<section class="section-header" style="background: lightblue"
+		th:if="${TestimonialFirst!= null}">
+		<div class="container">
+			<div class="section1">
+				<h3 class="section-title-except-contact-us">Testimonials</h3>
+				<div class="line" style="width: 9%"></div>
+			</div>
+
+			<div class="wrapper-carousel-fix">
+				<!-- Carousel Wrapper -->
+				<div id="carousel-example-1"
+					class="carousel no-flex testimonial-carousel slide"
+					data-ride="carousel" data-interval="true">
+					<!--Slides-->
+					<div class="carousel-inner" role="listbox">
+						<!--First slide-->
+
+						<div class="carousel-item active"
+							th:if="${TestimonialFirst!=null}" data-interval="7000">
+							<div class="testimonial">
+								<!--Avatar-->
+								<!--Content-->
+								<p>
+									<i class="fas fa-quote-left"></i> <span style="font-size: 18px"
+										th:text="${TestimonialFirst.getDescription()}" /><i
+										class="fas fa-quote-right"></i>
+								</p>
+								<h4 class="font-weight-bold"
+									th:text="${TestimonialFirst.getName()}"></h4>
+								<h6 class="font-weight-bold my-3"
+									th:text="${TestimonialFirst.getOrganization()}"></h6>
+
+
+							</div>
+						</div>
+
+						<div class="carousel-item" th:each="testi:${TestimonialRest}"
+							data-interval="7000">
+							<div class="testimonial">
+								<!--Avatar-->
+
+								<!--Content-->
+								<p>
+									<i class="fas fa-quote-left"></i> <span style="font-size: 18px"
+										th:text="${testi.getDescription()}" /><i
+										class="fas fa-quote-right"></i>
+								</p>
+								<h4 class="font-weight-bold" th:text="${testi.getName()}"></h4>
+								<h6 class="font-weight-bold my-3"
+									th:text="${testi.getOrganization()}"></h6>
+
+							</div>
+						</div>
+						<!--Second slide-->
+
+
+					</div>
+					<!--Slides-->
+					<!--Controls-->
+					<a class="carousel-control-prev " href="#carousel-example-1"
+						role="button" data-slide="prev"> <span
+						class="icon-prev carousel-control-prev-icon " aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a> <a class="carousel-control-next right carousel-control"
+						href="#carousel-example-1" role="button" data-slide="next"> <span
+						class="icon-next carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+					<!--Controls-->
+				</div>
+				<!-- Carousel Wrapper -->
+			</div>
+
+
+		</div>
+	</section>
+
+
+
+
+
+
+
+	<!-- Event Announcement Section  -->
+	<section class="section-header" id="Event" th:if="${Events != null}">
+		<div class="container">
+			<div class="section1">
+				<h3 class="section-title-except-contact-us">Events</h3>
+				<div class="line"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6 base-content" th:each="event:${Events}">
+					<div class="base-heading">
+						<h4>
+							<div th:text="${#calendars.day(event.getDateToHappen())} " />
+							<span
+								th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span>
+						</h4>
+						<h6 th:text="${event.getHeadline()}">t</h6>
+					</div>
+					<p th:text="${event.getDescription()}"></p>
+					<!--     <div class="view">
                             <a href="#">View</a>
                         </div>
                        -->
-                    </div>
-                
-          
-                
-                
-                </div>
-                <div class="row">
-                	<div class="col-12" style="text-align:right">
-                		<a th:href="@{eventsList}">Click here to see More</a>
-                	</div>
-                </div>
-            </div>
-        
-        </section>
-
-        
-        
-        
-        
-        
-            <!-- Contact US and feedback section    -->
-            <section class="section-header" id="Contact-us">
-                <div class="container">
-                    <div class="section">
-			         <h3 class="section-title text-center">Contact Us</h3>
-			         <p class="text-center">
-                        To get in touch with us, please fill in the form, or find contact information below.
-                    </p>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="address">
-                            <div style="font-size: 25px"><strong>Address</strong></div>
-                                <p><i class="fas fa-home"></i><br/>
-                                    Spoken Tutorial Project,<br/>TCS Lab,Behind CAD Centre,<br/>IIT Bombay, Powai,<br/>Mumbai - 400076
-                                </p>
-                            </div>
-                            <div class="address">
-                                <p><i class="fas fa-phone-alt"></i>
-                                    + 91 22 25764229
-                                </p>
-                            </div>
-                            <div class="address">
-                                <p><i class="fas fa-envelope"></i>
-                                    contact@spoken-tutorial.org
-                                </p>
-                            </div>
-                            <div class="address">
-                            <div style="font-size: 25px"><strong>Follow Us</strong></div>
-                                <p><a href="https://www.youtube.com/user/SpokenTutorialIITB/" target="_blank"><i class="fab fa-youtube font-color-youtube"></i></a>
-					               <a href="https://www.facebook.com/SpokenTutorial.org" target="_blank"><i class="fab fa-facebook-f font-color-facebook"></i></a>
-					               <a href="https://plus.google.com/114550410376641567079" target="_blank"><i class="fab fa-google-plus font-color-gooplus"></i></a>
-                                   <a  ><i class="fab fa-skype font-color-skype"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 w3agile_contact_left">
-                         
-				                <input type="text" id="name" name="Name" placeholder="Name" onfocus="this.value = '';"  required/>
-				                <input type="email" id="email" name="Email" placeholder="Email" onfocus="this.value = '';"  required/>
-				                <textarea name="Message"  id="message" placeholder="Message.." onfocus="this.value = '';"  required></textarea>
-				                <div id="statusOnContactForm" style="color:red;display:none;margin-top:10px;">Provide Correct details</div>
-				                <div id="statusOnContactFormAfterAjaxCallSucess" style="color:green;display:none;margin-top:10px;">Data Sent</div>
-				                <div id="statusOnContactFormAfterAjaxCallFailure" style="color:red;display:none;margin-top:10px;">Please Try Again</div>
-				                <button class="btn btn-success" style="margin-top:30px" id="contactForm">Send</button>
-			                 
-                        </div>
-        
-                </div>
-                    
-			
-        </div>
-        </section>
-    
-       
-    	
-            
-     	
-      				<!--  COMMON CODE FOR LIBRARY ADDED -->
-        <div th:replace="common/header :: body-bottom-scripts"></div>
-        
-         
+				</div>
 
 
-        
-    </body>
+
+
+			</div>
+			<div class="row">
+				<div class="col-12" style="text-align: right">
+					<a th:href="@{eventsList}">Click here to see More</a>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+
+
+
+
+
+	<!-- Contact US and feedback section    -->
+	<section class="section-header" id="Contact-us">
+		<div class="container">
+			<div class="section">
+				<h3 class="section-title text-center">Contact Us</h3>
+				<p class="text-center">To get in touch with us, please fill in
+					the form, or find contact information below.</p>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="address">
+						<div style="font-size: 25px">
+							<strong>Address</strong>
+						</div>
+						<p>
+							<i class="fas fa-home"></i><br /> Spoken Tutorial Project,<br />TCS
+							Lab,Behind CAD Centre,<br />IIT Bombay, Powai,<br />Mumbai -
+							400076
+						</p>
+					</div>
+					<div class="address">
+						<p>
+							<i class="fas fa-phone-alt"></i> + 91 22 25764229
+						</p>
+					</div>
+					<div class="address">
+						<p>
+							<i class="fas fa-envelope"></i> contact@spoken-tutorial.org
+						</p>
+					</div>
+					<div class="address">
+						<div style="font-size: 25px">
+							<strong>Follow Us</strong>
+						</div>
+						<p>
+							<a href="https://www.youtube.com/user/SpokenTutorialIITB/"
+								target="_blank"><i class="fab fa-youtube font-color-youtube"></i></a>
+							<a href="https://www.facebook.com/SpokenTutorial.org"
+								target="_blank"><i
+								class="fab fa-facebook-f font-color-facebook"></i></a> <a
+								href="https://plus.google.com/114550410376641567079"
+								target="_blank"><i
+								class="fab fa-google-plus font-color-gooplus"></i></a> <a><i
+								class="fab fa-skype font-color-skype"></i></a>
+						</p>
+					</div>
+				</div>
+				<div class="col-sm-6 w3agile_contact_left">
+
+					<input type="text" id="name" name="Name" placeholder="Name"
+						required /> <input type="email" id="email" name="Email"
+						placeholder="Email" required />
+					<textarea name="Message" id="message" placeholder="Message.."
+						required></textarea>
+					<div id="statusOnContactForm"
+						style="color: red; display: none; margin-top: 10px;">Provide
+						Correct E-mail</div>
+					<div id="statusOnContactFormAfterAjaxCallSucess"
+						style="color: green; display: none; margin-top: 10px;">Data
+						Sent</div>
+					<div id="statusOnContactFormAfterAjaxCallFailure"
+						style="color: red; display: none; margin-top: 10px;">Please
+						Try Again</div>
+					<button class="btn btn-success" style="margin-top: 30px"
+						id="contactForm" disabled>Send</button>
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</section>
+
+	<!--  ********************************FOOTER SECTION *********************************** -->
+	<div th:replace="common/header ::footer"></div>
+
+
+	<!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+
+
+
+</body>
 
 
 </html>

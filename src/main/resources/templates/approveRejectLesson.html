@@ -1,158 +1,183 @@
 <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head >
-    
-    <div th:replace="common/header :: common-header">
-    
-    	</div>
-    
-    	<title>Approve/Reject Lesson-plan</title>
-  	
-  	
-  	          
-            
-    </head>
-    
-    <body>
-            <!-- NAVBAR DATA TOP-MOST -->
-         <div th:replace="common/header :: navbar-Admin"></div>
-       
-       
-       <div class="header-child">
-       			<label>Available Lesson Plan</label> <hr/>
-       			<div class="status" th:text="${status}"></div>
-       	</div>
-    
-   		
-      	<form th:action="@{EnableLesson}" method="post">
-      	<div class="table-responsive">
-				<table id="dtBasicExample" class="table table-striped table-sm" cellspacing="0" width="100%">
-	
-				  <thead class="">
-				    <tr>
-				        <th>#</th>
-				      <th>Topic Name</th>
-				      <th>Date Added</th>
-				      <th>Link</th>
-				      <th>Status</th>
-				      <th>Contributed by</th>
-				      <th>Operation</th>
-				    </tr>
-				  </thead>
-		
-				  <tbody>
-				  
-				  <span th:each="lesson:${LessonAdded}">
-				    <tr class="clickable-row">
-				      <th scope="row"><input type="radio" th:value="${lesson.getLessonPlanId()}" th:id="${lesson.getLessonPlanId()}" name="selectionRadio" onchange="radioCall()"/></th>
-				      <td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>		
-				      <td><span th:text="${lesson.getDateAdded()}"></span></td>
-				      <td><a th:href="@{files/}+@{${lesson.getLessonPlan()}}" target="_blank" class="pdfclass"><img id="pdfsource" th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
-				   
-				      <td><span th:if="${lesson.isStatus()==1}"><div id="true"/></span>
-				      	  <span th:unless="${lesson.isStatus()==1}"><div id="false"/></span>
-				      </td>
-				      
-				      <td><a href=""><span th:text="${lesson.getUser().getFname()}"></span></a></td>
-				      <td><a class="btn btn-secondary commentLesson" th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a></td>
-				     
-				    </tr>
-				    </span>
-				   
+<head>
+
+<div th:replace="common/header :: common-header"></div>
+
+<title>Approve/Reject Lesson-plan</title>
+
+
+
+
+</head>
+
+<body>
+	<!-- NAVBAR DATA TOP-MOST -->
+	<div th:replace="common/header :: navbar-Admin"></div>
+
+
+	<div class="header-child">
+		<label>Available Lesson Plan</label>
+		<hr />
+		<div class="status" th:text="${status}"></div>
+	</div>
+
+
+	<form th:action="@{EnableLesson}" method="post">
+		<div class="table-responsive">
+			<table id="dtBasicExample" class="table table-striped table-sm"
+				cellspacing="0" width="100%">
+
+				<thead class="">
+					<tr>
+						<th>#</th>
+						<th>Topic Name</th>
+						<th>Date Added</th>
+						<th>Link</th>
+						<th>Status</th>
+						<th>Contributed by</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<span th:each="lesson:${LessonAdded}">
+						<tr class="clickable-row">
+							<th scope="row"><input type="radio"
+								th:value="${lesson.getLessonPlanId()}"
+								th:id="${lesson.getLessonPlanId()}" name="selectionRadio"
+								onchange="radioCall()" /></th>
+							<td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>
+							<td><span th:text="${lesson.getDateAdded()}"></span></td>
+							<td><a th:href="@{files/}+@{${lesson.getLessonPlan()}}"
+								target="_blank" class="pdfclass"><img id="pdfsource"
+									th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+
+							<td><span th:if="${lesson.isStatus()==1}"><div
+										id="true" /></span> <span th:unless="${lesson.isStatus()==1}"><div
+										id="false" /></span></td>
+
+							<td><a href=""><span
+									th:text="${lesson.getUser().getFname()}"></span></a></td>
+							<td><a class="btn btn-secondary commentLesson"
+								th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a></td>
+
+						</tr>
+					</span>
+
 				</tbody>
-			
-				</table>
-				
-				<span th:if="${LessonStatus}">
-					<div style="text-align:center;color:red;font-size:22px" th:text="${LessonStatus}"/>
-				</span>
-			
+
+			</table>
+
+			<span th:if="${LessonStatus}">
+				<div style="text-align: center; color: red; font-size: 22px"
+					th:text="${LessonStatus}" />
+			</span>
+
+		</div>
+
+		<div class="container">
+			<center>
+
+
+				<button class="btn btn-primary" id="deleteLesson" disabled>Enable</button>
+
+
+			</center>
+
+
+		</div>
+
+	</form>
+
+
+	<!-- Modal -->
+
+
+
+
+	<div class="modal fade" id="LessonCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowLesson" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentLesson"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentLessonModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowLesson').hide();">Close</button>
+						</div>
+					</div>
+					<div id="SuccessLessonComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailureLessonComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataLesson"></div>
+					<br />
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="lessonComment"
+								name="lessonComment" rows="3" cols="70"
+								placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="lessonId" name="lessonId" value="">
+							<input type="hidden" id="lessonFrom" value="admin" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentLessonModal"
+								id=commentLessonModal value="" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+
 			</div>
-			
-			<div class="container">
-				<center>
-					
-						
-					<button class="btn btn-primary" id="deleteLesson"  disabled >Enable</button>
-						
-			
-				</center>
-			
-			
-			</div>
-			
-		</form>
-
-  
-  <!-- Modal -->
-			
-			
-			
-
-	<div class="modal fade" id="LessonCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-			    <div class="modal-content">
-			 
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			      <div class="row replyRowLesson" style="display:none">
-			      	<div class="col-md-12">
-			      		<textarea class="form-control" id="replyCommentLesson" placeholder="Add Reply" cols="30" rows="2"></textarea> <br/>
-			      		<button style="float:right" class="btn btn-primary commentLessonModalReply" name="reply">Add Reply</button>
-			      		<button style="float:right" class="btn btn-default" onclick="$('.replyRowLesson').hide();">Close</button>	
-			      	</div>
-			      </div>
-			      <div id="SuccessLessonComment" style="display:none;color:green;font-size:18px;text-align:center">Added Successfully</div>
-			      <div id="FailureLessonComment" style="display:none;color:red;font-size:18px;text-align:center">Failed : Please Try Again</div>
-				  <div id="comDataLesson"></div>
-				  <br/>
-			      <div class="row">
-				      		
-				      			
-				      			<div class="col-sm-12">
-				      			<textarea class="form class" id="lessonComment" name="lessonComment" rows="3" cols="70" placeholder="Add Comment here**"></textarea>
-				      			<input type="hidden" id="lessonId" name="lessonId" value="">
-				      			<input type="hidden" id="lessonFrom" value="admin"/>
-				      			</div>
-				      			<br/>
-				      			<div class="col-sm-12" style="text-align:right;padding-right:40px;">
-				      				<button class="btn blue-gradient commentLessonModal" id=commentLessonModal value="" name="comment" disabled>Submit</button>
-				      			
-				      			</div>
-				      			
-				   </div>
-				   
-				      		
-				      			
-				    </div>
-				
-				      
-				      </div>
-			    </div>
-			  </div>
-  	
-	
-       
-       				
-       		
-       
-		<link rel="stylesheet" href="css/mdb.css" type="text/css"/>      
-      				
-      				<!--  COMMON CODE FOR LIBRARY ADDED -->
-        <div th:replace="common/header :: body-bottom-scripts"></div>
+		</div>
+	</div>
 
 
-	   	<script src="js/mdb.js"></script> 
 
-	   	
 
-        
-    </body>
+
+
+	<link rel="stylesheet" href="css/mdb.css" type="text/css" />
+
+	<!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+	<script src="js/mdb.js"></script>
+
+
+
+
+</body>
 
 
 </html>

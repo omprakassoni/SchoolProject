@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -178,6 +179,8 @@ public class HomeController {
 		
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		
+		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
+		
 		List<Testimonial> testidata=testiService.getAlltestimonial();
 		
 		List<Events> eventData=eventService.getAllEventdata();
@@ -214,6 +217,8 @@ public class HomeController {
 		
 
 		mv.addObject("classfromDatabase", standard);
+		mv.addObject("subjectfromDatabase", subject);
+		
 		mv.setViewName("Index");
 		return mv;
 	}
@@ -222,82 +227,85 @@ public class HomeController {
 	
 	/********************************************** USER SIDE AUTHENTICATION********************************************************/
 	
-	@RequestMapping(value = "/userLogin",method = RequestMethod.POST)
-	public ModelAndView userLoginpost(HttpServletRequest req,ModelAndView mv) {
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-		mv.addObject("classfromDatabase", standard);
-		
-		String userRole=null;
-		String username=req.getParameter("username");
-		//String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
-		boolean statusPassword=false;
-		
-		//User usr1=(User) userService.existsByUser(username, password);			// check for existence of User
-		try {
-			User usr=userService.findByUsername(username);
-			statusPassword =ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());
-			System.out.println(statusPassword);
-			if(statusPassword) {
-			List<UserRole> tempuserRole=usr.getUserRoles();
-			for(UserRole temp:tempuserRole) {
-				userRole=temp.getRole().getRoleName();
-				
-			}
-			}
-			if(statusPassword) {
-					
-					//if(userRole.contentEquals("Teacher") ) {
-						
-						if(usr.getRegistered()==1) {
-				
-							HttpSession session=req.getSession();
-							session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
-							session.setAttribute("UserLogedName", usr.getFname());
-							session.setAttribute("UserLogedRole", userRole);
-							
-							usr.setLastLogin(ServiceUtility.getCurrentTime());
-							userService.save(usr);
-			
-							mv.setViewName("redirect:/");
-						}else {
-							mv.addObject("Error", "Not verified yet..Please Try later");
-							mv.setViewName("Login");
-							
-						}
-//				}else {
-//					
-//					HttpSession session=req.getSession();
-//					session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
-//					session.setAttribute("UserLogedName", usr.getFname());
-//					session.setAttribute("UserLogedRole", userRole);
-//					
-//					usr.setLastLogin(ServiceUtility.getCurrentTime());
-//					userService.save(usr);
-//	
-//					mv.setViewName("redirect:/");
-//					
-//				}
-				
-			}else {
-				
-				mv.addObject("Error", "Login Credentials are Incorrect");
-				mv.setViewName("Login");
-				
-				
-			}
-		} catch (Exception e) {
-			
-			mv.addObject("Error", "Login Credentials are Incorrect");
-			mv.setViewName("Login");
-			e.printStackTrace();
-		}
-		
-
-
-		return mv;
-		
-	}
+//	@RequestMapping(value = "/userLogin",method = RequestMethod.POST)
+//	public String userLoginpost(HttpServletRequest req,ModelAndView mv) {
+//		
+////		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+////		mv.addObject("classfromDatabase", standard);
+////		
+////		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+////		mv.addObject("subjectfromDatabase", subjectData);
+////		
+////		String userRole=null;
+////		String username=req.getParameter("username");
+////		//String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
+////		boolean statusPassword=false;
+////		
+////		//User usr1=(User) userService.existsByUser(username, password);			// check for existence of User
+////		try {
+////			User usr=userService.findByUsername(username);
+////			statusPassword =ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());
+////			System.out.println(statusPassword);
+////			if(statusPassword) {
+////			List<UserRole> tempuserRole=usr.getUserRoles();
+////			for(UserRole temp:tempuserRole) {
+////				userRole=temp.getRole().getRoleName();
+////				
+////			}
+////			}
+////			if(statusPassword) {
+////					
+////					//if(userRole.contentEquals("Teacher") ) {
+////						
+////						if(usr.getRegistered()==1) {
+////				
+////							HttpSession session=req.getSession();
+////							session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
+////							session.setAttribute("UserLogedName", usr.getFname());
+////							session.setAttribute("UserLogedRole", userRole);
+////							
+////							usr.setLastLogin(ServiceUtility.getCurrentTime());
+////							userService.save(usr);
+////			
+////							mv.setViewName("redirect:/");
+////						}else {
+////							mv.addObject("Error", "Not verified yet..Please Try later");
+////							mv.setViewName("Login");
+////							
+////						}
+//////				}else {
+//////					
+//////					HttpSession session=req.getSession();
+//////					session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
+//////					session.setAttribute("UserLogedName", usr.getFname());
+//////					session.setAttribute("UserLogedRole", userRole);
+//////					
+//////					usr.setLastLogin(ServiceUtility.getCurrentTime());
+//////					userService.save(usr);
+//////	
+//////					mv.setViewName("redirect:/");
+//////					
+//////				}
+////				
+////			}else {
+////				
+////				mv.addObject("Error", "Login Credentials are Incorrect");
+////				mv.setViewName("Login");
+////				
+////				
+////			}
+////		} catch (Exception e) {
+////			
+////			mv.addObject("Error", "Login Credentials are Incorrect");
+////			mv.setViewName("Login");
+////			e.printStackTrace();
+////		}
+////		
+//
+//
+//		return "redirect:/";
+//		
+//	}
 	
 	
 /***********************************************END***********************************************************************/
@@ -305,17 +313,17 @@ public class HomeController {
 /******************************* MY ACCOUNT PAGE OF USER TO PERFORM OPERATION ***********************************/
 	
 	@RequestMapping(value = "/myAccount",method=RequestMethod.GET)
-	public ModelAndView myAccountGet(ModelAndView mv,HttpServletRequest req) {
+	public ModelAndView myAccountGet(ModelAndView mv,HttpServletRequest req,Principal principal) {
 		
-		HttpSession session=req.getSession(false);						// CHECK FOR EXISTING ALIVE SESSION	
-		if(!ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
-			mv.setViewName("redirect:/Login");
-		}else {
+//		HttpSession session=req.getSession(false);						// CHECK FOR EXISTING ALIVE SESSION	
+//		if(!ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
+//			mv.setViewName("redirect:/Login");
+//		}else {
 			
 			
 			
-			String loggedUser=(String) session.getAttribute("UserLogedUsername");
-			User localUser=userService.findByUsername(loggedUser);
+//			String loggedUser=(String) session.getAttribute("UserLogedUsername");
+			User localUser=userService.findByUsername(principal.getName());
 			List<UserRole> localUserRole=localUser.getUserRoles();
 			for(UserRole temp:localUserRole) {
 				mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
@@ -369,11 +377,15 @@ public class HomeController {
 			
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);
+			
+			ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+			mv.addObject("subjectfromDatabase", subjectData);
+			
 			mv.addObject("LoggedUser",localUser);
 			
 			
 			mv.setViewName("myAccount");
-		}
+//		}
 		return mv;
 		
 	}
@@ -388,6 +400,10 @@ public class HomeController {
 	public ModelAndView login(ModelAndView mv) {
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
 		mv.setViewName("Login");
 		return mv;
 	}
@@ -402,6 +418,10 @@ public class HomeController {
 	public ModelAndView forgetPasswordGet(ModelAndView mv){
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
 		mv.setViewName("forgetPassword");
 		return mv;
 
@@ -413,6 +433,9 @@ public class HomeController {
 	public ModelAndView forgetPasswordPost(HttpServletRequest req,ModelAndView mv){
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
 		
 		String userEmail=req.getParameter("username");
 		
@@ -452,6 +475,9 @@ public class HomeController {
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
 		User usr=userService.findByToken(token);
 		if(usr==null) {
 			mv.setViewName("redirect:/");
@@ -477,6 +503,9 @@ public class HomeController {
 		
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
 		
 		User usr=userService.findByToken(token);
 		if(usr==null) {
@@ -539,6 +568,10 @@ public class HomeController {
 	
 		
 		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
 		mv.addObject("EventList", evenRepo.findAll(new PageRequest(page, 6)));
 		mv.addObject("current",page);
 		mv.setViewName("events");
@@ -554,15 +587,54 @@ public class HomeController {
 	
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public ModelAndView viewCoursesAvailable(@RequestParam(name="subjectSelected") String subject,@RequestParam(name="classSelected") String classSelected,ModelAndView mv) {
+		System.out.println("test"+subject);
+		Class localClass=null;
+		
+		Subject localSubject=null;
+		SubjectClassMapping localSubjectClassMapping;
+		List<Topic> localTopictemp=null;
+		
+		
+		
+		if(subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
+			localTopictemp=topicService.findAll();
+			System.out.println("all value");
+			
+		}
+		
+		else if(subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
+			System.out.println("wow");
+			localClass=classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
+			List<SubjectClassMapping> tempLocalSubjectClassMapping=subjectClassService.getClassFromMapping(localClass);
+			localTopictemp=topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+			
+			
+		}
+		else if(!subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
+			localSubject=subjectService.findBySubjectName(subject);
+			List<SubjectClassMapping> tempLocalSubjectClassMapping=subjectClassService.getClassFromSubject(localSubject);
+			localTopictemp=topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+			
+		}
+		else if(!subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
+			 localClass=classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
+			
+			 localSubject=subjectService.findBySubjectName(subject);
+			 
+			 localSubjectClassMapping=subjectClassService.findBysubAndstandard(localClass, localSubject);
+			 
+			 localTopictemp=topicService.findBysubjectclassMapping(localSubjectClassMapping);
+			
+		}
+		
 		
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		
-		Class localClass=classService.findByClassName(classSelected);
-		Subject localSubject=subjectService.findBySubjectName(subject);
-		SubjectClassMapping localSubjectClassMapping=subjectClassService.findBysubAndstandard(localClass, localSubject);
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
 		
-		List<Topic> localTopictemp=topicService.findBysubjectclassMapping(localSubjectClassMapping);
+		
 		
 		List<Topic> localTopic=new ArrayList<Topic>();
 		for(Topic temp:localTopictemp) {
@@ -577,9 +649,14 @@ public class HomeController {
 			mv.addObject("NoTopicAvailable","No Content Available to Show");
 		}
 		
-		
+		if(localSubject!=null) {
 		mv.addObject("subjectSelected", localSubject.getSubName());
+		}
+		
+		if(localClass!=null) {
 		mv.addObject("classSelected", localClass.getClassName());
+		}
+		
 		mv.setViewName("Courses");
 		
 		return mv;
@@ -596,6 +673,9 @@ public class HomeController {
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
 		Topic localTopic=topicService.findById(topicId);
 		List<QuizQuestion> localQuiz=quizService.findAllByTopicAndStatus(localTopic);
 		List<ArticleExternal> localArticle=articleService.findAllByTopicAndStatus(localTopic);
@@ -606,16 +686,16 @@ public class HomeController {
 		List<ConceptMap> localConcept=conceptMapService.findAllByTopicAndStatus(localTopic);
 		List<Tutorial> localTutorial=tutorialService.findAllByTopicAndStatus(localTopic);
 		
-		if(ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
+//		if(ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
 			
-		String loggedUser=(String) session.getAttribute("UserLogedUsername");
-		User localUser=userService.findByUsername(loggedUser);
-		List<UserRole> localUserRole=localUser.getUserRoles();
-		for(UserRole temp:localUserRole) {
-			mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
-			
-		}
-		}
+//		String loggedUser=(String) session.getAttribute("UserLogedUsername");
+//		User localUser=userService.findByUsername(loggedUser);
+//		List<UserRole> localUserRole=localUser.getUserRoles();
+//		for(UserRole temp:localUserRole) {
+//			mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
+//			
+////		}
+//		}
 		
 		
 		

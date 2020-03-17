@@ -68,4 +68,16 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 		return (int) subjectClassRepo.count();
 	}
 
+	@Override
+	public List<SubjectClassMapping> getClassFromMapping(Class classTemp) {
+		
+		return subjectClassRepo.findBystandard(classTemp);
+	}
+
+	@Override
+	public List<SubjectClassMapping> getClassFromSubject(Subject subTemp) {
+		
+		return subjectClassRepo.findBysub(subTemp);
+	}
+
 }

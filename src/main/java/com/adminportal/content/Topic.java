@@ -23,6 +23,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.adminportal.domain.User;
+
 @Entity
 @Table(name="Topic")
 public class Topic {
@@ -49,6 +51,10 @@ public class Topic {
 	
 	@Column(name="status",nullable = false)
 	private int status;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User userId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="subClassId")
@@ -204,6 +210,14 @@ public class Topic {
 
 	public void setTutorial(Set<Tutorial> tutorial) {
 		this.tutorial = tutorial;
+	}
+
+	public User getUserId() {
+		return userId;
+	}
+
+	public void setUserId(User userId) {
+		this.userId = userId;
 	}
 	
 	

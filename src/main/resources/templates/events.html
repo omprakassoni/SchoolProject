@@ -1,110 +1,112 @@
 <!Doctype>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-    <head >
-    
-     <div th:replace="common/header :: common-header">
-    
-    	</div>
-    
-    	<title> Events</title>
-  
-            
-    </head>
-    
-    <body >
-    
-            
-           
-            	<!--  CODE FOR NAVBAR -->			
-    <div th:replace="common/header :: navbar"></div>
-    
-    <div style="background-image: url(/Images/background.png);background-size:cover">
-    	<div class="container">
-    		
-    		<div style="background-color:rgb(10,42,102)">
-    		
-    			<h1 style="color:white;padding-left:50px">Event List</h1>
-    		
-    		</div>
-    		<br/>
-    		<div class="pagination" style="float:right">
-    			<nav aria-label="Page navigation example">
-    			<ul class="pagination pg-blue">
-    			<li class="page-item" th:each="i:${#numbers.sequence(0,EventList.totalPages-1)}" th:classappend="${current}==${i} ? 'active':''" >
-    			
-    			<a th:href="@{/eventsList/(page=${i})}" th:text="${i}" class="page-link" th:classappend="${current}==${i} ? 'active':''"/>
-    			
-    			</li>
-    		
-    			</ul>
-    			</nav>
-    		
-    		</div>
-    		<br/>
-    		<br/>
-    		<div class="clearfix"></div>
-    		<div class="row shadow-lg p-3 mb-5 bg-white rounded" th:each="event:${EventList}" >
-    			<div class="col-2" style="border-right:1px solid #333">
-    			<br/>
-    			<br/>
-    			<div class="row center-all-over-side">
-    				
-    				<h1 th:text="${#calendars.day(event.getDateToHappen())}"></h1>
-    			</div>
-    			
-    			<div class="row "style="padding-left:20%">
-    			
-    				<h2 th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></h2>
-    			</div>
-    				
-    			
-    			</div>
-    			
-    			<div class="col-1"></div>
-    			<div class="col-8">
-    				<div class="row">
-    					<strong><h2 th:text="${event.getHeadline()}"></h2></strong>
-    				</div>
-    				<hr/>
-    			
-    				<div class="row">
-    						<h4 th:text="${event.getDescription()}"></h4>
-    				</div>
-    			
-    			
-    			
-    			</div>
-    		
-    		
-    		
-    		</div>
-    		
-    	
-    	
-    	</div>
-    	
-    
-    
-    
-    </div>
-    		
-    
-    
-    	
-        					
-         
-       
-    	
-            
-     	
-      				<!--  COMMON CODE FOR LIBRARY ADDED -->
-        <div th:replace="common/header :: body-bottom-scripts"></div>
-        
-         
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<div th:replace="common/header :: common-header"></div>
+
+<title>Events</title>
 
 
-        
-    </body>
+</head>
+
+<body>
+
+
+
+	<!--  CODE FOR NAVBAR -->
+	<div th:replace="common/header :: navbar"></div>
+
+	<div
+		style="background-image: url(/Images/background.png); background-size: cover">
+		<div class="container">
+
+			<div style="background-color: rgb(10, 42, 102)">
+
+				<h1 style="color: white; padding-left: 50px">Event List</h1>
+
+			</div>
+			<br />
+			<div class="pagination" style="float: right">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination pg-blue">
+						<li class="page-item"
+							th:each="i:${#numbers.sequence(0,EventList.totalPages-1)}"
+							th:classappend="${current}==${i} ? 'active':''"><a
+							th:href="@{/eventsList/(page=${i})}" th:text="${i}"
+							class="page-link" th:classappend="${current}==${i} ? 'active':''" />
+
+						</li>
+
+					</ul>
+				</nav>
+
+			</div>
+			<br /> <br />
+			<div class="clearfix"></div>
+			<div class="row shadow-lg p-3 mb-5 bg-white rounded"
+				th:each="event:${EventList}">
+				<div class="col-2" style="border-right: 1px solid #333">
+					<br /> <br />
+					<div class="row center-all-over-side">
+
+						<h1 th:text="${#calendars.day(event.getDateToHappen())}"></h1>
+					</div>
+
+					<div class="row " style="padding-left: 20%">
+
+						<h2
+							th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></h2>
+					</div>
+
+
+				</div>
+
+				<div class="col-1"></div>
+				<div class="col-8">
+					<div class="row">
+						<strong><h2 th:text="${event.getHeadline()}"></h2></strong>
+					</div>
+					<hr />
+
+					<div class="row">
+						<h4 th:text="${event.getDescription()}"></h4>
+					</div>
+
+
+
+				</div>
+
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+	<!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+
+
+
+</body>
 
 
 </html>

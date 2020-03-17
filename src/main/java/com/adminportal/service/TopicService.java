@@ -33,11 +33,15 @@ public interface TopicService {
 	
 	Topic findById(int id);
 	
-	boolean updateTopic(String desc,String poster,Timestamp date,int topicID);
+	boolean updateTopic(String desc,String poster,String topicName,Timestamp date,int topicID);
 	
 	int countRow();
 	
-	boolean updateTopicDesc(String desc,Timestamp date,int topicId);
+	boolean updateTopicDesc(String desc,String topicName,Timestamp date,int topicId);
+	
+	List<Topic> findBySubjectClassMppaing(List<SubjectClassMapping> tempSubjectClass);
+	
+	boolean updateTopicPoster(String path,int topicId);
 	
 	
 

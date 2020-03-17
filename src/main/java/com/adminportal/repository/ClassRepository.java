@@ -5,12 +5,16 @@
 
 package com.adminportal.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import com.adminportal.content.Class;
 
-public interface ClassRepository extends CrudRepository<Class, Integer>{
+public interface ClassRepository extends JpaRepository<Class, Integer>{
 	
-	Class findByclassName(String clas_name);	// fetching Class based on classNAme
+	Class findByclassName(int clas_name);	// fetching Class based on classNAme
+	
 	
 }

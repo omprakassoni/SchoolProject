@@ -44,11 +44,15 @@ import com.adminportal.content.QuizQuestion;
 import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.security.Authority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.adminportal.content.Class;
+import com.adminportal.content.Subject;
+import com.adminportal.content.Topic;;
 
 
 @Entity
 @Table(name="user_details")
-public class User {
+public class User implements UserDetails{
 	
 	@Id
 	@Column(name = "user_id", nullable = false,updatable = false)
@@ -96,8 +100,17 @@ public class User {
 	@Column(name="token")
 	private String token;
 	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<UserRole> userRoles=new ArrayList<UserRole>();
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Class> classDb=new HashSet<Class>();
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Subject> subjectDb=new HashSet<Subject>();
+	
+	@OneToMany(mappedBy = "userId",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Topic> topic=new HashSet<Topic>();
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<ArticleExternal> articleExternal=new HashSet<ArticleExternal>();
@@ -154,6 +167,7 @@ public class User {
 		this.email = email;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -336,6 +350,78 @@ public class User {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Set<Class> getClassDb() {
+		return classDb;
+	}
+
+	public void setClassDb(Set<Class> classDb) {
+		this.classDb = classDb;
+	}
+
+	public Set<Subject> getSubjectDb() {
+		return subjectDb;
+	}
+
+	public void setSubjectDb(Set<Subject> subjectDb) {
+		this.subjectDb = subjectDb;
+	}
+
+	public Set<Topic> getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Set<Topic> topic) {
+		this.topic = topic;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		Set<GrantedAuthority> authorities=new HashSet<GrantedAuthority>();
+		for(UserRole x:userRoles) {
+			authorities.add(new Authority(x.getRole().getRoleName()));
+			System.out.println(x.getRole().getRoleName());
+		}
+		
+		return authorities;
+	}
+
+	
+	
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+	
+		if(Registered==1) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	

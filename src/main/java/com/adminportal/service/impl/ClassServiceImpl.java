@@ -22,7 +22,7 @@ public class ClassServiceImpl implements ClassService{
 	private ClassRepository classRepo;
 
 	@Override
-	public Class findByClassName(String className) {
+	public Class findByClassName(int className) {
 		
 		Class localClass=classRepo.findByclassName(className);
 		
@@ -32,7 +32,7 @@ public class ClassServiceImpl implements ClassService{
 	@Override
 	public List<Class> findAll() {
 		
-		List<Class> local=(List<Class>) classRepo.findAll();
+		List<Class> local=(List<Class>) classRepo.findAll(org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.ASC, "className"));
 		
 		return local;
 	}

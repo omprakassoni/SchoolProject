@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.Class;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
 import com.adminportal.content.ConceptMap;
@@ -22,6 +23,7 @@ import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
+import com.adminportal.content.Subject;
 import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
@@ -246,6 +248,24 @@ public class UserServiceimpl implements UserService {
 	public int countRow() {
 		
 		return (int) userRepository.count();
+	}
+
+
+	@Override
+	public User addUserToClass(User usr, Class clas) {
+		
+		usr.getClassDb().add(clas);
+		userRepository.save(usr);
+		return null;
+	}
+
+
+	@Override
+	public User adduserToSubject(User usr, Subject sub) {
+		
+		usr.getSubjectDb().add(sub);
+		userRepository.save(usr);
+		return null;
 	}
 
 

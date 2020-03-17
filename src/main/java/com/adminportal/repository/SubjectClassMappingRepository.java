@@ -28,4 +28,6 @@ public interface SubjectClassMappingRepository extends CrudRepository<SubjectCla
 	void deleteBysub(Subject sub);
 	
 	ArrayList<SubjectClassMapping> findBysub(Subject sub);
+	
+
 }

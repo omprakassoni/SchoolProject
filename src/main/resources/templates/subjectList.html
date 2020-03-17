@@ -1,140 +1,143 @@
 <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head >
-    
-     <div th:replace="common/header :: common-header">
-    
-    	</div>
-    
-    	<title> Subject List</title>
-  	
-  	          
-            
-    </head>
-    
-    <body>
-            <!-- NAVBAR DATA TOP-MOST -->
-        <div th:replace="common/header :: navbar-Admin"></div>
-       
-       
-       <div class="header-child">
-       			<label>Available Subject</label> <hr/>
-       			<div class="status" th:text="${status}"></div>
-       	</div>
-   		
-      	<form th:action="@{deleteSubject}" method="post">
-      	<div class="table-responsive">
-				<table id="dtBasicExample" class="table table-striped table-sm" cellspacing="0" width="100%">
-	
-				  <thead class="">
-				    <tr>
-				      <th>#</th>
-				      <th>Subject Name</th>
-				      <th>Class Associated</th>
-				      <th> Operation </th>
-				   
-				    </tr>
-				  </thead>
-		
-				  <tbody>
-				  
-				  <span th:each="subject:${Subject}">
-				    <tr class="clickable-row">
-				      <th scope="row"><input type="radio" th:value="${subject.getSubId()}" th:id="${subject.getSubId()}" name="selectionRadio" onchange="enableDelete()" /></th>
-				      <td><span th:text="${subject.getSubName()}"></span></td>
-				      <td><span th:with="classs=${subject.getSubClasMapp()}">
-				      	  <span th:each="class:${classs}">
-				      		<span th:text="${class.getStandard().getClassName()}"></span>
-				      		<br/>
-				      	  </span>
-				      	 </span>
-				      </td>
-				      
-				      <td><a class="btn btn-secondary detailSubject" th:value="${subject.getSubId()}" id="detailSubject">Update</a>
-				      </td>
-				      
-				     
-				    </tr>
-				    </span>
-				   
+<head>
+
+<div th:replace="common/header :: common-header"></div>
+
+<title>Subject List</title>
+
+
+
+</head>
+
+<body>
+	<!-- NAVBAR DATA TOP-MOST -->
+	<div th:replace="common/header :: navbar-Admin"></div>
+
+
+	<div class="header-child">
+		<label>Available Subject</label>
+		<hr />
+		<div class="status" th:text="${status}"></div>
+	</div>
+
+	<form th:action="@{deleteSubject}" method="post">
+		<div class="table-responsive">
+			<table id="dtBasicExample" class="table table-striped table-sm"
+				cellspacing="0" width="100%">
+
+				<thead class="">
+					<tr>
+						<th>#</th>
+						<th>Subject Name</th>
+						<th>Class Associated</th>
+						<th>Operation</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<span th:each="subject:${Subject}">
+						<tr class="clickable-row">
+							<th scope="row"><input type="radio"
+								th:value="${subject.getSubId()}" th:id="${subject.getSubId()}"
+								name="selectionRadio" onchange="enableDelete()" /></th>
+							<td><span th:text="${subject.getSubName()}"></span></td>
+							<td><span th:with="classs=${subject.getSubClasMapp()}">
+									<span th:each="class:${classs}"> <span
+										th:text="${class.getStandard().getClassName()}"></span> <br />
+								</span>
+							</span></td>
+
+							<td><a class="btn btn-secondary detailSubject"
+								th:value="${subject.getSubId()}" id="detailSubject">Update</a></td>
+
+
+						</tr>
+					</span>
+
 				</tbody>
-			
-				</table>
-			
-			</div>
-			
-			
-			</form>
-			
-			<!-- Modal -->
-				<div class="modal fade" id="SubjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				  <div class="modal-dialog modal-lg " role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLongTitle">Update Subject</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
-				      </div>
-				      <div class="modal-body">
-				      <div id="Success" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
-			      	  <div id="Failure" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
-				      	<div class="row">
-				      		<div class="col-sm-6">
-				      			<div class="row ">
-				      				<label>Subject Name</label>
-				      			</div>
-				      			<div class="row">
-				      				<label>Select New Class to Associate</label>
-				      			</div>
-				      		
-				      			
-				      		</div>
-				      		<div class="col-sm-6" style="font-size:18px">
-				      			<div class="row ">
-				      				 
-    								<input type="text" readonly class="form-control-plaintext" id="SubjectName" value="">
- 									
-				      			</div>
-				      			<div class="row">
-				      			<div class="form-check">
-       									<div id="modalClass"></div>
- 								
-										
-									</div>
-				      				
-				      			</div>
-				      			
-				      	</div>
-				       <hr/>
-				      </div>
-				      <div class="modal-footer">
-				      <button class="btn btn-primary" id="updateSubject" value="">Update</button>
-				      </div>
-				     
-				    </div>
-				  </div>
+
+			</table>
+
+		</div>
+
+
+	</form>
+
+	<!-- Modal -->
+	<div class="modal fade" id="SubjectModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg " role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Update
+						Subject</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-		
+				<div class="modal-body">
+					<div id="Success"
+						style="display: none; color: green; font-size: 18px; text-align: center">Data
+						Updated Successfully</div>
+					<div id="Failure"
+						style="display: none; color: red; font-size: 18px; text-align: center">Please
+						Try Again</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="row ">
+								<label>Subject Name</label>
+							</div>
+							<div class="row">
+								<label>Select New Class to Associate</label>
+							</div>
 
-  
-       
-       				
-       		
-       
-		<link rel="stylesheet" href="css/mdb.css" type="text/css"/>      
-      				
-      				<!--  COMMON CODE FOR LIBRARY ADDED -->
-        <div th:replace="common/header :: body-bottom-scripts"></div>
+
+						</div>
+						<div class="col-sm-6" style="font-size: 18px">
+							<div class="row ">
+
+								<input type="text" readonly class="form-control-plaintext"
+									id="SubjectName" value="">
+
+							</div>
+							<div class="row">
+								<div class="form-check">
+									<div id="modalClass"></div>
 
 
-	   	<script src="js/mdb.js"></script> 
-	   	
+								</div>
 
-	   	
+							</div>
 
-        
-    </body>
+						</div>
+						<hr />
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" id="updateSubject" value="">Update</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+		<link rel="stylesheet" href="css/mdb.css" type="text/css" />
+
+		<!--  COMMON CODE FOR LIBRARY ADDED -->
+		<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+		<script src="js/mdb.js"></script>
+</body>
 
 
 </html>

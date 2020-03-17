@@ -1,78 +1,85 @@
 <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-    
-     <div th:replace="common/header :: common-header">
-    
-    	</div>
-    
-    	<title>Courses</title>
-    
-    
-        
-    </head>
-    <body >
-    
-    	<!--  CODE FOR NAVBAR -->			
-    <div th:replace="common/header :: navbar"></div>
-    
-    
-    <div class="" style="background-color:rgb(10,42,102)">
-    	<div class="container">
-    		<h5 style="color:white ;margin-bottom:0px"><span th:text="${classSelected}"></span></h5>
-    		<h1 style="color:white;font-weight:bold"><span th:text="${subjectSelected}"></span></h1>
-    	
-    	
-    	
-    	</div>
-    </div>
-    
-    
-    
-	
-		<div class="row" style="padding:20px">
-		
-		
-			<div class="col-4" th:each="topic:${TopicListOnSubjectClass}"  >
-				 <!-- Card -->
-			<a th:href="'content/'+ ${topic.getTopicId()}">	
-			<div class="card card-image" th:style="'background-image:url(\''+@{files/}+@{${topic.getPoster()}} + '\');'">
-		
-			  <!-- Content -->
-			  <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
-			    <div style="text-align:center">
-			      <h3 class="pink-text"><i class="fas fa-chart-pie"></i> <span th:text="${topic.getTopicName()}"></span></h3>
-			      <!--  <h3 class="card-title pt-2"><strong><span th:text="${topic.getDescription()}"></span></strong></h3>-->
-			      <br/>
-			      <br/>
-			      
-			    </div>
-			  </div>
-			
-			</div>
-			
-			</div>
-			</a>
-			
-			<!-- Card -->
-		
-			
-			
-			
+<head>
+
+<div th:replace="common/header :: common-header"></div>
+
+<title>Courses</title>
+
+
+
+</head>
+<body>
+
+	<!--  CODE FOR NAVBAR -->
+	<div th:replace="common/header :: navbar"></div>
+
+
+	<div class="" style="background-color: rgb(10, 42, 102)">
+		<div class="container">
+			<h5 style="color: white; margin-bottom: 0px">
+				<span th:text="'Class '+${classSelected}"></span>
+			</h5>
+			<h1 style="color: white; font-weight: bold">
+				<span th:text="${subjectSelected}"></span>
+			</h1>
+
+
+
 		</div>
-		
-		
-		<span th:if="${NoTopicAvailable}">
-					<h1 style="text-align:center;color:red;" th:text="${NoTopicAvailable}"/>
-		</span>
-		
-			
-			
-        
-    
-        	<!--  COMMON CODE FOR LIBRARY ADDED -->
-       <div th:replace="common/header :: body-bottom-scripts"></div>
-    </body>
+	</div>
+
+
+
+
+	<div class="row" style="padding: 20px">
+
+
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+			style="padding-top: 10px" th:each="topic:${TopicListOnSubjectClass}">
+			<!-- Card -->
+			<a th:href="'content/'+ ${topic.getTopicId()}">
+				<div class="card card-image"
+					th:style="'background-image:url(\''+@{files/}+@{${topic.getPoster()}} + '\');'">
+
+					<!-- Content -->
+					<div
+						class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+						<div style="text-align: center">
+							<h3 class="pink-text">
+								<i class="fas fa-chart-pie"></i> <span
+									th:text="${topic.getTopicName()}"></span>
+							</h3>
+							<!--  <h3 class="card-title pt-2"><strong><span th:text="${topic.getDescription()}"></span></strong></h3>-->
+							<br /> <br />
+
+						</div>
+					</div>
+
+				</div>
+		</div>
+		</a>
+
+		<!-- Card -->
+
+
+
+
+	</div>
+
+
+	<span th:if="${NoTopicAvailable}">
+		<h1 style="text-align: center; color: red;"
+			th:text="${NoTopicAvailable}" />
+	</span>
+
+
+
+
+
+	<!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
 
 </html>

@@ -108,54 +108,54 @@ public class AdminViewController {
 	
 /*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value = "/userList",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/userList",method = RequestMethod.GET)
 	public ModelAndView userListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<User> usr= userService.findAll();
 	
 		mv.addObject("User", usr);
 		mv.setViewName("userList");
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value = "/deleteUser",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/deleteUser",method = RequestMethod.GET)
 	public ModelAndView userListEnableGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<User> usr= userService.findAll();
 	
 		mv.addObject("User", usr);
 		mv.setViewName("userList");
-		}
+//		}
 		return mv;
 	}
 	
 	
-	@RequestMapping(value = "/deleteUser",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deleteUser",method = RequestMethod.POST)
 	public ModelAndView userListPost(HttpServletRequest req,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
 		String enableDisable;
-		HttpSession session=req.getSession();
+//		HttpSession session=req.getSession();
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		User usrTemp=userService.findById(id);
 		if(usrTemp.getRegistered()==1) {
@@ -183,36 +183,36 @@ public class AdminViewController {
 	
 /*------------------------------------------SHOW SUBJECT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/subjectList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/subjectList",method = RequestMethod.GET)
 	public ModelAndView subjectListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
+//		HttpSession session=req.getSession(false);
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<Subject> subjectList=subjectService.findAll();
 		mv.addObject("Subject", subjectList);
 		
 		mv.setViewName("subjectList");
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value="/deleteSubject",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteSubject",method = RequestMethod.POST)
 	public ModelAndView subjectListPost(HttpServletRequest req,@RequestParam(name="radiocall") String subjectId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(subjectId);
 		System.out.println(id);
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		subjectService.deleteById(id);
 		
@@ -230,38 +230,38 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW TOPIC_LIST (ADMIN MODULE)-----------------------------------------------------------------*/	
 	
-	@RequestMapping(value="/topicList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/topicList",method = RequestMethod.GET)
 	public ModelAndView topicListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<Topic> topicList=topicService.findAll();
 		
 		mv.addObject("Topic", topicList);
 		mv.setViewName("topicList");
-		}
+//		}
 		return mv;
 	}
 	
 	
-	@RequestMapping(value="/deleteTopic",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteTopic",method = RequestMethod.POST)
 	public ModelAndView topicListPost(HttpServletRequest req,@RequestParam(name="radioTopic") String topicId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(topicId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
+//		HttpSession session=req.getSession();
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		Topic topicTemp=topicService.findById(id);
 		if(topicTemp.getStatus()==1) {
@@ -295,14 +295,14 @@ public class AdminViewController {
 	/*------------------------------------------SHOW VIDEO_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value="/videoList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/videoList",method = RequestMethod.GET)
 	public ModelAndView videoListGet(HttpServletRequest req,ModelAndView mv) {
 		
 		HttpSession session=req.getSession(false);
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<VideoExternal> videoListtemp=videoService.findAll();
 		List<VideoExternal> videoList=new ArrayList<VideoExternal>();
@@ -318,24 +318,24 @@ public class AdminViewController {
 		mv.addObject("Video",videoList);
 		
 		mv.setViewName("videoList");
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value="/deleteVideo",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteVideo",method = RequestMethod.POST)
 	public ModelAndView videoListPost(HttpServletRequest req,@RequestParam(name="radioVideo") String videoId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(videoId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		VideoExternal videoTemp=videoService.findById(id);
 		if(videoTemp.isStatus()==1) {
@@ -378,14 +378,14 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW ARTICLE_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/articleList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/articleList",method = RequestMethod.GET)
 	public ModelAndView articleListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<ArticleExternal> articleListTemp=articleService.findAll();
 		List<ArticleExternal> articleList=new ArrayList<ArticleExternal>();
@@ -399,24 +399,24 @@ public class AdminViewController {
 		mv.addObject("Article",articleList);
 		
 		mv.setViewName("articleList");
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value="/deleteArticle",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteArticle",method = RequestMethod.POST)
 	public ModelAndView articleListPost(HttpServletRequest req,@RequestParam(name="radioArticle") String articleId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(articleId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		ArticleExternal articleTemp=articleService.findByid(id);
 		if(articleTemp.isStatus()==1) {
@@ -456,14 +456,14 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW DOCUMENT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/documentList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/documentList",method = RequestMethod.GET)
 	public ModelAndView documentListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<DocumentExternal> documentListTemp=documentService.findAll();
 		List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
@@ -476,25 +476,25 @@ public class AdminViewController {
 		mv.addObject("Document",documentList);
 		
 		mv.setViewName("documentList");
-		}
+//		}
 		return mv;
 	}
 	
 
-	@RequestMapping(value="/deleteDocument",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteDocument",method = RequestMethod.POST)
 	public ModelAndView documentListPost(HttpServletRequest req,@RequestParam(name="radioDocument") String documentId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(documentId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		DocumentExternal documentTemp=documentService.findByid(id);
 		if(documentTemp.isStatus()==1) {
@@ -533,14 +533,14 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW PHET_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/phetsList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/phetsList",method = RequestMethod.GET)
 	public ModelAndView phetsListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 
 		List<Phets> phetListTemp=phetService.findAll();
 		List<Phets> phetList=new ArrayList<Phets>();
@@ -553,24 +553,24 @@ public class AdminViewController {
 		mv.addObject("Phet",phetList);
 		
 		mv.setViewName("phetsList");
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value="/deletePhet",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deletePhet",method = RequestMethod.POST)
 	public ModelAndView phetsListPost(HttpServletRequest req,@RequestParam(name="radioPhet") String phetId,ModelAndView mv) {
 
 		int id=Integer.parseInt(phetId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		Phets phetTemp=phetService.findByid(id);
 		if(phetTemp.isStatus()==1) {
@@ -611,14 +611,14 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW LESSONPLAN_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/lessonPlanList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/lessonPlanList",method = RequestMethod.GET)
 	public ModelAndView lessonPlanListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		List<LessonPlan> lessonListTemp=lessonService.findAll();
 		List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
@@ -630,24 +630,24 @@ public class AdminViewController {
 	
 		mv.addObject("Lesson",lessonList);
 		mv.setViewName("lessonPlanList");
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value="/deleteLesson",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteLesson",method = RequestMethod.POST)
 	public ModelAndView lessonPlanListPost(HttpServletRequest req,@RequestParam(name="radioLesson") String lessonId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(lessonId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		LessonPlan lessonTemp=lessonService.findById(id);
 		if(lessonTemp.isStatus()==1) {
@@ -687,14 +687,14 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW QUIZ_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/quizList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/quizList",method = RequestMethod.GET)
 	public ModelAndView quizListGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 		
 		
 		List<QuizQuestion> quizListTemp=quizService.findAll();
@@ -707,24 +707,24 @@ public class AdminViewController {
 		
 		mv.addObject("Quiz",quizList );
 		mv.setViewName("quizList");
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value="/deleteQuiz",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteQuiz",method = RequestMethod.POST)
 	public ModelAndView quizListPost(HttpServletRequest req,@RequestParam(name="radioQuiz") String quizId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(quizId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		QuizQuestion quizTemp=quizService.findById(id);
 		if(quizTemp.isStatus()==1) {
@@ -760,15 +760,15 @@ public class AdminViewController {
 
 /*-------------------------------------------CONCEPT-MAP---------------------------------------*/
 	
-	@RequestMapping(value="/conceptList",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/conceptList",method = RequestMethod.GET)
 	public ModelAndView ConceptListGet(HttpServletRequest req,ModelAndView mv) {
 		
 		HttpSession session=req.getSession(false);
 		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
-		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
+//		
 		
 		List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
 		List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
@@ -780,25 +780,25 @@ public class AdminViewController {
 		
 		mv.addObject("ConceptMapList",ConceptMapList );
 		mv.setViewName("concepMapList");
-		}
+//		}
 		return mv;
 	}
 	
 	
-	@RequestMapping(value="/deleteConcept",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteConcept",method = RequestMethod.POST)
 	public ModelAndView conceptListPost(HttpServletRequest req,@RequestParam(name="radioConcept") String conceptId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(conceptId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		ConceptMap conceptTemp=conceptService.findByid(id);
 		if(conceptTemp.getStatus()==1) {
@@ -840,13 +840,13 @@ public class AdminViewController {
 
 /*-----------------------------------------------START OF APPROVING/REJECT TECAHER---------------------------------------------------------------------*/
 
-	@RequestMapping(value = "/approveRejectTeacher")
+	@RequestMapping(value = "/admin/approveRejectTeacher")
 	public ModelAndView teacherAprovementGet(HttpServletRequest req,ModelAndView mv) {
 		
-		HttpSession session=req.getSession();
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession();
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<User> local=new ArrayList<User>();
 		
 			List<User> usr= userService.findAll();
@@ -870,12 +870,12 @@ public class AdminViewController {
 			
 			mv.setViewName("approveRejectTeacher");
 			
-		}
+//		}
 		
 		return mv;
 	}
 	
-	@RequestMapping(value = "/approveTeacher",method =RequestMethod.POST)
+	@RequestMapping(value = "/admin/approveTeacher",method =RequestMethod.POST)
 	public ModelAndView approveTeacherPost(HttpServletRequest req,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
@@ -892,10 +892,10 @@ public class AdminViewController {
 		}
 		
 		
-		HttpSession session=req.getSession();
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession();
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<User> local=new ArrayList<User>();
 		
 			List<User> usr= userService.findAll();
@@ -919,7 +919,7 @@ public class AdminViewController {
 			
 			mv.setViewName("approveRejectTeacher");
 			
-		}
+//		}
 		
 		
 		
@@ -935,13 +935,13 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT VIDEO---------------------------------------------------------------------*/
 
 
-	@RequestMapping(value = "/approveRejectVideo")
+	@RequestMapping(value = "/admin/approveRejectVideo")
 	public ModelAndView videoApprovementGet(HttpServletRequest req, ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<VideoExternal> localVideo=new ArrayList<VideoExternal>();
 			
 			List<VideoExternal> videoList=videoService.findAll();
@@ -963,11 +963,11 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectVideo");
 			
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value = "/EnableVideo",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/EnableVideo",method = RequestMethod.POST)
 	public ModelAndView enbaleVideoPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		int id=Integer.parseInt(userId);
 		boolean status;
@@ -982,11 +982,11 @@ public class AdminViewController {
 		
 		
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<VideoExternal> localVideo=new ArrayList<VideoExternal>();
 			
 			List<VideoExternal> videoList=videoService.findAll();
@@ -1009,7 +1009,7 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectVideo");
 			
-		}
+//		}
 		
 		
 		
@@ -1020,14 +1020,14 @@ public class AdminViewController {
 /*-----------------------------------------------START OF APPROVING/REJECT DOCUMENT---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/approveRejectDocument")
+	@RequestMapping(value = "/admin/approveRejectDocument")
 	public ModelAndView documentApprovementGet(HttpServletRequest req, ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<DocumentExternal> localdocument=new ArrayList<DocumentExternal>();
 			
 			List<DocumentExternal> documentList=documentService.findAll();
@@ -1050,11 +1050,11 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectDocument");
 			
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value = "/EnableDocument",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/EnableDocument",method = RequestMethod.POST)
 	public ModelAndView enbaleDocumentPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
@@ -1068,11 +1068,11 @@ public class AdminViewController {
 				mv.addObject("status", "Please try Again");
 			}
 		
-			HttpSession session=req.getSession(false);
-			
-			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/");
-			}else {
+//			HttpSession session=req.getSession(false);
+//			
+//			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//				mv.setViewName("redirect:/");
+//			}else {
 				List<DocumentExternal> localdocument=new ArrayList<DocumentExternal>();
 				
 				List<DocumentExternal> documentList=documentService.findAll();
@@ -1095,7 +1095,7 @@ public class AdminViewController {
 			
 				mv.setViewName("approveRejectDocument");
 				
-			}
+//			}
 			return mv;
 		}
 	
@@ -1105,14 +1105,14 @@ public class AdminViewController {
 	
 	
 	
-	@RequestMapping(value = "/approveRejectArticle")
+	@RequestMapping(value = "/admin/approveRejectArticle")
 	public ModelAndView articleApprovementGet(HttpServletRequest req, ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<ArticleExternal> localarticle=new ArrayList<ArticleExternal>();
 			
 			List<ArticleExternal> articleList=articleService.findAll();
@@ -1135,12 +1135,12 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectArticle");
 			
-		}
+//		}
 		return mv;
 	}
 	
 	
-	@RequestMapping(value = "/EnableArticle",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/EnableArticle",method = RequestMethod.POST)
 	public ModelAndView enbaleArticlePost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
@@ -1154,11 +1154,11 @@ public class AdminViewController {
 				mv.addObject("status", "Please try Again");
 			}
 		
-			HttpSession session=req.getSession(false);
-			
-			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/");
-			}else {
+//			HttpSession session=req.getSession(false);
+//			
+//			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//				mv.setViewName("redirect:/");
+//			}else {
 				List<ArticleExternal> localarticle=new ArrayList<ArticleExternal>();
 				
 				List<ArticleExternal> articleList=articleService.findAll();
@@ -1181,7 +1181,7 @@ public class AdminViewController {
 			
 				mv.setViewName("approveRejectArticle");
 				
-			}
+//			}
 			return mv;
 		}
 	
@@ -1189,13 +1189,13 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT PHETS---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/approveRejectPhets")
+	@RequestMapping(value = "/admin/approveRejectPhets")
 	public ModelAndView phetApprovementGet(HttpServletRequest req, ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<Phets> localphet=new ArrayList<Phets>();
 			
 			List<Phets> phetList=phetService.findAll();
@@ -1218,13 +1218,13 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectPhet");
 			
-		}
+//		}
 		return mv;
 	}
 	
 	
 	
-	@RequestMapping(value = "/EnablePhet",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/EnablePhet",method = RequestMethod.POST)
 	public ModelAndView enbalePhetPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
@@ -1238,11 +1238,11 @@ public class AdminViewController {
 				mv.addObject("status", "Please try Again");
 			}
 		
-			HttpSession session=req.getSession(false);
-			
-			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/");
-			}else {
+//			HttpSession session=req.getSession(false);
+//			
+//			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//				mv.setViewName("redirect:/");
+//			}else {
 				List<Phets> localphet=new ArrayList<Phets>();
 				
 				List<Phets> phetList=phetService.findAll();
@@ -1265,7 +1265,7 @@ public class AdminViewController {
 			
 				mv.setViewName("approveRejectPhet");
 				
-			}
+//			}
 			return mv;
 		}
 	
@@ -1273,13 +1273,13 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT QUIZ---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/approveRejectQuiz")
+	@RequestMapping(value = "/admin/approveRejectQuiz")
 	public ModelAndView quizApprovementGet(HttpServletRequest req, ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<QuizQuestion> localQuiz=new ArrayList<QuizQuestion>();
 			
 			List<QuizQuestion> quizList=quizService.findAll();
@@ -1302,12 +1302,12 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectQuiz");
 			
-		}
+//		}
 		return mv;
 	}
 	
 	
-	@RequestMapping(value = "/EnableQuiz",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/EnableQuiz",method = RequestMethod.POST)
 	public ModelAndView enbaleQuizPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
@@ -1321,11 +1321,11 @@ public class AdminViewController {
 				mv.addObject("status", "Please try Again");
 			}
 		
-			HttpSession session=req.getSession(false);
-			
-			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/");
-			}else {
+//			HttpSession session=req.getSession(false);
+//			
+//			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//				mv.setViewName("redirect:/");
+//			}else {
 				List<QuizQuestion> localQuiz=new ArrayList<QuizQuestion>();
 				
 				List<QuizQuestion> quizList=quizService.findAll();
@@ -1348,7 +1348,7 @@ public class AdminViewController {
 			
 				mv.setViewName("approveRejectQuiz");
 				
-			}
+//			}
 			return mv;
 		}
 	
@@ -1357,13 +1357,13 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT LESSON---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/approveRejectLesson")
+	@RequestMapping(value = "/admin/approveRejectLesson")
 	public ModelAndView lessonApprovementGet(HttpServletRequest req, ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<LessonPlan> localLesson=new ArrayList<LessonPlan>();
 			
 			List<LessonPlan> lessonList=lessonService.findAll();
@@ -1386,12 +1386,12 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectLesson");
 			
-		}
+//		}
 		return mv;
 	}
 	
 	
-	@RequestMapping(value = "/EnableLesson",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/EnableLesson",method = RequestMethod.POST)
 	public ModelAndView enbaleLessonPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
@@ -1405,11 +1405,11 @@ public class AdminViewController {
 				mv.addObject("status", "Please try Again");
 			}
 		
-			HttpSession session=req.getSession(false);
-			
-			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/");
-			}else {
+//			HttpSession session=req.getSession(false);
+//			
+//			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//				mv.setViewName("redirect:/");
+//			}else {
 				List<LessonPlan> localLesson=new ArrayList<LessonPlan>();
 				
 				List<LessonPlan> lessonList=lessonService.findAll();
@@ -1431,21 +1431,21 @@ public class AdminViewController {
 			
 				mv.setViewName("approveRejectLesson");
 				
-			}
+//			}
 			return mv;
 		}
 	
 	
 	/*----------------------------------- APPROVE REJECT CONCEPTS-MAP ------------------------------------------------*/
 	
-	@RequestMapping(value = "/approveRejectConcept")
+	@RequestMapping(value = "/admin/approveRejectConcept")
 	public ModelAndView conceptApprovementGet(HttpServletRequest req, ModelAndView mv) {
 		
-		HttpSession session=req.getSession(false);
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			List<ConceptMap> localconcept=new ArrayList<ConceptMap>();
 			
 			List<ConceptMap> conceptList=conceptService.findAll();
@@ -1466,11 +1466,11 @@ public class AdminViewController {
 		
 			mv.setViewName("approveRejectConcept");
 			
-		}
+//		}
 		return mv;
 	}
 	
-	@RequestMapping(value = "/EnableConcept",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/EnableConcept",method = RequestMethod.POST)
 	public ModelAndView enbaleConceptPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
@@ -1484,11 +1484,11 @@ public class AdminViewController {
 				mv.addObject("status", "Please try Again");
 			}
 		
-			HttpSession session=req.getSession(false);
-			
-			if(!ServiceUtility.chechExistSessionAdmin(session)) {
-				mv.setViewName("redirect:/");
-			}else {
+//			HttpSession session=req.getSession(false);
+//			
+//			if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//				mv.setViewName("redirect:/");
+//			}else {
 				List<ConceptMap> localconcept=new ArrayList<ConceptMap>();
 				
 				List<ConceptMap> conceptList=conceptService.findAll();
@@ -1508,17 +1508,17 @@ public class AdminViewController {
 				
 			
 				mv.setViewName("approveRejectConcept");
-			}
+//			}
 			return mv;
 		}
 	/***********************************************************************************************************************/
 	
-	@RequestMapping(value = "/testimonialList",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/testimonialList",method = RequestMethod.GET)
 	public ModelAndView testimonialList(HttpServletRequest req,ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			
 			try{
 				
@@ -1531,18 +1531,18 @@ public class AdminViewController {
 				   mv.setViewName("redirect:/");
 				
 			}
-		}
+//		}
 		return mv;
 	
 		
 	}
 	
-	@RequestMapping(value = "/eventList",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/eventList",method = RequestMethod.GET)
 	public ModelAndView eventList(HttpServletRequest req,ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			
 			
 		
@@ -1556,19 +1556,19 @@ public class AdminViewController {
 				 mv.setViewName("redirect:/");
 				
 			}
-		}
+//		}
 		return mv;
 	
 		
 	}
 	
 	
-	@RequestMapping(value = "/tutorialList",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/tutorialList",method = RequestMethod.GET)
 	public ModelAndView TutorialList(HttpServletRequest req,ModelAndView mv) {
-		HttpSession session=req.getSession(false);
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-		}else {
+//		HttpSession session=req.getSession(false);
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//		}else {
 			
 			List<Tutorial> tempTutorial=tutorialService.getAllTutorial();
 			
@@ -1602,26 +1602,26 @@ public class AdminViewController {
 			mv.setViewName("tutorialList");
 			
 		
-		}
+//		}
 		return mv;
 	
 		
 	}
 	
-	@RequestMapping(value="/disableEnableTutorial",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/disableEnableTutorial",method = RequestMethod.POST)
 	public ModelAndView enableDisableTutorialListPost(HttpServletRequest req,@RequestParam(name="radioTutorial") String tutorialId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(tutorialId);
 		boolean status;
 		String enableDisable;
 		
-		HttpSession session=req.getSession();
-		
-		if(!ServiceUtility.chechExistSessionAdmin(session)) {
-			mv.setViewName("redirect:/");
-			return mv;
-			
-		}
+//		HttpSession session=req.getSession();
+//		
+//		if(!ServiceUtility.chechExistSessionAdmin(session)) {
+//			mv.setViewName("redirect:/");
+//			return mv;
+//			
+//		}
 		
 		Tutorial tutorialTemp=tutorialService.getById(id);
 		if(tutorialTemp.getStatus()==1) {

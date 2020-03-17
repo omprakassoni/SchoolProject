@@ -1,77 +1,170 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1000/xhtml">
- 
- <head th:fragment="common-header">
- 
- <meta name="_csrf" th:content="${_csrf.token}"/>
+<html xmlns:th="http://www.w3.org/1000/xhtml" xmlns:sec="http://www.w3.org/1000/xhtml">
+
+<head th:fragment="common-header">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="_csrf" th:content="${_csrf.token}" />
 <!-- default header name is X-CSRF-TOKEN -->
-<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-      
-        
-        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-      	<link rel="stylesheet" th:href="@{/css/mdb.css}" type="text/css"/>    
-        <link rel="stylesheet" th:href="@{/css/style.css}"/>
-         <link rel="stylesheet" th:href="@{/css/all.min.css}" type="text/css"/>
-         <link rel="stylesheet" th:href="@{/datatables.min.css}" type="text/css"/>  
-       
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        
-        
-        
-        
-  </head>
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/mdb.css}" type="text/css" />
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/all.min.css}" type="text/css" />
+<link rel="stylesheet" th:href="@{/datatables.min.css}" type="text/css" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+</head>
 <body>
 	<div th:fragment="navbar">
-		<div class="container" id="Home">
-        <div class="row">
-            <div class="col-2">
-                <a th:href="@{/}" id="logo"><img th:src="@{/Images/logo.png}"/></a>
-            </div>
-            
-            <div class="col-sm">
-            <form th:action="@{/courses}" class="form-inline" method="get" >
-                
-                    <div class="pad-extra">  
-                   <label class="sr-only" for="inputState">Class</label>
-                
-                    <select id="inputClass" class="form-control" name= "classSelected" style="width:250">
-                    
-                        <option selected>Select Class</option>
-                        <span th:each="classValue: ${classfromDatabase}">
-  								<option><span th:text="${classValue.getClassName()}"></span></option>
-  						</span>
-                    </select> 
-                      </div>
-                
-                <div class="pad-extra">  
-               <label class="sr-only" for="inputState">Subject</label>
-                   
-                        <select class="form-control" name="subjectSelected" id="subject" path="subject" disabled style="width:250" >
-                        		 <option selected>Select Subject</option>
-       							<option value="0" label="Subject" />
-       							<options items="${cities}" itemValue="id" itemLabel="name" />
-  								
+
+		<!--Navbar -->
+		<nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-secondary">
+			<a class="navbar-brand" th:href="@{/}" id="logo"><img
+				th:src="@{/Images/logo.png}" /></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent-4"
+				aria-controls="navbarSupportedContent-4" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link nav-weight" href="#">
+							About Us </a></li>
+
+					<li class="nav-item "><a class="nav-link nav-weight" href="#">
+							Event </a></li>
+		
+					<li class="nav-item "><a class="nav-link nav-weight" href="#">
+							Testimonial</a></li>
+
+					<li class="nav-item "><a class="nav-link nav-weight"
+						href="/#Contact-us"> Contact Us</a></li>
+					
+
+					<li class="nav-item dropdown">
+						<div sec:authorize="isAuthenticated()">
+							<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> <i class="fas fa-user"></i> Profile
+							</a>
+							<div class="dropdown-menu dropdown-menu-right dropdown-info"
+								aria-labelledby="navbarDropdownMenuLink-4">
+								<!-- <div th:if="${session.UserLogedRole == 'Admin' or session.UserLogedRole == 'Parent' or session.UserLogedRole == 'Learner' }"> -->
+								<div sec:authorize="hasAnyAuthority('Admin','Learner','Parent')">
+									<a th:href="@{myAccount}" class="dropdown-item" type="button">My
+										profile</a>
+									<div class="dropdown-divider"></div>
+								</div>
+							<!-- 	<div th:if="${session.UserLogedRole == 'Admin'}"> -->
+								<div sec:authorize="hasAnyAuthority('Admin')">
+									<a th:href="@{admin}" class="dropdown-item" type="button">View
+										Admin Section</a>
+									<div class="dropdown-divider"></div>
+								</div>
+							<!-- 	<div th:if="${session.UserLogedRole == 'Teacher'}"> -->
+								<div sec:authorize="hasAuthority('Teacher')">
+									<a th:href="@{myAccount}" class="dropdown-item" type="button">Contributor
+										Dashboard</a>
+									<div class="dropdown-divider"></div>
+								</div>
+								<a th:href="@{/logout}" class="dropdown-item" type="button">Logout</a>
+							</div>
+						</div>
+
+						<div sec:authorize="isAnonymous()">
+
+							<a th:href="@{Login}" class="btn btn-info btn-rounded ">Log
+								In</a> <a th:href="@{Signup}" class="btn btn-info btn-rounded">Register</a>
+
+						</div> 
+			</div>
+
+
+			</li>
+			</ul>
+		</nav>
+		<form th:action="@{/courses}" method="get">
+			<div class="container">
+
+				<div class="row">
+
+
+
+					<div class="col-sm-12 col-md-5 col-lg-5 ">
+						<label class="sr-only" for="inputState">Class</label> <select
+							id="inputClass" class="browser-default custom-select pad-extra"
+							name="classSelected">
+
+							<option selected>Select Class</option>
+							<span th:each="classValue: ${classfromDatabase}">
+								<option><span
+										th:text="'Class '+${classValue.getClassName()}"></span></option>
+						</span>
 						</select>
-                   
-                </div>
-                
-                <div class="pad-extra">  
-                	
-                <button type="submit" class="btn btn-primary btn-rounded" id="headerSubmit" disabled>Submit</button>
-                </div>
-        
-            </form>
-            </div>
-           	 <div>
- 
-             		<div class="row justify-content-end">
-                		
-                		<div class="dropdown pad-extra-submit" th:if="${session.UserLogedName}">
-            			<a class=" dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false" style="display:flex;color:black;font-size:23px">
-               			  <div th:text="${session.UserLogedName}"> </div>
-            			</a>
-        				<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            				<div th:if="${session.UserLogedRole == 'Admin' or session.UserLogedRole == 'Parent' or session.UserLogedRole == 'Learner' }">
+					</div>
+
+					<div class="col-sm-12 col-md-5 col-lg-5 ">
+						<label class="sr-only" for="inputState">Subject</label> <select
+							class="browser-default custom-select pad-extra"
+							name="subjectSelected" id="subjectHome" path="subject">
+							<option selected>Select Subject</option>
+							<span th:each="subjectValue: ${subjectfromDatabase}">
+								<option><span th:text="${subjectValue.getSubName()}"></span></option>
+						</span>
+							<!--  <options items="${cities}" itemValue="id" itemLabel="name" />-->
+
+						</select>
+					</div>
+
+
+					<div class="col-sm-12 col-md-2 col-lg-2">
+
+						<button type="submit" class="btn btn-primary " id="headerSubmit">Submit</button>
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+		</form>
+	</div>
+
+
+
+
+	<!--/.Navbar -->
+
+	<!--  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+				  <a th:href="@{/}" id="logo"><img th:src="@{/Images/logo.png}"/></a>
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+				
+				  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				   
+				  
+				  
+				    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				     
+				    
+				      <div th:if="${session.UserLogedName}">
+				      <li class="nav-item dropdown" >
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <div th:text="${session.UserLogedName}"> </div>
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				         <div th:if="${session.UserLogedRole == 'Admin' or session.UserLogedRole == 'Parent' or session.UserLogedRole == 'Learner' }">
             				<a th:href="@{myAccount}" class="dropdown-item" type="button">My profile</a>
             				<div class="dropdown-divider"></div>
             				</div>
@@ -84,87 +177,202 @@
             				<div class="dropdown-divider"></div>
             				</div>
             				<a th:href="@{/logout}" class="dropdown-item" type="button">Logout</a>
-        				</div>
-      					</div>
-      					
-      					<div class="pad-extra-submit" th:unless="${session.UserLogedName}"> 
-                		<a th:href="@{Login}">Log In</a> |  <a th:href="@{Signup}">Register</a>
+				        </div>
+				      </li>
+				      </div>
+				      
+				      <div th:unless="${session.UserLogedName}"> 
+                		<form class="form-inline my-2 my-lg-0">
+				      	<button class="btn btn-info btn-rounded" type="submit">Log In</button>
+				      	<button class="btn btn-info btn-rounded" type="submit">Regsiter</button>
+				      
+				    	</form>
                 		</div>
-              		</div>
-              		
-              		
-              		
+				      
+				    </ul>
+				    	
+				    	
+				    
+				     
+				  
+				  </div>
+			</nav>
+			-->
+
+
+	<div class="container" id="Home">
+
+		<div class="row">
+			<!--  <div class="col-2">
+                <a th:href="@{/}" id="logo"><img th:src="@{/Images/logo.png}"/></a>
             </div>
-            
-            
-        </div>
-        </div>
-       </div>
-       
-   <!-- ----------------------------------------------------------------------------------------------------------------- -->      
-   
-   
-       <div th:fragment="navbar-Admin">
-       
-       	<!--Navbar -->
-					<nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
-					  <a class="navbar-brand" th:href="@{/}">Home</a>
-					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-					    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-					    <span class="navbar-toggler-icon"></span>
-					  </button>
-					  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-					    <ul class="navbar-nav ml-auto">
-					      <li class="nav-item">
-					   		<a class="nav-link" th:href="@{home}">
-					         <i class="fas fa-tachometer-alt"></i>Dashboard
-					          <span class="sr-only">(current)</span>
-					      	</a>
-					      </li>
-					    
-					      <li class="nav-item dropdown">
-					        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-					          aria-haspopup="true" aria-expanded="false">
-					          <i class="fas fa-user"></i> <span th:text="${session.UserLogedName}"></span></a>
-					        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-					          
-					          <a class="dropdown-item" th:href="@{/logout}">Log out</a>
-					        </div>
-					      </li>
-					    </ul>
-					  </div>
-					</nav>
-<!--/.Navbar -->
-       
-       </div>
-       
-   <!-- ----------------------------------------------------------------------------------------------------------------- -->    
-       
-        <div th:fragment="body-bottom-scripts">
-        	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-			
+           -->
+			<div class="col-sm">
+				<form th:action="@{/courses}" class="form-inline" method="get">
+
+					<div class="pad-extra">
+						<label class="sr-only" for="inputState">Class</label> <select
+							id="inputClass" class="form-control" name="classSelected"
+							style="width: 250">
+
+							<option selected>Select Class</option>
+							<span th:each="classValue: ${classfromDatabase}">
+								<option><span
+										th:text="'Class '+${classValue.getClassName()}"></span></option>
+						</span>
+						</select>
+					</div>
+
+					<div class="pad-extra">
+						<label class="sr-only" for="inputState">Subject</label> <select
+							class="form-control" name="subjectSelected" id="subjectHome"
+							path="subject" style="width: 250">
+							<option selected>Select Subject</option>
+							<span th:each="subjectValue: ${subjectfromDatabase}">
+								<option><span th:text="${subjectValue.getSubName()}"></span></option>
+						</span>
+							<!--  <options items="${cities}" itemValue="id" itemLabel="name" />-->
+
+						</select>
+
+					</div>
+
+					<div class="pad-extra">
+
+						<button type="submit" class="btn btn-primary btn-rounded"
+							id="headerSubmit">Submit</button>
+					</div>
+
+				</form>
+			</div>
+			<div>
+
+				<div class="row justify-content-end">
+
+					<div class="dropdown pad-extra-submit"
+						th:if="${session.UserLogedName}">
+						<a class=" dropdown-toggle" id="dropdownMenu2"
+							data-toggle="dropdown" aria-expanded="false"
+							style="display: flex; color: black; font-size: 23px">
+							<div th:text="${session.UserLogedName}"></div>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+							<div
+								th:if="${session.UserLogedRole == 'Admin' or session.UserLogedRole == 'Parent' or session.UserLogedRole == 'Learner' }">
+								<a th:href="@{myAccount}" class="dropdown-item" type="button">My
+									profile</a>
+								<div class="dropdown-divider"></div>
+							</div>
+							<div th:if="${session.UserLogedRole == 'Admin'}">
+								<a th:href="@{home}" class="dropdown-item" type="button">View
+									Admin Section</a>
+								<div class="dropdown-divider"></div>
+							</div>
+							<div th:if="${session.UserLogedRole == 'Teacher'}">
+								<a th:href="@{myAccount}" class="dropdown-item" type="button">Contributor
+									Dashboard</a>
+								<div class="dropdown-divider"></div>
+							</div>
+							<a th:href="@{/logout}" class="dropdown-item" type="button">Logout</a>
+						</div>
+					</div>
+
+					<div class="pad-extra-submit" th:unless="${session.UserLogedName}">
+						<a th:href="@{Login}">Log In</a> | <a th:href="@{Signup}">Register</a>
+					</div>
+				</div>
+
+
+
+			</div>
+
+
+		</div>
+	</div>
+	</div>
+
+	<!-- ----------------------------------------------------------------------------------------------------------------- -->
+
+
+	<div th:fragment="navbar-Admin">
+
+		<!--Navbar -->
+		<nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
+			<a class="navbar-brand" th:href="@{/}">Home</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent-4"
+				aria-controls="navbarSupportedContent-4" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" th:href="@{/admin}">
+							<i class="fas fa-tachometer-alt"></i>Dashboard <span
+							class="sr-only">(current)</span>
+					</a></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-user"></i> <span
+							th:text="${session.UserLogedName}"></span>
+					</a>
+						<div class="dropdown-menu dropdown-menu-right dropdown-info"
+							aria-labelledby="navbarDropdownMenuLink-4">
+
+							<a class="dropdown-item" th:href="@{/logout}">Log out</a>
+						</div></li>
+				</ul>
+			</div>
+		</nav>
+		<!--/.Navbar -->
+
+	</div>
+
+
+	<!--  ******************************************* FOOTER SECTION ******************************************************** -->
+	<div th:fragment="footer">
+		<section class="copyright py-4 text-center text-white">
+			<div class="container">
+				<small>Copyright &copy; Spoken Tutorial 2020</small>
+			</div>
+		</section>
+	</div>
+
+
+	<!-- ----------------------------------------------------------------------------------------------------------------- -->
+
+	<div th:fragment="body-bottom-scripts">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"></script>
+
 		<!--  	<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>   -->
-		
-		  	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-        	<script th:src="@{/js/bootstrap.min.js}"></script>
-        	
-        	<script th:src="@{/js/all.js}"></script>
-         	<script th:src="@{/js/mdb.js}"></script>  
-         	 
-         	<script th:src="@{/datatables.min.js}"></script>  
-        	
-        	<script th:src="@{/js/ajaxPoperty.js}"></script>
-        	
-        
-        	
-        
-        </div>
-        
-        <div th:fragment="mdb-header">
-        		       <link rel="stylesheet" href="css/mdb.css" type="text/css"/>    
-        	     	<script src="js/mdb.js"></script>    
-        </div>
+
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+
+		<script th:src="@{/js/all.js}"></script>
+		<script th:src="@{/js/mdb.js}"></script>
+
+		<script th:src="@{/datatables.min.js}"></script>
+
+		<script th:src="@{/js/ajaxPoperty.js}"></script>
+
+
+
+
+	</div>
+
+	<div th:fragment="mdb-header">
+		<link rel="stylesheet" href="css/mdb.css" type="text/css" />
+		<script src="js/mdb.js"></script>
+	</div>
 
 </body>
 </html>

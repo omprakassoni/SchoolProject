@@ -8,15 +8,15 @@ package com.spoken.Utility;
 
 public class SubjectClassAjaxQueryResolver {
 	
-	private String className;
+	private int className;
 	
 	private String subject;
 
-	public String getClassName() {
+	public int getClassName() {
 		return className;
 	}
 
-	public void setClassName(String className) {
+	public void setClassName(int className) {
 		this.className = className;
 	}
 

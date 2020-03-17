@@ -26,11 +26,11 @@ public class UserRole {
 	@Column(nullable = false,updatable = false)
 	private int userRoleId;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private RoleDetail role;
 	

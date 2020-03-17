@@ -1,362 +1,395 @@
 <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-    
-    <div th:replace="common/header :: common-header">
-    
-    </div>
-    
-    <title>Add Concept-Map</title>
-  
-            
-    </head>
-    
-    <body>
-            <!-- NAVBAR DATA TOP-MOST -->
-         <div th:replace="common/header :: navbar-Admin"></div>
-         
-         
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
-		  <li class="nav-item">
-		    <a th:class="${viewActive} ? 'nav-link active' : 'nav-link'" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">View Concept-Map</a>
-		  </li>
-		  <li class="nav-item">
-		    <a th:class="${addActive} ? 'nav-link active' : 'nav-link'" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add Concept-Map</a>
-		  </li>
-		 
-		</ul>
-		<div class="tab-content" id="myTabContent">
-		  <div th:class="${viewActive} ? 'tab-pane fade show active' : 'tab-pane fade show'" id="home" role="tabpanel" aria-labelledby="home-tab">
-		  		 <div class="header-child">
-       			<label>Available Concept-Map</label> <hr/>
-       			<div class="status" th:text="${status}"></div>
-       			</div>
-     
-   		
-      	<form th:action="@{deleteConcept}" method="post">
-      	<div class="table-responsive">
-				<table id="dtBasicExample" class="table table-striped table-sm" cellspacing="0" width="100%">
-	
-				  <thead class="">
-				    <tr>
-				      <th>#</th>
-				      <th>Remarks</th>
-				      <th>Topic Name</th>
-				      <th>Description</th>
-				      <th>Date Added</th>
-				      <th>Contributed by</th>				 
-				      <th>Concept-Map</th>
-				      <th>Status</th>
-				      <th>Operation </th>
-				    </tr>
-				  </thead>
-		
-				  <tbody>
-				  
-				  <span th:each="concept:${ConceptMapList}">
-				    <tr class="clickable-row">
-				      <th scope="row"><input type="radio" th:value="${concept.getConcepMapid()}" th:id="${concept.getConcepMapid()}" name="radioConcept" /></th>
-				      <td><span th:text="${concept.getRemark()}"></span></td>	
-				      <td><span th:text="${concept.getTopic().getTopicName()}"></span></td>		
-				      <td><span th:text="${concept.getDescription()}"></span></td>
-				      <td><span th:text="${concept.getDateAdded()}"></span></td>
-				      <td><span th:text="${concept.getUser().getFname()}"></span></td>
-				 
-				      
-				      <td><a href="#" class="pop"><img id="imagesource" th:src="@{files/}+@{${concept.getUrl()}}" style="width:150px;height:100px"/></a></td>
-				       <td><span th:if="${concept.getStatus()==1}"><div id="true"/></span>
-				      	  <span th:unless="${concept.getStatus()==1}"><div id="false"/></span>
-				      </td>
-				   	  
-					   <td><a class="btn btn-secondary detailConcept" th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a>
-				     
-				    </tr>
-				    </span>
-				   
-				</tbody>
-			
-				</table>
-			
+<head>
+
+<div th:replace="common/header :: common-header"></div>
+
+<title>Add Concept-Map</title>
+
+
+</head>
+
+<body>
+	<!-- NAVBAR DATA TOP-MOST -->
+	<div th:replace="common/header :: navbar-Admin"></div>
+
+
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item"><a
+			th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
+			id="home-tab" data-toggle="tab" href="#home" role="tab"
+			aria-controls="home" aria-selected="true">View Concept-Map</a></li>
+		<li class="nav-item"><a
+			th:class="${addActive} ? 'nav-link active' : 'nav-link'"
+			id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+			aria-controls="profile" aria-selected="false">Add Concept-Map</a></li>
+
+	</ul>
+	<div class="tab-content" id="myTabContent">
+		<div
+			th:class="${viewActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
+			id="home" role="tabpanel" aria-labelledby="home-tab">
+			<div class="header-child">
+				<label>Available Concept-Map</label>
+				<hr />
+				<div class="status" th:text="${status}"></div>
 			</div>
-			
-			<div class="container">
-				<center>
-					
-						
-					<button class="btn btn-danger" id="disableConcept"  disabled >Disable</button>
-					
-					<button class="btn btn-primary" id="enableConcept"  disabled >Enable</button>
-						
-			
-				</center>
-			
-			
-			</div>
-			
-		</form>
-		
-		  
-		  </div>
-		  <div th:class="${addActive} ? 'tab-pane fade show active' : 'tab-pane fade show'" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-		  		<div class="container">
-		       		<div class="header-child">
-		       			<label>Upload Concept-Map</label> <hr/>
-		       			<div class="status" th:text="${statusAdd}"></div>
-		       			<div class="errorClass" th:text="${failure}"></div>
-		       			<div class="errorClass" th:text="${fileError}"></div>
-		       		</div>
-       			<div class=" shadow-lg p-3 mb-5 bg-white rounded" >
-       			<form th:action="@{addConceptMap}" method="post" enctype="multipart/form-data">
-       				<div class="row">
-       				<div class="col-sm-4">
-       					<select class="form-control" name="classSelected" id="classSelected" >
-       							<option>Select Class</option>
-       							<span th:each="classValue: ${classExist}">
-  								<option><span th:text="${classValue.getClassName()}"></span></option>
-  								</span>
-						</select>
-       				
-       				</div>
-       				
-       				<div class="col-sm-4">
-       					<select class="form-control" name="subjectSelected" id="subject" path="subject" disabled>
-       						<option value="0" >Select Subject</option>
-       						<options items="${cities}" itemValue="id" itemLabel="name" />
-  											
-						  </select>
-       				
-       				</div>
-       				
-       				<div class="col-sm-4">
-       					<select class="form-control" name="topicSelected" id="topic" path="topic" disabled>
-       						<option value="0" >Select Topic</option>
-       						<options items="${cities}" itemValue="id" itemLabel="name" />
-  											
-						  </select>
-       				
-       				</div>
-       				</div>
-       				<hr/>
-       				
-       			
-       				<br/>
-       				
-       				<div class="row">
-       				
-       					<div class="col-sm-2">
-       					</div>
-       				
-       					<div class="col-sm-4" >
-       							<label for="poster" class="header-right">Description</label> 
-       					</div>
-       					<div class="col-sm-4">
-       							<textarea class="form-control" placeholder="Enter Something" title="Max 10000 Character" id="descriptionConceptMap" name="descriptionConceptMap" rows="3" required disabled></textarea>
-       							<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd" value=""/>
-       					</div>
-       					
-       					<div class="col-sm-2">
-       					</div>
-       				</div>
-       				<br/>
-       				<div class="row">
-       				
-       					<div class="col-sm-2">
-       					</div>
-       				
-       					<div class="col-sm-4" >
-       							<label for="poster" class="header-right">Headline</label> 
-       					</div>
-       					<div class="col-sm-4">
-       							<input type="text" class="form-control-file" id="headlineConceptMap" title="Max 255 Character" name="headlineConceptMap" required disabled/>
-       					</div>
-       					
-       					<div class="col-sm-2">
-       					</div>
-       				</div>
-       				
-       				<br/>
-       				
-       				
-       				<br/>
-       				
-       					<div class="row">
-       					<div class="col-sm-2">
-       					</div>
-       					<div class="col-sm-4">
-       						<label for="poster" class="header-right">Upload Image</label> 
-       					</div>
-       					<div class="col-sm-4">
-       						<input type="file" class="form-control-file" id="conceptMapImage" accept="image/*" title="upload only JPEG/JPG file" name="conceptMapImage" required disabled/>
-       					</div>
-       					<div class="col-sm-2">
-       					</div>
-       				</div>
-       				
-       				<div class="row">
-       					<div class="col-sm-6">
-       					</div>
-       					<div class="col-sm-4">
-       						<div class="terms-and-condition">
-       						<input type="checkbox" class="form-check-input" id="exampleCheck1" required></div>
-       						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalScrollable">
-  								<span id="agree-property">Agree to terms and conditions</span>
-							</button>
-   							 
-       						
-       					</div>
-       					<div class="col-sm-2">
-       					</div>
-       				</div>
-       				
-       				<br/>
-       				
-       				<div class="row">
-       		
-       						
-       					<div class="col-sm-4">
-       					</div>
-       					
-       							
-       					<div class="col-sm-4">
-       							<button class="btn btn-primary btn-action upload-submit" type="submit" disabled>Upload</button>
-       					
-       					</div>
-       					<div class="col-sm-2">
-       					</div>
-       				</div>
-       						
-       				</form>		
-       					
-       			</div>
-       					
-       		</div>
-		  
-		  
-		  </div>
-		
+
+
+			<form th:action="@{deleteConcept}" method="post">
+				<div class="table-responsive">
+					<table id="dtBasicExample" class="table table-striped table-sm"
+						cellspacing="0" width="100%">
+
+						<thead class="">
+							<tr>
+								<th>#</th>
+								<th>Remarks</th>
+								<th>Topic Name</th>
+								<th>Description</th>
+								<th>Date Added</th>
+								<th>Contributed by</th>
+								<th>Concept-Map</th>
+								<th>Status</th>
+								<th>Operation</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<span th:each="concept:${ConceptMapList}">
+								<tr class="clickable-row">
+									<th scope="row"><input type="radio"
+										th:value="${concept.getConcepMapid()}"
+										th:id="${concept.getConcepMapid()}" name="radioConcept" /></th>
+									<td><span th:text="${concept.getRemark()}"></span></td>
+									<td><span th:text="${concept.getTopic().getTopicName()}"></span></td>
+									<td><span th:text="${concept.getDescription()}"></span></td>
+									<td><span th:text="${concept.getDateAdded()}"></span></td>
+									<td><span th:text="${concept.getUser().getFname()}"></span></td>
+
+
+									<td><a href="#" class="pop"><img id="imagesource"
+											th:src="@{files/}+@{${concept.getUrl()}}"
+											style="width: 150px; height: 100px" /></a></td>
+									<td><span th:if="${concept.getStatus()==1}"><div
+												id="true" /></span> <span th:unless="${concept.getStatus()==1}"><div
+												id="false" /></span></td>
+
+									<td><a class="btn btn-secondary detailConcept"
+										th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a>
+								</tr>
+							</span>
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+				<div class="container">
+					<center>
+
+
+						<button class="btn btn-danger" id="disableConcept" disabled>Disable</button>
+
+						<button class="btn btn-primary" id="enableConcept" disabled>Enable</button>
+
+
+					</center>
+
+
+				</div>
+
+			</form>
+
+
 		</div>
-       
-        
-       			<!-- Modal  for previewing the Images-->
-			<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			  <div class="modal-dialog modal-lg" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalCenterTitle">Image Viewer</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			      <img src="" id="imagepreview" style="width: 100%;" />
-			        ...
-			     
-			      <div class="modal-footer">
-			       
-			      </div>
-			    </div>
-			  </div>
+		<div
+			th:class="${addActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
+			id="profile" role="tabpanel" aria-labelledby="profile-tab">
+			<div class="container">
+				<div class="header-child">
+					<label>Upload Concept-Map</label>
+					<hr />
+					<div class="status" th:text="${statusAdd}"></div>
+					<div class="errorClass" th:text="${failure}"></div>
+					<div class="errorClass" th:text="${fileError}"></div>
+				</div>
+				<div class=" shadow-lg p-3 mb-5 bg-white rounded">
+					<form th:action="@{addConceptMap}" method="post"
+						enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-sm-4">
+								<select class="form-control" name="classSelected"
+									id="classSelected">
+									<option>Select Class</option>
+									<span th:each="classValue: ${classExist}">
+										<option><span th:text="${classValue.getClassName()}"></span></option>
+								</span>
+								</select>
+
+							</div>
+
+							<div class="col-sm-4">
+								<select class="form-control" name="subjectSelected" id="subject"
+									path="subject" disabled>
+									<option value="0">Select Subject</option>
+									<options items="${cities}" itemValue="id" itemLabel="name" />
+
+								</select>
+
+							</div>
+
+							<div class="col-sm-4">
+								<select class="form-control" name="topicSelected" id="topic"
+									path="topic" disabled>
+									<option value="0">Select Topic</option>
+									<options items="${cities}" itemValue="id" itemLabel="name" />
+
+								</select>
+
+							</div>
+						</div>
+						<hr />
+
+
+						<br />
+
+						<div class="row">
+
+							<div class="col-sm-2"></div>
+
+							<div class="col-sm-4">
+								<label for="poster" class="header-right">Description</label>
+							</div>
+							<div class="col-sm-4">
+								<textarea class="form-control" placeholder="Enter Something"
+									title="Max 10000 Character" id="descriptionConceptMap"
+									name="descriptionConceptMap" rows="3" required disabled></textarea>
+								<input type="hidden" id="UserIdUserEnd" name="UserIdUserEnd"
+									value="" />
+							</div>
+
+							<div class="col-sm-2"></div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-2"></div>
+
+							<div class="col-sm-4">
+								<label for="poster" class="header-right">Headline</label>
+							</div>
+							<div class="col-sm-4">
+								<input type="text" class="form-control-file"
+									id="headlineConceptMap" title="Max 255 Character"
+									name="headlineConceptMap" required disabled />
+							</div>
+
+							<div class="col-sm-2"></div>
+						</div>
+
+						<br /> <br />
+
+						<div class="row">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-4">
+								<label for="poster" class="header-right">Upload Image</label>
+							</div>
+							<div class="col-sm-4">
+								<input type="file" class="form-control-file"
+									id="conceptMapImage" accept="image/*"
+									title="upload only JPEG/JPG file" name="conceptMapImage"
+									required disabled />
+							</div>
+							<div class="col-sm-2"></div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6"></div>
+							<div class="col-sm-4">
+								<div class="terms-and-condition">
+									<input type="checkbox" class="form-check-input"
+										id="exampleCheck1" required>
+								</div>
+								<button type="button" class="btn btn-link"
+									id="termsAndConditionButton" data-toggle="modal"
+									data-target="#exampleModalScrollable">
+									<span id="agree-property">Agree to terms and conditions</span>
+								</button>
+
+
+							</div>
+							<div class="col-sm-2"></div>
+						</div>
+
+						<br />
+
+						<div class="row">
+
+
+							<div class="col-sm-4"></div>
+
+
+							<div class="col-sm-4">
+								<button class="btn btn-primary btn-action upload-submit"
+									type="submit" disabled>Upload</button>
+
+							</div>
+							<div class="col-sm-2"></div>
+						</div>
+
+					</form>
+
+				</div>
+
 			</div>
+
+
+		</div>
+
+	</div>
+
+
+	<!-- Modal  for previewing the Images-->
+	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Image
+						Viewer</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<img src="" id="imagepreview" style="width: 100%;" /> ...
+
+					<div class="modal-footer"></div>
+				</div>
 			</div>
-
-		
-			<!-- Modal for updating the data-->
-			
-			<div class="modal fade" id="ConceptMapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			  <div class="modal-dialog modal-lg" role="document">
-			    <div class="modal-content">
-			     <form action =""  method="post" enctype="multipart/form-data" id="uploadUpdateConcept">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalCenterTitle">Update Concept-Map</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      
-			      <div class="modal-body">
-			      
-			      <div id="SuccessConcept" style="display:none;color:green;font-size:18px;text-align:center">Data Updated Successfully</div>
-			      <div id="FailureConcept" style="display:none;color:red;font-size:18px;text-align:center">Please Try Again</div>
-			      <div id="invalid-dataConcept" style="display:none;color:red;font-size:18px;text-align:center">File must be Image</div>
-			     
-			      <div class="row">
-				      		
-				      			<div class="col-sm-6">
-				      				<label>Headline</label>
-				      			</div>
-				      			<div class="col-sm-6">
-				      			<input type="text" class="form-control-file" id="conceptHeadline" name="conceptHeadline" value=""/>
-				      			<input type="hidden" id="conceptId" name="conceptId" value="">
-				      			</div>
-				   </div>
-				   
-				      			<br/>
-				   <div class="row">
-				      		
-				      			<div class="col-sm-6">
-				      				<label>Description</label>
-				      			</div>
-				      			<div class="col-sm-6">
-				      			<textarea class="form class" id="conceptDesc" name="conceptDesc" rows="4" cols="20" placeholder=""></textarea>
-				      			</div>
-				   </div>
-				   				<br/>
-				    <div class="row">
-				      		
-				      			<div class="col-sm-6">
-				      				<label>Concept-Maps Image</label>
-				      			</div>
-				      			<div class="col-sm-6">
-				      			<input type="file" class="form-control-file" id="conceptImage" name="conceptImage" accept="image/*"/>
-				      			</div>
-				   </div>
-				   				
-				      		
-				      		 <div class="modal-footer">
-				      		<button class="btn btn-primary" id="updateConcept" value="" disabled>Update</button>
-				     		 </div>	
-				     		     
-				    </div>
-				    </form>
-				
-				    
-				      
-				      </div>
-			    </div>
-			  </div>
-			  
-			  <!-- Modal for terms and condition -->
-			  
-			 		<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					  <div class="modal-dialog modal-dialog-centered" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalCenterTitle">Terms and Conditions</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					      <div class="modal-body">
-					        ...
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					      </div>
-					    </div>
-					  </div>
-					 </div>
-       		
-       
-     
-      				<!--  COMMON CODE FOR LIBRARY ADDED -->
-        <div th:replace="common/header :: body-bottom-scripts"></div>
-        
-         <link rel="stylesheet" href="css/mdb.css" type="text/css"/> 
-		<script src="js/mdb.js"></script>
+		</div>
+	</div>
 
 
-        
-    </body>
+	<!-- Modal for updating the data-->
+
+	<div class="modal fade" id="ConceptMapModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateConcept">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Concept-Map</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+
+						<div id="SuccessConcept"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureConcept"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataConcept"
+							style="display: none; color: red; font-size: 18px; text-align: center">File
+							must be Image</div>
+
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Headline</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" class="form-control-file"
+									id="conceptHeadline" name="conceptHeadline" value="" /> <input
+									type="hidden" id="conceptId" name="conceptId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Description</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="conceptDesc" name="conceptDesc"
+									rows="4" cols="20" placeholder=""></textarea>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Concept-Maps Image</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="conceptImage"
+									name="conceptImage" accept="image/*" />
+							</div>
+						</div>
+
+
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateConcept" value=""
+								disabled>Update</button>
+						</div>
+
+					</div>
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal for terms and condition -->
+
+	<div class="modal fade" id="exampleModalScrollable" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Terms and
+						Conditions</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+	<link rel="stylesheet" href="css/mdb.css" type="text/css" />
+	<script src="js/mdb.js"></script>
+
+
+
+</body>
 
 
 </html>

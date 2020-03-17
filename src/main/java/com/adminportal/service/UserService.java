@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.Class;
 import com.adminportal.content.Comment;
 import com.adminportal.content.CommentReply;
 import com.adminportal.content.ConceptMap;
@@ -17,6 +18,7 @@ import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
+import com.adminportal.content.Subject;
 import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
@@ -65,6 +67,10 @@ public interface UserService {
 	User addUserToComment(User usr,Set<Comment> comment);
 	
 	User addUserToCommentReply(User usr,Set<CommentReply> comReply);
+	
+	User addUserToClass(User usr,Class clas);
+	
+	User adduserToSubject(User usr, Subject sub);
 	
 	boolean updateUserPassword(String password,int id);
 	
