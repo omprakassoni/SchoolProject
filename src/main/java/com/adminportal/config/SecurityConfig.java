@@ -93,11 +93,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 	};
 	
+	public static final String[] CONTRIBUTOR_URL= {
+			"/dashBoard",
+			"/conVideo",
+			"/conDocument",
+			"/conArticle",
+			"/conQuiz",
+			"/conPhet",
+			"/conLessonPlan",
+			"/conConceptMap"
+	};
+	
 	@Override
 	protected void configure(HttpSecurity http)throws Exception{
 		
 		http.authorizeRequests()
 			.antMatchers("/admin/**").hasAnyAuthority("Admin")
+			.antMatchers(CONTRIBUTOR_URL).hasAnyAuthority("Teacher")
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.anyRequest().authenticated();
 		

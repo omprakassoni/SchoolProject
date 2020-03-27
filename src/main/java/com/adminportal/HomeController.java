@@ -309,6 +309,106 @@ public class HomeController {
 	
 	
 /***********************************************END***********************************************************************/
+
+/******************************* dASHBOARD FOR CONTRIBUTOR ********************************************/
+
+	@RequestMapping(value = "/dashBoard",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoard(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("user");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/conVideo",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardVideo(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("video");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/conConceptMap",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardConceptMap(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("conceptMap");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/conQuiz",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardQuiz(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("quiz");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/conArticle",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardArticle(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("article");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/conLessonPlan",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardLessonPlan(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("lessonPlan");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/conDocument",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardDocument(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("document");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/conPhet",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardPhet(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		mv.setViewName("phets");
+		
+		return mv;
+	}
+	
+/**************************************** END **************************************************/	
 	
 /******************************* MY ACCOUNT PAGE OF USER TO PERFORM OPERATION ***********************************/
 	
