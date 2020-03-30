@@ -330,6 +330,8 @@ public class HomeController {
 		User localUser=userService.findByUsername(principal.getName());
 		
 		mv.addObject("LoggedUser",localUser);
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
 		
 		mv.setViewName("video");
 		
@@ -343,6 +345,9 @@ public class HomeController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
 		mv.setViewName("conceptMap");
 		
 		return mv;
@@ -355,6 +360,8 @@ public class HomeController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("quiz");
 		
 		return mv;
@@ -367,6 +374,8 @@ public class HomeController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("article");
 		
 		return mv;
@@ -379,6 +388,8 @@ public class HomeController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("lessonPlan");
 		
 		return mv;
@@ -391,6 +402,8 @@ public class HomeController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("document");
 		
 		return mv;
@@ -403,6 +416,8 @@ public class HomeController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("phets");
 		
 		return mv;

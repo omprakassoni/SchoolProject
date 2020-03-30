@@ -5797,6 +5797,8 @@ $(function(){
   	/****************************************************USER SIDE MYACCOUNT SECTION (UPADTING PASSWORD******************************************************/
   		
   			$('#newPassTeacher').change(function(){
+  				
+  				$('#updatePasswordTeacher').prop('disabled',true);
   				var confpass=$('#confPassTeacher').val();
   				var pass=$(this).val();
   				if(confpass.length>0 && pass.length>0){
@@ -5807,6 +5809,8 @@ $(function(){
   			})
   			
   			$('#confPassTeacher').change(function(){
+  				
+  				$('#updatePasswordTeacher').prop('disabled',true);
   				var confpass=$('#newPassTeacher').val();
   				var pass=$(this).val();
   				if(confpass.length>0 && pass.length>0){
@@ -5819,7 +5823,6 @@ $(function(){
   			$('#updatePasswordTeacher').click(function(){
   			
   			var currPass=$('#currentPasswordTeacher').val();	
-  			var userid=$('#userIdUpdateTeacher').val();
   			var pass=$('#newPassTeacher').val();
   			var confpass=$('#confPassTeacher').val();
   			
@@ -5840,7 +5843,6 @@ $(function(){
   				
   				var json={
   					"password":pass,
-  					"userId":userid,
   					"currentPassword":currPass
   					
   				};
@@ -6528,12 +6530,12 @@ $(function(){
   					
   	});
 
-$(document).ready(function () {                             /************Admin side              */
+$(document).ready(function () {                             //************Admin side              *//*
 	  $('#dtBasicExample').DataTable();
 	  $('.dataTables_length').addClass('bs-select');
 });   
 
-/********************** User Side********************/
+//********************** User Side********************//*
 
 $(document).ready(function () {
 	  $('#dtBasicExamplePhet').DataTable();

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -318,15 +319,15 @@ public class HomeControllerRest {
 	
 	/********************************************** UPDATE PASSWORD ***************************************************************/
 	@PostMapping("/updatePassword")
-	public @ResponseBody List<String> updateUserPassword(@Valid @RequestBody passwordUpdateAjaxQueryResolver localpass){
+	public @ResponseBody List<String> updateUserPassword(@Valid @RequestBody passwordUpdateAjaxQueryResolver localpass,Principal principal){
 		List<String> status=new ArrayList<String>();
 		boolean statusPassword=false;
 		
-		User usr=userService.findById(localpass.getUserId());
+		User usr=userService.findByUsername(principal.getName());
 		statusPassword =ServiceUtility.passwordEncoder().matches(localpass.getCurrentPassword(), usr.getPassword());
 		
 		if(statusPassword) {
-		if(userService.updateUserPassword(ServiceUtility.passwordEncoder().encode(localpass.getPassword()), localpass.getUserId())) {
+		if(userService.updateUserPassword(ServiceUtility.passwordEncoder().encode(localpass.getPassword()), usr.getId())) {
 			status.add("Success");
 		}else {
 			status.add("failure");
@@ -2210,7 +2211,7 @@ public class HomeControllerRest {
 	
 	@PostMapping("/addArticleFromUser")
 	public @ResponseBody List<String> addArticleFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("url") String url){
 		List<String> status=new ArrayList<String>();
 		
@@ -2231,7 +2232,7 @@ public class HomeControllerRest {
 			
 			
 			
-			User usr=userService.findByUsername(userID);
+			User usr=userService.findByUsername(principal.getName());
 			Set<ArticleExternal> articlemapping=new HashSet<ArticleExternal>();
 			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
 			
@@ -2251,7 +2252,7 @@ public class HomeControllerRest {
 	
 	@PostMapping("/addPhetFromUser")
 	public @ResponseBody List<String> addPhetFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("phet") String phet){
 		
 		List<String> status=new ArrayList<String>();
@@ -2294,7 +2295,7 @@ public class HomeControllerRest {
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
 			
 			
-			User usr=userService.findByUsername(userID);
+			User usr=userService.findByUsername(principal.getName());
 			
 			
 			Set<Phets> phetMapping=new HashSet<Phets>();
@@ -2316,7 +2317,7 @@ public class HomeControllerRest {
 	
 	@PostMapping("/addVideoFromUser")
 	public @ResponseBody List<String> addVideoFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("url") String url){
 		List<String> status=new ArrayList<String>();
 		
@@ -2362,7 +2363,7 @@ public class HomeControllerRest {
 			
 			
 			
-			User usr=userService.findByUsername(userID);
+			User usr=userService.findByUsername(principal.getName());
 			
 			Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
 			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
@@ -2389,7 +2390,7 @@ public class HomeControllerRest {
 	
 	@PostMapping("/addLessonFromUser")
 	public @ResponseBody List<String> addLessonFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("lesson") MultipartFile[] uploadLessonPlan){
 		
 		List<String> status=new ArrayList<String>();
@@ -2419,7 +2420,7 @@ public class HomeControllerRest {
 			
 
 			
-			User usr=userService.findByUsername(userID);
+			User usr=userService.findByUsername(principal.getName());
 			
 			Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
 			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
@@ -2441,7 +2442,7 @@ public class HomeControllerRest {
 	
 	@PostMapping("/addQuizFromUser")
 	public @ResponseBody List<String> addQuizFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("remarks") String remark,@RequestParam("Question") MultipartFile[] uploadQuestion,
 										   @RequestParam("Answer") MultipartFile[] uploadAnswer){
 		
@@ -2487,7 +2488,7 @@ public class HomeControllerRest {
 			
 
 			
-			User usr=userService.findByUsername(userID);
+			User usr=userService.findByUsername(principal.getName());
 			
 			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 			Subject localSubject=subjectService.findBysubName(subSelected);
@@ -2522,7 +2523,7 @@ public class HomeControllerRest {
 	
 	@PostMapping("/addDocumentFromUser")
 	public @ResponseBody List<String> addDocumentFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("Question") MultipartFile[] uploadDocument){
 		
 		List<String> status=new ArrayList<String>();
@@ -2554,7 +2555,7 @@ public class HomeControllerRest {
 			
 
 			
-			User usr=userService.findByUsername(userID);
+			User usr=userService.findByUsername(principal.getName());
 			
 			Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
 			documentMapping.add(new DocumentExternal(docuService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
@@ -2578,7 +2579,7 @@ public class HomeControllerRest {
 	
 	@PostMapping("/addConceptFromUser")
 	public @ResponseBody List<String> addConceptFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,@RequestParam("UserIdUserEnd") String userID,
+										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("descriptionConceptMap") String desc,@RequestParam("headlineConceptMap") String remark,@RequestParam("conceptMapImage") MultipartFile[] uploadDocument){
 		
 		List<String> status=new ArrayList<String>();
@@ -2609,7 +2610,7 @@ public class HomeControllerRest {
 			
 
 			
-			User usr=userService.findByUsername(userID);
+			User usr=userService.findByUsername(principal.getName());
 			
 			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
 			conceptMapping.add(new ConceptMap(concepMapService.countRow()+1, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
