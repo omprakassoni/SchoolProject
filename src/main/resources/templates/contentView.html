@@ -1,0 +1,1776 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head>
+    <div th:replace="common/header :: common-header-Dashboard"></div>
+	<title>ContentView</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-image="/img/sidebar-5.jpg">
+            <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a th:href="@{/}" class="simple-text">
+                        School Project
+                    </a>
+                </div>
+                 <ul class="nav">
+                    <li>
+                        <a class="nav-link" th:href="@{/dashBoard}">
+                            <i class="nc-icon nc-circle-09"></i>
+                            <p>User Profile</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" th:href="@{/conConceptMap}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Concepts-Map</p>
+                        </a>
+                    </li>
+                    <li >
+                        <a class="nav-link" th:href="@{/conPhet}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Phets</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" th:href="@{/conArticle}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Article</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" th:href="@{/conLessonPlan}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Lesson Plan</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" th:href="@{/conDocument}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Document</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" th:href="@{/conVideo}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Video</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" th:href="@{/conQuiz}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Quiz</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/conView}">
+                            <i class="nc-icon nc-bell-55"></i>
+                            <p>Status</p>
+                        </a>
+                    </li>
+<!--
+                    <li class="nav-item active active-pro">
+                        <a class="nav-link active" href="upgrade.html">
+                            <i class="nc-icon nc-alien-33"></i>
+                            <p>Upgrade to PRO</p>
+                        </a>
+                    </li>
+-->
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+                <div class="container-fluid">
+                    <span th:text="${LoggedUser.getFname()}"></span>
+                    <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+<!--
+                        <ul class="nav navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="dropdown">
+                                    <i class="nc-icon nc-palette"></i>
+                                    <span class="d-lg-none">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <i class="nc-icon nc-planet"></i>
+                                    <span class="notification">5</span>
+                                    <span class="d-lg-none">Notification</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Notification 1</a>
+                                    <a class="dropdown-item" href="#">Notification 2</a>
+                                    <a class="dropdown-item" href="#">Notification 3</a>
+                                    <a class="dropdown-item" href="#">Notification 4</a>
+                                    <a class="dropdown-item" href="#">Another notification</a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nc-icon nc-zoom-split"></i>
+                                    <span class="d-lg-block">&nbsp;Search</span>
+                                </a>
+                            </li>
+                        </ul>
+-->
+                        <ul class="navbar-nav ml-auto">
+<!--
+                            <li class="nav-item">
+                                <a class="nav-link" href="#pablo">
+                                    <span class="no-icon">Account</span>
+                                </a>
+                            </li>
+-->
+<!--
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="no-icon">Dropdown</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <div class="divider"></div>
+                                    <a class="dropdown-item" href="#">Separated link</a>
+                                </div>
+                            </li>
+-->
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/logout}">
+                                    <span class="no-icon">Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+          	<div class="tab-pane fade show" id="v-pills-Status" role="tabpanel"
+						aria-labelledby="v-pills-home-tab">
+
+
+						<ul class="nav nav-tabs" id="myTabMD" role="tablist">
+							<li class="nav-item"><a class="nav-link active"
+								id="home-tab-md" data-toggle="tab" href="#phets" role="tab"
+								aria-controls="home-md" aria-selected="true">Phets</a></li>
+							<li class="nav-item"><a class="nav-link" id="profile-tab-md"
+								data-toggle="tab" href="#concept-map" role="tab"
+								aria-controls="profile-md" aria-selected="false">Concept-Maps</a>
+							</li>
+							<li class="nav-item"><a class="nav-link" id="contact-tab-md"
+								data-toggle="tab" href="#video" role="tab"
+								aria-controls="contact-md" aria-selected="false">Video</a></li>
+							<li class="nav-item"><a class="nav-link" id="contact-tab-md"
+								data-toggle="tab" href="#article" role="tab"
+								aria-controls="contact-md" aria-selected="false">Article</a></li>
+							<li class="nav-item"><a class="nav-link" id="contact-tab-md"
+								data-toggle="tab" href="#document" role="tab"
+								aria-controls="contact-md" aria-selected="false">Document</a></li>
+							<li class="nav-item"><a class="nav-link" id="contact-tab-md"
+								data-toggle="tab" href="#lessonPlan" role="tab"
+								aria-controls="contact-md" aria-selected="false">Lesson Plan</a>
+							</li>
+							<li class="nav-item"><a class="nav-link" id="contact-tab-md"
+								data-toggle="tab" href="#quiz" role="tab"
+								aria-controls="contact-md" aria-selected="false">Quiz</a></li>
+						</ul>
+						<div class="tab-content card pt-5" id="myTabContentMD">
+
+							<div class="tab-pane fade show active" id="phets" role="tabpanel"
+								aria-labelledby="home-tab-md">
+
+
+								<div class="" style="text-align: center">
+									<label>Available Phets</label>
+									<hr />
+									<div class="status" th:text="${status}"></div>
+								</div>
+
+								<div class="table-responsive">
+									<table id="dtBasicExamplePhet"
+										class="table table-striped table-sm" cellspacing="0"
+										width="100%">
+
+										<thead class="">
+											<tr>
+
+												<th>Topic Name</th>
+												<th>Description</th>
+												<th>Date Added</th>
+												<th>Source</th>
+												<th>Link</th>
+												<th>Status</th>
+
+												<th>Operation</th>
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<span th:each="phet:${PhetOnUser}">
+												<tr class="clickable-row">
+
+													<td><span th:text="${phet.getTopic().getTopicName()}"></span></td>
+													<td><span th:text="${phet.getDescription()}"></span></td>
+													<td><span th:text="${phet.getDateAdded()}"></span></td>
+													<td><span th:text="${phet.getSource()}"></span></td>
+													<td><iframe th:src="${phet.getUrl()}" width="300"
+															height="200" scrolling="no" allowfullscreen></iframe></td>
+
+
+													<td><span th:if="${phet.isStatus()==1}"><div
+																id="true" /></span> <span th:unless="${phet.isStatus()==1}"><div
+																id="false" /></span></td>
+
+
+													<td><span th:if="${phet.isStatus()==0}"><a
+															class="btn btn-secondary detailPhets"
+															th:value="${phet.getPhetId()}" id="detailPhets">Update</a><br />
+														<br /> <a class="btn btn-secondary commentPhet"
+															th:value="${phet.getPhetId()}" id="commentPhet">Comment</a></span>
+													</td>
+
+												</tr>
+											</span>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+
+
+
+							</div>
+							<div class="tab-pane fade" id="concept-map" role="tabpanel"
+								aria-labelledby="profile-tab-md">
+								<div style="text-align: center">
+									<label>Available Concept-Map</label>
+									<hr />
+									<div class="status" th:text="${status}"></div>
+								</div>
+
+
+
+								<div class="table-responsive">
+									<table id="dtBasicExampleConcept"
+										class="table table-striped table-sm" cellspacing="0"
+										width="100%">
+										<div class="clearfix"></div>
+										<thead class="">
+											<tr>
+												<th>#</th>
+												<th>Remarks</th>
+												<th>Topic Name</th>
+												<th>Description</th>
+												<th>Date Added</th>
+
+												<th>Concept-Map</th>
+												<th>Status</th>
+												<th>Operation</th>
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<span th:each="concept:${ConceptOnUser}">
+												<tr class="clickable-row">
+													<th scope="row"><input type="radio"
+														th:value="${concept.getConcepMapid()}"
+														th:id="${concept.getConcepMapid()}" name="radioConcept" /></th>
+													<td><span th:text="${concept.getRemark()}"></span></td>
+													<td><span
+														th:text="${concept.getTopic().getTopicName()}"></span></td>
+													<td><span th:text="${concept.getDescription()}"></span></td>
+													<td><span th:text="${concept.getDateAdded()}"></span></td>
+
+
+
+													<td><a href="#" class="pop"><img id="imagesource"
+															th:src="@{/files/}+@{${concept.getUrl()}}"
+															style="width: 150px; height: 100px" /></a></td>
+													<td><span th:if="${concept.getStatus()==1}"><div
+																id="true" /></span> <span th:unless="${concept.getStatus()==1}"><div
+																id="false" /></span></td>
+
+													<td><span th:if="${concept.getStatus()==0}"><a
+															class="btn btn-secondary detailConcept"
+															th:value="${concept.getConcepMapid()}" id="detailConcept">Update</a><br />
+														<br /> <a class="btn btn-secondary commentConcept"
+															th:value="${concept.getConcepMapid()}"
+															id="commentConcept">Comment</a></span>
+												</tr>
+											</span>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+
+
+
+
+
+							</div>
+							<div class="tab-pane fade" id="video" role="tabpanel"
+								aria-labelledby="contact-tab-md">
+
+
+								<div class="" style="text-align: center">
+									<label>Available Reference Video</label>
+									<hr />
+									<div class="status" th:text="${status}"></div>
+								</div>
+
+								<div class="table-responsive">
+									<table id="dtBasicExampleVideo"
+										class="table table-striped table-sm" cellspacing="0"
+										width="100%">
+
+										<thead class="">
+											<tr>
+
+												<th>Topic Name</th>
+												<th>Description</th>
+												<th>Source</th>
+												<th>Date Added</th>
+												<th>Video</th>
+												<th>Status</th>
+
+												<th>Operation</th>
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<span th:each="video:${VideoOnUser}">
+												<tr class="clickable-row">
+													<td><span th:text="${video.getTopic().getTopicName()}"></span></td>
+													<td><span th:text="${video.getDescription()}"></span></td>
+													<td><span th:text="${video.getSource() }"></span></td>
+													<td><span th:text="${video.getDateAdded()}"></span></td>
+													<td><iframe th:src="${video.getUrl()}" width="300"
+															height="200" scrolling="no" allowfullscreen></iframe></td>
+													<td><span th:if="${video.isStatus()==1}"><div
+																id="true" /></span> <span th:unless="${video.isStatus()==1}"><div
+																id="false" /></span></td>
+
+
+													<td><span th:if="${video.isStatus()==0}"><a
+															class="btn btn-secondary detailVideo"
+															th:value="${video.getVideoId()}" id="detailVideo">Update</a><br />
+														<br /> <a class="btn btn-secondary commentVideo"
+															th:value="${video.getVideoId()}" id="commentVideo">Comment</a></span>
+													</td>
+
+												</tr>
+											</span>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+							</div>
+
+							<div class="tab-pane fade show " id="article" role="tabpanel"
+								aria-labelledby="home-tab-md">
+
+								<div class="" style="text-align: center">
+									<label>Available Reference Article</label>
+									<hr />
+									<div class="status" th:text="${status}"></div>
+								</div>
+
+
+
+								<div class="table-responsive">
+									<table id="dtBasicExampleArticle"
+										class="table table-striped table-sm" cellspacing="0"
+										width="100%">
+
+										<thead class="">
+											<tr>
+
+												<th>Topic Name</th>
+												<th>Description</th>
+												<th>Date Added</th>
+												<th>Source</th>
+												<th>Link</th>
+												<th>Status</th>
+
+												<th>Operation</th>
+
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<span th:each="article:${ArticleOnUser}">
+												<tr class="clickable-row">
+													<td><span
+														th:text="${article.getTopic().getTopicName()}"></span></td>
+													<td><span th:text="${article.getDescription()}"></span></td>
+													<td><span th:text="${article.getDateAdded()}"></span></td>
+													<td><span th:text="${article.getSource()}"></span></td>
+													<td><a th:href="${article.getUrl()}"><span
+															th:text="${article.getUrl()}"></span></a></td>
+
+													<td><span th:if="${article.isStatus()==1}"><div
+																id="true" /></span> <span th:unless="${article.isStatus()==1}"><div
+																id="false" /></span></td>
+
+
+													<td><span th:if="${article.isStatus()==0}"><a
+															class="btn btn-secondary detailArticle"
+															th:value="${article.getArticleId()}" id="detailArticle">Update</a><br />
+														<br /> <a class="btn btn-secondary commentArticle"
+															th:value="${article.getArticleId()}" id="commentArticle">Comment</a></span>
+													</td>
+
+												</tr>
+											</span>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+
+
+							</div>
+
+							<div class="tab-pane fade show" id="document" role="tabpanel"
+								aria-labelledby="home-tab-md">
+
+								<div class="" style="text-align: center">
+									<label>Available Reference Document</label>
+									<hr />
+									<div class="status" th:text="${status}"></div>
+								</div>
+
+								<div class="table-responsive">
+									<table id="dtBasicExampleDocument"
+										class="table table-striped table-sm" cellspacing="0"
+										width="100%">
+
+										<thead class="">
+											<tr>
+
+												<th>Topic Name</th>
+												<th>Description</th>
+												<th>Date Added</th>
+												<th>Source</th>
+												<th>Link</th>
+												<th>Status</th>
+
+												<th>Operation</th>
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<span th:each="document:${DocumentOnUser}">
+												<tr class="clickable-row">
+													<td><span
+														th:text="${document.getTopic().getTopicName()}"></span></td>
+													<td><span th:text="${document.getDescription()}"></span></td>
+													<td><span th:text="${document.getDateAdded()}"></span></td>
+													<td><span th:text="${document.getSource()}"></span></td>
+													<td><a th:href="@{/files/}+@{${document.getUrl()}}"
+														target="_blank"><img id="pdfsource"
+															th:src="${document.getUrl()}" alt="Document"></img></a></td>
+
+
+													<td><span th:if="${document.isStatus()==1}"><div
+																id="true" /></span> <span th:unless="${document.isStatus()==1}"><div
+																id="false" /></span></td>
+
+
+
+													<td><span th:if="${document.isStatus()==0}"><a
+															class="btn btn-secondary detailDocument"
+															th:value="${document.getDocumentId()}"
+															id="detailDocument">Update</a><br />
+														<br /> <a class="btn btn-secondary commentDocument"
+															th:value="${document.getDocumentId()}"
+															id="commentDocument">Comment</a></span></td>
+
+												</tr>
+											</span>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+
+							</div>
+
+							<div class="tab-pane fade" id="lessonPlan" role="tabpanel"
+								aria-labelledby="home-tab-md">
+
+								<div class="" style="text-align: center">
+									<label>Available Lesson Plan</label>
+									<hr />
+									<div class="status" th:text="${status}"></div>
+								</div>
+
+								<div class="table-responsive">
+									<table id="dtBasicExampleLesson"
+										class="table table-striped table-sm" cellspacing="0"
+										width="100%">
+
+										<thead>
+											<tr>
+
+												<th>Topic Name</th>
+												<th>Date Added</th>
+												<th>Link</th>
+												<th>Status</th>
+												<th>Operation</th>
+
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<span th:each="lesson:${LessonOnUser}">
+												<tr class="clickable-row">
+													<td><span
+														th:text="${lesson.getTopic().getTopicName()}"></span></td>
+													<td><span th:text="${lesson.getDateAdded()}"></span></td>
+													<td><a
+														th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
+														class="pdfclass" target="_class"><img id="pdfsource"
+															th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+
+													<td><span th:if="${lesson.isStatus()==1}"><div
+																id="true" /></span> <span th:unless="${lesson.isStatus()==1}"><div
+																id="false" /></span></td>
+													<td><span th:if="${lesson.isStatus()==0}"> <a
+															class="btn btn-secondary detailLesson"
+															th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a><br />
+														<br /> <a class="btn btn-secondary commentLesson"
+															th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a>
+													</span></td>
+
+
+
+												</tr>
+											</span>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+
+
+
+							</div>
+
+							<div class="tab-pane fade show " id="quiz" role="tabpanel"
+								aria-labelledby="home-tab-md">
+
+								<div class="" style="text-align: center">
+									<label>Available Quiz</label>
+									<hr />
+									<div class="status" th:text="${status}"></div>
+								</div>
+
+
+								<div class="table-responsive">
+									<table id="dtBasicExampleQuiz"
+										class="table table-striped table-sm" cellspacing="0"
+										width="100%">
+
+										<thead class="">
+											<tr>
+
+												<th>Remarks</th>
+												<th>Topic Name</th>
+												<th>Date Added</th>
+												<th>Question</th>
+												<th>Answer</th>
+												<th>Status</th>
+												<th>Operation</th>
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<span th:each="quiz:${QuizOnUser}">
+												<tr class="clickable-row">
+													<td><span th:text="${quiz.getRemark()}"></span></td>
+													<td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
+													<td><span th:text="${quiz.getDateAdded()}"></span></td>
+													<td><a th:href="@{/files/}+@{${quiz.getQuestion()}}"
+														class="pdfclass" target="_blank"><img id="pdfsource"
+															th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+													<td><a th:href="@{/files/}+@{${quiz.getAnswer()}}"
+														target="_blank" class="pdfclass"><img id="pdfsource"
+															th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+													<td><span th:if="${quiz.isStatus()==1}"><div
+																id="true" /></span> <span th:unless="${quiz.isStatus()==1}"><div
+																id="false" /></span></td>
+
+													<td><span th:if="${quiz.isStatus()==0}"><a
+															class="btn btn-secondary detailQuiz"
+															th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a><br />
+														<br /> <a class="btn btn-secondary commentQuiz"
+															th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a></span>
+													</td>
+
+												</tr>
+											</span>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+							</div>
+
+						</div>
+
+
+					</div>
+          	
+          
+          
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+<!--
+                        <ul class="footer-menu">
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Company
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+-->
+                        <p class="copyright text-center">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>
+                            Spoken Tutorial
+                        </p>
+                    </nav>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    
+    <!-- Modal for updating Video-->
+
+	<div class="modal fade" id="VideoModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateVideo">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Video</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessVideo"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureVideo"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataVideo"
+							style="display: none; color: red; font-size: 18px; text-align: center">Invalid
+							Data</div>
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Description</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="videoDesc" name="videoDesc"
+									rows="4" cols="33" placeholder=""></textarea>
+								<input type="hidden" id="videoId" name="videoId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Source</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" class="form-control-file" id="videosource"
+									name="videosource" value="" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Video</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="videourl" name="videourl"
+									rows="4" cols="33" placeholder=""></textarea>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateVideo" value="">Update</button>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal for updating Quiz-->
+
+	<div class="modal fade" id="QuizModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateQuiz">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Quiz</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessQuiz"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureQuiz"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataQuiz"
+							style="display: none; color: red; font-size: 18px; text-align: center">File
+							must be PDF</div>
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Remarks</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" readonly class="form-control-plaintext"
+									id="remark" value=""> <input type="hidden" id="quizId"
+									name="quizId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Question</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="question"
+									accept="application/pdf" name="question" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Answer</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="answer"
+									accept="application/pdf" name="answer" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateQuiz" value="" disabled>Update</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal for updating the Document-->
+
+	<div class="modal fade" id="DocumentModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateDocument">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Document</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessDocument"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureDocument"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataDocument"
+							style="display: none; color: red; font-size: 18px; text-align: center">File
+							must be PDF</div>
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Description</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="documentDesc"
+									name="documentDesc" rows="4" cols="33" placeholder=""></textarea>
+								<input type="hidden" id="documentId" name="documentId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Source</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" class="form-control-file" id="documentsource"
+									name="documentsource" value="" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Document</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="documentFile"
+									name="document" accept="pdf/*" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateDocument" value=""
+								disabled>Update</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Modal for updating Lesson-->
+
+	<div class="modal fade" id="LessonPlanModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateLesson">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Document</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessLesson"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureLesson"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataLesson"
+							style="display: none; color: red; font-size: 18px; text-align: center">File
+							must be PDF</div>
+
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Document</label> <input type="hidden" id="lessonId"
+									name="lessonId" value="">
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="lessonPlan"
+									name="lessonPlan" accept="pdf/*" required />
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateLesson" value="">Update</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal for updating the Artilce-->
+
+	<div class="modal fade" id="ArticleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateArticle">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Article</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessArticle"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureArticle"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataArticle"
+							style="display: none; color: red; font-size: 18px; text-align: center">Invalid
+							Data</div>
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Description</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="articleDesc" name="articleDesc"
+									rows="4" cols="33" placeholder=""></textarea>
+								<input type="hidden" id="artcileId" name="artcileId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Source</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" class="form-control-file" id="articlesource"
+									name="articlesource" value="" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Artcile Link</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="articleurl" name="articleurl"
+									rows="4" cols="33" placeholder=""></textarea>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateArticle" value="">Update</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal for updating Phet-->
+
+	<div class="modal fade" id="PhetModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdatePhet">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Phet</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessPhet"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailurePhet"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataPhet"
+							style="display: none; color: red; font-size: 18px; text-align: center">Invalid
+							Data</div>
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Description</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="phetDesc" name="phetDesc"
+									rows="4" cols="33" placeholder=""></textarea>
+								<input type="hidden" id="phetId" name="phetId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Source</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" class="form-control-file" id="phetsource"
+									name="phetsource" value="" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Enter Phets Url</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="phetUrl" name="phetUrl"
+									rows="4" cols="33" placeholder=""></textarea>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updatePhet" value="">Update</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal for updating Lesson Plan-->
+
+	<div class="modal fade" id="LessonPlanModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateLesson">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Document</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessLesson"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureLesson"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataLesson"
+							style="display: none; color: red; font-size: 18px; text-align: center">File
+							must be PDF</div>
+
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Document</label> <input type="hidden" id="lessonId"
+									name="lessonId" value="">
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="lessonPlan"
+									name="lessonPlan" accept="pdf/*" required />
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateLessonOnUser" value="">Update</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal for updating the data  CONCEPT - MAP    -->
+
+	<div class="modal fade" id="ConceptMapModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateConcept">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Concept-Map</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+
+						<div id="SuccessConcept"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureConcept"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataConcept"
+							style="display: none; color: red; font-size: 18px; text-align: center">File
+							must be Image</div>
+
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Headline</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" class="form-control-file"
+									id="conceptHeadline" name="conceptHeadline" value="" /> <input
+									type="hidden" id="conceptId" name="conceptId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Description</label>
+							</div>
+							<div class="col-sm-6">
+								<textarea class="form class" id="conceptDesc" name="conceptDesc"
+									rows="4" cols="20" placeholder=""></textarea>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Concept-Maps Image</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="conceptImage"
+									name="conceptImage" accept="image/*" />
+							</div>
+						</div>
+
+
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateConcept" value=""
+								disabled>Update</button>
+						</div>
+
+					</div>
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- ---------------------------------------------Comment Modal for Teacher -- ------------------------------------------------->
+
+
+	<!-- Modal for Commenting Phets-->
+
+	<div class="modal fade" id="PhetCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowPhet" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentPhet"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentPhetModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowPhet').hide();">Close</button>
+						</div>
+					</div>
+
+					<div id="SuccessPhetComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailurePhetComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataPhet"></div>
+					<br />
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="phetComment" name="phetComment"
+								rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="phetId" name="phetId" value="">
+							<input type="hidden" id="phetFrom" value="user" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentPhetModal"
+								id=commentPhetModal value="" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal for Commenting Article-->
+
+	<div class="modal fade" id="ArticleCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowArticle" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentArticle"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentArticleModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowArticle').hide();">Close</button>
+						</div>
+					</div>
+					<div id="SuccessArticleComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailureArticleComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataArticle"></div>
+					<br />
+
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="articleComment"
+								name="articleComment" rows="3" cols="70"
+								placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="articleId" name="articleId" value="">
+							<input type="hidden" id="articleFrom" value="user" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentArticleModal"
+								id=commentArticleModal value="" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Modal for Commenting Video-->
+
+
+	<div class="modal fade" id="VideoCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable "
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowVideo" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentVideo"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentVideoModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowVideo').hide();">Close</button>
+						</div>
+					</div>
+					<div id="SuccessVideoComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailureVideoComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataVideo"></div>
+					<br />
+
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="videoComment"
+								name="videoComment" rows="3" cols="70"
+								placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="videoId" name="videoId" value="">
+							<input type="hidden" id="videoFrom" value="user" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentVideoModal"
+								id="commentVideoModal" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<!--  Modal for Commenting Document -->
+
+	<div class="modal fade" id="DocumentCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowDocument" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentDocument"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentDocumentModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowDocument').hide();">Close</button>
+						</div>
+					</div>
+					<div id="SuccessDocumentComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailureDocumentComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataDocument"></div>
+					<br />
+
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="documentComment"
+								name="documentComment" rows="3" cols="70"
+								placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="documentId" name="documentId" value="">
+							<input type="hidden" id="documentFrom" value="user" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentDocumentModal"
+								id=commentDocumentModal value="" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--  Modal for Commenting LessonPlan -->
+
+	<div class="modal fade" id="LessonCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowLesson" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentLesson"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentLessonModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowLesson').hide();">Close</button>
+						</div>
+					</div>
+					<div id="SuccessLessonComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailureLessonComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataLesson"></div>
+					<br />
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="lessonComment"
+								name="lessonComment" rows="3" cols="70"
+								placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="lessonId" name="lessonId" value="">
+							<input type="hidden" id="lessonFrom" value="user" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentLessonModal"
+								id=commentLessonModal value="" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal for Commenting Quiz -->
+
+	<div class="modal fade" id="QuizCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowQuiz" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentQuiz"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentQuizModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowQuiz').hide();">Close</button>
+						</div>
+					</div>
+					<div id="SuccessQuizComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailureQuizComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataQuiz"></div>
+					<br />
+
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="quizComment" name="quizComment"
+								rows="3" cols="70" placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="quizId" name="quizId" value="">
+							<input type="hidden" id="quizFrom" value="user" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentQuizModal"
+								id=commentQuizModal value="" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<!--  Modal for comment Section for concept map -->
+
+	<div class="modal fade" id="ConceptCommentModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Responses</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row replyRowConcept" style="display: none">
+						<div class="col-md-12">
+							<textarea class="form-control" id="replyCommentConcept"
+								placeholder="Add Reply" cols="30" rows="2"></textarea>
+							<br />
+							<button style="float: right"
+								class="btn btn-primary commentConceptModalReply" name="reply">Add
+								Reply</button>
+							<button style="float: right" class="btn btn-default"
+								onclick="$('.replyRowConcept').hide();">Close</button>
+						</div>
+					</div>
+					<div id="SuccessConceptComment"
+						style="display: none; color: green; font-size: 18px; text-align: center">Added
+						Successfully</div>
+					<div id="FailureConceptComment"
+						style="display: none; color: red; font-size: 18px; text-align: center">Failed
+						: Please Try Again</div>
+					<div id="comDataConcept"></div>
+					<br />
+
+					<div class="row">
+
+
+						<div class="col-sm-12">
+							<textarea class="form class" id="conceptComment"
+								name="conceptComment" rows="3" cols="70"
+								placeholder="Add Comment here**"></textarea>
+							<input type="hidden" id="conceptId" name="conceptId" value="">
+							<input type="hidden" id="quizFrom" value="user" />
+						</div>
+						<br />
+						<div class="col-sm-12"
+							style="text-align: right; padding-right: 40px;">
+							<button class="btn blue-gradient commentConceptModal"
+								id=commentConceptModal value="" name="comment" disabled>Submit</button>
+
+						</div>
+
+					</div>
+
+
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal  for previewing the Concept map Images-->
+
+	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Image
+						Viewer</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<img src="" id="imagepreview" style="width: 100%;" /> ...
+
+					<div class="modal-footer"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+    
+        <!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+
+</body>
+
+</html>

@@ -423,6 +423,63 @@ public class HomeController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/conView",method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardStatus(ModelAndView mv,Principal principal) {
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		List<QuizQuestion> localQuiz=quizService.findALlByUser(localUser);
+		List<ArticleExternal> localArticle=articleService.findALlByUser(localUser);
+		List<DocumentExternal> localDocument=documentService.findALlByUser(localUser);
+		List<LessonPlan> localLesson=lessonService.findALlByUser(localUser);
+		List<VideoExternal> localvideo=videoService.findALlByUser(localUser);
+		List<Phets> localPhets=phetService.findALlByUser(localUser);
+		List<ConceptMap> localConcept=conceptMapService.findALlByUser(localUser);
+		
+		if(localQuiz.isEmpty()) {
+			mv.addObject("QuizError", "Nothing To Show");
+		}
+		
+		if(localArticle.isEmpty()) {;
+			mv.addObject("ArticleError", "Nothing To Show");
+		}
+		
+		if(localDocument.isEmpty()) {
+			mv.addObject("DocumentError", "Nothing To Show");
+		}
+		
+		if(localLesson.isEmpty()) {
+			mv.addObject("LessonError", "Nothing To Show");
+		}
+		
+		if(localvideo.isEmpty()) {
+			mv.addObject("VideoError", "Nothing To Show");
+		}
+		
+		if(localPhets.isEmpty()) {
+			mv.addObject("PhetError", "Nothing To Show");
+		}
+		
+		if(localPhets.isEmpty()) {
+			mv.addObject("ConceptError", "Nothing To Show");
+		}
+		
+		mv.addObject("QuizOnUser", localQuiz);
+		mv.addObject("VideoOnUser", localvideo);
+		mv.addObject("ArticleOnUser", localArticle);
+		mv.addObject("DocumentOnUser", localDocument);
+		mv.addObject("LessonOnUser", localLesson);
+		mv.addObject("PhetOnUser", localPhets);
+		mv.addObject("ConceptOnUser", localConcept);
+	
+		
+		mv.setViewName("contentView");
+		
+		return mv;
+	}
+	
 /**************************************** END **************************************************/	
 	
 /******************************* MY ACCOUNT PAGE OF USER TO PERFORM OPERATION ***********************************/

@@ -1,18 +1,4 @@
-/*=========================================================
- Light Bootstrap Dashboard - v2.0.1
-=========================================================
 
- Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard/blob/master/LICENSE)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.*/
- 
-/*      light colors         */
 
 @keyframes spin {
     from {
@@ -2949,7 +2935,7 @@ Copyright (c) 2015 Daniel Eden
 .card .table tbody td:last-child,
 .card .table thead th:last-child {
     padding-right: 15px;
-    display: inline-flex;
+    /* display: inline-flex; */
 }
 
 .card .alert {
@@ -4723,8 +4709,8 @@ License - nucleoapp.com/license/
 
 @font-face {
     font-family: 'nucleo-icons';
-    src: url("../fonts/nucleo-icons.eot");
-    src: url("../fonts/nucleo-icons.eot") format("embedded-opentype"), url("../fonts/nucleo-icons.woff2") format("woff2"), url("../fonts/nucleo-icons.woff") format("woff"), url("../fonts/nucleo-icons.ttf") format("truetype"), url("../fonts/nucleo-icons.svg") format("svg");
+    src: url("../font/nucleo-icons.eot");
+    src: url("../font/nucleo-icons.eot") format("embedded-opentype"), url("../font/nucleo-icons.woff2") format("woff2"), url("../font/nucleo-icons.woff") format("woff"), url("../font/nucleo-icons.ttf") format("truetype"), url("../font/nucleo-icons.svg") format("svg");
     font-weight: normal;
     font-style: normal;
 }

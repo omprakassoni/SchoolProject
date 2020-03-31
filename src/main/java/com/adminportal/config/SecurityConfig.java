@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/img/**",
 			"/js/**",
 			"/static/**",
+			"/font/**",
 			"/",
 			"/datatables.min.js",
 			"/datatables.min.css",
@@ -101,7 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/conQuiz",
 			"/conPhet",
 			"/conLessonPlan",
-			"/conConceptMap"
+			"/conConceptMap",
+			"/conView"
 	};
 	
 	@Override
