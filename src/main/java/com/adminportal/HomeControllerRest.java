@@ -1492,17 +1492,12 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnVideo")
-	public List<String> uploadCommentonVideo(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+	public List<String> uploadCommentonVideo(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
 		List<String> msg=new ArrayList<String>();
 		
 		
-		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser;
-		
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
-		
-		User usr=userService.findByUsername(emailToIdentifyUser);
+		User usr=userService.findByUsername(principal.getName());
 		
 		try {
 			if(data.isReply()) {
@@ -1604,7 +1599,7 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnArticle")
-	public List<String> uploadCommentonArtcile(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+	public List<String> uploadCommentonArtcile(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
 //		List<String> msg=new ArrayList<String>();
 //		int size=data.size();
@@ -1628,15 +1623,9 @@ public class HomeControllerRest {
 //		return msg;
 		
 		List<String> msg=new ArrayList<String>();
-		
-		
-		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser;
-	
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 	
 		
-		User usr=userService.findByUsername(emailToIdentifyUser);
+		User usr=userService.findByUsername(principal.getName());
 		
 		try {
 			if(data.isReply()) {
@@ -1718,19 +1707,13 @@ public class HomeControllerRest {
 	}
 	
 	@PostMapping("/uploadCommentOnDocument")
-	public List<String> uploadCommentonDocument(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+	public List<String> uploadCommentonDocument(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
 		
 		List<String> msg=new ArrayList<String>();
-		
-		
-		HttpSession session=req.getSession(false);
-		String emailToIdentifyUser;
-		
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
 	
 		
-		User usr=userService.findByUsername(emailToIdentifyUser);
+		User usr=userService.findByUsername(principal.getName());
 		
 		try {
 			if(data.isReply()) {
@@ -1812,7 +1795,7 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnQuiz")
-	public List<String> uploadCommentonQuiz(HttpServletRequest req,@Valid @RequestBody  CommentReplyAjaxQueryResolver data) throws Exception {
+	public List<String> uploadCommentonQuiz(Principal principal,@Valid @RequestBody  CommentReplyAjaxQueryResolver data) throws Exception {
 		
 //		List<String> msg=new ArrayList<String>();
 //		int size=data.size();
@@ -1836,16 +1819,8 @@ public class HomeControllerRest {
 //		return msg;
 		
 		List<String> msg=new ArrayList<String>();
-		String emailToIdentifyUser;
 		
-		HttpSession session=req.getSession(false);
-		
-	
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
-		
-			
-		
-		User usr=userService.findByUsername(emailToIdentifyUser);
+		User usr=userService.findByUsername(principal.getName());
 		
 		try {
 			if(data.isReply()) {
@@ -1923,7 +1898,7 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnPhet")
-	public List<String> uploadCommentonPhet(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+	public List<String> uploadCommentonPhet(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
 //		List<String> msg=new ArrayList<String>();
 //		int size=data.size();
@@ -1947,16 +1922,8 @@ public class HomeControllerRest {
 //		return msg;
 		
 		List<String> msg=new ArrayList<String>();
-		String emailToIdentifyUser;
 		
-		
-		HttpSession session=req.getSession(false);
-		
-		
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
-	
-			
-		User usr=userService.findByUsername(emailToIdentifyUser);
+		User usr=userService.findByUsername(principal.getName());
 		
 		try {
 			if(data.isReply()) {
@@ -2033,20 +2000,13 @@ public class HomeControllerRest {
 	}
 	
 	@PostMapping("/uploadCommentOnConcept")
-	public List<String> uploadCommentonConcept(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+	public List<String> uploadCommentonConcept(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
 		
 		List<String> msg=new ArrayList<String>();
-		String emailToIdentifyUser;
 		
 		
-		HttpSession session=req.getSession(false);
-		
-		 
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
-		
-		
-		User usr=userService.findByUsername(emailToIdentifyUser);
+		User usr=userService.findByUsername(principal.getName());
 		
 		try {
 			if(data.isReply()) {
@@ -2126,7 +2086,7 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/uploadCommentOnLesson")
-	public List<String> uploadCommentonLesson(HttpServletRequest req,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
+	public List<String> uploadCommentonLesson(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
 //		List<String> msg=new ArrayList<String>();
 //		int size=data.size();
@@ -2149,17 +2109,11 @@ public class HomeControllerRest {
 //		msg.add("Success");
 //		return msg;
 			
-		String emailToIdentifyUser;
-		List<String> msg=new ArrayList<String>();
-		
-		
-		HttpSession session=req.getSession(false);
-		
 	
-		emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
+		List<String> msg=new ArrayList<String>();
 	
 
-		User usr=userService.findByUsername(emailToIdentifyUser);
+		User usr=userService.findByUsername(principal.getName());
 		
 		try {
 			if(data.isReply()) {
@@ -2308,6 +2262,7 @@ public class HomeControllerRest {
 		} catch (Exception e) {
 			
 			status.add("failure");
+			System.out.println("baby");
 		}
 		
 		
@@ -2402,7 +2357,12 @@ public class HomeControllerRest {
 			
 		}
 		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Lessonplan/";
+		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+		Subject localSubject=subjectService.findBysubName(subSelected);
+		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+		
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Lessonplan/";
 		
 		try {
 			String path1=ServiceUtility.uploadFile(uploadLessonPlan, createFolder);
@@ -2413,10 +2373,7 @@ public class HomeControllerRest {
 			
 			
 
-			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-			Subject localSubject=subjectService.findBysubName(subSelected);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+			
 			
 
 			
@@ -2464,8 +2421,14 @@ public class HomeControllerRest {
 			return status;
 		}
 		
+		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+		Subject localSubject=subjectService.findBysubName(subSelected);
+		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+		
+		
 		try {
-			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Quiz/"+remark+"/";
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Quiz/"+remark+"/";
 			boolean b=ServiceUtility.createFolder(createFolder);
 			
 			String CreateFolderQuestion=createFolder+"Question/";
@@ -2490,10 +2453,7 @@ public class HomeControllerRest {
 			
 			User usr=userService.findByUsername(principal.getName());
 			
-			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-			Subject localSubject=subjectService.findBysubName(subSelected);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+			
 			
 
 			
@@ -2536,7 +2496,12 @@ public class HomeControllerRest {
 			
 		}
 		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/Document/";
+		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+		Subject localSubject=subjectService.findBysubName(subSelected);
+		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+		
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Document/";
 		
 		
 		try {
@@ -2548,10 +2513,7 @@ public class HomeControllerRest {
 			String path=path1.substring(indexToStart, path1.length());
 			
 
-			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-			Subject localSubject=subjectService.findBysubName(subSelected);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+			
 			
 
 			
@@ -2584,6 +2546,7 @@ public class HomeControllerRest {
 		
 		List<String> status=new ArrayList<String>();
 		
+		
 		if(!ServiceUtility.checkFileExtensionImage(uploadDocument)) {
 			
 			status.add("failure");
@@ -2591,7 +2554,12 @@ public class HomeControllerRest {
 			
 		}
 		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+classSelected+"_"+subSelected+"/"+topicSelected+"/ConceptMap/";
+		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+		Subject localSubject=subjectService.findBysubName(subSelected);
+		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+		
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/ConceptMap/";
 		
 		
 		try {
@@ -2601,12 +2569,6 @@ public class HomeControllerRest {
 			
 			int indexToStart=path1.indexOf("Media");
 			String path=path1.substring(indexToStart, path1.length());
-			
-
-			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-			Subject localSubject=subjectService.findBysubName(subSelected);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
 			
 
 			
@@ -2621,6 +2583,7 @@ public class HomeControllerRest {
 		} catch (Exception e) {
 			
 			status.add("failure");
+			System.out.println("this is failure point");
 			
 		}
 		
