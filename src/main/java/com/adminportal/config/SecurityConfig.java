@@ -95,7 +95,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	};
 	
 	public static final String[] CONTRIBUTOR_URL= {
-			"/dashBoard",
 			"/conVideo",
 			"/conDocument",
 			"/conArticle",

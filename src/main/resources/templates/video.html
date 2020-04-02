@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml" xmlns:sec="http://www.w3.org/1000/xhtml">
 
 <head>
   <div th:replace="common/header :: common-header-Dashboard"></div>
@@ -28,54 +28,70 @@
                             <p>User Profile</p>
                         </a>
                     </li>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conConceptMap}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Concepts-Map</p>
                         </a>
                     </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conPhet}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Phets</p>
                         </a>
                     </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conArticle}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Article</p>
                         </a>
                     </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conLessonPlan}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Lesson Plan</p>
                         </a>
                     </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conDocument}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Document</p>
                         </a>
                     </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/conVideo}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Video</p>
                         </a>
                     </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conQuiz}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Quiz</p>
                         </a>
                     </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conView}">
                             <i class="nc-icon nc-bell-55"></i>
                             <p>Status</p>
                         </a>
                     </li>
+                    </div>
 <!--
                     <li class="nav-item active active-pro">
                         <a class="nav-link active" href="upgrade.html">
