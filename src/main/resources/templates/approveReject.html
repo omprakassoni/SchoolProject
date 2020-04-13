@@ -4,24 +4,21 @@
 
 <head>
     <div th:replace="common/header :: common-header-Dashboard"></div>
-	<title>Add Class</title>
+	<title>Approve Content</title>
+   
 </head>
 
 <body>
-    <div class="wrapper">
+   <div class="wrapper">
         <div class="sidebar" data-image="/img/sidebar-5.jpg">
-            <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
-        Tip 2: you can also add an image using data-image tag
-    -->
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a th:href="@{/}" class="simple-text">
                         School Project
                     </a>
                 </div>
-                  <ul class="nav">
+                <ul class="nav">
                     <li>
                         <a class="nav-link" th:href="@{/dashBoard}">
                             <i class="nc-icon nc-circle-09"></i>
@@ -93,7 +90,7 @@
                     </li>
                     </div>
 					<div sec:authorize="hasAuthority('Admin')">
-                    <li class="nav-item active">
+                    <li>
                         <a class="nav-link" th:href="@{/admin/addView}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Add/View Components</p>
@@ -101,7 +98,7 @@
                     </li>
                     </div>
                      <div sec:authorize="hasAuthority('Admin')">
-                    <li>
+                    <li class="nav-item active">
                         <a class="nav-link" th:href="@{/admin/approve}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Approve Components</p>
@@ -115,7 +112,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <span th:text="${LoggedUser.getFname()}"></span>
+                    <a class="navbar-brand" href="#pablo"> User Name</a>
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -124,6 +121,8 @@
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
                         <ul class="navbar-nav ml-auto">
+                        
+
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/logout}">
                                     <span class="no-icon">Log out</span>
@@ -136,60 +135,51 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
+                    <div class="card">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Add New Class</h4>
-                                </div>
+                        <div class="col-md-6">
                                 <div class="card-body">
-                                
-                                    <form th:action="@{addClass}" method="post">
+                                    
+                                    <div class="card" style="width: 22rem;">
+                                      <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><a th:href="@{approve/userList}">List all users</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectTeacher}">Approve/Reject Teachers</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectVideo}">Approve/Reject Reference Video</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectDocument}">Approve/Reject Reference Document</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectArticle}">Approve/Reject Reference Article</a></li>  
+                                     
+                                      </ul>
+                                    </div>
                                        
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div  style="text-align: center">
-                                                    <h4>Enter new class</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                   <input type="number" min="1" max="12" class="form-control"
-														name="classSelected" required />
-                                                </div>
-                                            </div>
-                                        </div>
                                        
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <h4 style="padding-left: 80px; color: red">
-													Already Available Class
-												</h4>
-												<span th:each="classValue:${classExist}"> <label
-												style="padding-left: 100px; color: #9d250c"> <span
-												th:text="'Class ' +${classValue.getClassName()}"></span>
-												</label> <br />
-												</span>
-                                            </div>
-                                             
-                                            
-                                        </div>
-                                        
-                                        
-                                        <button type="submit" class="btn btn-info btn-fill pull-right" >Add Class</button>
-                                        <div class="clearfix"></div>
-                                    </form>
                                 </div>
-                            </div>
+                            
                         </div>
-                      
+                        <div class="col-md-6">
+                            <div class="card-body">
+                           
+                            
+                             <div class="card" style="width: 22rem;">
+                                      <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectConcept}">Approve/Reject Reference Concept-Maps</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectPhets}">Approve/Reject Reference Phets</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectQuiz}">Approve/Reject Reference Quiz</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/approveRejectLesson}">Approve/Reject Reference Lesson Plan</a></li>
+                                        <li class="list-group-item"><a th:href="@{approve/contactInformation}">View Feedbacks</a></li>  
+                                      </ul>
+                            </div>
+                                
+                            </div>
+                            
+                          
+                        </div>
                     </div>
                 </div>
             </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
+
                         <p class="copyright text-center">
                             ©
                             <script>
@@ -203,115 +193,10 @@
         </div>
     </div>
     
-   
-    
-        <!--  COMMON CODE FOR LIBRARY ADDED -->
+    <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
 
 </body>
 
+
 </html>
-
-
-
-<!-- <!Doctype>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-
-<div th:replace="common/header :: common-header"></div>
-
-<title>Add Class</title>
-
-
-</head>
-
-<body>
-
-	<div th:replace="common/header :: navbar-Admin"></div>
-	NAVBAR DATA TOP-MOST
-
-
-
-
-	<div class="container">
-		<div class="header-child">
-			<label></label>
-			<hr />
-			<div class="status" th:text="${status}"></div>
-			<div class="error" th:text="${sessionTimeOut}"></div>
-		</div>
-		<div class="row">
-			<div class="col-sm-2"></div>
-
-			<div class="col-sm-8 shadow-lg p-3 mb-5 bg-white rounded">
-				<div class="content-child">
-					<form th:action="@{addClass}" method="post">
-						<div class="row">
-							<div class="col-sm-6">
-								<label class="header-left" for="class">Enter new class</label>
-							</div>
-							<div class="col-sm-6">
-
-								<input type="number" min="1" max="12" class="form-control"
-									name="classSelected" required />
-							</div>
-
-						</div>
-						<br />
-
-
-						<div class="overflow-auto">
-							<h4 style="padding-left: 80px; color: red">
-								Already Available Class
-								</h2>
-								<span th:each="classValue:${classExist}"> <label
-									style="padding-left: 100px; color: #9d250c"> <span
-										th:text="'Class ' +${classValue.getClassName()}"></span>
-								</label> <br />
-								</span>
-						</div>
-
-
-						<br />
-						<div class="row">
-							<div class="col-sm-4"></div>
-
-							<div class="col-sm-4">
-								<button class="btn btn-primary btn-action" type="submit">Add
-									Class</button>
-							</div>
-						</div>
-					</form>
-				</div>
-
-			</div>
-
-			<div class="col-sm-2"></div>
-
-		</div>
-
-
-
-	</div>
-
-
-
-
-
-
-
-
-
-
-	 COMMON CODE FOR LIBRARY ADDED
-	<div th:replace="common/header :: body-bottom-scripts"></div>
-
-	<link rel="stylesheet" href="css/mdb.css" type="text/css" />
-	<script src="js/mdb.js"></script>
-
-
-
-</body>
-
-
-</html> -->

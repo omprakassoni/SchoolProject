@@ -1,6 +1,7 @@
 package com.adminportal;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,8 +109,8 @@ public class AdminViewController {
 	
 /*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value = "/admin/userList",method = RequestMethod.GET)
-	public ModelAndView userListGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/userList",method = RequestMethod.GET)
+	public ModelAndView userListGet(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);
 //		
@@ -117,6 +118,9 @@ public class AdminViewController {
 //			mv.setViewName("redirect:/");
 //		}else {
 		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		List<User> usr= userService.findAll();
 	
 		mv.addObject("User", usr);
@@ -840,13 +844,18 @@ public class AdminViewController {
 
 /*-----------------------------------------------START OF APPROVING/REJECT TECAHER---------------------------------------------------------------------*/
 
-	@RequestMapping(value = "/admin/approveRejectTeacher")
-	public ModelAndView teacherAprovementGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectTeacher")
+	public ModelAndView teacherAprovementGet(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession();
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
 			List<User> local=new ArrayList<User>();
 		
 			List<User> usr= userService.findAll();
@@ -935,13 +944,17 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT VIDEO---------------------------------------------------------------------*/
 
 
-	@RequestMapping(value = "/admin/approveRejectVideo")
-	public ModelAndView videoApprovementGet(HttpServletRequest req, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectVideo")
+	public ModelAndView videoApprovementGet(Principal principal, ModelAndView mv) {
 //		HttpSession session=req.getSession(false);
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<VideoExternal> localVideo=new ArrayList<VideoExternal>();
 			
 			List<VideoExternal> videoList=videoService.findAll();
@@ -1020,14 +1033,18 @@ public class AdminViewController {
 /*-----------------------------------------------START OF APPROVING/REJECT DOCUMENT---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/admin/approveRejectDocument")
-	public ModelAndView documentApprovementGet(HttpServletRequest req, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectDocument")
+	public ModelAndView documentApprovementGet(Principal principal, ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<DocumentExternal> localdocument=new ArrayList<DocumentExternal>();
 			
 			List<DocumentExternal> documentList=documentService.findAll();
@@ -1105,14 +1122,18 @@ public class AdminViewController {
 	
 	
 	
-	@RequestMapping(value = "/admin/approveRejectArticle")
-	public ModelAndView articleApprovementGet(HttpServletRequest req, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectArticle")
+	public ModelAndView articleApprovementGet(Principal principal, ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<ArticleExternal> localarticle=new ArrayList<ArticleExternal>();
 			
 			List<ArticleExternal> articleList=articleService.findAll();
@@ -1189,13 +1210,17 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT PHETS---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/admin/approveRejectPhets")
-	public ModelAndView phetApprovementGet(HttpServletRequest req, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectPhets")
+	public ModelAndView phetApprovementGet(Principal principal, ModelAndView mv) {
 //		HttpSession session=req.getSession(false);
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<Phets> localphet=new ArrayList<Phets>();
 			
 			List<Phets> phetList=phetService.findAll();
@@ -1273,13 +1298,17 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT QUIZ---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/admin/approveRejectQuiz")
-	public ModelAndView quizApprovementGet(HttpServletRequest req, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectQuiz")
+	public ModelAndView quizApprovementGet(Principal principal, ModelAndView mv) {
 //		HttpSession session=req.getSession(false);
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<QuizQuestion> localQuiz=new ArrayList<QuizQuestion>();
 			
 			List<QuizQuestion> quizList=quizService.findAll();
@@ -1357,13 +1386,17 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT LESSON---------------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value = "/admin/approveRejectLesson")
-	public ModelAndView lessonApprovementGet(HttpServletRequest req, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectLesson")
+	public ModelAndView lessonApprovementGet(Principal principal, ModelAndView mv) {
 //		HttpSession session=req.getSession(false);
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<LessonPlan> localLesson=new ArrayList<LessonPlan>();
 			
 			List<LessonPlan> lessonList=lessonService.findAll();
@@ -1438,14 +1471,17 @@ public class AdminViewController {
 	
 	/*----------------------------------- APPROVE REJECT CONCEPTS-MAP ------------------------------------------------*/
 	
-	@RequestMapping(value = "/admin/approveRejectConcept")
-	public ModelAndView conceptApprovementGet(HttpServletRequest req, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveRejectConcept")
+	public ModelAndView conceptApprovementGet(Principal principal, ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<ConceptMap> localconcept=new ArrayList<ConceptMap>();
 			
 			List<ConceptMap> conceptList=conceptService.findAll();
@@ -1513,13 +1549,16 @@ public class AdminViewController {
 		}
 	/***********************************************************************************************************************/
 	
-	@RequestMapping(value = "/admin/testimonialList",method = RequestMethod.GET)
-	public ModelAndView testimonialList(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/testimonialList",method = RequestMethod.GET)
+	public ModelAndView testimonialList(Principal principal,ModelAndView mv) {
 //		HttpSession session=req.getSession(false);
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
-			
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			try{
 				
 					List<Testimonial> local=testiService.findAll();
@@ -1537,14 +1576,16 @@ public class AdminViewController {
 		
 	}
 	
-	@RequestMapping(value = "/admin/eventList",method = RequestMethod.GET)
-	public ModelAndView eventList(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/eventList",method = RequestMethod.GET)
+	public ModelAndView eventList(Principal principal,ModelAndView mv) {
 //		HttpSession session=req.getSession(false);
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
 			
-			
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 			try{
 					List<Events> local=eventService.findAll();
@@ -1563,12 +1604,16 @@ public class AdminViewController {
 	}
 	
 	
-	@RequestMapping(value = "/admin/tutorialList",method = RequestMethod.GET)
-	public ModelAndView TutorialList(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/tutorialList",method = RequestMethod.GET)
+	public ModelAndView TutorialList(Principal principal,ModelAndView mv) {
 //		HttpSession session=req.getSession(false);
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
 			
 			List<Tutorial> tempTutorial=tutorialService.getAllTutorial();
 			

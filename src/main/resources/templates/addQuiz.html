@@ -1,4 +1,496 @@
-<!Doctype>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml" xmlns:sec="http://www.w3.org/1000/xhtml">
+
+<head>
+    <div th:replace="common/header :: common-header-Dashboard"></div>
+	<title>Add Quiz</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-image="/img/sidebar-5.jpg">
+            <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a th:href="@{/}" class="simple-text">
+                        School Project
+                    </a>
+                </div>
+                  <ul class="nav">
+                    <li>
+                        <a class="nav-link" th:href="@{/dashBoard}">
+                            <i class="nc-icon nc-circle-09"></i>
+                            <p>User Profile</p>
+                        </a>
+                    </li>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conConceptMap}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Concepts-Map</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li >
+                        <a class="nav-link" th:href="@{/conPhet}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Phets</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conArticle}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Article</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conLessonPlan}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Lesson Plan</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conDocument}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Document</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conVideo}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Video</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conQuiz}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Quiz</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conView}">
+                            <i class="nc-icon nc-bell-55"></i>
+                            <p>Status</p>
+                        </a>
+                    </li>
+                    </div>
+					<div sec:authorize="hasAuthority('Admin')">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/admin/addView}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Add/View Components</p>
+                        </a>
+                    </li>
+                    </div>
+                     <div sec:authorize="hasAuthority('Admin')">
+                    <li>
+                        <a class="nav-link" th:href="@{/admin/approve}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Approve Components</p>
+                        </a>
+                    </li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+                <div class="container-fluid">
+                    <span th:text="${LoggedUser.getFname()}"></span>
+                    <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+                        <ul class="navbar-nav ml-auto">
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/logout}">
+                                    <span class="no-icon">Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                    	<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item"><a
+								th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
+								id="home-tab" data-toggle="tab" href="#home" role="tab"
+								aria-controls="home" aria-selected="true">View Quiz</a></li>
+							<li class="nav-item"><a
+								th:class="${addActive} ? 'nav-link active' : 'nav-link'"
+								id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+								aria-controls="profile" aria-selected="false">Add Quiz</a></li>
+
+						</ul>
+						
+                        <div class="tab-content" id="myTabContent">
+							<div th:class="${viewActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
+								id="home" role="tabpanel" aria-labelledby="home-tab"> 
+								
+								   
+                                <div class="card-header">
+                                    <h4 class="card-title">Available Quiz</h4>
+                                </div>
+                                <div class="card-body">
+                                	<form th:action="@{deleteQuiz}" method="post">
+										<div class="table-responsive">
+											<table id="dtBasicExample" class="table table-striped table-sm"
+												cellspacing="0" width="100%">
+						
+												<thead class="">
+													<tr>
+														<th>#</th>
+														<th>Remarks</th>
+														<th>Topic Name</th>
+														<th>Date Added</th>
+														<th>Question</th>
+														<th>Answer</th>
+														<th>Contributed by</th>
+														<th>Status</th>
+														<th>Operation</th>
+													</tr>
+												</thead>
+						
+												<tbody>
+						
+													<span th:each="quiz:${Quiz}">
+														<tr class="clickable-row">
+															<th scope="row"><input type="radio"
+																th:value="${quiz.getQuizQuestionId() }"
+																th:id="${quiz.getQuizQuestionId()}" name="radioQuiz" /></th>
+															<td><span th:text="${quiz.getRemark()}"></span></td>
+															<td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
+															<td><span th:text="${quiz.getDateAdded()}"></span></td>
+															<td><a th:href="@{files/}+@{${quiz.getQuestion()}}"
+																class="pdfclass" target="_blank"><img id="pdfsource"
+																	th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+															<td><a th:href="@{files/}+@{${quiz.getAnswer()}}"
+																target="_blank" class="pdfclass"><img id="pdfsource"
+																	th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+															<td><a href=""><span
+																	th:text="${quiz.getUser().getFname()}"></span></a></td>
+															<td><span th:if="${quiz.isStatus()==1}"><div
+																		id="true" /></span> <span th:unless="${quiz.isStatus()==1}"><div
+																		id="false" /></span></td>
+						
+															<td><a class="btn btn-secondary detailQuiz"
+																th:value="${quiz.getQuizQuestionId()}" id="detailQuiz">Update</a>
+						
+															</td>
+						
+														</tr>
+													</span>
+						
+												</tbody>
+						
+											</table>
+						
+										</div>
+						
+										<div class="container">
+											<center>
+						
+						
+												<button class="btn btn-danger" id="disableQuiz" disabled>Disable</button>
+						
+												<button class="btn btn-primary" id="enableQuiz" disabled>Enable</button>
+						
+						
+											</center>
+						
+						
+										</div>
+						
+									</form>
+
+
+								</div>
+                                
+                                    
+                            </div>
+                        
+                        <div th:class="${addActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
+								id="profile" role="tabpanel" aria-labelledby="profile-tab">
+							
+							<div class="card-header">
+                                    <h4 class="card-title">Add New Quiz</h4>
+                            </div>
+                            <div class="card-body">
+			                   <form th:action="@{addQuiz}" method="post"
+									enctype="multipart/form-data">
+                                      <div class="row">
+                                            <div class="col-md-4 ">
+                                                <div class="form-group">
+<!--                                                    <label>Company (disabled)</label>-->
+                                                    <select class="form-control" name="classSelected"
+														id="classSelectedQuiz">
+														<option>Select Class</option>
+														<span th:each="classValue: ${classExist}">
+															<option><span th:text="${classValue.getClassName()}"></span></option>
+													</span>
+													</select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+<!--                                                    <label>Username</label>-->
+                                                    <select class="form-control" name="subjectSelected"
+														id="subjectQuiz" path="subject" disabled>
+														<option value="0">Select Subject</option>
+														<options items="${cities}" itemValue="id" itemLabel="name" />
+					
+													</select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+<!--                                                    <label for="exampleInputEmail1">Email address</label>-->
+                                                   <select class="form-control" name="topicSelected" id="topicQuiz"
+														path="topic" disabled>
+														<option value="0">Select Topic</option>
+														<options items="${cities}" itemValue="id" itemLabel="name" />
+					
+													</select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4>Remarks</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                   <input type="text" class="form-control-file"
+													title="Max 255 character" id="remarksQuiz" name="remarks"
+													required disabled />
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" >
+                                                <div class="" style="text-align: center">
+                                                    <h4 style="margin:0px">Questions</h4>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4" >
+                                                <div class="form-group" >
+                                                    <input type="file" class="form-control-file"
+														title="upload only PDF file" id="QuestionQuiz"
+														accept="application/pdf" name="Question" required disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 style="margin: 0px">Answers</h4>
+                                                </div>
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="">
+                                                    <input type="file" class="form-control-file" id="AnswerQuiz"
+														title="upload only PDF file" accept="application/pdf"
+														name="Answer" required disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                <span class="form-check-sign"></span>
+                                                            </label>
+                                                        </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
+                                                        </td>
+                                                    </tr>
+                                                 </table>
+                                        </div>
+                                        </div>
+                                        
+                                        
+                                        <button type="submit" class="btn btn-info btn-fill pull-right upload-submit" disabled>Upload</button>
+                                        <div class="clearfix"></div>
+                                </form>
+                            
+                            </div>
+								
+						</div>
+                        
+                             
+                             </div>
+                         </div>
+                     </div>
+                 
+                </div>
+            
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+                        <p class="copyright text-center">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>
+                            Spoken Tutorial
+                        </p>
+                    </nav>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    
+        <!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	
+	<!-- Modal for updating the data-->
+
+	<div class="modal fade" id="QuizModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<form action="" method="post" enctype="multipart/form-data"
+					id="uploadUpdateQuiz">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Update
+							Quiz</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="SuccessQuiz"
+							style="display: none; color: green; font-size: 18px; text-align: center">Data
+							Updated Successfully</div>
+						<div id="FailureQuiz"
+							style="display: none; color: red; font-size: 18px; text-align: center">Please
+							Try Again</div>
+						<div id="invalid-dataQuiz"
+							style="display: none; color: red; font-size: 18px; text-align: center">File
+							must be PDF</div>
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Remarks</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="text" readonly class="form-control-plaintext"
+									id="remark" value=""> <input type="hidden" id="quizId"
+									name="quizId" value="">
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Question</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="question"
+									accept="application/pdf" name="question" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+
+							<div class="col-sm-6">
+								<label>Answer</label>
+							</div>
+							<div class="col-sm-6">
+								<input type="file" class="form-control-file" id="answer"
+									accept="application/pdf" name="answer" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" id="updateQuiz" value="" disabled>Update</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="modal fade" id="exampleModalScrollable" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Terms and
+						Conditions</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
+
+
+<!-- <!Doctype>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -10,7 +502,7 @@
 </head>
 
 <body>
-	<!-- NAVBAR DATA TOP-MOST -->
+	NAVBAR DATA TOP-MOST
 	<div th:replace="common/header :: navbar-Admin"></div>
 
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -269,7 +761,7 @@
 	</div>
 
 
-	<!-- Modal for updating the data-->
+	Modal for updating the data
 
 	<div class="modal fade" id="QuizModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -367,7 +859,7 @@
 
 
 
-	<!--  COMMON CODE FOR LIBRARY ADDED -->
+	 COMMON CODE FOR LIBRARY ADDED
 	<div th:replace="common/header :: body-bottom-scripts"></div>
 	<link rel="stylesheet" href="css/mdb.css" type="text/css" />
 	<script src="js/mdb.js"></script>
@@ -377,4 +869,4 @@
 </body>
 
 
-</html>
+</html> -->

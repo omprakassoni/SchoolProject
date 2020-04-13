@@ -92,14 +92,22 @@
                         </a>
                     </li>
                     </div>
-<!--
-                    <li class="nav-item active active-pro">
-                        <a class="nav-link active" href="upgrade.html">
-                            <i class="nc-icon nc-alien-33"></i>
-                            <p>Upgrade to PRO</p>
+					<div sec:authorize="hasAuthority('Admin')">
+                    <li>
+                        <a class="nav-link" th:href="@{/admin/addView}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Add/View Components</p>
                         </a>
                     </li>
--->
+                    </div>
+                     <div sec:authorize="hasAuthority('Admin')">
+                    <li>
+                        <a class="nav-link" th:href="@{/admin/approve}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Approve Components</p>
+                        </a>
+                    </li>
+                    </div>
                 </ul>
             </div>
         </div>

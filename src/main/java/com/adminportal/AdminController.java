@@ -143,12 +143,22 @@ public class AdminController {
 	
 	/* url to redirect page to homepage of Admin Module */
 	
-	@RequestMapping(value = "/admin",method = RequestMethod.GET)
-	public ModelAndView adminHomeGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/addView",method = RequestMethod.GET)
+	public ModelAndView adminHomeView(HttpServletRequest req,ModelAndView mv) {
 		
 	    // checking for admin alive session
 			
-			mv.setViewName("home");    // if no admin session is active--- redirect to login page.
+			mv.setViewName("addView");    // if no admin session is active--- redirect to login page.
+	
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/approve",method = RequestMethod.GET)
+	public ModelAndView adminHomeAprove(HttpServletRequest req,ModelAndView mv) {
+		
+	    // checking for admin alive session
+			
+			mv.setViewName("approveReject");    // if no admin session is active--- redirect to login page.
 	
 		return mv;
 	}
@@ -219,8 +229,8 @@ public class AdminController {
 	
 	// method to redirect addClass View 
 	
-	@RequestMapping(value="/admin/addClass", method = RequestMethod.GET)
-	public ModelAndView addClassget(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addClass", method = RequestMethod.GET)
+	public ModelAndView addClassget(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);                             // checking the last alive session
 //		
@@ -228,11 +238,15 @@ public class AdminController {
 //			mv.setViewName("redirect:/");
 //		}else {
 		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 			
 			mv.addObject("classExist",classExist);
 			mv.setViewName("addClass");
-		
+			
+			
 //		}
 		
 		return mv;
@@ -292,14 +306,18 @@ public class AdminController {
 	
 	// method to redirect addArticle View 
 	
-	@RequestMapping(value="/admin/addArticle",method = RequestMethod.GET)
-	public ModelAndView addArtcileGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addArticle",method = RequestMethod.GET)
+	public ModelAndView addArtcileGet(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);										// checking the last alive session
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 
@@ -428,8 +446,8 @@ public class AdminController {
 	
 	// method to redirect addDocument View 
 	
-	@RequestMapping(value="/admin/addDocument",method = RequestMethod.GET)
-	public ModelAndView addDocumentGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addDocument",method = RequestMethod.GET)
+	public ModelAndView addDocumentGet(Principal principal,ModelAndView mv) {
 		
 		
 //		HttpSession session=req.getSession(false);								// checking the last alive session
@@ -438,6 +456,10 @@ public class AdminController {
 //			mv.setViewName("redirect:/");
 //		}else {
 			
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);									// setting variable for view for displaying purpose
@@ -570,8 +592,8 @@ public class AdminController {
 	/*------------------------------------------ADD LESSON PLAN (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	// method to redirect addLessonPlan View 
-	@RequestMapping(value="/admin/addLessonPlan",method = RequestMethod.GET)
-	public ModelAndView addLessonPlanGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addLessonPlan",method = RequestMethod.GET)
+	public ModelAndView addLessonPlanGet(Principal principal,ModelAndView mv) {
 		
 		
 //		HttpSession session=req.getSession(false);									// checking the last alive session
@@ -579,6 +601,10 @@ public class AdminController {
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {						// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
@@ -715,14 +741,18 @@ public class AdminController {
 	/*------------------------------------------ADD PHET (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	// method to redirect addPhets View 
-	@RequestMapping(value="/admin/addPhets",method = RequestMethod.GET)
-	public ModelAndView addPhetsGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addPhets",method = RequestMethod.GET)
+	public ModelAndView addPhetsGet(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);								// checking the last alive session
 //			
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
@@ -1005,14 +1035,18 @@ public class AdminController {
 	}
 	
 	// redirect to addTopic View
-	@RequestMapping(value="/admin/addTopic",method=RequestMethod.GET)
-	public ModelAndView addTopicGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addTopic",method=RequestMethod.GET)
+	public ModelAndView addTopicGet(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);								// checking the last alive session
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {					// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
@@ -1033,14 +1067,17 @@ public class AdminController {
 	
 	
 	// method to redirect addSubject View 
-	@RequestMapping(value="/admin/addSubject", method=RequestMethod.GET)
-	public ModelAndView addSubjectGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addSubject", method=RequestMethod.GET)
+	public ModelAndView addSubjectGet(Principal principal,ModelAndView mv) {
 //		HttpSession session=req.getSession(false);						// checking the last alive session
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
 		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
 		mv.addObject("classExist",classExist);
@@ -1131,14 +1168,18 @@ public class AdminController {
 	/*------------------------------------------ADD VIDEO (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	// method to redirect addVideo View 
-	@RequestMapping(value="/admin/addVideo",method = RequestMethod.GET)
-	public ModelAndView addVideoGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addVideo",method = RequestMethod.GET)
+	public ModelAndView addVideoGet(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);					// checking the last alive session
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {		// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
@@ -1292,14 +1333,18 @@ public class AdminController {
 	/*------------------------------------------ADD QUIZ (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	// method to redirect addQuiz View 
-	@RequestMapping(value="/admin/addQuiz",method = RequestMethod.GET)
-	public ModelAndView addQuizGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addQuiz",method = RequestMethod.GET)
+	public ModelAndView addQuizGet(Principal principal,ModelAndView mv) {
 			
 //		HttpSession session=req.getSession(false);							// checking the last alive session
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();	// fetching out the available list of class from database.
 
@@ -1484,13 +1529,17 @@ public class AdminController {
 	/**********************************************************************************************/
 	
 	// method to redirect addConcept-map View 
-	@RequestMapping(value = "/admin/addConceptMap",method = RequestMethod.GET)
-	public ModelAndView addConceptMapGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/addView/addConceptMap",method = RequestMethod.GET)
+	public ModelAndView addConceptMapGet(Principal principal,ModelAndView mv) {
 //		HttpSession session=req.getSession();							// checking the last alive session
 //		
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
@@ -1616,8 +1665,8 @@ public class AdminController {
 	/**************************************** ADDING TUTORIAL  ********************************************************************************/
 	// method to redirect addTutorial View 
 	
-	@RequestMapping(value="/admin/addTutorial",method = RequestMethod.GET)
-	public ModelAndView addTutorialGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/addTutorial",method = RequestMethod.GET)
+	public ModelAndView addTutorialGet(Principal principal,ModelAndView mv) {
 		
 		
 //		HttpSession session=req.getSession(false);							// checking the last alive session
@@ -1625,6 +1674,11 @@ public class AdminController {
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
@@ -1755,12 +1809,16 @@ public class AdminController {
 	/*******************************************************************************************************************************************/
 
 	// method to redirect addTestimonial View 
-	@RequestMapping(value = "/admin/addTestimonial",method = RequestMethod.GET)
-	public ModelAndView addTestimonialGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/addView/addTestimonial",method = RequestMethod.GET)
+	public ModelAndView addTestimonialGet(Principal principal,ModelAndView mv) {
 //		HttpSession session=req.getSession(false);						// checking the last alive session
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 				mv.addObject("viewActive","active");
 				List<Testimonial> local=testiService.findAll();
 				mv.addObject("Testimonial", local);
@@ -1820,14 +1878,18 @@ public class AdminController {
 	
 	
 	// method to redirect addEvent View 
-	@RequestMapping(value = "/admin/addEvent",method = RequestMethod.GET)
-	public ModelAndView addEventGet(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/addView/addEvent",method = RequestMethod.GET)
+	public ModelAndView addEventGet(Principal principal,ModelAndView mv) {
 		
 		
 //		HttpSession session=req.getSession(false);						// checking the last alive session
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {			// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 				List<Events> local=eventService.findAll();
 				mv.addObject("Events", local);
 				mv.addObject("viewActive","active");
@@ -1893,14 +1955,17 @@ public class AdminController {
 	
 	
 	//method to redirect page to Message of User
-	@RequestMapping(value = "/admin/contactInformation",method = RequestMethod.GET)
-	public ModelAndView getUserMessageget(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/contactInformation",method = RequestMethod.GET)
+	public ModelAndView getUserMessageget(Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);										// checking the last alive session
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session
 //			mv.setViewName("redirect:/");
 //		}else {
-			
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			List<ContactForm> tempContact=contactService.getAllMessages();
 			mv.addObject("contactMessages", tempContact);
 			mv.setViewName("message");	
