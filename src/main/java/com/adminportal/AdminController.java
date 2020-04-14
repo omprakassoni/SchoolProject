@@ -255,7 +255,7 @@ public class AdminController {
 	
 	// method to add Class entry into database
 	
-	@RequestMapping(value="/admin/addClass", method = RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addClass", method = RequestMethod.POST)
 	public ModelAndView addClassPost(HttpServletRequest req,@RequestParam(name="classSelected") int classSelected ,Principal principal, ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);									// checking the last alive session
@@ -293,7 +293,11 @@ public class AdminController {
 		ArrayList<Class> classExistTemp=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
 		mv.addObject("classExist",classExistTemp);
-			
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
 		mv.setViewName("addClass");													// returns to addClass View
 		
 		
@@ -342,7 +346,7 @@ public class AdminController {
 	
 	// method to add Article entry into database
 	
-	@RequestMapping(value="/admin/addArticle",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addArticle",method = RequestMethod.POST)
 	public ModelAndView addArtcilePost(HttpServletRequest req,Principal principal,ModelAndView mv) {
 		
 		String className=req.getParameter("classSelected");					// taking out various information given by user in view.
@@ -374,6 +378,10 @@ public class AdminController {
 			mv.addObject("Article",articleList);
 		
 			mv.setViewName("addArticle");
+			
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
 			
 			return mv;
 			
@@ -433,8 +441,11 @@ public class AdminController {
 		mv.addObject("classExist", classExist);												// setting variable for view for displaying purpose
 
 		
-		mv.setViewName("addArticle");														// setting view name
+		mv.setViewName("addArticle");	// setting view name
 		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		return mv;
 		
@@ -483,7 +494,7 @@ public class AdminController {
 	
 	
 	// method to add Document into database
-	@RequestMapping(value="/admin/addDocument",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addDocument",method = RequestMethod.POST)
 	public ModelAndView addDocumentPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] document,Principal principal,ModelAndView mv) {
 		
 		String path1=null;
@@ -515,6 +526,10 @@ public class AdminController {
 			mv.addObject("Document",documentList);
 			
 			mv.setViewName("addDocument");										// setting view name
+			
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
 			
 			return mv;
 			
@@ -582,6 +597,9 @@ public class AdminController {
 		
 		mv.setViewName("addDocument");													// setting view name
 		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		return mv;
 		
@@ -628,7 +646,7 @@ public class AdminController {
 	}
 	
 	// method to add Lesson Plan into database
-	@RequestMapping(value="/admin/addLessonPlan",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addLessonPlan",method = RequestMethod.POST)
 	public ModelAndView addLessonPlanPost(HttpServletRequest req,@RequestParam(name="lesson") MultipartFile[] lesson,Principal principal,ModelAndView mv) {
 		
 		String path1=null;
@@ -660,6 +678,11 @@ public class AdminController {
 			mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
 			
 			mv.setViewName("addLessonPlan");											// setting view name
+			
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
 			return mv;
 			
 		}
@@ -729,6 +752,9 @@ public class AdminController {
 			
 		mv.setViewName("addLessonPlan");												// setting view name
 			
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 	
 		return mv;
@@ -777,7 +803,7 @@ public class AdminController {
 	}
 	
 	// method to add Phets into database
-	@RequestMapping(value="/admin/addPhets",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addPhets",method = RequestMethod.POST)
 	public ModelAndView addPhetsPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
 		
 
@@ -831,6 +857,10 @@ public class AdminController {
 				
 				mv.setViewName("addPhets");
 				
+				User localUser=userService.findByUsername(principal.getName());
+				
+				mv.addObject("LoggedUser",localUser);
+				
 				return mv;
 				
 				
@@ -857,6 +887,10 @@ public class AdminController {
 			mv.addObject("addActive","active");
 			
 			mv.setViewName("addPhets");
+			
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
 			
 			return mv;
 			
@@ -921,7 +955,9 @@ public class AdminController {
 		
 		mv.setViewName("addPhets");														// setting view name
 		
+		User localUser=userService.findByUsername(principal.getName());
 		
+		mv.addObject("LoggedUser",localUser);
 		
 		return mv;
 	}
@@ -934,7 +970,7 @@ public class AdminController {
 	
 	// method to add Topic into database
 	@Transactional
-	@RequestMapping(value="/admin/addTopic",method=RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addTopic",method=RequestMethod.POST)
 	public ModelAndView addTopicPost(@RequestParam("posterQ") MultipartFile[] poster,HttpServletRequest req,ModelAndView mv,Principal principal) throws Exception {
 		
 		String path1=null;
@@ -943,6 +979,10 @@ public class AdminController {
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topic");
 		String topicDesc=req.getParameter("descriptionQ");
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 //		HttpSession session=req.getSession(false);	
 //		String emailToIdentifyUser=(String) session.getAttribute("UserLogedUsername");
@@ -1094,12 +1134,17 @@ public class AdminController {
 	
 	
 	// method to add Subject into database
-	@RequestMapping(value="/admin/addSubject", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addSubject", method=RequestMethod.POST)
 	public ModelAndView addSubjectPost(HttpServletRequest req,@RequestParam(name="SelectedSubject") String selectedSubject,Principal principal,ModelAndView mv) {
 			
 		HttpSession session=req.getSession(false);
 		int i=0;     
 		boolean subjectExist=false;
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
 		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
 		for(Subject temp:subject) {
 			if(selectedSubject.equalsIgnoreCase(temp.getSubName())) {
@@ -1206,7 +1251,7 @@ public class AdminController {
 	}
 	
 	// method to add Video into database
-	@RequestMapping(value="/admin/addVideo",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addVideo",method = RequestMethod.POST)
 	public ModelAndView addVideoGetPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
 		
 		
@@ -1218,6 +1263,9 @@ public class AdminController {
 		String source=req.getParameter("source");
 		String videourl=null;
 	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		if(url.length()>0) {													// check for proper Video Url 
 			
@@ -1367,7 +1415,7 @@ public class AdminController {
 	}
 	
 	// method to add Quiz into database
-	@RequestMapping(value="/admin/addQuiz",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/addView/addQuiz",method = RequestMethod.POST)
 	public ModelAndView addQuizPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] question,Principal principal,@RequestParam(name="Answer")MultipartFile[] answer,ModelAndView mv) {
 		
 		String questionPath=null;
@@ -1376,6 +1424,10 @@ public class AdminController {
 		String subjectName=req.getParameter("subjectSelected");
 		String topicName=req.getParameter("topicSelected");
 		String remarks=req.getParameter("remarks");
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		
 //		String emailToIdentifyUser;
@@ -1560,7 +1612,7 @@ public class AdminController {
 	}
 	
 	// method to add Concept -MAp into database
-	@RequestMapping(value = "/addConceptMap",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/addView/addConceptMap",method = RequestMethod.POST)
 	public ModelAndView addConceptMapPost(HttpServletRequest req,Principal principal,@RequestParam(name="conceptMapImage")MultipartFile[] conceptMapImage,ModelAndView mv) {
 		
 		String path1=null;
@@ -1571,6 +1623,9 @@ public class AdminController {
 		String remark=req.getParameter("headlineConceptMap");
 		
 //		String emailToIdentifyUser;
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		if(!ServiceUtility.checkFileExtensionImage(conceptMapImage)) {    // check Image file
 			mv.addObject("fileError", "File must be a Image File");
@@ -1721,13 +1776,17 @@ public class AdminController {
 	}
 	
 	// method to add Tutorial into database
-	@RequestMapping(value = "/admin/addTutorial",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/addView/addTutorial",method = RequestMethod.POST)
 	public ModelAndView addTutorialPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
 		
 //		HttpSession session=req.getSession(false);							// checking the last alive session
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {				// checking for admin alive session
 //			mv.setViewName("redirect:/adminPortal");
 //		}else {
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			
 			String className=req.getParameter("classSelected");					// taking out various information given by user in view.
 			String subjectName=req.getParameter("subjectSelected");
@@ -1833,8 +1892,8 @@ public class AdminController {
 	
 	
 	// method to add Testimonial into database
-	@RequestMapping(value = "/admin/addTestimonial",method = RequestMethod.POST)
-	public ModelAndView addTestimonialPost(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/addView/addTestimonial",method = RequestMethod.POST)
+	public ModelAndView addTestimonialPost(HttpServletRequest req,ModelAndView mv,Principal principal) {
 		
 		HttpSession session=req.getSession(false);					// checking the last alive session
 		String name=req.getParameter("Name");						// taking out various information given by user in view.
@@ -1844,6 +1903,9 @@ public class AdminController {
 //			mv.setViewName("redirect:/");
 //		}else {
 			
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 					
 					try {
 						Testimonial addtestData=new Testimonial();
@@ -1901,13 +1963,15 @@ public class AdminController {
 	}
 	
 	// method to add event into database
-	@RequestMapping(value = "/admin/addEvent",method = RequestMethod.POST)
-	public ModelAndView addEventPost(HttpServletRequest req,ModelAndView mv) {
+	@RequestMapping(value = "/admin/addView/addEvent",method = RequestMethod.POST)
+	public ModelAndView addEventPost(HttpServletRequest req,ModelAndView mv,Principal principal) {
 		
 		String headline=req.getParameter("headline");									// taking out various information given by user in view.
 		String Desc=req.getParameter("description");
 		
-	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 //		HttpSession session=req.getSession(false);										// checking the last alive session
 //		if(!ServiceUtility.chechExistSessionAdmin(session)) {							// checking for admin alive session

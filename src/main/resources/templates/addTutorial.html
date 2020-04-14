@@ -157,6 +157,7 @@
 								   
                                 <div class="card-header">
                                     <h4 class="card-title">Available Tutorial</h4>
+                                    <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
                                 	<form th:action="@{disableEnableTutorial}" method="post">
@@ -230,6 +231,9 @@
 							
 							<div class="card-header">
                                     <h4 class="card-title">Add New Tutorial</h4>
+                                    <div class="status" th:text="${statusAdd}"></div>
+									<div class="errorClass" th:text="${failure}"></div>
+									<div class="errorClass" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addPhets}" method="post" enctype="multipart/form-data">

@@ -157,6 +157,7 @@
 								   
                                 <div class="card-header">
                                     <h4 class="card-title">Available Events</h4>
+                                    <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
                                 	<form th:action="@{deleteTesti}" method="post">
@@ -213,6 +214,7 @@
 							
 							<div class="card-header">
                                     <h4 class="card-title">Add New Events</h4>
+                                    <div class="returnStatus" th:text="${returnStatus}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addEvent}" method="post" enctype="multipart/form-data">

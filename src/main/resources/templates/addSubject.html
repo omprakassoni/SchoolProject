@@ -158,6 +158,7 @@
 								   
                                 <div class="card-header">
                                     <h4 class="card-title">Available Subject</h4>
+                                    <div class="status" th:text="${statusView}"></div>
                                 </div>
                                 <div class="card-body">
                                 	<div class="table-responsive">
@@ -212,6 +213,7 @@
 							
 							<div class="card-header">
                                     <h4 class="card-title">Add Subject</h4>
+                                    <div class="status" th:text="${statusAdd}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addSubject}" method="post">

@@ -157,6 +157,7 @@
 								   
                                 <div class="card-header">
                                     <h4 class="card-title">Available Document</h4>
+                                    <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
                                 	<form th:action="@{deleteDocument}" method="post">
@@ -237,6 +238,10 @@
 							
 							<div class="card-header">
                                     <h4 class="card-title">Add New Document</h4>
+                                    <div class="status" th:text="${statusAdd}"></div>
+									<div class="errorClass" th:text="${failure}"></div>
+									<div class="errorClass" th:text="${fileError}"></div>
+									<div class="error" th:text="${sessionTimeOut}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addDocument}" method="post" enctype="multipart/form-data">

@@ -147,8 +147,8 @@ public class AdminViewController {
 	}
 	
 	
-	@RequestMapping(value = "/admin/deleteUser",method = RequestMethod.POST)
-	public ModelAndView userListPost(HttpServletRequest req,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/deleteUser",method = RequestMethod.POST)
+	public ModelAndView userListPost(Principal principal,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
@@ -160,6 +160,9 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		User usrTemp=userService.findById(id);
 		if(usrTemp.getRegistered()==1) {
@@ -884,13 +887,15 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/admin/approveTeacher",method =RequestMethod.POST)
-	public ModelAndView approveTeacherPost(HttpServletRequest req,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/approveTeacher",method =RequestMethod.POST)
+	public ModelAndView approveTeacherPost(Principal principal,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
+		User localUser=userService.findByUsername(principal.getName());
 		
+		mv.addObject("LoggedUser",localUser);
 		
 		status=userService.disableEnableUser(1, id);
 	
@@ -980,10 +985,13 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/admin/EnableVideo",method = RequestMethod.POST)
-	public ModelAndView enbaleVideoPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/EnableVideo",method = RequestMethod.POST)
+	public ModelAndView enbaleVideoPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		int id=Integer.parseInt(userId);
 		boolean status;
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		  status=videoService.EnableAcceptedByAdminVideoContent(1, id);
 			
@@ -1071,11 +1079,15 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/admin/EnableDocument",method = RequestMethod.POST)
-	public ModelAndView enbaleDocumentPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/EnableDocument",method = RequestMethod.POST)
+	public ModelAndView enbaleDocumentPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		  status=documentService.EnableAcceptedByAdminDocumentContent(1, id);
 			
@@ -1161,12 +1173,15 @@ public class AdminViewController {
 	}
 	
 	
-	@RequestMapping(value = "/admin/EnableArticle",method = RequestMethod.POST)
-	public ModelAndView enbaleArticlePost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/EnableArticle",method = RequestMethod.POST)
+	public ModelAndView enbaleArticlePost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		  status=articleService.EnableAcceptedByAdminArticleContent(1, id);
 			
 			if(status) {
@@ -1249,11 +1264,14 @@ public class AdminViewController {
 	
 	
 	
-	@RequestMapping(value = "/admin/EnablePhet",method = RequestMethod.POST)
-	public ModelAndView enbalePhetPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/EnablePhet",method = RequestMethod.POST)
+	public ModelAndView enbalePhetPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		  status=phetService.EnableAcceptedByAdminPhetContent(1, id);
 			
@@ -1336,11 +1354,15 @@ public class AdminViewController {
 	}
 	
 	
-	@RequestMapping(value = "/admin/EnableQuiz",method = RequestMethod.POST)
-	public ModelAndView enbaleQuizPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/EnableQuiz",method = RequestMethod.POST)
+	public ModelAndView enbaleQuizPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		  status=quizService.EnableAcceptedByAdminQuizContent(1, id);
 			
@@ -1424,11 +1446,14 @@ public class AdminViewController {
 	}
 	
 	
-	@RequestMapping(value = "/admin/EnableLesson",method = RequestMethod.POST)
-	public ModelAndView enbaleLessonPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/EnableLesson",method = RequestMethod.POST)
+	public ModelAndView enbaleLessonPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		  status=lessonService.EnableAcceptedByAdminLessonPlanContent(1, id);
 			
@@ -1506,11 +1531,15 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/admin/EnableConcept",method = RequestMethod.POST)
-	public ModelAndView enbaleConceptPost(HttpServletRequest req,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
+	@RequestMapping(value = "/admin/approve/EnableConcept",method = RequestMethod.POST)
+	public ModelAndView enbaleConceptPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
 		boolean status;
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		  status=conceptService.EnableAcceptedByAdminConceptContent(1, id);
 			
@@ -1659,6 +1688,8 @@ public class AdminViewController {
 		int id=Integer.parseInt(tutorialId);
 		boolean status;
 		String enableDisable;
+		
+		
 		
 //		HttpSession session=req.getSession();
 //		

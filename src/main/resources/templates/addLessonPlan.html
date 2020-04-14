@@ -157,6 +157,7 @@
 								   
                                 <div class="card-header">
                                     <h4 class="card-title">Available Lesson Plan</h4>
+                                    <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
                                 	<form th:action="@{deleteLesson}" method="post">
@@ -236,6 +237,9 @@
 							
 							<div class="card-header">
                                     <h4 class="card-title">Add New Lesson Plan</h4>
+                                    <div class="status" th:text="${statusAdd}"></div>
+									<div class="errorClass" th:text="${failure}"></div>
+									<div class="errorClass" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addArticle}" method="post" enctype="multipart/form-data">

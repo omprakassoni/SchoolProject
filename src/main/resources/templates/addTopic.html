@@ -157,6 +157,7 @@
 								   
                                 <div class="card-header">
                                     <h4 class="card-title">Available Topic</h4>
+                                    <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
                                 	<form th:action="@{deleteTopic}" method="post">
@@ -237,9 +238,12 @@
 							
 							<div class="card-header">
                                     <h4 class="card-title">Add New Topic</h4>
+                                    <div class="status" th:text="${statusAdd}"></div>
+									<div class="errorClass" th:text="${failure}"></div>
+									<div class="errorClass" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
-			                   <form th:action="@{addTopic}" method="post">
+			                   <form th:action="@{addTopic}" method="post" enctype="multipart/form-data">
                                       <div class="row">
 										<div class="col-md-6">
 											<div style="text-align: center">
