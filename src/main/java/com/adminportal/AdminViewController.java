@@ -255,8 +255,8 @@ public class AdminViewController {
 	}
 	
 	
-	@RequestMapping(value="/admin/deleteTopic",method = RequestMethod.POST)
-	public ModelAndView topicListPost(HttpServletRequest req,@RequestParam(name="radioTopic") String topicId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deleteTopic",method = RequestMethod.POST)
+	public ModelAndView topicListPost(Principal principal,@RequestParam(name="radioTopic") String topicId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(topicId);
 		boolean status;
@@ -269,6 +269,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		Topic topicTemp=topicService.findById(id);
 		if(topicTemp.getStatus()==1) {
@@ -329,8 +333,8 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/admin/deleteVideo",method = RequestMethod.POST)
-	public ModelAndView videoListPost(HttpServletRequest req,@RequestParam(name="radioVideo") String videoId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deleteVideo",method = RequestMethod.POST)
+	public ModelAndView videoListPost(Principal principal,@RequestParam(name="radioVideo") String videoId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(videoId);
 		boolean status;
@@ -343,6 +347,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		VideoExternal videoTemp=videoService.findById(id);
 		if(videoTemp.isStatus()==1) {
@@ -410,8 +418,8 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/admin/deleteArticle",method = RequestMethod.POST)
-	public ModelAndView articleListPost(HttpServletRequest req,@RequestParam(name="radioArticle") String articleId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deleteArticle",method = RequestMethod.POST)
+	public ModelAndView articleListPost(Principal principal,@RequestParam(name="radioArticle") String articleId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(articleId);
 		boolean status;
@@ -424,6 +432,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		ArticleExternal articleTemp=articleService.findByid(id);
 		if(articleTemp.isStatus()==1) {
@@ -488,8 +500,8 @@ public class AdminViewController {
 	}
 	
 
-	@RequestMapping(value="/admin/deleteDocument",method = RequestMethod.POST)
-	public ModelAndView documentListPost(HttpServletRequest req,@RequestParam(name="radioDocument") String documentId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deleteDocument",method = RequestMethod.POST)
+	public ModelAndView documentListPost(Principal principal,@RequestParam(name="radioDocument") String documentId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(documentId);
 		boolean status;
@@ -502,6 +514,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		DocumentExternal documentTemp=documentService.findByid(id);
 		if(documentTemp.isStatus()==1) {
@@ -564,8 +580,8 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/admin/deletePhet",method = RequestMethod.POST)
-	public ModelAndView phetsListPost(HttpServletRequest req,@RequestParam(name="radioPhet") String phetId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deletePhet",method = RequestMethod.POST)
+	public ModelAndView phetsListPost(Principal principal,@RequestParam(name="radioPhet") String phetId,ModelAndView mv) {
 
 		int id=Integer.parseInt(phetId);
 		boolean status;
@@ -578,6 +594,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		Phets phetTemp=phetService.findByid(id);
 		if(phetTemp.isStatus()==1) {
@@ -641,8 +661,8 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/admin/deleteLesson",method = RequestMethod.POST)
-	public ModelAndView lessonPlanListPost(HttpServletRequest req,@RequestParam(name="radioLesson") String lessonId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deleteLesson",method = RequestMethod.POST)
+	public ModelAndView lessonPlanListPost(Principal principal,@RequestParam(name="radioLesson") String lessonId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(lessonId);
 		boolean status;
@@ -655,6 +675,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		LessonPlan lessonTemp=lessonService.findById(id);
 		if(lessonTemp.isStatus()==1) {
@@ -718,8 +742,8 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/admin/deleteQuiz",method = RequestMethod.POST)
-	public ModelAndView quizListPost(HttpServletRequest req,@RequestParam(name="radioQuiz") String quizId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deleteQuiz",method = RequestMethod.POST)
+	public ModelAndView quizListPost(Principal principal,@RequestParam(name="radioQuiz") String quizId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(quizId);
 		boolean status;
@@ -732,6 +756,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		QuizQuestion quizTemp=quizService.findById(id);
 		if(quizTemp.isStatus()==1) {
@@ -792,8 +820,8 @@ public class AdminViewController {
 	}
 	
 	
-	@RequestMapping(value="/admin/deleteConcept",method = RequestMethod.POST)
-	public ModelAndView conceptListPost(HttpServletRequest req,@RequestParam(name="radioConcept") String conceptId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/deleteConcept",method = RequestMethod.POST)
+	public ModelAndView conceptListPost(Principal principal,@RequestParam(name="radioConcept") String conceptId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(conceptId);
 		boolean status;
@@ -806,6 +834,10 @@ public class AdminViewController {
 //			return mv;
 //			
 //		}
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		ConceptMap conceptTemp=conceptService.findByid(id);
 		if(conceptTemp.getStatus()==1) {

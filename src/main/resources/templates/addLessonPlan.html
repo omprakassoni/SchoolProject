@@ -187,7 +187,7 @@
 																onchange="radioCall()" /></th>
 															<td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>
 															<td><span th:text="${lesson.getDateAdded()}"></span></td>
-															<td><a th:href="@{files/}+@{${lesson.getLessonPlan()}}"
+															<td><a th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
 																class="pdfclass" target="_blank"><img id="pdfsource"
 																	th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
 						

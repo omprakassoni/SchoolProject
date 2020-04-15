@@ -157,7 +157,7 @@
 								   
                                 <div class="card-header">
                                     <h4 class="card-title">Available Topic</h4>
-                                    <div class="status" th:text="${status}"></div>
+                                    <div style="text-align: center" class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
                                 	<form th:action="@{deleteTopic}" method="post">
@@ -195,7 +195,7 @@
 																th:text="${topic.getSubjectClassMapping().getSub().getSubName()}"></span></td>
 						
 															<td><a href="#" class="pop"><img id="imagesource"
-																	th:src="@{files/}+@{${topic.getPoster()}}"
+																	th:src="@{/files/}+@{${topic.getPoster()}}"
 																	style="width: 150px; height: 100px" /></a></td>
 															<td><span th:if="${topic.getStatus()==1}"><div
 																		id="true" /></span> <span th:unless="${topic.getStatus()==1}"><div
