@@ -101,7 +101,7 @@ import com.spoken.Utility.TutorialList;
 public class HomeController {
 	
 	public static final String uploadDirectory="Media/content/";   // Path to save resources
-	public static final String uploadTeacherDirectory="Media/Teacher/";	// path to save teacher Document
+	public static final String uploadTeacherDirectory="Media/User/";	// path to save teacher Document
 	
 	@Autowired
 	private ClassService classService;

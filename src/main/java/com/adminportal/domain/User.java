@@ -100,6 +100,9 @@ public class User implements UserDetails{
 	@Column(name="token")
 	private String token;
 	
+	@Column(name="profilePic")
+	private String profilePic;
+	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<UserRole> userRoles=new ArrayList<UserRole>();
 	
@@ -422,6 +425,14 @@ public class User implements UserDetails{
 		}else {
 			return false;
 		}
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 	}
 
 	

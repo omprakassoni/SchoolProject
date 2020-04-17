@@ -38,7 +38,7 @@ import com.spoken.Utility.ServiceUtility;
 @Controller
 public class RegistrationController {
 	
-	public static final String uploadTeacherDirectory="Media/Teacher/";  /* path to which teachers document will get stored */
+	public static final String uploadTeacherDirectory="Media/User/";  /* path to which teachers document will get stored */
 	
 	
 	@Autowired
@@ -285,10 +285,10 @@ public class RegistrationController {
 		
 		/***************** creating folder for Storing Teacher data *************************************/
 		
-		boolean path_creation=ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email);
+		boolean path_creation=ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email+"/Document");
 		
 		
-		String pathtoUploadteacherData=env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email;
+		String pathtoUploadteacherData=env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email+"/Document";
 		
 		String documentLocal=ServiceUtility.uploadFile(uploadDocument, pathtoUploadteacherData);
 		

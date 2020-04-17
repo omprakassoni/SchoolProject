@@ -50,6 +50,21 @@ $(function(){
 		location.reload();
 	});
 	
+	/*------------------------------Profile Picture Update ----------------------------------------------------*/
+	$('#profilePicture').change(function(){
+		
+		readImageUrl(this);
+		$("#chngProfilePic").prop('disabled', false);
+	})
+	
+	
+	$('#chngProfilePic').click(function(){
+		
+		event.preventDefault();
+		
+		updateProfilePicture();
+		
+	})
 	
 	
 	/*-------------------------------------- Password Error Operation ----------------------------------------------*/
@@ -7838,6 +7853,67 @@ function addVideo(){
 	});
 }
 
+/*---------------------------------------Profile picture update Ajax call-------------------------------*/
+
+function updateProfilePicture(){
+	
+	var form=$('#uploadProfilePic')[0];
+	var data=new FormData(form);
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var urlPassed;
+	
+	if(DeploymentType){								// Url Creation based on depolyment 
+		urlPassed= "/updateProfilePic";
+
+	}else{
+		urlPassed= projectName+"/updateProfilePic";
+
+	}
+
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',
+			url: urlPassed,
+			data:data,
+			beforeSend: function(xhr) {
+                 xhr.setRequestHeader(header, token);
+       		},
+			cache:false,
+			contentType:false,
+			processData:false,
+			timeout: 600000,
+			success:function(data){
+				
+				 $('#chngProfilePic').prop('disabled',true);
+				 $('#profileText').css({"display": "block"});
+				
+			
+			},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+			}
+
+	});
+	
+	
+}
+
+
+function readImageUrl(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    
+	    reader.onload = function(e) {
+	      $('#pictureShow').attr('src', e.target.result);
+	    }
+	    
+	    reader.readAsDataURL(input.files[0]); // convert to base64 string
+	  }
+	}
 
 
 /**************************   comment Reply visibility for all Content  *********************************************/

@@ -2593,6 +2593,40 @@ public class HomeControllerRest {
 	}
 	
 	/*---------------------------------------------------------------END----------------------------------------------------------------------------*/
+
+	/*----------------- UPDATE PROFILE PICTURE ----------------------------------*/
+	
+	@PostMapping("/updateProfilePic")
+	public @ResponseBody String updateProfilePic(@RequestParam("profilePicture") MultipartFile[] uploadPhoto,Principal principal) throws Exception{
+	
+		
+		ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+"Media/User/"+principal.getName()+"/Profile");
+		
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+"Media/User/"+principal.getName()+"/Profile";
+		
+		String documentLocal=ServiceUtility.uploadFile(uploadPhoto, createFolder);
+		
+		int indexToStart=documentLocal.indexOf("Media");
+		
+		String document=documentLocal.substring(indexToStart, documentLocal.length());
+		
+		User localUser=userService.findByUsername(principal.getName());
+		localUser.setProfilePic(document);
+		
+		userService.save(localUser);
+		
+		
+		return "ok";
+	}
+	
+	
+	
+	
+	/*----------------------- END -------------------------------------------------*/
+	
+	
+
+
 }
 
 

@@ -298,11 +298,19 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="author">
-                                        <a href="#">
-                                            <img class="avatar border-gray" th:src="@{/img/default-avatar.png}" alt="...">
+                                    
+                                        <a href="#" data-toggle="modal" data-target="#ProfilePictureModal">
+                                        <div th:text="${LoggedUser.getProfilePic()}"/>
+                                        	<span th:if="${LoggedUser.getProfilePic()}">
+                                        		<img class="avatar border-gray" th:src="@{files/}+@{${LoggedUser.getProfilePic()}}" th:alt="@{/img/default-avatar.png}">
+                                        	</span>
+                                        	<span th:unless="${LoggedUser.getProfilePic()}">
+                                        		<img class="avatar border-gray" th:src="@{/img/default-avatar.png}">
+                                        	</span>
+                                            
                                             <h5 class="title"><span th:text="${LoggedUser.getFname()}"></span></h5>
                                         </a>
-                                      
+                                    
                                     </div>
                 
                                 </div>
@@ -316,30 +324,7 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
-<!--
-                        <ul class="footer-menu">
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
--->
+
                         <p class="copyright text-center">
                             ©
                             <script>
@@ -355,6 +340,42 @@
     
     <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	
+	<!-- Central Modal Small -->
+	<div class="modal fade" id="ProfilePictureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+ 	 aria-hidden="true">
+
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Change Profile Picture</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<h4 style="text-align:center;color:green;display:none;" id="profileText">Profile Picture Updated Successfully</h4>
+      	<form action="" method="post" enctype="multipart/form-data" id="uploadProfilePic">
+      		<span th:if="${LoggedUser.getProfilePic()}">
+                <img class="avatar border-gray" id="pictureShow" th:src="@{files/}+@{${LoggedUser.getProfilePic()}}" width="100%" height="400px" /><br/>
+            </span>
+            <span th:unless="${LoggedUser.getProfilePic()}">
+                <img class="avatar border-gray" id="pictureShow" th:src="@{/img/default-avatar.png}" width="100%" height="400px"/><br/>
+            </span>
+	      	
+	        <input type="file" id="profilePicture" name="profilePicture"/>
+	    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" id="chngProfilePic" disabled>Change Photo</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Central Modal Small -->
 
 </body>
 
