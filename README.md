@@ -21,6 +21,10 @@ Now, create folder with your choice name and then replace it absoulte path below
 
 spring.applicationexternalPath.name=FOLDER_PATH_ABSOLUTE
 
+And, same to be added in this file also /School_Project/src/main/java/com/spoken/Utility/ServiceUtility.java
+
+static String projectPath=FOLDER_PATH_ABSOLUTE;
+
 # CREDENTIAL TO ACCESS THIS APP WITH ADMIN ACCESS
 username : spoken@spoken.org
 
