@@ -758,15 +758,14 @@ public class HomeController {
 	// COURSES PAGE BASED ON SELECTION OF CLASS AND SUBJECT
 	
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
-	public ModelAndView viewCoursesAvailable(@RequestParam(name="subjectSelected") String subject,@RequestParam(name="classSelected") String classSelected,ModelAndView mv) {
-		System.out.println("test"+subject);
+	public ModelAndView viewCoursesAvailable(HttpServletRequest req,@RequestParam(name="subjectSelected") String subject,@RequestParam(name="classSelected") String classSelected,ModelAndView mv) {
+	/*	System.out.println("test"+subject);*/
 		Class localClass=null;
 		
 		Subject localSubject=null;
 		SubjectClassMapping localSubjectClassMapping;
 		List<Topic> localTopictemp=null;
-		
-		
+
 		
 		if(subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
 			localTopictemp=topicService.findAll();
@@ -837,10 +836,8 @@ public class HomeController {
 	
 	/******              CONTENT PAGE BASED ON CLASS SUBJECT AND TOPIC-------------------------------*/
 	
-	@RequestMapping(path = "/content/{topicId}", method = RequestMethod.GET)
-	public ModelAndView viewContentonTopic(HttpServletRequest req,@PathVariable("topicId") int topicId,ModelAndView mv) {
-		
-		HttpSession session=req.getSession(false);
+	@RequestMapping(path="/contentTutorial/{topicId}",method = RequestMethod.GET)
+	public ModelAndView viewTutorialOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
 		
 		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
@@ -849,28 +846,9 @@ public class HomeController {
 		mv.addObject("subjectfromDatabase", subjectData);
 		
 		Topic localTopic=topicService.findById(topicId);
-		List<QuizQuestion> localQuiz=quizService.findAllByTopicAndStatus(localTopic);
-		List<ArticleExternal> localArticle=articleService.findAllByTopicAndStatus(localTopic);
-		List<DocumentExternal> localDocument=documentService.findAllByTopicAndStatus(localTopic);
-		List<LessonPlan> localLesson=lessonService.findAllByTopicAndStatus(localTopic);
-		List<VideoExternal> localvideo=videoService.findAllByTopicAndStatus(localTopic);
-		List<Phets> localPhets=phetService.findAllByTopicAndStatus(localTopic);
-		List<ConceptMap> localConcept=conceptMapService.findAllByTopicAndStatus(localTopic);
+		
 		List<Tutorial> localTutorial=tutorialService.findAllByTopicAndStatus(localTopic);
-		
-//		if(ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
-			
-//		String loggedUser=(String) session.getAttribute("UserLogedUsername");
-//		User localUser=userService.findByUsername(loggedUser);
-//		List<UserRole> localUserRole=localUser.getUserRoles();
-//		for(UserRole temp:localUserRole) {
-//			mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
-//			
-////		}
-//		}
-		
-		
-		
+	
 		List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
 		
 		
@@ -890,10 +868,36 @@ public class HomeController {
 			}
 		}
 		
-			
-		if(localQuiz.isEmpty()) {
-			mv.addObject("QuizError", "Nothing To Show");
+		
+		
+		if(tutorialListData.isEmpty()) {
+			mv.addObject("TutorialError", "Nothing To Show");
 		}
+		
+		
+		mv.addObject("TutorialOnTopic", tutorialListData);
+		
+		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
+		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
+		mv.addObject("TopicSelected", localTopic);
+		mv.setViewName("contentTutorial");
+		return mv;
+	}
+	
+	@RequestMapping(path="/contentLink/{topicId}",method = RequestMethod.GET)
+	public ModelAndView viewLinksOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
+		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
+		Topic localTopic=topicService.findById(topicId);
+		
+		List<ArticleExternal> localArticle=articleService.findAllByTopicAndStatus(localTopic);
+		List<DocumentExternal> localDocument=documentService.findAllByTopicAndStatus(localTopic);
+		List<VideoExternal> localvideo=videoService.findAllByTopicAndStatus(localTopic);
 		
 		if(localArticle.isEmpty()) {;
 			mv.addObject("ArticleError", "Nothing To Show");
@@ -903,39 +907,135 @@ public class HomeController {
 			mv.addObject("DocumentError", "Nothing To Show");
 		}
 		
-		if(localLesson.isEmpty()) {
-			mv.addObject("LessonError", "Nothing To Show");
-		}
 		
 		if(localvideo.isEmpty()) {
 			mv.addObject("VideoError", "Nothing To Show");
 		}
 		
+		
+		mv.addObject("VideoOnTopic", localvideo);
+		mv.addObject("ArticleOnTopic", localArticle);
+		mv.addObject("DocumentOnTopic", localDocument);
+		
+		
+		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
+		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
+		mv.addObject("TopicSelected", localTopic);
+		mv.setViewName("contentLinks");
+		return mv;
+	}
+	
+	@RequestMapping(path="/contentLesson/{topicId}",method = RequestMethod.GET)
+	public ModelAndView viewLessonPlanlOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
+		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
+		Topic localTopic=topicService.findById(topicId);
+		
+		List<LessonPlan> localLesson=lessonService.findAllByTopicAndStatus(localTopic);
+		
+		
+		
+		if(localLesson.isEmpty()) {
+			mv.addObject("LessonError", "Nothing To Show");
+		}
+		
+		
+		mv.addObject("LessonOnTopic", localLesson);
+	
+		
+		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
+		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
+		mv.addObject("TopicSelected", localTopic);
+		mv.setViewName("contentLessonPlan");
+		return mv;
+	}
+	
+	@RequestMapping(path="/contentPhet/{topicId}",method = RequestMethod.GET)
+	public ModelAndView viewPhetOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
+		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
+		Topic localTopic=topicService.findById(topicId);
+		
+		List<Phets> localPhets=phetService.findAllByTopicAndStatus(localTopic);
+		
+		
 		if(localPhets.isEmpty()) {
 			mv.addObject("PhetError", "Nothing To Show");
 		}
+		
+		mv.addObject("PhetOnTopic", localPhets);
+	
+		
+		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
+		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
+		mv.addObject("TopicSelected", localTopic);
+		mv.setViewName("contentPhet");
+		return mv;
+	}
+	
+	@RequestMapping(path="/contentQuiz/{topicId}",method = RequestMethod.GET)
+	public ModelAndView viewQuizOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
+		
+	ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+	mv.addObject("classfromDatabase", standard);
+	
+	ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+	mv.addObject("subjectfromDatabase", subjectData);
+	
+	Topic localTopic=topicService.findById(topicId);
+	List<QuizQuestion> localQuiz=quizService.findAllByTopicAndStatus(localTopic);
+	
+		
+	if(localQuiz.isEmpty()) {
+		mv.addObject("QuizError", "Nothing To Show");
+	}
+	
+	
+	
+	mv.addObject("QuizOnTopic", localQuiz);
+
+	
+	mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
+	mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
+	mv.addObject("TopicSelected", localTopic);
+	mv.setViewName("contentQuiz");
+		return mv;
+	}
+	
+	@RequestMapping(path = "/contentConcept/{topicId}", method = RequestMethod.GET)
+	public ModelAndView viewContentonTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
+		
+		
+		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+		
+		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+		
+		Topic localTopic=topicService.findById(topicId);
+		
+		List<ConceptMap> localConcept=conceptMapService.findAllByTopicAndStatus(localTopic);
 		
 		if(localConcept.isEmpty()) {
 			mv.addObject("ConceptError", "Nothing To Show");
 		}
 		
-		if(tutorialListData.isEmpty()) {
-			mv.addObject("TutorialError", "Nothing To Show");
-		}
-		
-		mv.addObject("QuizOnTopic", localQuiz);
-		mv.addObject("VideoOnTopic", localvideo);
-		mv.addObject("ArticleOnTopic", localArticle);
-		mv.addObject("DocumentOnTopic", localDocument);
-		mv.addObject("LessonOnTopic", localLesson);
-		mv.addObject("PhetOnTopic", localPhets);
 		mv.addObject("ConceptOnTopic",localConcept);
-		mv.addObject("TutorialOnTopic", tutorialListData);
-		
+	
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
 		mv.addObject("TopicSelected", localTopic);
-		mv.setViewName("content");
+		mv.setViewName("contentConceptMap");
 		return mv;
 	}
 	

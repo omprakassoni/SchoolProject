@@ -65,6 +65,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/newUserL",
 			"/newUserT",
 			"/content/**",
+			"/contentTutorial/**",
+			"/contentLesson/**",
+			"/contentPhet/**",
+			"/contentQuiz/**",
+			"/contentLink/**",
+			"/contentConcept/**",
 			
 			"/loadByClassnameAndSubject",
 			"/loadByUser",

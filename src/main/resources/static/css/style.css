@@ -561,7 +561,7 @@ p.spk-register-p {
 
 
 .nav-link{
-	font-size:25px;
+	font-size:18px;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -579,10 +579,10 @@ p.spk-register-p {
 
 
 /******* footer Experiment********************/
-.copyright {
+/* .copyright {
     background-color: 
     #1a252f;
-}
+} */
 .text-white {
     color: 
     #fff !important;

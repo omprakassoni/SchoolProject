@@ -39,7 +39,7 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
 			style="padding-top: 10px" th:each="topic:${TopicListOnSubjectClass}">
 			<!-- Card -->
-			<a th:href="'content/'+ ${topic.getTopicId()}">
+			<a th:href="'contentConcept/'+ ${topic.getTopicId()}">
 				<div class="card card-image"
 					th:style="'background-image:url(\''+@{files/}+@{${topic.getPoster()}} + '\');'">
 
