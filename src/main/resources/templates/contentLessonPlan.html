@@ -126,7 +126,7 @@
 
                         <ul class="navbar-nav ml-auto">
 							
-                            <li class="nav-item" style="margin-right:20px">
+                            <!-- <li class="nav-item" style="margin-right:20px">
                                 
                                     <select id="inputClass" class="browser-default custom-select pad-extra" name="classSelected" style="margin-top:20px">
 
@@ -150,14 +150,13 @@
 							
 							</select>
                                 
-                            </li>
-                            <form th:action="@{/courses}" method="get">
+                            </li> -->
+                            
                              <li class="nav-item">
-                                
-                                    <button type="submit" class="btn btn-primary " id="headerSubmit">Submit</button>
-                                
+                                <a class="nav-link" data-toggle="modal" data-target="#frameModalBottom">
+                                    <span class="no-icon">Modify Search ?</span>
+                                </a>
                             </li>
-							</form>
 		
                           <!--   <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -257,6 +256,64 @@
 
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	
+	<!-- Frame Modal Bottom -->
+	<div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-frame modal-top" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-body">
+         <div class="row d-flex justify-content-center align-items-center">
+			
+			
+			<div class="container" style="text-align:center">
+				<form th:action="@{/courses}" method="get"><form>
+				<div class="row" style="padding-left:100px;padding-right:100px;">
+					<div class="col-sm-6 col-md-4">
+						 <select id="inputClass" class="browser-default custom-select pad-extra" name="classSelected" style="margin-top:10px">
+
+										<option selected>Select Class</option>
+										<span th:each="classValue: ${classfromDatabase}">
+										<option><span th:text="'Class '+${classValue.getClassName()}"></span></option>
+										</span>
+						</select>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<select class="browser-default custom-select pad-extra"
+								name="subjectSelected" id="subjectHome" path="subject" style="margin-top:10px">
+								<option selected>Select Subject</option>
+								<span th:each="subjectValue: ${subjectfromDatabase}">
+									<option><span th:text="${subjectValue.getSubName()}"></span>
+									</option>
+								</span>
+							
+						</select>
+					</div>
+					<div class="col-sm-6 col-md-2">
+						 <button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					
+					<div class="col-sm-6 col-md-2">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				</form>				
+			</div>
+		 
+          
+          
+         
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Frame Modal Bottom -->
+	
 
 </body>
 
