@@ -10,9 +10,7 @@
  *  				6. content information
  */
 
-
 package com.adminportal;
-
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -97,136 +95,124 @@ import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 
 @Controller
-@SessionAttributes({"UserLogedUsername","UserLogedName","UserLogedRole"})  // Session Variable
+@SessionAttributes({ "UserLogedUsername", "UserLogedName", "UserLogedRole" }) // Session Variable
 public class HomeController {
-	
-	public static final String uploadDirectory="Media/content/";   // Path to save resources
-	public static final String uploadTeacherDirectory="Media/User/";	// path to save teacher Document
-	
+
+	public static final String uploadDirectory = "Media/content/"; // Path to save resources
+	public static final String uploadTeacherDirectory = "Media/User/"; // path to save teacher Document
+
 	@Autowired
 	private ClassService classService;
-	
+
 	@Autowired
 	private SubjectClassService subjectClassService;
-	
+
 	@Autowired
-	private  SubjectService subjectService;
-	
+	private SubjectService subjectService;
 
 	@Autowired
 	private TopicService topicService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ArticleExternalService articleService;
-	
+
 	@Autowired
 	private DocumentExternalService documentService;
-	
+
 	@Autowired
 	private LessonPlanService lessonService;
-	
+
 	@Autowired
 	private PhetsService phetService;
-	
+
 	@Autowired
 	private QuizQuestionService quizService;
-	
+
 	@Autowired
 	private VideoExternalService videoService;
-	
+
 	@Autowired
 	private RoleDetailService roleService;
-	
+
 	@Autowired
 	private TestimonialService testiService;
-	
+
 	@Autowired
 	private EventService eventService;
-	
+
 	@Autowired
 	private ConceptMapService conceptMapService;
-	
+
 	@Autowired
 	private TutorialService tutorialService;
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	private MailConstructor mailConstructor;
-	
+
 	@Autowired
 	private EventsRepository evenRepo;
-	
-
-	
 
 	////////////////////////
-	
-	
 
-	
-/* ------------------------------------------HOME PAGE-------------------------------------------------*/
+	/*
+	 * ------------------------------------------HOME
+	 * PAGE-------------------------------------------------
+	 */
 
-	
-
-	
 	@RequestMapping("/")
 	public ModelAndView home(ModelAndView mv) {
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-		
-		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
-		
-		List<Testimonial> testidata=testiService.getAlltestimonial();
-		
-		List<Events> eventData=eventService.getAllEventdata();
-		
 
-		
-		if(testidata.size()>0) {
-			
-			Testimonial temp1=testidata.get(0);
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+
+		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
+
+		List<Testimonial> testidata = testiService.getAlltestimonial();
+
+		List<Events> eventData = eventService.getAllEventdata();
+
+		if (testidata.size() > 0) {
+
+			Testimonial temp1 = testidata.get(0);
 			mv.addObject("TestimonialFirst", temp1);
-			
-			List<Testimonial> temp2=new ArrayList<Testimonial>();
-			for(int i=1;i<testidata.size();i++) {
+
+			List<Testimonial> temp2 = new ArrayList<Testimonial>();
+			for (int i = 1; i < testidata.size(); i++) {
 				temp2.add(testidata.get(i));
 			}
-			
+
 			mv.addObject("TestimonialRest", temp2);
-			
-			
+
 		}
-		
-		if(eventData.size()>0) {
-			
-			List<Events> eventTemp=new ArrayList<Events>();
+
+		if (eventData.size() > 0) {
+
+			List<Events> eventTemp = new ArrayList<Events>();
 			eventTemp.add(eventData.get(0));
-			for(int i=1;i<eventData.size();i++) {
+			for (int i = 1; i < eventData.size(); i++) {
 				eventTemp.add(eventData.get(i));
 				break;
 			}
-	
+
 			mv.addObject("Events", eventTemp);
 		}
-		
-		
 
 		mv.addObject("classfromDatabase", standard);
 		mv.addObject("subjectfromDatabase", subject);
-		
+
 		mv.setViewName("Index");
 		return mv;
 	}
-	
-	
-	
-	/********************************************** USER SIDE AUTHENTICATION********************************************************/
-	
+
+	/**********************************************
+	 * USER SIDE AUTHENTICATION
+	 ********************************************************/
+
 //	@RequestMapping(value = "/userLogin",method = RequestMethod.POST)
 //	public String userLoginpost(HttpServletRequest req,ModelAndView mv) {
 //		
@@ -306,166 +292,170 @@ public class HomeController {
 //		return "redirect:/";
 //		
 //	}
-	
-	
-/***********************************************END***********************************************************************/
 
-/******************************* dASHBOARD FOR CONTRIBUTOR ********************************************/
+	/***********************************************
+	 * END
+	 ***********************************************************************/
 
-	@RequestMapping(value = "/dashBoard",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoard(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
+	/*******************************
+	 * dASHBOARD FOR CONTRIBUTOR
+	 ********************************************/
+
+	@RequestMapping(value = "/dashBoard", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoard(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
 		mv.setViewName("user");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conVideo",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardVideo(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/conVideo", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardVideo(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
+
 		mv.setViewName("video");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conConceptMap",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardConceptMap(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/conConceptMap", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardConceptMap(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
+
 		mv.setViewName("conceptMap");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conQuiz",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardQuiz(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/conQuiz", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardQuiz(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("quiz");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conArticle",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardArticle(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/conArticle", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardArticle(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("article");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conLessonPlan",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardLessonPlan(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/conLessonPlan", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardLessonPlan(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("lessonPlan");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conDocument",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardDocument(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/conDocument", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardDocument(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("document");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conPhet",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardPhet(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/conPhet", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardPhet(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("phets");
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(value = "/conView",method = RequestMethod.GET)
-	public ModelAndView contributorDashBoardStatus(ModelAndView mv,Principal principal) {
-	
-		User localUser=userService.findByUsername(principal.getName());
-		
-		mv.addObject("LoggedUser",localUser);
-		
-		List<QuizQuestion> localQuiz=quizService.findALlByUser(localUser);
-		List<ArticleExternal> localArticle=articleService.findALlByUser(localUser);
-		List<DocumentExternal> localDocument=documentService.findALlByUser(localUser);
-		List<LessonPlan> localLesson=lessonService.findALlByUser(localUser);
-		List<VideoExternal> localvideo=videoService.findALlByUser(localUser);
-		List<Phets> localPhets=phetService.findALlByUser(localUser);
-		List<ConceptMap> localConcept=conceptMapService.findALlByUser(localUser);
-		
-		if(localQuiz.isEmpty()) {
+
+	@RequestMapping(value = "/conView", method = RequestMethod.GET)
+	public ModelAndView contributorDashBoardStatus(ModelAndView mv, Principal principal) {
+
+		User localUser = userService.findByUsername(principal.getName());
+
+		mv.addObject("LoggedUser", localUser);
+
+		List<QuizQuestion> localQuiz = quizService.findALlByUser(localUser);
+		List<ArticleExternal> localArticle = articleService.findALlByUser(localUser);
+		List<DocumentExternal> localDocument = documentService.findALlByUser(localUser);
+		List<LessonPlan> localLesson = lessonService.findALlByUser(localUser);
+		List<VideoExternal> localvideo = videoService.findALlByUser(localUser);
+		List<Phets> localPhets = phetService.findALlByUser(localUser);
+		List<ConceptMap> localConcept = conceptMapService.findALlByUser(localUser);
+
+		if (localQuiz.isEmpty()) {
 			mv.addObject("QuizError", "Nothing To Show");
 		}
-		
-		if(localArticle.isEmpty()) {;
+
+		if (localArticle.isEmpty()) {
+			;
 			mv.addObject("ArticleError", "Nothing To Show");
 		}
-		
-		if(localDocument.isEmpty()) {
+
+		if (localDocument.isEmpty()) {
 			mv.addObject("DocumentError", "Nothing To Show");
 		}
-		
-		if(localLesson.isEmpty()) {
+
+		if (localLesson.isEmpty()) {
 			mv.addObject("LessonError", "Nothing To Show");
 		}
-		
-		if(localvideo.isEmpty()) {
+
+		if (localvideo.isEmpty()) {
 			mv.addObject("VideoError", "Nothing To Show");
 		}
-		
-		if(localPhets.isEmpty()) {
+
+		if (localPhets.isEmpty()) {
 			mv.addObject("PhetError", "Nothing To Show");
 		}
-		
-		if(localPhets.isEmpty()) {
+
+		if (localPhets.isEmpty()) {
 			mv.addObject("ConceptError", "Nothing To Show");
 		}
-		
+
 		mv.addObject("QuizOnUser", localQuiz);
 		mv.addObject("VideoOnUser", localvideo);
 		mv.addObject("ArticleOnUser", localArticle);
@@ -473,636 +463,594 @@ public class HomeController {
 		mv.addObject("LessonOnUser", localLesson);
 		mv.addObject("PhetOnUser", localPhets);
 		mv.addObject("ConceptOnUser", localConcept);
-	
-		
+
 		mv.setViewName("contentView");
-		
+
 		return mv;
 	}
-	
-/**************************************** END **************************************************/	
-	
-/******************************* MY ACCOUNT PAGE OF USER TO PERFORM OPERATION ***********************************/
-	
-	@RequestMapping(value = "/myAccount",method=RequestMethod.GET)
-	public ModelAndView myAccountGet(ModelAndView mv,HttpServletRequest req,Principal principal) {
-		
+
+	/****************************************
+	 * END
+	 **************************************************/
+
+	/*******************************
+	 * MY ACCOUNT PAGE OF USER TO PERFORM OPERATION
+	 ***********************************/
+
+	@RequestMapping(value = "/myAccount", method = RequestMethod.GET)
+	public ModelAndView myAccountGet(ModelAndView mv, HttpServletRequest req, Principal principal) {
+
 //		HttpSession session=req.getSession(false);						// CHECK FOR EXISTING ALIVE SESSION	
 //		if(!ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
 //			mv.setViewName("redirect:/Login");
 //		}else {
-			
-			
-			
+
 //			String loggedUser=(String) session.getAttribute("UserLogedUsername");
-			User localUser=userService.findByUsername(principal.getName());
-			List<UserRole> localUserRole=localUser.getUserRoles();
-			for(UserRole temp:localUserRole) {
-				mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
-				
-			}
-			
-			List<QuizQuestion> localQuiz=quizService.findALlByUser(localUser);
-			List<ArticleExternal> localArticle=articleService.findALlByUser(localUser);
-			List<DocumentExternal> localDocument=documentService.findALlByUser(localUser);
-			List<LessonPlan> localLesson=lessonService.findALlByUser(localUser);
-			List<VideoExternal> localvideo=videoService.findALlByUser(localUser);
-			List<Phets> localPhets=phetService.findALlByUser(localUser);
-			List<ConceptMap> localConcept=conceptMapService.findALlByUser(localUser);
-			
-			if(localQuiz.isEmpty()) {
-				mv.addObject("QuizError", "Nothing To Show");
-			}
-			
-			if(localArticle.isEmpty()) {;
-				mv.addObject("ArticleError", "Nothing To Show");
-			}
-			
-			if(localDocument.isEmpty()) {
-				mv.addObject("DocumentError", "Nothing To Show");
-			}
-			
-			if(localLesson.isEmpty()) {
-				mv.addObject("LessonError", "Nothing To Show");
-			}
-			
-			if(localvideo.isEmpty()) {
-				mv.addObject("VideoError", "Nothing To Show");
-			}
-			
-			if(localPhets.isEmpty()) {
-				mv.addObject("PhetError", "Nothing To Show");
-			}
-			
-			if(localPhets.isEmpty()) {
-				mv.addObject("ConceptError", "Nothing To Show");
-			}
-			
-			mv.addObject("QuizOnUser", localQuiz);
-			mv.addObject("VideoOnUser", localvideo);
-			mv.addObject("ArticleOnUser", localArticle);
-			mv.addObject("DocumentOnUser", localDocument);
-			mv.addObject("LessonOnUser", localLesson);
-			mv.addObject("PhetOnUser", localPhets);
-			mv.addObject("ConceptOnUser", localConcept);
-			
-			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
-			
-			ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
-			mv.addObject("subjectfromDatabase", subjectData);
-			
-			mv.addObject("LoggedUser",localUser);
-			
-			
-			mv.setViewName("myAccount");
+		User localUser = userService.findByUsername(principal.getName());
+		List<UserRole> localUserRole = localUser.getUserRoles();
+		for (UserRole temp : localUserRole) {
+			mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
+
+		}
+
+		List<QuizQuestion> localQuiz = quizService.findALlByUser(localUser);
+		List<ArticleExternal> localArticle = articleService.findALlByUser(localUser);
+		List<DocumentExternal> localDocument = documentService.findALlByUser(localUser);
+		List<LessonPlan> localLesson = lessonService.findALlByUser(localUser);
+		List<VideoExternal> localvideo = videoService.findALlByUser(localUser);
+		List<Phets> localPhets = phetService.findALlByUser(localUser);
+		List<ConceptMap> localConcept = conceptMapService.findALlByUser(localUser);
+
+		if (localQuiz.isEmpty()) {
+			mv.addObject("QuizError", "Nothing To Show");
+		}
+
+		if (localArticle.isEmpty()) {
+			;
+			mv.addObject("ArticleError", "Nothing To Show");
+		}
+
+		if (localDocument.isEmpty()) {
+			mv.addObject("DocumentError", "Nothing To Show");
+		}
+
+		if (localLesson.isEmpty()) {
+			mv.addObject("LessonError", "Nothing To Show");
+		}
+
+		if (localvideo.isEmpty()) {
+			mv.addObject("VideoError", "Nothing To Show");
+		}
+
+		if (localPhets.isEmpty()) {
+			mv.addObject("PhetError", "Nothing To Show");
+		}
+
+		if (localPhets.isEmpty()) {
+			mv.addObject("ConceptError", "Nothing To Show");
+		}
+
+		mv.addObject("QuizOnUser", localQuiz);
+		mv.addObject("VideoOnUser", localvideo);
+		mv.addObject("ArticleOnUser", localArticle);
+		mv.addObject("DocumentOnUser", localDocument);
+		mv.addObject("LessonOnUser", localLesson);
+		mv.addObject("PhetOnUser", localPhets);
+		mv.addObject("ConceptOnUser", localConcept);
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+
+		mv.addObject("LoggedUser", localUser);
+
+		mv.setViewName("myAccount");
 //		}
 		return mv;
-		
+
 	}
-	
+
 //---------------------------------------------END--------------------------------------------------------------------
-	
+
 //------------------------------------------LOGIN HYPERLINK--------------------------------------------------------------------
-	
-	
-	
+
 	@RequestMapping("/Login")
 	public ModelAndView login(ModelAndView mv) {
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
+
 		mv.setViewName("Login");
 		return mv;
 	}
 
-	
-	
 //---------------------------------------------END--------------------------------------------------------------------
-	
+
 //------------------------------------------- FORGET PASSWORD --------------------------------------------------------
-	
+
 	@RequestMapping("/forgetPassword")
-	public ModelAndView forgetPasswordGet(ModelAndView mv){
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+	public ModelAndView forgetPasswordGet(ModelAndView mv) {
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
+
 		mv.setViewName("forgetPassword");
 		return mv;
 
 	}
-	
+
 	/*------------------- FORGET PASSWORD TAKIN REQUEST FROM VIEW -----------------------------------------*/
-	
+
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-	public ModelAndView forgetPasswordPost(HttpServletRequest req,ModelAndView mv){
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+	public ModelAndView forgetPasswordPost(HttpServletRequest req, ModelAndView mv) {
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		String userEmail=req.getParameter("username");
-		
-		User usr=userService.findByUsername(userEmail);
-		if(usr==null) {
+
+		String userEmail = req.getParameter("username");
+
+		User usr = userService.findByUsername(userEmail);
+		if (usr == null) {
 			mv.addObject("Error", "E-mail doesn't Exist");
 			mv.setViewName("forgetPassword");
 			return mv;
 		}
-		
-		String token=UUID.randomUUID().toString();
+
+		String token = UUID.randomUUID().toString();
 		usr.setToken(token);
-		
+
 		userService.save(usr);
-		
-		String appUrl = "http://"+req.getServerName()+":"+req.getServerPort()+req.getContextPath();
+
+		String appUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
 		System.out.println(appUrl);
 		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, req.getLocale(), token, usr);
-		
+
 		mailSender.send(newEmail);
-		
-		
-	
-	
-		
+
 		mv.addObject("Success", "Link to reset password has been sent to your E-mail ID");
-		
+
 		mv.setViewName("forgetPassword");
 		return mv;
 
 	}
-	
+
 	/*--------------------------- LINK TO WHICH USER WILL SET NEW PASSWORD ----------------------------------*/
-	
-	@RequestMapping(value = "/reset",method = RequestMethod.GET)
-	public ModelAndView resetPasswordGet(ModelAndView mv,@RequestParam("token") String token){
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/reset", method = RequestMethod.GET)
+	public ModelAndView resetPasswordGet(ModelAndView mv, @RequestParam("token") String token) {
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		User usr=userService.findByToken(token);
-		if(usr==null) {
+
+		User usr = userService.findByToken(token);
+		if (usr == null) {
 			mv.setViewName("redirect:/");
 			return mv;
 		}
-		
+
 		System.out.println(token);
-		mv.addObject("resetToken",usr.getToken());
+		mv.addObject("resetToken", usr.getToken());
 		mv.setViewName("resetPassword");
 		return mv;
 
 	}
-	
-	
+
 	/*---------------------------- PERSISTING NEW PASSWORD OF USER ----------------------------------*/
-	
-	@RequestMapping(value = "/resetPassword",method = RequestMethod.POST)
-	public ModelAndView resetPasswordPost(ModelAndView mv,HttpServletRequest req){
-		
-		String newPassword=req.getParameter("Password");
-		String confNewPassword=req.getParameter("Confirm");
-		String token=req.getParameter("token");
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ModelAndView resetPasswordPost(ModelAndView mv, HttpServletRequest req) {
+
+		String newPassword = req.getParameter("Password");
+		String confNewPassword = req.getParameter("Confirm");
+		String token = req.getParameter("token");
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		User usr=userService.findByToken(token);
-		if(usr==null) {
-			mv.addObject("Error","Invalid request");
+
+		User usr = userService.findByToken(token);
+		if (usr == null) {
+			mv.addObject("Error", "Invalid request");
 			return mv;
 		}
-		
-		if(!newPassword.contentEquals(confNewPassword)) {
-			mv.addObject("Error","Both password doesn't match");
+
+		if (!newPassword.contentEquals(confNewPassword)) {
+			mv.addObject("Error", "Both password doesn't match");
 			return mv;
 		}
-		
+
 		usr.setPassword(ServiceUtility.passwordEncoder().encode(newPassword));
 		usr.setToken(null);
 		userService.save(usr);
-	
+
 		mv.setViewName("resetPassword");
 		return mv;
 
 	}
-	
-//-----------------------------------------END-------------------------------------------------------
-	
-//-----------------------------------------------SIGNUP HYPERLINK------------------------------------------------------------------	
-	
 
-	
+//-----------------------------------------END-------------------------------------------------------
+
+//-----------------------------------------------SIGNUP HYPERLINK------------------------------------------------------------------	
+
 	@RequestMapping("/Signup")
-	public ModelAndView signup(ModelAndView mv){
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+	public ModelAndView signup(ModelAndView mv) {
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("checkedOptionLearner", "checked");
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("Signup");
 		return mv;
 
 	}
-	
-	
-	
+
 //---------------------------------------------END--------------------------------------------------------------------
-	
-/*********************************** ADMIN PORTAL HYPERLINK ******************************************/	
-	
+
+	/***********************************
+	 * ADMIN PORTAL HYPERLINK
+	 ******************************************/
+
 //	@RequestMapping(value = "/adminPortal")
 //	public String adminHomepage() {
 //		return "adminLoginPage";
 //	}
-	
-	
-/************************************************************************************************************************/
-	
+
+	/************************************************************************************************************************/
+
 // ---------------------------------- Event List on USer Side ------------------------------------------
-	
+
 	@RequestMapping(value = "/eventsList")
-	public ModelAndView viewEvent(ModelAndView mv,@RequestParam(defaultValue = "0") int page) {
-		
-		//List<Events> localEvent=eventService.findAll();
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-	
-		
+	public ModelAndView viewEvent(ModelAndView mv, @RequestParam(defaultValue = "0") int page) {
+
+		// List<Events> localEvent=eventService.findAll();
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
+
 		mv.addObject("EventList", evenRepo.findAll(new PageRequest(page, 6)));
-		mv.addObject("current",page);
+		mv.addObject("current", page);
 		mv.setViewName("events");
 		return mv;
 	}
-	
 
+	/************************************************
+	 * START OF CONTROLLER FOR USER SIDE
+	 ***********************************************************/
 
-	
-/************************************************ START OF CONTROLLER FOR USER SIDE ***********************************************************/
-	
 	// COURSES PAGE BASED ON SELECTION OF CLASS AND SUBJECT
-	
-	@RequestMapping(value = "/courses", method = RequestMethod.GET)
-	public ModelAndView viewCoursesAvailable(HttpServletRequest req,@RequestParam(name="subjectSelected") String subject,@RequestParam(name="classSelected") String classSelected,ModelAndView mv) {
-	/*	System.out.println("test"+subject);*/
-		Class localClass=null;
-		
-		Subject localSubject=null;
-		SubjectClassMapping localSubjectClassMapping;
-		List<Topic> localTopictemp=null;
 
-		
-		if(subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
-			localTopictemp=topicService.findAll();
+	@RequestMapping(value = "/courses", method = RequestMethod.GET)
+	public ModelAndView viewCoursesAvailable(HttpServletRequest req,
+			@RequestParam(name = "subjectSelected") String subject,
+			@RequestParam(name = "classSelected") String classSelected, ModelAndView mv) {
+		/* System.out.println("test"+subject); */
+		Class localClass = null;
+
+		Subject localSubject = null;
+		SubjectClassMapping localSubjectClassMapping;
+		List<Topic> localTopictemp = null;
+
+		if (subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
+			localTopictemp = topicService.findAll();
 			System.out.println("all value");
-			
+
 		}
-		
-		else if(subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
+
+		else if (subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
 			System.out.println("wow");
-			localClass=classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
-			List<SubjectClassMapping> tempLocalSubjectClassMapping=subjectClassService.getClassFromMapping(localClass);
-			localTopictemp=topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
-			
-			
+			localClass = classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
+			List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
+					.getClassFromMapping(localClass);
+			localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+
+		} else if (!subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
+			localSubject = subjectService.findBySubjectName(subject);
+			List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
+					.getClassFromSubject(localSubject);
+			localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+
+		} else if (!subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
+			localClass = classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
+
+			localSubject = subjectService.findBySubjectName(subject);
+
+			localSubjectClassMapping = subjectClassService.findBysubAndstandard(localClass, localSubject);
+
+			localTopictemp = topicService.findBysubjectclassMapping(localSubjectClassMapping);
+
 		}
-		else if(!subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
-			localSubject=subjectService.findBySubjectName(subject);
-			List<SubjectClassMapping> tempLocalSubjectClassMapping=subjectClassService.getClassFromSubject(localSubject);
-			localTopictemp=topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
-			
-		}
-		else if(!subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
-			 localClass=classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
-			
-			 localSubject=subjectService.findBySubjectName(subject);
-			 
-			 localSubjectClassMapping=subjectClassService.findBysubAndstandard(localClass, localSubject);
-			 
-			 localTopictemp=topicService.findBysubjectclassMapping(localSubjectClassMapping);
-			
-		}
-		
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		
-		
-		List<Topic> localTopic=new ArrayList<Topic>();
-		for(Topic temp:localTopictemp) {
-			if(temp.getStatus()==1) {
+
+		List<Topic> localTopic = new ArrayList<Topic>();
+		for (Topic temp : localTopictemp) {
+			if (temp.getStatus() == 1) {
 				localTopic.add(temp);
 			}
 		}
-		
-		if(!localTopic.isEmpty()) {
+
+		if (!localTopic.isEmpty()) {
 			mv.addObject("TopicListOnSubjectClass", localTopic);
-		}else {
-			mv.addObject("NoTopicAvailable","No Content Available to Show");
+		} else {
+			mv.addObject("NoTopicAvailable", "No Content Available to Show");
 		}
-		
-		if(localSubject!=null) {
-		mv.addObject("subjectSelected", localSubject.getSubName());
+
+		if (localSubject != null) {
+			mv.addObject("subjectSelected", localSubject.getSubName());
 		}
-		
-		if(localClass!=null) {
-		mv.addObject("classSelected", localClass.getClassName());
+
+		if (localClass != null) {
+			mv.addObject("classSelected", localClass.getClassName());
 		}
-		
+
 		mv.setViewName("Courses");
-		
+
 		return mv;
 	}
-	
-	
-	/******              CONTENT PAGE BASED ON CLASS SUBJECT AND TOPIC-------------------------------*/
-	
-	@RequestMapping(path="/contentTutorial/{topicId}",method = RequestMethod.GET)
-	public ModelAndView viewTutorialOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	/******
+	 * CONTENT PAGE BASED ON CLASS SUBJECT AND TOPIC-------------------------------
+	 */
+
+	@RequestMapping(path = "/contentTutorial/{topicId}", method = RequestMethod.GET)
+	public ModelAndView viewTutorialOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		Topic localTopic=topicService.findById(topicId);
-		
-		List<Tutorial> localTutorial=tutorialService.findAllByTopicAndStatus(localTopic);
-	
-		List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
-		
-		
-		for(Tutorial localTemp:localTutorial) {
-			
+
+		Topic localTopic = topicService.findById(topicId);
+
+		List<Tutorial> localTutorial = tutorialService.findAllByTopicAndStatus(localTopic);
+
+		List<TutorialList> tutorialListData = new ArrayList<TutorialList>();
+
+		for (Tutorial localTemp : localTutorial) {
+
 			try {
-				String url="https://spoken-tutorial.org/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
-				RestTemplate restTemp=new RestTemplate();
-				TutorialList localTut=restTemp.getForObject(url, TutorialList.class);
-				
+				String url = "https://spoken-tutorial.org/api/get_tutorialdetails/" + localTemp.getStVideoId() + "/";
+				RestTemplate restTemp = new RestTemplate();
+				TutorialList localTut = restTemp.getForObject(url, TutorialList.class);
+
 				System.out.println(localTut.getTut_name());
-				
+
 				tutorialListData.add(localTut);
 			} catch (RestClientException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
-		if(tutorialListData.isEmpty()) {
+
+		if (tutorialListData.isEmpty()) {
 			mv.addObject("TutorialError", "Nothing To Show");
 		}
-		
-		
+
 		mv.addObject("TutorialOnTopic", tutorialListData);
-		
+
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
 		mv.addObject("TopicSelected", localTopic);
 		mv.setViewName("contentTutorial");
 		return mv;
 	}
-	
-	@RequestMapping(path="/contentLink/{topicId}",method = RequestMethod.GET)
-	public ModelAndView viewLinksOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(path = "/contentLink/{topicId}", method = RequestMethod.GET)
+	public ModelAndView viewLinksOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		Topic localTopic=topicService.findById(topicId);
-		
-		List<ArticleExternal> localArticle=articleService.findAllByTopicAndStatus(localTopic);
-		List<DocumentExternal> localDocument=documentService.findAllByTopicAndStatus(localTopic);
-		List<VideoExternal> localvideo=videoService.findAllByTopicAndStatus(localTopic);
-		
-		if(localArticle.isEmpty()) {;
+
+		Topic localTopic = topicService.findById(topicId);
+
+		List<ArticleExternal> localArticle = articleService.findAllByTopicAndStatus(localTopic);
+		List<DocumentExternal> localDocument = documentService.findAllByTopicAndStatus(localTopic);
+		List<VideoExternal> localvideo = videoService.findAllByTopicAndStatus(localTopic);
+
+		if (localArticle.isEmpty()) {
+			;
 			mv.addObject("ArticleError", "Nothing To Show");
 		}
-		
-		if(localDocument.isEmpty()) {
+
+		if (localDocument.isEmpty()) {
 			mv.addObject("DocumentError", "Nothing To Show");
 		}
-		
-		
-		if(localvideo.isEmpty()) {
+
+		if (localvideo.isEmpty()) {
 			mv.addObject("VideoError", "Nothing To Show");
 		}
-		
-		
+
 		mv.addObject("VideoOnTopic", localvideo);
 		mv.addObject("ArticleOnTopic", localArticle);
 		mv.addObject("DocumentOnTopic", localDocument);
-		
-		
+
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
 		mv.addObject("TopicSelected", localTopic);
 		mv.setViewName("contentLinks");
 		return mv;
 	}
-	
-	@RequestMapping(path="/contentLesson/{topicId}",method = RequestMethod.GET)
-	public ModelAndView viewLessonPlanlOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(path = "/contentLesson/{topicId}", method = RequestMethod.GET)
+	public ModelAndView viewLessonPlanlOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		Topic localTopic=topicService.findById(topicId);
-		
-		List<LessonPlan> localLesson=lessonService.findAllByTopicAndStatus(localTopic);
-		
-		
-		
-		if(localLesson.isEmpty()) {
+
+		Topic localTopic = topicService.findById(topicId);
+
+		List<LessonPlan> localLesson = lessonService.findAllByTopicAndStatus(localTopic);
+
+		if (localLesson.isEmpty()) {
 			mv.addObject("LessonError", "Nothing To Show");
 		}
-		
-		
+
 		mv.addObject("LessonOnTopic", localLesson);
-	
-		
+
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
 		mv.addObject("TopicSelected", localTopic);
 		mv.setViewName("contentLessonPlan");
 		return mv;
 	}
-	
-	@RequestMapping(path="/contentPhet/{topicId}",method = RequestMethod.GET)
-	public ModelAndView viewPhetOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+
+	@RequestMapping(path = "/contentPhet/{topicId}", method = RequestMethod.GET)
+	public ModelAndView viewPhetOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		Topic localTopic=topicService.findById(topicId);
-		
-		List<Phets> localPhets=phetService.findAllByTopicAndStatus(localTopic);
-		
-		
-		if(localPhets.isEmpty()) {
+
+		Topic localTopic = topicService.findById(topicId);
+
+		List<Phets> localPhets = phetService.findAllByTopicAndStatus(localTopic);
+
+		if (localPhets.isEmpty()) {
 			mv.addObject("PhetError", "Nothing To Show");
 		}
-		
+
 		mv.addObject("PhetOnTopic", localPhets);
-	
-		
+
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
 		mv.addObject("TopicSelected", localTopic);
 		mv.setViewName("contentPhet");
 		return mv;
 	}
-	
-	@RequestMapping(path="/contentQuiz/{topicId}",method = RequestMethod.GET)
-	public ModelAndView viewQuizOnTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
-		
-	ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-	mv.addObject("classfromDatabase", standard);
-	
-	ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
-	mv.addObject("subjectfromDatabase", subjectData);
-	
-	Topic localTopic=topicService.findById(topicId);
-	List<QuizQuestion> localQuiz=quizService.findAllByTopicAndStatus(localTopic);
-	
-		
-	if(localQuiz.isEmpty()) {
-		mv.addObject("QuizError", "Nothing To Show");
-	}
-	
-	
-	
-	mv.addObject("QuizOnTopic", localQuiz);
 
-	
-	mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
-	mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
-	mv.addObject("TopicSelected", localTopic);
-	mv.setViewName("contentQuiz");
+	@RequestMapping(path = "/contentQuiz/{topicId}", method = RequestMethod.GET)
+	public ModelAndView viewQuizOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+		mv.addObject("classfromDatabase", standard);
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subjectData);
+
+		Topic localTopic = topicService.findById(topicId);
+		List<QuizQuestion> localQuiz = quizService.findAllByTopicAndStatus(localTopic);
+
+		if (localQuiz.isEmpty()) {
+			mv.addObject("QuizError", "Nothing To Show");
+		}
+
+		mv.addObject("QuizOnTopic", localQuiz);
+
+		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
+		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
+		mv.addObject("TopicSelected", localTopic);
+		mv.setViewName("contentQuiz");
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "/contentConcept/{topicId}", method = RequestMethod.GET)
-	public ModelAndView viewContentonTopic(@PathVariable("topicId") int topicId,ModelAndView mv) {
-		
-		
-		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+	public ModelAndView viewContentonTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
+
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
-		
-		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
+
+		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-		
-		Topic localTopic=topicService.findById(topicId);
-		
-		List<ConceptMap> localConcept=conceptMapService.findAllByTopicAndStatus(localTopic);
-		
-		if(localConcept.isEmpty()) {
+
+		Topic localTopic = topicService.findById(topicId);
+
+		List<ConceptMap> localConcept = conceptMapService.findAllByTopicAndStatus(localTopic);
+
+		if (localConcept.isEmpty()) {
 			mv.addObject("ConceptError", "Nothing To Show");
 		}
-		
-		mv.addObject("ConceptOnTopic",localConcept);
-	
+
+		mv.addObject("ConceptOnTopic", localConcept);
+
 		mv.addObject("subjectSelected", localTopic.getSubjectClassMapping().getSub().getSubName());
 		mv.addObject("classSelected", localTopic.getSubjectClassMapping().getStandard().getClassName());
 		mv.addObject("TopicSelected", localTopic);
 		mv.setViewName("contentConceptMap");
 		return mv;
 	}
-	
-	/*********************** LOGIN HYPERLINK FROM CONTENT PAGE *********************************/
-	
-	@RequestMapping(path = "/content/Login", method = RequestMethod.GET)
-	public ModelAndView pathtoLogin(ModelAndView mv) {
-		mv.setViewName("redirect:/Login");
-		return mv;
-	}
-	
-	/*********************** SIGNUP HYPERLINK FROM CONTENT PAGE *********************************/
-	
-	@RequestMapping(path = "/content/Signup", method = RequestMethod.GET)
-	public ModelAndView pathtoRegister(ModelAndView mv) {
-		mv.setViewName("redirect:/Signup");
-		return mv;
-	}
-	
-	/**********************CONTRIBUTOR DASHBOARD FROM CONTENT PAGE ********************************/
-	
-	@RequestMapping(path = "/content/myAccount", method = RequestMethod.GET)
-	public ModelAndView pathtoContributorDashboard(ModelAndView mv) {
-		mv.setViewName("redirect:/myAccount");
-		return mv;
-	}
-	
-	@RequestMapping(path = "/eventsList/myAccount", method = RequestMethod.GET)
-	public ModelAndView pathtoContributorDashboardEvent(ModelAndView mv) {
-		mv.setViewName("redirect:/myAccount");
-		return mv;
-	}
-	
-/**********************ADMIN DASHBOARD FROM CONTENT PAGE ********************************/
-	
-	@RequestMapping(path = "/content/home", method = RequestMethod.GET)
-	public ModelAndView pathtoAdminDashboard(ModelAndView mv) {
-		mv.setViewName("redirect:/home");
-		return mv;
-	}
-	
+
+	/***********************
+	 * LOGIN HYPERLINK FROM CONTENT PAGE
+	 *********************************/
+	/*
+	 * 
+	 * @RequestMapping(path = "/content/Login", method = RequestMethod.GET) public
+	 * ModelAndView pathtoLogin(ModelAndView mv) {
+	 * mv.setViewName("redirect:/Login"); return mv; }
+	 * 
+	 *//***********************
+		 * SIGNUP HYPERLINK FROM CONTENT PAGE
+		 *********************************/
+	/*
+	 * 
+	 * @RequestMapping(path = "/content/Signup", method = RequestMethod.GET) public
+	 * ModelAndView pathtoRegister(ModelAndView mv) {
+	 * mv.setViewName("redirect:/Signup"); return mv; }
+	 * 
+	 *//**********************
+		 * CONTRIBUTOR DASHBOARD FROM CONTENT PAGE
+		 ********************************/
+
+	/*
+	 * 
+	 * @RequestMapping(path = "/content/myAccount", method = RequestMethod.GET)
+	 * public ModelAndView pathtoContributorDashboard(ModelAndView mv) {
+	 * mv.setViewName("redirect:/myAccount"); return mv; }
+	 * 
+	 * @RequestMapping(path = "/eventsList/myAccount", method = RequestMethod.GET)
+	 * public ModelAndView pathtoContributorDashboardEvent(ModelAndView mv) {
+	 * mv.setViewName("redirect:/myAccount"); return mv; }
+	 * 
+	 *//**********************
+		 * ADMIN DASHBOARD FROM CONTENT PAGE
+		 ********************************//*
+											 * 
+											 * @RequestMapping(path = "/content/home", method = RequestMethod.GET)
+											 * public ModelAndView pathtoAdminDashboard(ModelAndView mv) {
+											 * mv.setViewName("redirect:/home"); return mv; }
+											 */
+
 	@RequestMapping(path = "/eventsList/home", method = RequestMethod.GET)
 	public ModelAndView pathtoAdminDashboardEvent(ModelAndView mv) {
 		mv.setViewName("redirect:/home");
 		return mv;
 	}
-	
-	
-	
-	// ------------------ MY MIND HYPERLINK***********************************************
-	
+
+	// ------------------ MY MIND
+	// HYPERLINK***********************************************
+
 	@RequestMapping(path = "/my-mind", method = RequestMethod.GET)
 	public ModelAndView mindMapGet(ModelAndView mv) {
 		mv.setViewName("my-mind");
 		return mv;
 	}
-	
-	
-	
-	
-	
 
-	
-	
-
-
-
-/*--------------------------------------------------------END----------------------------------------------------------------------------------*/
+	/*--------------------------------------------------------END----------------------------------------------------------------------------------*/
 }
-

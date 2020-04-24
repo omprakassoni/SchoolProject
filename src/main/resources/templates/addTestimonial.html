@@ -167,7 +167,7 @@
 						
 												<thead class="">
 													<tr>
-														<th>#</th>
+														<!-- <th>#</th -->>
 														<th>Name</th>
 														<th>Organization</th>
 														<th>date added</th>
@@ -180,10 +180,10 @@
 						
 													<span th:each="testi:${Testimonial}">
 														<tr class="clickable-row">
-															<th scope="row"><input type="radio"
+															<!-- <th scope="row"><input type="radio"
 																th:value="${testi.getTestimonialId()}"
 																th:id="${testi.getTestimonialId()}" name="selectionRadio"
-																onchange="radioCall()" /></th>
+																onchange="radioCall()" /></th> -->
 															<td><span th:text="${testi.getName()}"></span></td>
 															<td><span th:text="${testi.getOrganization()}"></span></td>
 															<td><span th:text="${testi.getDateAdded() }"></span></td>
@@ -218,7 +218,7 @@
 							
 							<div class="card-header">
                                     <h4 class="card-title">Add New Testimonial</h4>
-                                    <div class="returnStatus" th:text="${returnStatus}"></div>
+                                    <div class="status" th:text="${returnStatus}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addTestimonial}" method="post" enctype="multipart/form-data">
@@ -226,7 +226,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4>Enter Name</h4>
+                                                    <h4 class="label-align">Enter Name</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">

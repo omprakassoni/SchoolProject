@@ -243,8 +243,8 @@
 							<div class="card-header">
                                     <h4 class="card-title">Add New Quiz</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
-									<div class="errorClass" th:text="${failure}"></div>
-									<div class="errorClass" th:text="${fileError}"></div>
+									<div class="error" th:text="${failure}"></div>
+									<div class="error" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addQuiz}" method="post"
@@ -289,7 +289,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4>Remarks</h4>
+                                                    <h4 class="label-align">Remarks</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -321,7 +321,7 @@
                                          <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Answers</h4>
+                                                    <h4 style="margin:0px">Answers</h4>
                                                 </div>
                                             </div>
                                              
@@ -331,6 +331,17 @@
 														title="upload only PDF file" accept="application/pdf"
 														name="Answer" required disabled />
                                                 </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                
+                                            </div>
+                                             
+                                             <div class="col-md-5">
+                                                <span id="imp-info">* Both Question and Answer has to be
+														uploaded together</span>
                                             </div>
                                         </div>
                                         
@@ -345,7 +356,7 @@
                                                         <td>
                                                             <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                <input class="form-check-input" type="checkbox" value="" required>
                                                                 <span class="form-check-sign"></span>
                                                             </label>
                                                         </div>

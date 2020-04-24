@@ -190,8 +190,8 @@
 															<td><span th:text="${phet.getDescription()}"></span></td>
 															<td><span th:text="${phet.getDateAdded()}"></span></td>
 															<td><span th:text="${phet.getSource()}"></span></td>
-															<td><iframe th:src="${phet.getUrl()}" width="400"
-																	height="200" scrolling="no" allowfullscreen></iframe></td>
+															<td><iframe th:src="${phet.getUrl()}" width="250"
+																	height="150" scrolling="no" allowfullscreen></iframe></td>
 						
 						
 															<td><span th:if="${phet.isStatus()==1}"><div
@@ -238,8 +238,8 @@
 							<div class="card-header">
                                     <h4 class="card-title">Add New Phets</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
-									<div class="errorClass" th:text="${failure}"></div>
-									<div class="errorClass" th:text="${fileError}"></div>
+									<div class="error" th:text="${failure}"></div>
+									<div class="error" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addPhets}" method="post" enctype="multipart/form-data">
@@ -331,7 +331,7 @@
                                                         <td>
                                                             <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" id="phetUserCheck" value="">
+                                                                <input class="form-check-input" type="checkbox" id="phetUserCheck" value="" required>
                                                                 <span class="form-check-sign"></span>
                                                             </label>
                                                         </div>

@@ -37,7 +37,7 @@ import com.adminportal.HomeController;
 
 public class ServiceUtility {
 	
-	static String projectPath="/home/om/Desktop/school/";
+	static String mediaPath="/home/om/Desktop/school/";
 	private static final String SALT="salt";
 	private static String uploadDirectory="Media/content/";
 	
@@ -71,13 +71,13 @@ public class ServiceUtility {
 	public static boolean createclassSubjectFolder(String className,String subject,String topicName) throws Exception{  // creating folder for topic
 		
 		boolean status=true;
-		if(!new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").exists()) {
-			if(new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").mkdirs()) {
+		if(!new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").exists()) {
+			if(new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").mkdirs()) {
 				
-				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Document/").mkdirs();
-				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Lessonplan/").mkdirs();
-				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Quiz/").mkdirs();
-				new File(projectPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"ConceptMap/").mkdirs();
+				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Document/").mkdirs();
+				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Lessonplan/").mkdirs();
+				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Quiz/").mkdirs();
+				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"ConceptMap/").mkdirs();
 			}
 		}
 		return status;

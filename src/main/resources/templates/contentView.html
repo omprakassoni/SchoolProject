@@ -257,8 +257,8 @@
 													<td><span th:text="${phet.getDescription()}"></span></td>
 													<td><span th:text="${phet.getDateAdded()}"></span></td>
 													<td><span th:text="${phet.getSource()}"></span></td>
-													<td><iframe th:src="${phet.getUrl()}" width="300"
-															height="200" scrolling="no" allowfullscreen></iframe></td>
+													<td><iframe th:src="${phet.getUrl()}" width="250"
+															height="150" scrolling="no" allowfullscreen></iframe></td>
 
 
 													<td><span th:if="${phet.isStatus()==1}"><div
@@ -330,7 +330,7 @@
 
 													<td><a href="#" class="pop"><img id="imagesource"
 															th:src="@{/files/}+@{${concept.getUrl()}}"
-															style="width: 150px; height: 100px" /></a></td>
+															style="width: 250px; height: 150px" /></a></td>
 													<td><span th:if="${concept.getStatus()==1}"><div
 																id="true" /></span> <span th:unless="${concept.getStatus()==1}"><div
 																id="false" /></span></td>
@@ -395,8 +395,8 @@
 													<td><span th:text="${video.getDescription()}"></span></td>
 													<td><span th:text="${video.getSource() }"></span></td>
 													<td><span th:text="${video.getDateAdded()}"></span></td>
-													<td><iframe th:src="${video.getUrl()}" width="300"
-															height="200" scrolling="no" allowfullscreen></iframe></td>
+													<td><iframe th:src="${video.getUrl()}" width="250"
+															height="150" scrolling="no" allowfullscreen></iframe></td>
 													<td><span th:if="${video.isStatus()==1}"><div
 																id="true" /></span> <span th:unless="${video.isStatus()==1}"><div
 																id="false" /></span></td>
@@ -706,30 +706,7 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
-<!--
-                        <ul class="footer-menu">
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
--->
+
                         <p class="copyright text-center">
                             ©
                             <script>

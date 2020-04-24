@@ -239,15 +239,15 @@
 							<div class="card-header">
                                     <h4 class="card-title">Add New Topic</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
-									<div class="errorClass" th:text="${failure}"></div>
-									<div class="errorClass" th:text="${fileError}"></div>
+									<div class="error" th:text="${failure}"></div>
+									<div class="error" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addTopic}" method="post" enctype="multipart/form-data">
                                       <div class="row">
 										<div class="col-md-6">
 											<div style="text-align: center">
-                                                  <h4>Select Class</h4>
+                                                  <h4 class="label-align">Select Class</h4>
                                             </div>
 										</div>
 										<div class="col-md-4">
@@ -268,7 +268,7 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<div style="text-align: center">
-                                                  <h4>Select Subject</h4>
+                                                  <h4 class="label-align">Select Subject</h4>
                                          </div>
 									</div>
 									<div class="col-sm-4">
@@ -287,7 +287,7 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<div style="text-align: center">
-                                                  <h4>Enter Topic Name</h4>
+                                                  <h4 class="label-align">Enter Topic Name</h4>
                                          </div>
 									</div>
 									<div class="col-sm-4">
@@ -305,7 +305,7 @@
 									<div class="col-sm-6">
 										
 										<div style="text-align: center">
-                                                  <h4>Description</h4>
+                                                  <h4 class="label-align">Description</h4>
                                          </div>
 										
 									</div>
@@ -322,7 +322,7 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<div style="text-align: center">
-                                                  <h4>Poster</h4>
+                                                  <h4 class="label-align">Poster</h4>
                                          </div>
 									</div>
 									<div class="col-sm-4">

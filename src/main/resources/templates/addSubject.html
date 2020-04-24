@@ -167,7 +167,7 @@
 					
 											<thead class="">
 												<tr>
-													<th>#</th>
+													
 													<th>Subject Name</th>
 													<th>Class Associated</th>
 													<th>Operation</th>
@@ -179,9 +179,7 @@
 					
 												<span th:each="subject:${Subject}">
 													<tr class="clickable-row">
-														<th scope="row"><input type="radio"
-															th:value="${subject.getSubId()}" th:id="${subject.getSubId()}"
-															name="selectionRadio" onchange="enableDelete()" /></th>
+														
 														<td><span th:text="${subject.getSubName()}"></span></td>
 														<td><span th:with="classs=${subject.getSubClasMapp()}">
 																<span th:each="class:${classs}"> <span
@@ -214,6 +212,7 @@
 							<div class="card-header">
                                     <h4 class="card-title">Add Subject</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
+                                    <div class="error" th:text="${statusError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addSubject}" method="post">
@@ -221,7 +220,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div  style="text-align: center">
-                                                    <h4>Enter new Subject</h4>
+                                                    <h4 style="margin:10px">Enter new Subject</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -242,8 +241,9 @@
 													<span th:each="classValue:${classExist}"> <input
 														class="form-check-input" type="checkbox"
 														name="SelectedClasses" id="checkboxClass"
-														th:value="${classValue.getClassName()}" disabled> <label
-														class="form-check-label"> <span
+														th:value="${classValue.getClassName()}" disabled style="opacity: unset;visibility: unset;"> <label
+														class="form-check-label">
+														 <span
 															th:text="'Class '+${classValue.getClassName()}"></span>
 													</label> <br />
 													</span>
@@ -307,7 +307,7 @@
 						Try Again</div>
 					<div class="row">
 						<div class="col-sm-6">
-							<div class="row ">
+							<div class="row modalAlign" >
 								<label>Subject Name</label>
 							</div>
 							<div class="row">

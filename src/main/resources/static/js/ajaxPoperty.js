@@ -467,7 +467,7 @@ $(function(){
 		$(".detailTestimonial").click(function(){
 				var testi_id=$(this).attr('value');
 				
-				var json={
+				var testimonialID={
 					"testimonialId":testi_id
 				};
 				
@@ -488,7 +488,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(testimonialID),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -525,7 +525,7 @@ $(function(){
 			$(".detailEvent").click(function(){
 				var event_id=$(this).attr('value');
 				
-				var json={
+				var eventID={
 					"eventId":event_id
 				};
 				
@@ -546,7 +546,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(eventID),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -586,7 +586,7 @@ $(function(){
 				var desc=$('#testimonialDesc').val();
 				
 				
-				var json={
+				var testimonialUpdateData={
 					"testimonialId":testi_id,
 					"name":name,
 					"organization":org,
@@ -611,7 +611,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(testimonialUpdateData),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -656,7 +656,7 @@ $(function(){
 				var head=$('#eventHead').val();
 				var date=$('#eventdate').val();
 				
-				var json={
+				var eventUpdateData={
 					"eventId":event_id,
 					"description":desc,
 					"dateToHappen":date,
@@ -681,7 +681,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(eventUpdateData),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -735,7 +735,7 @@ $(function(){
 			$('#classSelectedConcept').change(function(){
 			
 			var classname=$(this).find(":selected").val();
-			var json={
+			var classNameData={
 					"className":classname,
 			};
 			
@@ -757,7 +757,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(classNameData),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -796,7 +796,7 @@ $(function(){
 			
 			var subject=$(this).find(":selected").val();
 			var classname = $("#classSelectedConcept").val();
-			var json={
+			var selectedClassAndSubject={
 					"subject":subject,
 					"className":classname,
 					
@@ -819,7 +819,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(selectedClassAndSubject),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -875,7 +875,7 @@ $(function(){
 	$('#classSelectedPhet').change(function(){
 			
 			var classname=$(this).find(":selected").val();
-			var json={
+			var selectedClass={
 					"className":classname,
 			};
 			
@@ -897,7 +897,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(selectedClass),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -936,7 +936,7 @@ $(function(){
 			
 			var subject=$(this).find(":selected").val();
 			var classname = $("#classSelectedPhet").val();
-			var json={
+			var selectedClassAndSubject={
 					"subject":subject,
 					"className":classname,
 					
@@ -959,7 +959,7 @@ $(function(){
 			  	type: "POST",
 	        	contentType: "application/json",
 	       		 url: urlPassed,
-	       		 data: JSON.stringify(json),
+	       		 data: JSON.stringify(selectedClassAndSubject),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
 	       		 },
@@ -1018,7 +1018,7 @@ $(function(){
 		$('#classSelectedArticle').change(function(){
   					
   					var classname=$(this).find(":selected").val();
-  					var json={
+  					var selectedClass={
   							"className":classname,
   					};
   					
@@ -1039,7 +1039,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClass),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1081,7 +1081,7 @@ $(function(){
   					
   					var subject=$(this).find(":selected").val();
   					var classname = $("#classSelectedArticle").val();
-  					var json={
+  					var selectedClassAndSubject={
   							"subject":subject,
   							"className":classname,
   							
@@ -1104,7 +1104,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClassAndSubject),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1160,7 +1160,7 @@ $(function(){
 
   					
   					var classname=$(this).find(":selected").val();
-  					var json={
+  					var selectedClass={
   							"className":classname,
   					};
   					
@@ -1181,7 +1181,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClass),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1223,7 +1223,7 @@ $(function(){
   					
   					var subject=$(this).find(":selected").val();
   					var classname = $("#classSelectedLesson").val();
-  					var json={
+  					var selectedClassAndSubject={
   							"subject":subject,
   							"className":classname,
   							
@@ -1246,7 +1246,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClassAndSubject),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1301,7 +1301,7 @@ $(function(){
   				$('#classSelectedDocument').change(function(){
   					
   					var classname=$(this).find(":selected").val();
-  					var json={
+  					var selectedClass={
   							"className":classname,
   					};
   					
@@ -1324,7 +1324,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClass),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1367,7 +1367,7 @@ $(function(){
   					
   					var subject=$(this).find(":selected").val();
   					var classname = $("#classSelectedDocument").val();
-  					var json={
+  					var selectedClassAndSubject={
   							"subject":subject,
   							"className":classname,
   							
@@ -1390,7 +1390,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClassAndSubject),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1447,7 +1447,7 @@ $(function(){
   				$('#classSelectedVideo').change(function(){
   					
   					var classname=$(this).find(":selected").val();
-  					var json={
+  					var selectedClass={
   							"className":classname,
   					};
   					
@@ -1470,7 +1470,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClass),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1512,7 +1512,7 @@ $(function(){
   					
   					var subject=$(this).find(":selected").val();
   					var classname = $("#classSelectedVideo").val();
-  					var json={
+  					var selectedClassAndSubject={
   							"subject":subject,
   							"className":classname,
   							
@@ -1535,7 +1535,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClassAndSubject),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1590,7 +1590,7 @@ $(function(){
   				$('#classSelectedQuiz').change(function(){
   					
   					var classname=$(this).find(":selected").val();
-  					var json={
+  					var selectedClass={
   							"className":classname,
   					};
   					
@@ -1611,7 +1611,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClass),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1653,7 +1653,7 @@ $(function(){
   					
   					var subject=$(this).find(":selected").val();
   					var classname = $("#classSelectedQuiz").val();
-  					var json={
+  					var selectedClassAndSubject={
   							"subject":subject,
   							"className":classname,
   							
@@ -1676,7 +1676,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClassAndSubject),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -1734,7 +1734,7 @@ $(function(){
 			$('#validateEmailL').change(function(){
 				
 				var data=[];
-				data[0]=$(this).val();
+				emailL[0]=$(this).val();
 				
 				$("#registerL").prop('disabled', true);
 				$('#availableL').css({"display": "none"});
@@ -1761,7 +1761,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(data),
+			       		 data: JSON.stringify(emailL),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -1802,7 +1802,7 @@ $(function(){
 			$('#validateEmailP').change(function(){
 				
 				var data=[];
-				data[0]=$(this).val();
+				emailP[0]=$(this).val();
 				
 				$("#registerP").prop('disabled', true);
 				$('#availableP').css({"display": "none"});
@@ -1829,7 +1829,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(data),
+			       		 data: JSON.stringify(emailP),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -1870,7 +1870,7 @@ $(function(){
 			$('#validateEmailT').change(function(){
 				
 				var data=[];
-				data[0]=$(this).val();
+				emailT[0]=$(this).val();
 				
 				$("#registerT").prop('disabled', true);
 				$('#availableT').css({"display": "none"});
@@ -1897,7 +1897,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(data),
+			       		 data: JSON.stringify(emailT),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -1952,7 +1952,7 @@ $(function(){
 			$('#inputClass').change(function(){
   					
   					var classname=$(this).find(":selected").val().substring(6);
-  					var json={
+  					var selectedClass={
   							"className":classname,
   					};
   					
@@ -1978,7 +1978,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClass),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -2017,7 +2017,7 @@ $(function(){
   				$('#subjectHome').change(function(){
   					
   					var subjectName=$(this).find(":selected").val();
-  					var json={
+  					var selectedSubject={
   							"subName":subjectName,
   					};
   					
@@ -2043,7 +2043,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedSubject),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -2084,7 +2084,7 @@ $(function(){
   				$('#classSelected').change(function(){
   					
   					var classname=$(this).find(":selected").val();
-  					var json={
+  					var selectedClass={
   							"className":classname,
   					};
   					
@@ -2107,7 +2107,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClass),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
   			       		 },
@@ -2149,7 +2149,7 @@ $(function(){
 			
   					var subject=$(this).find(":selected").val();
   					var classname = $("#classSelected").val();
-  					var json={
+  					var selectedClassAndSubject={
   							"subject":subject,
   							"className":classname,
   							
@@ -2172,7 +2172,7 @@ $(function(){
   					  	type: "POST",
   			        	contentType: "application/json",
   			       		 url: urlPassed,
-  			       		 data: JSON.stringify(json),
+  			       		 data: JSON.stringify(selectedClassAndSubject),
   			       		 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
                          },
@@ -2248,7 +2248,7 @@ $(function(){
   					$("#disableUser").prop('disabled', true);
   					
   					var user_id=$(this).val();
-  					var json={
+  					var selectedUser={
   							"id":user_id
   					};
   					
@@ -2269,7 +2269,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url:urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedUser),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2304,9 +2304,9 @@ $(function(){
   					$("#enableTopic").prop('disabled', true);
   					$("#disableTopic").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"topicId":user_id
+  					var topic_id=$(this).val();
+  					var selectedTopic={
+  							"topicId":topic_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2326,7 +2326,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedTopic),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2359,9 +2359,9 @@ $(function(){
   					$("#enablePhet").prop('disabled', true);
   					$("#disablePhet").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"phetId":user_id
+  					var phet_id=$(this).val();
+  					var selectedPhet={
+  							"phetId":phet_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2383,7 +2383,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedPhet),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2416,9 +2416,9 @@ $(function(){
   					$("#enableLesson").prop('disabled', true);
   					$("#disableLesson").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"lessonPlanId":user_id
+  					var lesson_id=$(this).val();
+  					var selectedLesson={
+  							"lessonPlanId":lesson_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2438,7 +2438,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedLesson),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2471,9 +2471,9 @@ $(function(){
   					$("#enableDocument").prop('disabled', true);
   					$("#disableDocument").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"documentId":user_id
+  					var document_id=$(this).val();
+  					var selectedDocument={
+  							"documentId":document_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2493,7 +2493,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedDocument),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2526,9 +2526,9 @@ $(function(){
   					$("#enableArticle").prop('disabled', true);
   					$("#disableArticle").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"articleId":user_id
+  					var article_id=$(this).val();
+  					var selectedArticle={
+  							"articleId":article_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2548,7 +2548,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedArticle),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2581,9 +2581,9 @@ $(function(){
   					$("#enableQuiz").prop('disabled', true);
   					$("#disableQuiz").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"quizQuestionId":user_id
+  					var quiz_id=$(this).val();
+  					var selectedQuiz={
+  							"quizQuestionId":quiz_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2603,7 +2603,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedQuiz),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2636,9 +2636,9 @@ $(function(){
   					$("#enableVideo").prop('disabled', true);
   					$("#disableVideo").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"videoId":user_id
+  					var video_id=$(this).val();
+  					var selectedVideo={
+  							"videoId":video_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2658,7 +2658,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedVideo),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2691,9 +2691,9 @@ $(function(){
   					$("#enableConcept").prop('disabled', true);
   					$("#disableConcept").prop('disabled', true);
   					
-  					var user_id=$(this).val();
-  					var json={
-  							"concepMapid":user_id
+  					var concept_id=$(this).val();
+  					var selectedConcept={
+  							"concepMapid":concept_id
   					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2713,7 +2713,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url:urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedConcept),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2748,7 +2748,7 @@ $(function(){
   					$("#enableTutorial").prop('disabled', true);
   					
   					var tutorial_id=$(this).val();
-  					var json={
+  					var selectedTutorial={
   							"tutorialId":tutorial_id
   					};
   					
@@ -2770,7 +2770,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedTutorial),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2822,7 +2822,7 @@ $(function(){
   				$(".detailUser").click(function(){
   					var user_id=$(this).attr('value');
   					
-  					var json={
+  					var userData={
 							"id":user_id
 					};
   					
@@ -2843,7 +2843,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(userData),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2900,10 +2900,10 @@ $(function(){
   			//-------------------------------------  Subject Details -----------------------------------------------------*/
   				
   				$(".detailSubject").click(function(){
-  					var user_id=$(this).attr('value');
+  					var subject_id=$(this).attr('value');
   					
-  					var json={
-							"subId":user_id
+  					var selectedSubject={
+							"subId":subject_id
 					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -2923,7 +2923,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedSubject),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -2936,7 +2936,7 @@ $(function(){
 			       			 
 			       			 for(var i=0;i<len;i++){
 			       				 
-			       				 html += '<input class="form-check-input checkboxSubject" type="checkbox" name="SelectedClasses" id="checkboxClass" value="';
+			       				 html += '<input class="form-check-input checkboxSubject" type="checkbox" name="SelectedClasses" id="checkboxClass" style="opacity: unset;visibility: unset;" value="';
 			       				 html += data[i] +'"/>';
 			       				 html += '<label class="form-check-label" for="defaultCheck1">'+data[i]+'</label><br/>' ;
 			       				
@@ -2967,7 +2967,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedSubject),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3005,7 +3005,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedSubject),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3044,7 +3044,7 @@ $(function(){
   				//	$('#FirstName').attr('value','Om Prakash');
   			
   				
-  					$('#updateSubject').prop('value',user_id);
+  					$('#updateSubject').prop('value',subject_id);
   					$('#SubjectModal').modal('show');
   				})
   				
@@ -3057,7 +3057,7 @@ $(function(){
   				
   				$("#updateSubject").click(function(){
   					
-  					var data=[];
+  					var dataSubject=[];
   					var i=0;
   					
   					$('#updateSubject').prop('disabled',false);
@@ -3068,8 +3068,8 @@ $(function(){
 	       					}
 	       				});
   					
-  					data[i++]=$(this).val();
-  					data[i]=$('#SubjectName').val();
+  					dataSubject[i++]=$(this).val();
+  					dataSubject[i]=$('#SubjectName').val();
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -3089,7 +3089,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(data),
+			       		 data: JSON.stringify(dataSubject),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3132,10 +3132,10 @@ $(function(){
   // 		------------------------------- START OF DETAILS OF TOPIC ---------------------------------------
   				
   				$(".detailTopic").click(function(){
-  					var user_id=$(this).attr('value');
+  					var topic_id=$(this).attr('value');
   					
-  					var json={
-							"topicId":user_id
+  					var selectedTopic={
+							"topicId":topic_id
 					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -3155,7 +3155,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedTopic),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3188,7 +3188,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedTopic),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3207,8 +3207,8 @@ $(function(){
 						
 					});
   	
-  					$('#updateTopic').prop('value',user_id);
-  					$('#TopicId').prop('value',user_id);
+  					$('#updateTopic').prop('value',topic_id);
+  					$('#TopicId').prop('value',topic_id);
   					$('#TopicModal').modal('show');
   				});
   			
@@ -3248,10 +3248,10 @@ $(function(){
   				
   				
   				$(".detailQuiz").click(function(){
-  					var user_id=$(this).attr('value');
+  					var quiz_id=$(this).attr('value');
   					
-  					var json={
-							"quizQuestionId":user_id
+  					var selectedQuiz={
+							"quizQuestionId":quiz_id
 					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -3271,7 +3271,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedQuiz),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3292,7 +3292,7 @@ $(function(){
   					
  
   	
-  					$('#quizId').prop('value',user_id);
+  					$('#quizId').prop('value',quiz_id);
   					$('#QuizModal').modal('show');
   				})
   				
@@ -3338,10 +3338,10 @@ $(function(){
   			// ------------------------------------------------START TO CALL MODAL FROM VIDEO MODULE ---------------------------------------			$(".detailvideo").click(function(){
   					
   					$(".detailVideo").click(function(){
-  					var user_id=$(this).attr('value');
+  					var video_id=$(this).attr('value');
   					
-  					var json={
-							"videoId":user_id
+  					var selectedVideo={
+							"videoId":video_id
 					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -3361,7 +3361,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedVideo),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3396,7 +3396,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedVideo),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3416,7 +3416,7 @@ $(function(){
 					});
  
   	
-  					$('#videoId').prop('value',user_id);
+  					$('#videoId').prop('value',video_id);
   					$('#VideoModal').modal('show');
   				})
   				
@@ -3446,10 +3446,10 @@ $(function(){
   			 /*----------------------------------------- CALLING MODAL FOR CONCEPT-MAPS -----------------------------------------*/
   					
   					$(".detailConcept").click(function(){
-  	  					var user_id=$(this).attr('value');
+  	  					var concept_id=$(this).attr('value');
   	  					
-  	  					var json={
-  								"concepMapid":user_id
+  	  					var selectedConcept={
+  								"concepMapid":concept_id
   						};
   	  					
   	  					var token = $("meta[name='_csrf']").attr("content");
@@ -3469,7 +3469,7 @@ $(function(){
   						  	type: "POST",
   				        	contentType: "application/json",
   				       		 url: urlPassed,
-  				       		 data: JSON.stringify(json),
+  				       		 data: JSON.stringify(selectedConcept),
   				       		 beforeSend: function(xhr) {
   		                         xhr.setRequestHeader(header, token);
   				       		 },
@@ -3490,7 +3490,7 @@ $(function(){
   						});
   	  	
   	  	
-  	  					$('#conceptId').prop('value',user_id);
+  	  					$('#conceptId').prop('value',concept_id);
   	  					$('#ConceptMapModal').modal('show');
   	  				})
   	  				
@@ -3533,10 +3533,10 @@ $(function(){
   			// ---------------------------------------------------START TO CALL MODAL FROM ARTICLE MOPDULE----------------------------------
   	
   					$(".detailArticle").click(function(){
-  					var user_id=$(this).attr('value');
+  					var article_id=$(this).attr('value');
   					
-  					var json={
-							"articleId":user_id
+  					var selectedArticle={
+							"articleId":article_id
 					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -3556,7 +3556,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url:urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedArticle),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3590,7 +3590,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedArticle),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3610,7 +3610,7 @@ $(function(){
 					});
  
   					
-  					$('#artcileId').prop('value',user_id);
+  					$('#artcileId').prop('value',article_id);
   					$('#ArticleModal').modal('show');
   				})
   				
@@ -3643,10 +3643,10 @@ $(function(){
   			// ------------------------------------------------------STRAT TO CALL MODAL FROM DOCUMENT MODULE---------------------------------		
   	
   					$(".detailDocument").click(function(){
-  					var user_id=$(this).attr('value');
+  					var document_id=$(this).attr('value');
   					
-  					var json={
-							"documentId":user_id
+  					var selectedDocument={
+							"documentId":document_id
 					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -3666,7 +3666,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedDocument),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3700,7 +3700,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedDocument),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3720,7 +3720,7 @@ $(function(){
 					});
  
   	
-  					$('#documentId').prop('value',user_id);
+  					$('#documentId').prop('value',document_id);
   					$('#DocumentModal').modal('show');
   				})
   						
@@ -3761,10 +3761,10 @@ $(function(){
   			
   			/*------------------------------------------------ START TO CALL MODAL FROM LESSON PLAN--------------------------------------------*/
   					$(".detailLesson").click(function(){
-  	  					var user_id=$(this).attr('value');
+  	  					var lesson_id=$(this).attr('value');
   	  					
   	  					
-  	  					$('#lessonId').prop('value',user_id);
+  	  					$('#lessonId').prop('value',lesson_id);
   	  					$('#LessonPlanModal').modal('show');
   	  				})
   				
@@ -3797,10 +3797,10 @@ $(function(){
   			// --------------------------------------------------START TO CALL MODAL FROM PHETS MODULE-------------------------------------
   				
   					$(".detailPhets").click(function(){
-  					var user_id=$(this).attr('value');
+  					var phet_id=$(this).attr('value');
   					
-  					var json={
-							"phetId":user_id
+  					var selectedPhet={
+							"phetId":phet_id
 					};
   					
   					var token = $("meta[name='_csrf']").attr("content");
@@ -3820,7 +3820,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedPhet),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3854,7 +3854,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url:urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(selectedPhet),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -3874,7 +3874,7 @@ $(function(){
 					});
  
   	
-  					$('#phetId').prop('value',user_id);
+  					$('#phetId').prop('value',phet_id);
   					$('#PhetModal').modal('show');
   				})
   				
@@ -3915,7 +3915,7 @@ $(function(){
   					
   					var Id=$(this).attr('value');
   					
-  					var json={
+  					var videoID={
   						"videoId":Id	
   					};
   					
@@ -3942,7 +3942,7 @@ $(function(){
 					  	
 			        	contentType: "application/json",
 			       		 url:urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(videoID),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -4192,7 +4192,7 @@ $(function(){
   					
   					var  Id=$(this).attr('value');
   					
-  					var json={
+  					var articleComment={
   						"articleId":Id	
   					};
   					
@@ -4219,7 +4219,7 @@ $(function(){
 					  	
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(articleComment),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -4461,7 +4461,7 @@ $(function(){
   					
   					var Id=$(this).attr('value');
   					
-  					var json={
+  					var documentComment={
   						"documentId":Id	
   					};
   					
@@ -4488,7 +4488,7 @@ $(function(){
 					  	
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(documentComment),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -4730,7 +4730,7 @@ $(function(){
   					
   					var Id=$(this).attr('value');
   					
-  					var json={
+  					var conceptComment={
   						"concepMapid":Id	
   					};
   					
@@ -4757,7 +4757,7 @@ $(function(){
 					  	
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(conceptComment),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -5002,7 +5002,7 @@ $(function(){
   					
   					var Id=$(this).attr('value');
   					
-  					var json={
+  					var quizComment={
   						"quizQuestionId":Id	
   					};
   					
@@ -5030,7 +5030,7 @@ $(function(){
 					  	
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(quizComment),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -5274,7 +5274,7 @@ $(function(){
   					
   					var Id=$(this).attr('value');
   					
-  					var json={
+  					var lessonComment={
   						"lessonPlanId":Id	
   					};
   					
@@ -5301,7 +5301,7 @@ $(function(){
 					  	type: "POST",
 			        	contentType: "application/json",
 			       		 url: urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(lessonComment),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -5542,7 +5542,7 @@ $(function(){
   					
   					var Id=$(this).attr('value');
   					
-  					var json={
+  					var commentPhet={
   						"phetId":Id	
   					};
   					
@@ -5569,7 +5569,7 @@ $(function(){
 					  	
 			        	contentType: "application/json",
 			       		 url:urlPassed,
-			       		 data: JSON.stringify(json),
+			       		 data: JSON.stringify(commentPhet),
 			       		 beforeSend: function(xhr) {
 	                         xhr.setRequestHeader(header, token);
 			       		 },
@@ -5856,7 +5856,7 @@ $(function(){
 			
   			if(pass === confpass){
   				
-  				var json={
+  				var passwordData={
   					"password":pass,
   					"currentPassword":currPass
   					
@@ -5868,7 +5868,7 @@ $(function(){
   					type: "POST",
   					contentType: "application/json",
   					url: urlPassed,
-  					data:JSON.stringify(json),
+  					data:JSON.stringify(passwordData),
   					 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
 		       		 },
@@ -5975,7 +5975,7 @@ $(function(){
 			
   			if(pass === confpass){
   				
-  				var json={
+  				var passwordData={
   					"password":pass,
   					"userId":userid,
   					"currentPassword":currPass
@@ -5986,7 +5986,7 @@ $(function(){
   					type: "POST",
   					contentType: "application/json",
   					url: urlPassed,
-  					data:JSON.stringify(json),
+  					data:JSON.stringify(passwordData),
   					 beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
 		       		 },
@@ -6086,7 +6086,7 @@ $(function(){
 			
   			if(pass === confpass){
   				
-  				var json={
+  				var passwordData={
   					"password":pass,
   					"userId":userid,
   					"currentPassword":currPass
@@ -6097,7 +6097,7 @@ $(function(){
   					type: "POST",
   					contentType: "application/json",
   					url: urlPassed,
-  					data:JSON.stringify(json),
+  					data:JSON.stringify(passwordData),
   					beforeSend: function(xhr) {
                          xhr.setRequestHeader(header, token);
 		       		},

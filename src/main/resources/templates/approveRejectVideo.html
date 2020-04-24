@@ -140,6 +140,7 @@
                     <div class="card">
                     	<div class="card-header">
                                     <h4 class="card-title">Approve/Reject Video</h4>
+                                    <div class="status" th:text="${status}"></div>
                          </div>
                          
                           <div class="card-body">
@@ -190,10 +191,10 @@
 										</tbody>
 						
 									</table>
-									<span th:if="${VideoStatus}">
+									<!-- <span th:if="${VideoStatus}">
 										<div style="text-align: center; color: red; font-size: 22px"
 											th:text="${VideoStatus}" />
-									</span>
+									</span> -->
 						
 								</div>
 						

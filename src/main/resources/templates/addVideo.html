@@ -190,8 +190,8 @@
 															<td><span th:text="${video.getDescription()}"></span></td>
 															<td><span th:text="${video.getSource() }"></span></td>
 															<td><span th:text="${video.getDateAdded()}"></span></td>
-															<td><iframe th:src="${video.getUrl()}" width="400"
-																	height="200" scrolling="no" allowfullscreen></iframe></td>
+															<td><iframe th:src="${video.getUrl()}" width="250"
+																	height="150" scrolling="no" allowfullscreen></iframe></td>
 															<td><span th:if="${video.isStatus()==1}"><div
 																		id="true" /></span> <span th:unless="${video.isStatus()==1}"><div
 																		id="false" /></span></td>
@@ -238,8 +238,8 @@
 							<div class="card-header">
                                     <h4 class="card-title">Add New Quiz</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
-									<div class="errorClass" th:text="${failure}"></div>
-									<div class="errorClass" th:text="${fileError}"></div>
+									<div class="error" th:text="${failure}"></div>
+									<div class="error" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addVideo}" method="post" enctype="multipart/form-data">
@@ -282,7 +282,7 @@
                                           <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4>Description</h4>
+                                                    <h4 class="label-align">Description</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -297,7 +297,7 @@
                                         <div class="row">
                                             <div class="col-md-6" >
                                                 <div class="" style="text-align: center">
-                                                    <h4 style="margin:0px">Paste Video Embed Code</h4>
+                                                    <h4 class="label-align">Paste Video Embed Code</h4>
                                                 </div>
                                             </div>
                                             
@@ -315,7 +315,7 @@
                                          <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Source</h4>
+                                                    <h4 class="label-align">Source</h4>
                                                 </div>
                                             </div>
                                              
@@ -337,7 +337,7 @@
                                                         <td>
                                                             <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" id="videoUserCheck" value="">
+                                                                <input class="form-check-input" type="checkbox" id="videoUserCheck" value="" required>
                                                                 <span class="form-check-sign"></span>
                                                             </label>
                                                         </div>

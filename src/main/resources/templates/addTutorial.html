@@ -232,8 +232,8 @@
 							<div class="card-header">
                                     <h4 class="card-title">Add New Tutorial</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
-									<div class="errorClass" th:text="${failure}"></div>
-									<div class="errorClass" th:text="${fileError}"></div>
+									<div class="error" th:text="${failure}"></div>
+									<div class="error" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addTutorial}" method="post" enctype="multipart/form-data">
@@ -274,7 +274,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4>Select Foss</h4>
+                                                    <h4 class="label-align">Select Foss</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">

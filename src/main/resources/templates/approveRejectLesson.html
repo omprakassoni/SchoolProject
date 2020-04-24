@@ -140,6 +140,7 @@
                     <div class="card">
                     	<div class="card-header">
                                     <h4 class="card-title">Approve/Reject Lesson Plan</h4>
+                                    <div class="status" th:text="${status}"></div>
                          </div>
                          
                           <div class="card-body">
@@ -190,10 +191,10 @@
 						
 									</table>
 						
-									<span th:if="${LessonStatus}">
+									<!-- <span th:if="${LessonStatus}">
 										<div style="text-align: center; color: red; font-size: 22px"
 											th:text="${LessonStatus}" />
-									</span>
+									</span> -->
 						
 								</div>
 						

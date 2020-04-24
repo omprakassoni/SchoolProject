@@ -144,21 +144,25 @@ public class AdminController {
 	/* url to redirect page to homepage of Admin Module */
 	
 	@RequestMapping(value = "/admin/addView",method = RequestMethod.GET)
-	public ModelAndView adminHomeView(HttpServletRequest req,ModelAndView mv) {
+	public ModelAndView adminHomeView(Principal principal,ModelAndView mv) {
 		
-	    // checking for admin alive session
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			
-			mv.setViewName("addView");    // if no admin session is active--- redirect to login page.
+		mv.setViewName("addView");   
 	
 		return mv;
 	}
 	
 	@RequestMapping(value = "/admin/approve",method = RequestMethod.GET)
-	public ModelAndView adminHomeAprove(HttpServletRequest req,ModelAndView mv) {
+	public ModelAndView adminHomeAprove(Principal principal,ModelAndView mv) {
 		
-	    // checking for admin alive session
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 			
-			mv.setViewName("approveReject");    // if no admin session is active--- redirect to login page.
+		mv.setViewName("approveReject");    
 	
 		return mv;
 	}
@@ -285,7 +289,7 @@ public class AdminController {
 			userService.addUserToClass(usr, tempClass);											// pushing data into database 
 			mv.addObject("status", "Added Successfully");
 			}else {
-				mv.addObject("sessionTimeOut", "Data Already Exist");
+				mv.addObject("dataAvailable", "Data Already Exist");
 			}
 										
 //		}
@@ -1189,7 +1193,7 @@ public class AdminController {
 			
 		}else {
 	
-			mv.addObject("statusAdd", "Subject Exist");
+			mv.addObject("statusError", "Subject Exist");
 		}
 		
 		

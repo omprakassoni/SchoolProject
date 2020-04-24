@@ -71,6 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/contentQuiz/**",
 			"/contentLink/**",
 			"/contentConcept/**",
+			"/addContactForm",
 			
 			"/loadByClassnameAndSubject",
 			"/loadByUser",

@@ -369,7 +369,7 @@ public class HomeControllerRest {
 /*--------------------------------------------------LOAD BY CLASS NAME----------------------------------------------------------------------*/
 
 	@PostMapping("/loadByClassName")
-	public @ResponseBody List<String> loadByClassName(@Valid @RequestBody Class classSelected,Model om1 ){
+	public @ResponseBody List<String> loadByClassName(@Valid @RequestBody Class classSelected ){
 		
 		List<String> subjectName=new ArrayList<String>();
 		
@@ -395,7 +395,7 @@ public class HomeControllerRest {
 	/*------------------------------------- LOAD CLASS BY SUBJECT NAME------------------------------------------------------*/
 	
 	@PostMapping("/loadBySubjectName")
-	public @ResponseBody List<Integer> loadBySubjectName(@Valid @RequestBody Subject subjectSelected,Model om1 ){
+	public @ResponseBody List<Integer> loadBySubjectName(@Valid @RequestBody Subject subjectSelected){
 		
 		List<Integer> subjectName=new ArrayList<Integer>();
 		
@@ -884,7 +884,7 @@ public class HomeControllerRest {
 			
 			Path fileToDeletePath=Paths.get(previousPath);
 			
-			String pathToUpload=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+temptopic.getSubjectClassMapping().getStandard().getClassName()+"_"+temptopic.getSubjectClassMapping().getSub().getSubName()+"/"+temptopic.getTopicName()+"/";
+			String pathToUpload=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+temptopic.getSubjectClassMapping().getStandard().getClassName()+"_"+temptopic.getSubjectClassMapping().getSub().getSubId()+"/"+temptopic.getTopicId()+"/";
 			System.out.println(pathToUpload);
 			String newFilePath=ServiceUtility.uploadFile(uploadfiles, pathToUpload);
 			
@@ -983,9 +983,9 @@ public class HomeControllerRest {
 		
 		Path deletepreviousAnswer=Paths.get(previousAnswer);
 		
-		String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
+		String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
 		
-		String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
+		String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
 		
 		String questiontemp=ServiceUtility.uploadFile(uploadQuestion, pathToUploadQuestion);
 		String answertemp=ServiceUtility.uploadFile(uploadAnswer, pathToUploadAnswer);
@@ -1005,14 +1005,16 @@ public class HomeControllerRest {
 		boolean status=quizService.updateQuiz(question, answer, ServiceUtility.getCurrentTime(), tempQuiz.getQuizQuestionId());
 		
 		if(status) {
-			try {
-				Files.delete(deletepreviousQuestion);
-				Files.delete(deletepreviousAnswer);
-				
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
+			
+			  try { 
+				  Files.delete(deletepreviousQuestion);
+				  Files.delete(deletepreviousAnswer);
+			  
+			  } catch (IOException e) {
+			  
+			  e.printStackTrace();
+			  }
+			 
 			msg.add("Success");
 			return msg;
 			
@@ -1027,7 +1029,7 @@ public class HomeControllerRest {
 			
 			Path deletepreviousAnswer=Paths.get(previousAnswer);
 			
-			String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
+			String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
 			
 			String answertemp=ServiceUtility.uploadFile(uploadAnswer, pathToUploadAnswer);
 			
@@ -1064,7 +1066,7 @@ public class HomeControllerRest {
 	
 			Path deletepreviousQuestion=Paths.get(previousQuestion);
 			
-			String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+tempQuiz.getTopic().getTopicName()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
+			String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
 			
 			String questiontemp=ServiceUtility.uploadFile(uploadQuestion, pathToUploadQuestion);
 			
@@ -1136,7 +1138,7 @@ public class HomeControllerRest {
 			String previousPath=env.getProperty("spring.applicationexternalPath.name")+docuTemp.getUrl();
 			Path deletePreviousPath=Paths.get(previousPath);
 			
-			String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+docuTemp.getTopic().getTopicName()+"/"+"Document/";
+			String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+docuTemp.getTopic().getTopicId()+"/"+"Document/";
 			
 			String document=ServiceUtility.uploadFile(uploadQuestion, uploadDocument);
 			
@@ -1211,7 +1213,7 @@ public class HomeControllerRest {
 			String previousPath=env.getProperty("spring.applicationexternalPath.name")+conceptTemp.getUrl();
 			Path deletePreviousPath=Paths.get(previousPath);
 			
-			String uploadconceptImage=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+conceptTemp.getTopic().getTopicName()+"/"+"ConceptMap/";
+			String uploadconceptImage=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+conceptTemp.getTopic().getTopicId()+"/"+"ConceptMap/";
 			
 			String document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
 			
@@ -1383,7 +1385,7 @@ public class HomeControllerRest {
 		String previousPath=env.getProperty("spring.applicationexternalPath.name")+lessonTemp.getLessonPlan();
 		Path deletePreviousPath=Paths.get(previousPath);
 		
-		String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+lessonTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+lessonTemp.getTopic().getSubjectClassMapping().getSub().getSubName()+"/"+lessonTemp.getTopic().getTopicName()+"/"+"Lessonplan/";
+		String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+lessonTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+lessonTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+lessonTemp.getTopic().getTopicId()+"/"+"Lessonplan/";
 		
 		String document=ServiceUtility.uploadFile(uploadLessonPlan, uploadDocument);
 		

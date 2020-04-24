@@ -1,0 +1,36 @@
+
+.status{
+	color:green;
+	text-align:center;
+}
+
+.error{
+	color:red;
+	text-align:center;
+}
+
+.modalAlign{
+	text-align:center;
+}
+
+.label-align{
+	margin:10px;
+}
+
+#true{
+	height: 20px;
+  	width: 20px;
+  	background-color: green;
+  	border-radius: 50%;
+}
+
+#false{
+	height: 20px;
+  	width: 20px;
+  	background-color: red;
+  	border-radius: 50%;
+}
+
+#imp-info{
+	color:red;
+}
