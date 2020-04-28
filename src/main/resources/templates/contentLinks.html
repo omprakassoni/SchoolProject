@@ -66,7 +66,9 @@
             <!-- Navbar -->
              <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#pablo"></a>
+                    
+                    <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
+                    
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -224,7 +226,7 @@
 											<div class="row" th:each="video:${VideoOnTopic}"
 												style="padding-top: 30px">
 			
-												<div class="col-4">
+												<div class="col-sm-12 col-md-4 col-lg-4">
 													<div class="embed-responsive embed-responsive-16by9">
 			
 														<iframe class="embed-responsive-item"
@@ -239,9 +241,9 @@
 			
 												</div>
 			
-												<div class="col-1"></div>
+												<div class="col-sm-12 col-md-1 col-lg-1"></div>
 			
-												<div class="col-7" style="padding-top: 30px">
+												<div class="col-sm-12 col-md-7 col-lg-7">
 			
 													<h3 th:text="${video.getDescription()}"></h3>
 			
@@ -262,13 +264,13 @@
 										<div class="tab-pane fade" id="Links" role="tabpanel"
 											aria-labelledby="Links-tab">
 			
-											<div class="row" style="padding-top: 30px">
+											<div class="row">
 												<div class="col-6">
-													<h3>Description</h3>
+													<h4>Description</h4>
 			
 												</div>
 												<div class="col-6">
-													<h3>URL</h3>
+													<h4>URL</h4>
 												</div>
 											</div>
 											<hr />
@@ -313,13 +315,13 @@
 			
 			
 			
-											<div class="row" style="padding-top: 30px">
+											<div class="row">
 												<div class="col-6">
-													<h3>Description</h3>
+													<h4>Description</h4>
 			
 												</div>
 												<div class="col-6">
-													<h3>Document</h3>
+													<h4>Document</h4>
 												</div>
 											</div>
 											<hr />

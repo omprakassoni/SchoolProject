@@ -68,7 +68,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#pablo"></a>
+                    <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -212,15 +212,15 @@
 										<table class="table">
 											<thead>
 												<tr>
-													<th colspan=""><h2>Lesson Plan</h2></th>
+													<th colspan=""><h4>Lesson Plan</h4></th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<td><h2>
+													<td><p>
 															<a th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
 																style="color: blue" target="_blank">Download</a>
-														</h2>
+														</p>
 													</td>
 			
 												</tr>
