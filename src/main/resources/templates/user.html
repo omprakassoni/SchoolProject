@@ -235,6 +235,34 @@
                                                 </div>
                                             </div>
                                         </div>
+                                          <div class="row" sec:authorize="hasAuthority('Learner')">
+                                            <div class="col-md-6 pr-1">
+                                                <div class="form-group">
+                                                    <label>School Name</label>
+                                                    <input type="text" class="form-control" placeholder="School Name" disabled th:value="${LoggedUser.getSchoolName()}" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-1">
+                                                <div class="form-group">
+                                                    <label>School Address</label>
+                                                    <input type="text" class="form-control" placeholder="School Address" disabled th:value="${LoggedUser.getSchoolAddress()}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="row" sec:authorize="hasAuthority('Learner')">
+                                            <div class="col-md-6 pr-1">
+                                                <div class="form-group">
+                                                    <label>Pincode</label>
+                                                    <input type="text" class="form-control" placeholder="Pincode" disabled th:value="${LoggedUser.getPincode()}" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-1">
+                                                <div class="form-group">
+                                                    <label>DOB</label>
+                                                    <input type="text" class="form-control" placeholder="DOB" disabled th:value="${LoggedUser.getDateOfBirth()}" >
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">

@@ -2364,20 +2364,13 @@ public class HomeControllerRest {
 		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
 		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Lessonplan/";
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Lessonplan/";
 		
 		try {
 			String path1=ServiceUtility.uploadFile(uploadLessonPlan, createFolder);
 			
 			int indexToStart=path1.indexOf("Media");
 			String path=path1.substring(indexToStart, path1.length());
-			
-			
-			
-
-			
-			
-
 			
 			User usr=userService.findByUsername(principal.getName());
 			
@@ -2430,7 +2423,7 @@ public class HomeControllerRest {
 		
 		
 		try {
-			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Quiz/"+remark+"/";
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Quiz/"+remark+"/";
 			boolean b=ServiceUtility.createFolder(createFolder);
 			
 			String CreateFolderQuestion=createFolder+"Question/";
@@ -2503,7 +2496,7 @@ public class HomeControllerRest {
 		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
 		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Document/";
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Document/";
 		
 		
 		try {
@@ -2515,10 +2508,6 @@ public class HomeControllerRest {
 			String path=path1.substring(indexToStart, path1.length());
 			
 
-			
-			
-
-			
 			User usr=userService.findByUsername(principal.getName());
 			
 			Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
@@ -2561,7 +2550,7 @@ public class HomeControllerRest {
 		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
 		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClass_id()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/ConceptMap/";
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/ConceptMap/";
 		
 		
 		try {

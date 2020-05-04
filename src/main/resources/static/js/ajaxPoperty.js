@@ -1733,7 +1733,7 @@ $(function(){
 	
 			$('#validateEmailL').change(function(){
 				
-				var data=[];
+				var emailL=[];
 				emailL[0]=$(this).val();
 				
 				$("#registerL").prop('disabled', true);
@@ -1754,8 +1754,8 @@ $(function(){
 			
 	        	}
 				
-				if(data[0].length>0){
-				if(validateEmail(data)){
+				if(emailL[0].length>0){
+				if(validateEmail(emailL)){
 				
 				$.ajax({
 					  	type: "POST",
@@ -1801,7 +1801,7 @@ $(function(){
 			
 			$('#validateEmailP').change(function(){
 				
-				var data=[];
+				var emailP=[];
 				emailP[0]=$(this).val();
 				
 				$("#registerP").prop('disabled', true);
@@ -1822,8 +1822,8 @@ $(function(){
 			
 	        	}
 				
-				if(data[0].length>0){
-				if(validateEmail(data)){
+				if(emailP[0].length>0){
+				if(validateEmail(emailP)){
 				
 				$.ajax({
 					  	type: "POST",
@@ -1869,7 +1869,7 @@ $(function(){
 			
 			$('#validateEmailT').change(function(){
 				
-				var data=[];
+				var emailT=[];
 				emailT[0]=$(this).val();
 				
 				$("#registerT").prop('disabled', true);
@@ -1890,8 +1890,8 @@ $(function(){
 			
 	        	}
 				
-				if(data[0].length>0){
-				if(validateEmail(data)){
+				if(emailT[0].length>0){
+				if(validateEmail(emailT)){
 				
 				$.ajax({
 					  	type: "POST",

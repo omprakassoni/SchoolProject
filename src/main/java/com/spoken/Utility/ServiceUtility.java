@@ -37,7 +37,7 @@ import com.adminportal.HomeController;
 
 public class ServiceUtility {
 	
-	static String mediaPath="/home/om/Desktop/school/";
+	static String mediaPath="/var/school_data/";
 	private static final String SALT="salt";
 	private static String uploadDirectory="Media/content/";
 	
