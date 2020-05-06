@@ -95,7 +95,6 @@ import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 
 @Controller
-@SessionAttributes({ "UserLogedUsername", "UserLogedName", "UserLogedRole" }) // Session Variable
 public class HomeController {
 
 	public static final String uploadDirectory = "Media/content/"; // Path to save resources
@@ -158,8 +157,6 @@ public class HomeController {
 	@Autowired
 	private EventsRepository evenRepo;
 
-	////////////////////////
-
 	/*
 	 * ------------------------------------------HOME
 	 * PAGE-------------------------------------------------
@@ -212,86 +209,6 @@ public class HomeController {
 	/**********************************************
 	 * USER SIDE AUTHENTICATION
 	 ********************************************************/
-
-//	@RequestMapping(value = "/userLogin",method = RequestMethod.POST)
-//	public String userLoginpost(HttpServletRequest req,ModelAndView mv) {
-//		
-////		ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-////		mv.addObject("classfromDatabase", standard);
-////		
-////		ArrayList<Subject> subjectData=(ArrayList<Subject>) subjectService.findAll();
-////		mv.addObject("subjectfromDatabase", subjectData);
-////		
-////		String userRole=null;
-////		String username=req.getParameter("username");
-////		//String password=ServiceUtility.passwordEncoder().encode(req.getParameter("password"));
-////		boolean statusPassword=false;
-////		
-////		//User usr1=(User) userService.existsByUser(username, password);			// check for existence of User
-////		try {
-////			User usr=userService.findByUsername(username);
-////			statusPassword =ServiceUtility.passwordEncoder().matches(req.getParameter("password"), usr.getPassword());
-////			System.out.println(statusPassword);
-////			if(statusPassword) {
-////			List<UserRole> tempuserRole=usr.getUserRoles();
-////			for(UserRole temp:tempuserRole) {
-////				userRole=temp.getRole().getRoleName();
-////				
-////			}
-////			}
-////			if(statusPassword) {
-////					
-////					//if(userRole.contentEquals("Teacher") ) {
-////						
-////						if(usr.getRegistered()==1) {
-////				
-////							HttpSession session=req.getSession();
-////							session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
-////							session.setAttribute("UserLogedName", usr.getFname());
-////							session.setAttribute("UserLogedRole", userRole);
-////							
-////							usr.setLastLogin(ServiceUtility.getCurrentTime());
-////							userService.save(usr);
-////			
-////							mv.setViewName("redirect:/");
-////						}else {
-////							mv.addObject("Error", "Not verified yet..Please Try later");
-////							mv.setViewName("Login");
-////							
-////						}
-//////				}else {
-//////					
-//////					HttpSession session=req.getSession();
-//////					session.setAttribute("UserLogedUsername", usr.getEmail());		// setting Session variable 
-//////					session.setAttribute("UserLogedName", usr.getFname());
-//////					session.setAttribute("UserLogedRole", userRole);
-//////					
-//////					usr.setLastLogin(ServiceUtility.getCurrentTime());
-//////					userService.save(usr);
-//////	
-//////					mv.setViewName("redirect:/");
-//////					
-//////				}
-////				
-////			}else {
-////				
-////				mv.addObject("Error", "Login Credentials are Incorrect");
-////				mv.setViewName("Login");
-////				
-////				
-////			}
-////		} catch (Exception e) {
-////			
-////			mv.addObject("Error", "Login Credentials are Incorrect");
-////			mv.setViewName("Login");
-////			e.printStackTrace();
-////		}
-////		
-//
-//
-//		return "redirect:/";
-//		
-//	}
 
 	/***********************************************
 	 * END
@@ -473,86 +390,7 @@ public class HomeController {
 	 * END
 	 **************************************************/
 
-	/*******************************
-	 * MY ACCOUNT PAGE OF USER TO PERFORM OPERATION
-	 ***********************************/
-
-	@RequestMapping(value = "/myAccount", method = RequestMethod.GET)
-	public ModelAndView myAccountGet(ModelAndView mv, HttpServletRequest req, Principal principal) {
-
-//		HttpSession session=req.getSession(false);						// CHECK FOR EXISTING ALIVE SESSION	
-//		if(!ServiceUtility.chechExistSessionUser(session)) {			// CHECK FOR USER ALIVE SESSION
-//			mv.setViewName("redirect:/Login");
-//		}else {
-
-//			String loggedUser=(String) session.getAttribute("UserLogedUsername");
-		User localUser = userService.findByUsername(principal.getName());
-		List<UserRole> localUserRole = localUser.getUserRoles();
-		for (UserRole temp : localUserRole) {
-			mv.addObject("LoggedUserRole", temp.getRole().getRoleName());
-
-		}
-
-		List<QuizQuestion> localQuiz = quizService.findALlByUser(localUser);
-		List<ArticleExternal> localArticle = articleService.findALlByUser(localUser);
-		List<DocumentExternal> localDocument = documentService.findALlByUser(localUser);
-		List<LessonPlan> localLesson = lessonService.findALlByUser(localUser);
-		List<VideoExternal> localvideo = videoService.findALlByUser(localUser);
-		List<Phets> localPhets = phetService.findALlByUser(localUser);
-		List<ConceptMap> localConcept = conceptMapService.findALlByUser(localUser);
-
-		if (localQuiz.isEmpty()) {
-			mv.addObject("QuizError", "Nothing To Show");
-		}
-
-		if (localArticle.isEmpty()) {
-			;
-			mv.addObject("ArticleError", "Nothing To Show");
-		}
-
-		if (localDocument.isEmpty()) {
-			mv.addObject("DocumentError", "Nothing To Show");
-		}
-
-		if (localLesson.isEmpty()) {
-			mv.addObject("LessonError", "Nothing To Show");
-		}
-
-		if (localvideo.isEmpty()) {
-			mv.addObject("VideoError", "Nothing To Show");
-		}
-
-		if (localPhets.isEmpty()) {
-			mv.addObject("PhetError", "Nothing To Show");
-		}
-
-		if (localPhets.isEmpty()) {
-			mv.addObject("ConceptError", "Nothing To Show");
-		}
-
-		mv.addObject("QuizOnUser", localQuiz);
-		mv.addObject("VideoOnUser", localvideo);
-		mv.addObject("ArticleOnUser", localArticle);
-		mv.addObject("DocumentOnUser", localDocument);
-		mv.addObject("LessonOnUser", localLesson);
-		mv.addObject("PhetOnUser", localPhets);
-		mv.addObject("ConceptOnUser", localConcept);
-
-		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
-		mv.addObject("classfromDatabase", standard);
-
-		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
-		mv.addObject("subjectfromDatabase", subjectData);
-
-		mv.addObject("LoggedUser", localUser);
-
-		mv.setViewName("myAccount");
-//		}
-		return mv;
-
-	}
-
-//---------------------------------------------END--------------------------------------------------------------------
+	
 
 //------------------------------------------LOGIN HYPERLINK--------------------------------------------------------------------
 
@@ -695,17 +533,6 @@ public class HomeController {
 	}
 
 //---------------------------------------------END--------------------------------------------------------------------
-
-	/***********************************
-	 * ADMIN PORTAL HYPERLINK
-	 ******************************************/
-
-//	@RequestMapping(value = "/adminPortal")
-//	public String adminHomepage() {
-//		return "adminLoginPage";
-//	}
-
-	/************************************************************************************************************************/
 
 // ---------------------------------- Event List on USer Side ------------------------------------------
 
@@ -996,46 +823,6 @@ public class HomeController {
 		return mv;
 	}
 
-	/***********************
-	 * LOGIN HYPERLINK FROM CONTENT PAGE
-	 *********************************/
-	/*
-	 * 
-	 * @RequestMapping(path = "/content/Login", method = RequestMethod.GET) public
-	 * ModelAndView pathtoLogin(ModelAndView mv) {
-	 * mv.setViewName("redirect:/Login"); return mv; }
-	 * 
-	 *//***********************
-		 * SIGNUP HYPERLINK FROM CONTENT PAGE
-		 *********************************/
-	/*
-	 * 
-	 * @RequestMapping(path = "/content/Signup", method = RequestMethod.GET) public
-	 * ModelAndView pathtoRegister(ModelAndView mv) {
-	 * mv.setViewName("redirect:/Signup"); return mv; }
-	 * 
-	 *//**********************
-		 * CONTRIBUTOR DASHBOARD FROM CONTENT PAGE
-		 ********************************/
-
-	/*
-	 * 
-	 * @RequestMapping(path = "/content/myAccount", method = RequestMethod.GET)
-	 * public ModelAndView pathtoContributorDashboard(ModelAndView mv) {
-	 * mv.setViewName("redirect:/myAccount"); return mv; }
-	 * 
-	 * @RequestMapping(path = "/eventsList/myAccount", method = RequestMethod.GET)
-	 * public ModelAndView pathtoContributorDashboardEvent(ModelAndView mv) {
-	 * mv.setViewName("redirect:/myAccount"); return mv; }
-	 * 
-	 *//**********************
-		 * ADMIN DASHBOARD FROM CONTENT PAGE
-		 ********************************//*
-											 * 
-											 * @RequestMapping(path = "/content/home", method = RequestMethod.GET)
-											 * public ModelAndView pathtoAdminDashboard(ModelAndView mv) {
-											 * mv.setViewName("redirect:/home"); return mv; }
-											 */
 
 	@RequestMapping(path = "/eventsList/home", method = RequestMethod.GET)
 	public ModelAndView pathtoAdminDashboardEvent(ModelAndView mv) {

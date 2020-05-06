@@ -112,9 +112,6 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 		
 		
 		
-	
-		
-		
 	}
 	
 	

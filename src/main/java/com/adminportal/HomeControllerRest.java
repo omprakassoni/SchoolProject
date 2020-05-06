@@ -100,8 +100,6 @@ public class HomeControllerRest {
 	public static String uploadDirectory="Media/content/";
 	
 	public static String deleteDirectory="";
-	
-	//public static final String folerAfterPwd="/webapps/";
 		
 	@Autowired
 	private ClassService classService;
