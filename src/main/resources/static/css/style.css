@@ -207,14 +207,27 @@ body{
 
 
 .section-header{
-    padding: 87px 0 50px;
+    padding: 70px 0 50px;
+    
+}
+
+.section-header-contact{
+    padding: 10px;
     color: #454545;
     background: #f1f1f1;
 }
 
 .section1{
-    margin-bottom: 70px;
-    text-align:left;
+ 	font-weight: 700 !important;  
+ 	font-size:36px;
+ 	
+}
+
+.event-xs{
+	letter-spacing: 6px;
+	font-weight: 300 !important;
+	color: #919191;
+	font-size: 14px;
 }
 
 .section-title{
@@ -352,7 +365,7 @@ body{
 }
 
 #event{
-    background: #B3C9A4;
+   
 }
 
 .testimonial{

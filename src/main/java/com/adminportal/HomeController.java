@@ -193,7 +193,9 @@ public class HomeController {
 			eventTemp.add(eventData.get(0));
 			for (int i = 1; i < eventData.size(); i++) {
 				eventTemp.add(eventData.get(i));
-				break;
+				if(i==5) {
+					break;
+				}
 			}
 
 			mv.addObject("Events", eventTemp);
@@ -206,13 +208,6 @@ public class HomeController {
 		return mv;
 	}
 
-	/**********************************************
-	 * USER SIDE AUTHENTICATION
-	 ********************************************************/
-
-	/***********************************************
-	 * END
-	 ***********************************************************************/
 
 	/*******************************
 	 * dASHBOARD FOR CONTRIBUTOR

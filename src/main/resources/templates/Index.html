@@ -4,8 +4,7 @@
 
 <div th:replace="common/header :: common-header"></div>
 
-<title>Homepage</title>
-
+<title>Homepage</title>   
 
 </head>
 
@@ -123,12 +122,11 @@
 
 
 
-	<section class="section-header" style="background: lightblue"
+	<section class="section-header" style="background:#f4f4f4"
 		th:if="${TestimonialFirst!= null}">
 		<div class="container">
-			<div class="section1">
-				<h3 class="section-title-except-contact-us">Testimonials</h3>
-				<div class="line" style="width: 9%"></div>
+			<div class="section1" style="padding-bottom:50px">
+				<h1 style="text-align:center">--Testimonial--</h1>
 			</div>
 
 			<div class="wrapper-carousel-fix">
@@ -209,37 +207,43 @@
 	<!-- Event Announcement Section  -->
 	<section class="section-header" id="Event" th:if="${Events != null}">
 		<div class="container">
+		
+			<div class="event-xs">
+				<p style="text-align:center">DON'T MISS OUT</p>
+			</div>
+			
 			<div class="section1">
-				<h3 class="section-title-except-contact-us">Events</h3>
-				<div class="line"></div>
+				<h1 style="text-align:center">Upcoming Events</h1>
 			</div>
 
-			<div class="row">
-				<div class="col-sm-6 base-content" th:each="event:${Events}">
-					<div class="base-heading">
-						<h4>
-							<div th:text="${#calendars.day(event.getDateToHappen())} " />
-							<span
-								th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span>
-						</h4>
-						<h6 th:text="${event.getHeadline()}">t</h6>
-					</div>
-					<p th:text="${event.getDescription()}"></p>
-					<!--     <div class="view">
-                            <a href="#">View</a>
-                        </div>
-                       -->
-				</div>
-
-
-
-
-			</div>
-			<div class="row">
-				<div class="col-12" style="text-align: right">
-					<a th:href="@{eventsList}">Click here to see More</a>
-				</div>
-			</div>
+			
+			<div class="timeline">
+		        <ul>
+		            <li th:each="event:${Events}">
+		                <div class="content">
+		                    <h3 th:text="${event.getHeadline()}"> </h3>
+		                    <p th:text="${event.getDescription()}">  </p>
+		                </div>
+		                <div class="time">
+		                    <h4 th:text="${#calendars.day(event.getDateToHappen())+ '  '+#calendars.monthNameShort(event.getDateToHappen())} "> 
+		                    			                   
+		                    </h4>
+		                </div>
+		            
+		            </li>
+		            
+		            <div style="clear: both;"></div>
+		        </ul>
+    		</div>
+    		
+    		<div style="text-align:center">
+    			<a  th:href="@{eventsList}" ><button type="button" class="viewButton">View all</button> </a>
+    		</div>
+			
+			
+			
+			
+			
 		</div>
 
 	</section>
@@ -250,7 +254,7 @@
 
 
 	<!-- Contact US and feedback section    -->
-	<section class="section-header" id="Contact-us">
+	<section class="section-header-contact" id="Contact-us">
 		<div class="container">
 			<div class="section">
 				<h3 class="section-title text-center">Contact Us</h3>
