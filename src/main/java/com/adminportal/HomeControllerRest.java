@@ -98,6 +98,7 @@ import antlr.debug.Event;
 public class HomeControllerRest {
 	
 	public static String uploadDirectory="Media/content/";
+	public static final String uploadEvent="Media/Event/";
 	
 	public static String deleteDirectory="";
 		
@@ -262,50 +263,93 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/updateEvent")
-	public @ResponseBody List<String> updateEvent(@Valid @RequestBody Events localdata){
+	public @ResponseBody List<String> updateEvent(@RequestParam("poster") MultipartFile[] uploadPoster,@RequestParam("eventdate") String date,@RequestParam("eventHead") String eventHead,@RequestParam("eventDesc") String eventDesc,@RequestParam("eventId") String eventId) throws Exception{
 		
 		List<String> status=new ArrayList<String>();
 		
-		Events tempTest=eventService.getbyid(localdata.getEventId());
-		String headline;
-		String desc;
-		java.sql.Date date;
+		Events localEvent=eventService.getbyid(Integer.parseInt(eventId));
+		String headline; 
+		String desc; 
+		java.sql.Date newdate;
+		boolean fileExist=true;
 		
-		
-		if(localdata.getHeadline().isEmpty()) {
-			headline=tempTest.getHeadline();
+		if(eventHead.length()>0) {
+			headline=eventHead;
 		}else {
-			headline=localdata.getHeadline();
+			headline=localEvent.getHeadline();
 		}
 		
-		if(localdata.getDateToHappen() == null) {
-			date=tempTest.getDateToHappen();
+		if(eventDesc.length()>0) {
+			desc=eventDesc;
 		}else {
-			date=localdata.getDateToHappen();
+			desc=localEvent.getDescription();
+		}
+		
+		if(date.length()>0) {
+			System.out.println(date);
+			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date dateUtil=sd1.parse(date);
+			newdate=new java.sql.Date(dateUtil.getTime());
+		}else {
+			newdate=localEvent.getDateToHappen();
+		}
+		
+		for(MultipartFile temp:uploadPoster) {
 			
-		}
-		
-		if(localdata.getDescription().isEmpty()) {
-			desc=tempTest.getDescription();
-		}else {
-			desc=localdata.getDescription();
-		}
-		
-		try {
-			boolean result=eventService.updateEvent(headline, desc, date, tempTest.getEventId());
-			if(result) {
-				status.add("Success");
+			if(temp.getSize()>0) {
+			if(!ServiceUtility.checkFileExtensionImage(uploadPoster)) {
+				status.add("invalid-data");
+			return status;
+			}
 			}else {
-				status.add("Failure");
-			}		
-			
-			
-		}catch (Exception e) {
-			status.add("Failure");
-			
+				fileExist=false;
+			}
 		}
 		
-		return status;
+		
+		
+		if(fileExist) {
+			
+			String previousPath=env.getProperty("spring.applicationexternalPath.name")+localEvent.getPotser_path();
+			Path deletePreviousPath=Paths.get(previousPath);
+			
+			String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadEvent+localEvent.getEventId();
+			
+			String document=ServiceUtility.uploadFile(uploadPoster, uploadDocument);
+			
+			int indexToStart=document.indexOf("Media");
+			String documentToUpload=document.substring(indexToStart, document.length());
+			
+			boolean done=eventService.updateEvent(headline, desc, newdate, documentToUpload,localEvent.getEventId());
+			
+			if(done) {
+				try {
+					Files.delete(deletePreviousPath);
+					
+					
+				} catch (IOException e) {
+					
+					
+				}
+				status.add("Success");
+				return status;
+				
+			}else {
+				status.add("failure");
+				return status;
+			}
+		}else {
+			boolean done=eventService.updateEvent(headline, desc, newdate, localEvent.getPotser_path(),localEvent.getEventId());
+			
+			if(done) {
+				status.add("Success");
+				return status;
+			}else {
+				status.add("failure");
+				return status;
+			}
+		}
+		
 		
 	}
 	
@@ -1114,7 +1158,7 @@ public class HomeControllerRest {
 		for(MultipartFile temp:uploadQuestion) {
 			
 			if(temp.getSize()>0) {
-			if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+			if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion) && !ServiceUtility.checkFileExtensionImage(uploadQuestion)) {
 			msg.add("invalid-data");
 			return msg;
 			}
@@ -2481,7 +2525,7 @@ public class HomeControllerRest {
 		
 		List<String> status=new ArrayList<String>();
 		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadDocument)) {
+		if(!ServiceUtility.checkFileExtensionPDF(uploadDocument) && !ServiceUtility.checkFileExtensionImage(uploadDocument)) {
 			
 			status.add("failure");
 			System.out.println("fail-document");

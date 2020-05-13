@@ -20,6 +20,6 @@ public interface EventsRepository extends JpaRepository<Events, Integer> {
 	List<Events> getAllEvent();
 
 	@Modifying
-	@Query("update Events set headline=?1,description=?2,dateToHappen=?3 where eventId=?4") // updating event information.
-	int updateEvent(String head,String desc,Date date,int id);
+	@Query("update Events set headline=?1,description=?2,dateToHappen=?3,potser_path=?4 where eventId=?5") // updating event information.
+	int updateEvent(String head,String desc,Date date,String poster_Path,int id);
 }

@@ -62,6 +62,7 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 		
 		boolean vik=new java.io.File(env.getProperty("spring.applicationexternalPath.name")+HomeController.uploadDirectory).mkdirs();
 		new java.io.File(env.getProperty("spring.applicationexternalPath.name")+HomeController.uploadTeacherDirectory).mkdirs();
+		new java.io.File(env.getProperty("spring.applicationexternalPath.name")+HomeController.uploadEvent).mkdirs();
 		System.out.println(vik);
 		System.out.println(env.getProperty("spring.applicationexternalPath.name")+HomeController.uploadDirectory);
 		

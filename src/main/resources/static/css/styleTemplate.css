@@ -43,6 +43,11 @@
 	padding: 16px 30px;
 }
 
+input[type=checkbox]{
+	position:unset !important;
+}
+
+
 
         body{
             margin: 0;

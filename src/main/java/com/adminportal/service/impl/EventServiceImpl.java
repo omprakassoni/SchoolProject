@@ -56,8 +56,8 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	@Transactional
-	public boolean updateEvent(String head, String desc, Date date, int id) {
-		int status=eventRepo.updateEvent(head, desc, date, id);
+	public boolean updateEvent(String head, String desc, Date date,String poster_path, int id) {
+		int status=eventRepo.updateEvent(head, desc, date,poster_path, id);
 		if(status>0) {
 			return true;
 		}else {

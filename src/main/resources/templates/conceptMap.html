@@ -273,7 +273,7 @@
                                              
                                              <div class="col-md-4">
                                                 <div class="">
-                                                    <input type="file" class="form-control" id="conceptMapImage" name="conceptMapImage" accept="image/*">
+                                                    <input type="file" class="form-control" id="conceptMapImage" name="conceptMapImage" title="please add only image file" accept="image/*" disabled/>
                                                 </div>
                                             </div>
                                         </div>
@@ -287,12 +287,8 @@
                                                 <table class="table">
                                                     <tr>
                                                         <td>
-                                                            <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox"  id="ConceptUserCheck" value="">
-                                                                <span class="form-check-sign"></span>
-                                                            </label>
-                                                        </div>
+                                                     		<input class="form-check-input" type="checkbox" value="" id="ConceptUserCheck" required>
+                                                         
                                                         </td>
                                                         <td>
                                                             <a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>

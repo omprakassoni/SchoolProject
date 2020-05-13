@@ -78,6 +78,7 @@ import com.spoken.Utility.TutorialList;
 public class AdminController {
 	
 	public static final String uploadDirectory="Media/content/";  /* path to which content will get stored */
+	public static final String uploadEvent="Media/Event/";
 	
 	@Autowired
 	private ClassService classService;
@@ -389,8 +390,8 @@ public class AdminController {
 		String desc=req.getParameter("description");
 		String source=req.getParameter("source");
 		
-		if(!ServiceUtility.checkFileExtensionPDF(document)) {                 	// validation against PDF document 
-			mv.addObject("fileError", "File must be a PDF File");
+		if(!ServiceUtility.checkFileExtensionPDF(document) && !ServiceUtility.checkFileExtensionImage(document)) {                 	// validation against PDF document 
+			mv.addObject("fileError", "File must be a PDF or JPEG/JPG/PNG");
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
@@ -1662,7 +1663,7 @@ public class AdminController {
 	
 	// method to add event into database
 	@RequestMapping(value = "/admin/addView/addEvent",method = RequestMethod.POST)
-	public ModelAndView addEventPost(HttpServletRequest req,ModelAndView mv,Principal principal) {
+	public ModelAndView addEventPost(@RequestParam("poster") MultipartFile[] poster,HttpServletRequest req,ModelAndView mv,Principal principal) {
 		
 		String headline=req.getParameter("headline");									// taking out various information given by user in view.
 		String Desc=req.getParameter("description");
@@ -1670,6 +1671,20 @@ public class AdminController {
 		User localUser=userService.findByUsername(principal.getName());
 		
 		mv.addObject("LoggedUser",localUser);
+		
+		if(!ServiceUtility.checkFileExtensionImage(poster)) {						// validating Image file of given data
+				
+			mv.addObject("returnStatus", "Please upload only Images");
+			
+			List<Events> local=eventService.findAll();
+			mv.addObject("Events", local);
+			mv.addObject("addActive","active");
+			mv.setViewName("addEvent");
+				
+				
+			}
+		
+			
 			
 					
 					try {
@@ -1678,14 +1693,32 @@ public class AdminController {
 						java.util.Date dateUtil=sd1.parse(date);
 						Date dateOfEvent=new Date(dateUtil.getTime());
 						
+						int eventId=eventService.getCount();
 						Events addEvent=new Events();
-						addEvent.setEventId(eventService.getCount());
+						addEvent.setEventId(eventId);
 						addEvent.setDateAdded(ServiceUtility.getCurrentTime());
 						addEvent.setDescription(Desc);
 						addEvent.setHeadline(headline);
 						addEvent.setDateToHappen(dateOfEvent);
+						addEvent.setPotser_path("null");
 						
-						eventService.save(addEvent);	
+						eventService.save(addEvent);
+						
+						boolean path_creation=ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadEvent+"/"+eventId);
+						
+						
+						String pathtoUploadteacherData=env.getProperty("spring.applicationexternalPath.name")+uploadEvent+"/"+eventId;
+						
+						String documentLocal=ServiceUtility.uploadFile(poster, pathtoUploadteacherData);
+						
+						int indexToStart=documentLocal.indexOf("Media");
+						
+						String document=documentLocal.substring(indexToStart, documentLocal.length());
+						
+						Events localEvent=eventService.getbyid(eventId);
+						localEvent.setPotser_path(document);
+						
+						eventService.save(localEvent);
 						
 						List<Events> local=eventService.findAll();
 						mv.addObject("Events", local);

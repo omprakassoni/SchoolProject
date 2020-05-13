@@ -35,7 +35,10 @@ public class Events {
 	
 	@Column(nullable = false)
 	private Date dateToHappen;
-
+	
+	@Column(nullable = false)
+	private String potser_path;
+	
 	public int getEventId() {
 		return eventId;
 	}
@@ -74,6 +77,14 @@ public class Events {
 
 	public void setDateToHappen(Date dateToHappen) {
 		this.dateToHappen = dateToHappen;
+	}
+
+	public String getPotser_path() {
+		return potser_path;
+	}
+
+	public void setPotser_path(String potser_path) {
+		this.potser_path = potser_path;
 	}
 	
 	

@@ -651,7 +651,14 @@ $(function(){
 			
 			
 			$("#updateEvent").click(function(){
-				var event_id=$('#eventId').val();
+				
+				event.preventDefault();
+					
+
+				fire_ajax_submit_Event(); 
+			});
+					 
+				/*var event_id=$('#eventId').val();
 				var desc=$('#eventDesc').val();
 				var head=$('#eventHead').val();
 				var date=$('#eventdate').val();
@@ -714,8 +721,8 @@ $(function(){
 
 
 				$('#eventId').prop('value',event_id);
-				$('#EventModal').modal('show');
-			})
+				$('#EventModal').modal('show');*/
+		
 			
 		
 	/************************************************************************************************************************************/	
@@ -7914,6 +7921,61 @@ function readImageUrl(input) {
 	    reader.readAsDataURL(input.files[0]); // convert to base64 string
 	  }
 	}
+
+
+/****************************** UPDATING EVENT DATA *****************************************************/
+function fire_ajax_submit_Event(){
+	
+	var form=$('#uploadUpdateEvent')[0];
+	var data=new FormData(form);
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var urlPassed;
+	
+	if(DeploymentType){								// Url Creation based on depolyment 
+		urlPassed= "/updateEvent";
+
+	}else{
+		urlPassed= projectName+"/updateEvent";
+
+	}
+	
+	$.ajax({
+		type: "POST",
+		enctype: 'multipart/form-data',
+		url: urlPassed,
+		data:data,
+		beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		},
+		cache:false,
+		contentType:false,
+		processData:false,
+		timeout: 600000,
+		 success: function (data){
+			 
+			 $('#Success').css({"display": "none"}); 
+			 $('#Failure').css({"display": "none"});
+		
+			 if(data[0]==="Success"){
+				 $('#Success').css({"display": "block"});
+			 }else if(data[0]==="failure"){
+				 $('#Failure').css({"display": "block"});
+			 }
+		
+		},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+		}
+		
+	});
+}
+
+
+/*****************************END******************************************************************/
 
 
 /**************************   comment Reply visibility for all Content  *********************************************/

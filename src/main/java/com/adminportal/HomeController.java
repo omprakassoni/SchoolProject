@@ -99,6 +99,7 @@ public class HomeController {
 
 	public static final String uploadDirectory = "Media/content/"; // Path to save resources
 	public static final String uploadTeacherDirectory = "Media/User/"; // path to save teacher Document
+	public static final String uploadEvent="Media/Event/";             // path to sabe event images
 
 	@Autowired
 	private ClassService classService;
