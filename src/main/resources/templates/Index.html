@@ -221,6 +221,9 @@
 		        <ul>
 		            <li th:each="event:${Events}">
 		                <div class="content">
+		                	<a href="#" class="pop"><img id="imagesource"th:src="@{/files/}+@{${event.getPotser_path()}}"
+									style="width: 100%; height: 150px" />
+							</a>
 		                    <h3 th:text="${event.getHeadline()}"> </h3>
 		                    <p th:text="${event.getDescription()}">  </p>
 		                </div>
@@ -335,6 +338,27 @@
 	<!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts"></div>
 
+	<!-- Modal  for previewing the Images -->
+	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Image
+						Viewer</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<img src="" id="imagepreview" style="width: 100%;" /> ...
+
+					<div class="modal-footer"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
