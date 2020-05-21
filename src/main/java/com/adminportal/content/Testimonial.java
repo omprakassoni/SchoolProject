@@ -35,8 +35,9 @@ public class Testimonial {
 	@Column(nullable = false,updatable = false)
 	private Timestamp dateAdded;
 	
+	@Column
+	private String videoPath;
 	
-
 	public int getTestimonialId() {
 		return testimonialId;
 	}
@@ -71,6 +72,14 @@ public class Testimonial {
 
 	public Timestamp getDateAdded() {
 		return dateAdded;
+	}
+
+	public String getVideoPath() {
+		return videoPath;
+	}
+
+	public void setVideoPath(String videoPath) {
+		this.videoPath = videoPath;
 	}
 
 	public void setDateAdded(Timestamp dateAdded) {

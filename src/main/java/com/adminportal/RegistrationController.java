@@ -39,7 +39,7 @@ import com.spoken.Utility.ServiceUtility;
 public class RegistrationController {
 	
 	public static final String uploadTeacherDirectory="Media/User/";  /* path to which teachers document will get stored */
-	
+	public static final long fileSize=10*1024*1024; 
 	
 	@Autowired
 	private UserService userService;
@@ -256,6 +256,20 @@ public class RegistrationController {
 			return mv;
 			
 		}
+		
+		if(uploadDocument[0].getSize()>fileSize) {
+			
+			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+			mv.addObject("classfromDatabase", standard);
+			
+			mv.addObject("checkedOptionTeacher", "checked");
+			mv.addObject("FailureT", "FileSize must be within 10MB");
+			mv.setViewName("Signup");
+			
+			return mv;
+		}
+		
+		
 		
 		if(userService.existByEmail(email)) {												// check for already email exist
 			

@@ -146,7 +146,11 @@
 							<li class="nav-item"><a
 								th:class="${addActive} ? 'nav-link active' : 'nav-link'"
 								id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-								aria-controls="profile" aria-selected="false">Add Testimonial</a></li>
+								aria-controls="profile" aria-selected="false">Add texted Testimonial</a></li>
+							<li class="nav-item"><a
+								th:class="${addVideoActive} ? 'nav-link active' : 'nav-link'"
+								id="profile-tab" data-toggle="tab" href="#video" role="tab"
+								aria-controls="profile" aria-selected="false">Add Video Testimonial</a></li>
 
 						</ul>
 						
@@ -172,6 +176,7 @@
 														<th>Organization</th>
 														<th>date added</th>
 														<th>Description</th>
+														<th>Video</th>
 														<th>Operation</th>
 													</tr>
 												</thead>
@@ -189,7 +194,13 @@
 															<td><span th:text="${testi.getDateAdded() }"></span></td>
 															<td style="width: 20%"><span
 																th:text="${testi.getDescription()}"></span></td>
-						
+															<td> <span th:if="${testi.getVideoPath() }">
+																	 <video width="250" height="150" controls>
+																		  <source th:src="@{/files/}+@{${testi.getVideoPath()}}" type="video/mp4"/>
+																	 </video> 
+																</span>
+															</td>
+															
 															<td><a class="btn btn-secondary detailTestimonial"
 																th:value="${testi.getTestimonialId()}" id="detailTestimonial">Update</a>
 						
@@ -265,8 +276,89 @@
                                              <div class="col-md-4">
                                                 <div class="">
                                                      <textarea class="form-control" placeholder="Enter Something"
-												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required >
-                                                   </textarea> 
+												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required></textarea> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                   
+                                        <button type="submit"  class="btn btn-info btn-fill pull-right">ADD</button>
+                                        <div class="clearfix"></div>
+                                    </form>
+                            
+                            </div>
+								
+						</div>
+						
+						 <div th:class="${addVideoActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
+								id="video" role="tabpanel" aria-labelledby="profile-tab">
+							
+							<div class="card-header">
+                                    <h4 class="card-title">Add Video Testimonial</h4>
+                                    <div class="status" th:text="${returnStatus}"></div>
+                            </div>
+                            <div class="card-body">
+			                   <form th:action="@{addVideoTestimonial}" method="post" enctype="multipart/form-data">
+                                    
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 class="label-align">Enter Name</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                   <input type="text" class="form-control" placeholder="Enter Name"
+													name="Name" aria-label="name" aria-describedby="basic-addon1"
+													id="Name" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" >
+                                                <div class="" style="text-align: center">
+                                                    <h4 style="margin:0px">Organization</h4>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4" >
+                                                <div class="form-group" >
+                                                    <input type="text" class="form-control"
+													placeholder="Enter Organization name" name="org"
+													aria-label="org" aria-describedby="basic-addon1" id="org"
+													required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 style="margin: 0px">Description</h4>
+                                                </div>
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="">
+                                                     <textarea class="form-control" placeholder="Enter Something"
+												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required></textarea> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 style="margin: 0px">Upload Video</h4>
+                                                </div>
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="">
+                                                     <input type="file" class="form-control-file" 
+														title="upload only Video File" accept="video/*"
+														name="videoTesti" required />
                                                 </div>
                                             </div>
                                         </div>

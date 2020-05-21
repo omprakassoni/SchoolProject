@@ -107,6 +107,19 @@ public class ServiceUtility {
 		return path;
 	}
 	
+	public static String uploadVideoFile(MultipartFile file,String pathToUpload) throws Exception{		// uploading file
+		String path=null;	
+		
+			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
+			
+				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println(fileNameAndPath.toString());
+				path=fileNameAndPath.toString();
+			
+			
+		
+		return path;
+	}
 	
 	public static boolean checkFileExtensionPDF(MultipartFile[] pdfFile) {				// validate file against PDF extension
 		
@@ -127,6 +140,16 @@ public class ServiceUtility {
 				return false;
 			}
 		}
+		return true;
+	}
+	
+	public static boolean checkFileExtensionVideo(MultipartFile videoFile) {			// validate file against Image Extension
+		
+		
+		if(!videoFile.getOriginalFilename().endsWith(".mp4") && !videoFile.getOriginalFilename().endsWith(".mov")) {
+			return false;
+		}
+		
 		return true;
 	}
 	

@@ -100,6 +100,7 @@ public class HomeController {
 	public static final String uploadDirectory = "Media/content/"; // Path to save resources
 	public static final String uploadTeacherDirectory = "Media/User/"; // path to save teacher Document
 	public static final String uploadEvent="Media/Event/";             // path to sabe event images
+	public static final String uploadTestimonial="Media/Testimonial/";
 
 	@Autowired
 	private ClassService classService;
@@ -835,5 +836,30 @@ public class HomeController {
 		return mv;
 	}
 
+	/************************************** Testimonial Page *****************************************************/
+	
+	@RequestMapping(path = "testimonials", method = RequestMethod.GET)
+	public ModelAndView testimonialPage(ModelAndView mv) {
+		
+		List<Testimonial> textTestimonial=new ArrayList<>();
+		List<Testimonial> mediaTestimonial=new ArrayList<>();
+		List<Testimonial> localTestimonial=testiService.findAll();
+		
+		for(Testimonial temp:localTestimonial) {
+			if(temp.getVideoPath() != null) {
+				
+				mediaTestimonial.add(temp);
+			}else {
+				
+				textTestimonial.add(temp);
+			}
+		}
+		
+		mv.addObject("textTestimonial",textTestimonial);
+		mv.addObject("mediaTestimonial",mediaTestimonial);
+		mv.addObject("textActive","active");
+		mv.setViewName("testimonial");
+		return mv;
+	}
 	/*--------------------------------------------------------END----------------------------------------------------------------------------------*/
 }

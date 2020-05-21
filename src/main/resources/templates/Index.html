@@ -194,7 +194,7 @@
 				<!-- Carousel Wrapper -->
 			</div>
 
-
+			<a style="float:right;" th:href="@{testimonials}">Click here to read more</a>
 		</div>
 	</section>
 
@@ -221,9 +221,11 @@
 		        <ul>
 		            <li th:each="event:${Events}">
 		                <div class="content">
+		                	<div th:if="${event.getPotser_path()}!=''">
 		                	<a href="#" class="pop"><img id="imagesource"th:src="@{/files/}+@{${event.getPotser_path()}}"
 									style="width: 100%; height: 150px" />
 							</a>
+							</div>
 		                    <h3 th:text="${event.getHeadline()}"> </h3>
 		                    <p th:text="${event.getDescription()}">  </p>
 		                </div>

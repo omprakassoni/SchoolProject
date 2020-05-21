@@ -328,7 +328,7 @@
                                     <div class="author">
                                     
                                         <a href="#" data-toggle="modal" data-target="#ProfilePictureModal">
-                                        <div th:text="${LoggedUser.getProfilePic()}"/>
+                                        
                                         	<span th:if="${LoggedUser.getProfilePic()}">
                                         		<img class="avatar border-gray" th:src="@{files/}+@{${LoggedUser.getProfilePic()}}" th:alt="@{/img/default-avatar.png}">
                                         	</span>

@@ -99,6 +99,7 @@ public class HomeControllerRest {
 	
 	public static String uploadDirectory="Media/content/";
 	public static final String uploadEvent="Media/Event/";
+	public static final long fileSize=10*1024*1024; 
 	
 	public static String deleteDirectory="";
 		
@@ -908,6 +909,10 @@ public class HomeControllerRest {
 				msg.add("invalid-data'");
 				return msg;
 			}
+			if(uploadfiles[0].getSize()>fileSize) {
+				msg.add("invalid-data");
+				return msg;
+			}
 			}else {
 				fileExist=false;
 			}
@@ -993,6 +998,10 @@ public class HomeControllerRest {
 					msg.add("invalid-data");
 					return msg;
 				}
+				if(uploadAnswer[0].getSize()>fileSize) {
+					msg.add("invalid-data");
+					return msg;
+				}
 				
 			}else {
 				fileExistAnswer=false;
@@ -1004,6 +1013,10 @@ public class HomeControllerRest {
 			
 			if(temp.getSize()>0) {
 				if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+					msg.add("invalid-data");
+					return msg;
+				}
+				if(uploadQuestion[0].getSize()>fileSize) {
 					msg.add("invalid-data");
 					return msg;
 				}
@@ -1161,6 +1174,9 @@ public class HomeControllerRest {
 			if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion) && !ServiceUtility.checkFileExtensionImage(uploadQuestion)) {
 			msg.add("invalid-data");
 			return msg;
+			}else if(uploadQuestion[0].getSize()>fileSize) {
+				msg.add("invalid-data");
+				return msg;
 			}
 			}else {
 				fileExist=false;
@@ -1233,9 +1249,12 @@ public class HomeControllerRest {
 		for(MultipartFile temp:conceptImage) {
 			
 			if(temp.getSize()>0) {
-			if(!ServiceUtility.checkFileExtensionImage(conceptImage)) {
-			msg.add("invalid-data");
-			return msg;
+			if(!ServiceUtility.checkFileExtensionImage(conceptImage) ) {
+				msg.add("invalid-data");
+				return msg;
+			}else if(conceptImage[0].getSize()>fileSize) {
+				msg.add("invalid-data");
+				return msg;
 			}
 			}else {
 				fileExist=false;
@@ -1418,6 +1437,11 @@ public class HomeControllerRest {
 		List<String> msg=new ArrayList<String>();
 		
 		if(!ServiceUtility.checkFileExtensionPDF(uploadLessonPlan)) {
+			msg.add("invalid-data");
+			return msg;
+		}
+		
+		if(uploadLessonPlan[0].getSize()>fileSize) {
 			msg.add("invalid-data");
 			return msg;
 		}
@@ -2401,6 +2425,13 @@ public class HomeControllerRest {
 			
 		}
 		
+		if(uploadLessonPlan[0].getSize()>fileSize) {
+			
+			status.add("failure");
+			return status;
+			
+		}
+		
 		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 		Subject localSubject=subjectService.findBysubName(subSelected);
 		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
@@ -2453,6 +2484,12 @@ public class HomeControllerRest {
 		}
 		
 		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+			
+			status.add("failure");
+			return status;
+		}
+		
+		if(uploadAnswer[0].getSize()>fileSize || uploadQuestion[0].getSize()>fileSize) {
 			
 			status.add("failure");
 			return status;
@@ -2533,6 +2570,13 @@ public class HomeControllerRest {
 			
 		}
 		
+		if(uploadDocument[0].getSize()>fileSize) {
+			
+			status.add("failure");
+			return status;
+			
+		}
+		
 		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
 		Subject localSubject=subjectService.findBysubName(subSelected);
 		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
@@ -2585,6 +2629,12 @@ public class HomeControllerRest {
 			status.add("failure");
 			return status;
 			
+		}
+		
+		if(uploadDocument[0].getSize()>fileSize) {
+			
+			status.add("failure");
+			return status;
 		}
 		
 		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));

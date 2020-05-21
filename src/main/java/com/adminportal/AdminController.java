@@ -9,6 +9,10 @@
 
 package com.adminportal;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -22,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties.ContainerType;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -33,6 +38,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.context.IContext;
 
 import com.adminportal.content.ArticleExternal;
 
@@ -72,6 +78,8 @@ import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
+import com.xuggle.xuggler.IContainer;
+
 
 /* Annotation used to declare class to accept url passed from view  */
 @Controller
@@ -79,6 +87,10 @@ public class AdminController {
 	
 	public static final String uploadDirectory="Media/content/";  /* path to which content will get stored */
 	public static final String uploadEvent="Media/Event/";
+	public static final long videoSize=50*1024*1024;                     // 50 MB vidoe File max
+	public static final long fileSize=10*1024*1024;                      // 10 MB max file   max
+	public static final String uploadTestimonial="Media/Testimonial/";
+	public static final long videoDuration=300000000L;
 	
 	@Autowired
 	private ClassService classService;
@@ -153,7 +165,7 @@ public class AdminController {
 		
 		mv.addObject("LoggedUser",localUser);
 			
-		mv.setViewName("approveReject");    
+		mv.setViewName("approveReject");   
 	
 		return mv;
 	}
@@ -418,6 +430,35 @@ public class AdminController {
 			return mv;
 			
 		}
+		
+		if(document[0].getSize()>fileSize) {
+			
+			mv.addObject("fileError", "FileSize must be within 10MB");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+
+			mv.addObject("classExist", classExist);								// setting variable for view for displaying purpose
+			
+			mv.addObject("addActive","active");
+			
+			List<DocumentExternal> documentListTemp=documentService.findAll();
+			List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
+			for(DocumentExternal temp:documentListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					documentList.add(temp);
+				}
+			}
+			
+			mv.addObject("Document",documentList);
+			
+			mv.setViewName("addDocument");										// setting view name
+			
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			return mv;
+		}
 				
 		try {
 			
@@ -544,6 +585,35 @@ public class AdminController {
 			
 			return mv;
 			
+		}
+		
+		if(lesson[0].getSize()>fileSize) {
+			
+			mv.addObject("fileError", "FileSize must be within 10MB");
+			
+			List<LessonPlan> lessonListTemp=lessonService.findAll();
+			List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
+			for(LessonPlan temp:lessonListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					lessonList.add(temp);
+				}
+			}
+		
+			mv.addObject("Lesson",lessonList);
+			
+			mv.addObject("addActive","active");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+
+			mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+			
+			mv.setViewName("addLessonPlan");											// setting view name
+			
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			return mv;
 		}
 		
 		try {
@@ -825,6 +895,21 @@ public class AdminController {
 			mv.addObject("addActive","active");
 			return mv;
 			
+			
+		}
+		
+		if(poster[0].getSize()>fileSize) {
+			
+			mv.addObject("fileError", "FileSize must be within 10MB ");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+			
+			mv.addObject("classExist", classExist);
+			mv.setViewName("addTopic");
+			List<Topic> topicList=topicService.findAll();
+			mv.addObject("Topic", topicList);
+			mv.addObject("addActive","active");
+			return mv;
 			
 		}
 		
@@ -1254,6 +1339,31 @@ public class AdminController {
 			
 		}
 		
+		if(question[0].getSize()>fileSize || answer[0].getSize()>fileSize) {
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+
+			mv.addObject("classExist", classExist);
+
+			mv.addObject("fileError", "FileSize must be within 10MB");
+				
+			mv.setViewName("addQuiz");
+			mv.addObject("addActive","active");
+			
+			
+			List<QuizQuestion> quizListTemp=quizService.findAll();
+			List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
+			for(QuizQuestion temp:quizListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					quizList.add(temp);
+				}
+			}
+			
+			mv.addObject("Quiz",quizList );
+			
+			return mv;
+		}
+		
 		
 		Class localClass=classService.findByClassName(Integer.parseInt(className));
 		Subject localSubject=subjectService.findBysubName(subjectName);
@@ -1394,6 +1504,31 @@ public class AdminController {
 			
 			return mv;
 			
+		}
+		
+		if(conceptMapImage[0].getSize()>fileSize) {
+			
+			mv.addObject("fileError", "FileSize must be within 10MB");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
+
+			mv.addObject("classExist", classExist);
+			
+			List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
+			List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
+			for(ConceptMap temp:ConceptMapListTemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					ConceptMapList.add(temp);
+				}
+			}
+			
+			mv.addObject("ConceptMapList",ConceptMapList );
+			
+			mv.addObject("addActive","active");
+			
+			mv.setViewName("addConcpetMap");
+			
+			return mv;
 		}
 		
 		
@@ -1604,7 +1739,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/addView/addTestimonial",method = RequestMethod.POST)
 	public ModelAndView addTestimonialPost(HttpServletRequest req,ModelAndView mv,Principal principal) {
 		
-		HttpSession session=req.getSession(false);					// checking the last alive session
+							
 		String name=req.getParameter("Name");						// taking out various information given by user in view.
 		String organization=req.getParameter("org");
 		String Desc=req.getParameter("description");
@@ -1640,6 +1775,149 @@ public class AdminController {
 			
 		
 		return mv;
+
+	}
+	
+	@RequestMapping(value = "/admin/addView/addVideoTestimonial",method = RequestMethod.POST)
+	public ModelAndView addVideoTestimonialPost(@RequestParam(name="videoTesti") MultipartFile video ,HttpServletRequest req,ModelAndView mv,Principal principal) throws Exception {
+		
+		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		if(!ServiceUtility.checkFileExtensionVideo(video)) {
+			
+			mv.addObject("returnStatus", "Video format not Supported (only MP4 and MOV)");
+			mv.addObject("addVideoActive","active");
+			List<Testimonial> local=testiService.findAll();
+			mv.addObject("Testimonial", local);
+			mv.setViewName("addTestimonial");
+			return mv;
+			
+		}
+		
+		if(video.getSize()>videoSize) {
+			
+			mv.addObject("returnStatus", "Video size must be less than 50MB");
+			mv.addObject("addVideoActive","active");
+			List<Testimonial> local=testiService.findAll();
+			mv.addObject("Testimonial", local);
+			mv.setViewName("addTestimonial");
+			return mv;
+		}
+		
+		String pathSampleVideo=ServiceUtility.uploadVideoFile(video, env.getProperty("spring.applicationexternalPath.name")+uploadTestimonial);
+		
+		IContainer container = IContainer.make();
+		int result=10;
+		result = container.open(pathSampleVideo,IContainer.Type.READ,null);
+		
+		if(result<0) {
+			
+			mv.addObject("returnStatus", "Please Try again");
+			mv.addObject("addVideoActive","active");
+			List<Testimonial> local=testiService.findAll();
+			mv.addObject("Testimonial", local);
+			mv.setViewName("addTestimonial");
+			return mv;
+			
+		}else {
+			
+			if(container.getDuration()>videoDuration) {
+				
+				mv.addObject("returnStatus", "duration of file must be 5 minutes or less");
+				mv.addObject("addVideoActive","active");
+				List<Testimonial> local=testiService.findAll();
+				mv.addObject("Testimonial", local);
+				mv.setViewName("addTestimonial");
+				return mv;
+			}else {
+				
+				Path deletePreviousPath=Paths.get(pathSampleVideo);
+				Files.delete(deletePreviousPath);
+				
+				int testiId=testiService.getCount();
+				Testimonial addtestData=new Testimonial();
+				addtestData.setTestimonialId(testiId);
+				addtestData.setDateAdded(ServiceUtility.getCurrentTime());
+				addtestData.setName(req.getParameter("Name"));
+				addtestData.setDescription(req.getParameter("description"));
+				addtestData.setOrganization(req.getParameter("org"));
+				
+				testiService.save(addtestData);
+				
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadTestimonial+"/"+testiId);
+				
+				String pathtoUploadTestData=env.getProperty("spring.applicationexternalPath.name")+uploadTestimonial+"/"+testiId;
+				
+				String documentLocal=ServiceUtility.uploadVideoFile(video, pathtoUploadTestData);
+				
+				int indexToStart=documentLocal.indexOf("Media");
+				
+				String document=documentLocal.substring(indexToStart, documentLocal.length());
+				
+				Testimonial localTest=testiService.getbyId(testiId);
+				localTest.setVideoPath(document);
+				
+				testiService.save(localTest);
+				
+				mv.addObject("returnStatus", "Testimonial added Successfully");
+				mv.addObject("addVideoActive","active");
+				List<Testimonial> local=testiService.findAll();
+				mv.addObject("Testimonial", local);
+				mv.setViewName("addTestimonial");
+				return mv;
+				
+			}
+			
+		}
+		
+	/*	long duration = container.getDuration();
+		long fileSize = container.getFileSize();
+		
+		System.out.println(video.getOriginalFilename());
+		System.out.println(result);
+		System.out.println(duration);
+		System.out.println(fileSize);
+		System.out.println(video.getSize());*/
+		
+		/*
+		 * String om = "/home/om/Desktop/VID_20191227_153237.mp4"; IContainer container
+		 * = IContainer.make(); int result = container.open(om, IContainer.Type.READ,
+		 * null); long duration = container.getDuration(); long fileSize =
+		 * container.getFileSize(); System.out.println(result);
+		 * System.out.println(duration); System.out.println(fileSize);
+		 */
+		
+		/*
+		 * String name=req.getParameter("Name"); // taking out various information given
+		 * by user in view. String organization=req.getParameter("org"); String
+		 * Desc=req.getParameter("description");
+		 * 
+		 * 
+		 * User localUser=userService.findByUsername(principal.getName());
+		 * 
+		 * mv.addObject("LoggedUser",localUser);
+		 * 
+		 * try { Testimonial addtestData=new Testimonial();
+		 * addtestData.setTestimonialId(testiService.getCount());
+		 * addtestData.setDateAdded(ServiceUtility.getCurrentTime());
+		 * addtestData.setName(name); addtestData.setDescription(Desc);
+		 * addtestData.setOrganization(organization);
+		 * 
+		 * testiService.save(addtestData); mv.addObject("returnStatus",
+		 * "Data Added Sucessfully"); mv.addObject("addVideoActive","active");
+		 * List<Testimonial> local=testiService.findAll(); mv.addObject("Testimonial",
+		 * local); mv.setViewName("addTestimonial"); // setting view name } catch
+		 * (Exception e) {
+		 * 
+		 * mv.addObject("returnStatus", "Please Try Again");
+		 * mv.addObject("addVideoActive","active"); List<Testimonial>
+		 * local=testiService.findAll(); mv.addObject("Testimonial", local);
+		 * mv.setViewName("addTestimonial"); e.printStackTrace(); }
+		 */
+			
 
 	}
 	
@@ -1684,6 +1962,17 @@ public class AdminController {
 				
 			}
 		
+		if(poster[0].getSize()>fileSize) {
+			
+			mv.addObject("returnStatus", "FileSize must be within 10MB");
+			
+			List<Events> local=eventService.findAll();
+			mv.addObject("Events", local);
+			mv.addObject("addActive","active");
+			mv.setViewName("addEvent");
+			
+		}
+		
 			
 			
 					
@@ -1707,9 +1996,9 @@ public class AdminController {
 						boolean path_creation=ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadEvent+"/"+eventId);
 						
 						
-						String pathtoUploadteacherData=env.getProperty("spring.applicationexternalPath.name")+uploadEvent+"/"+eventId;
+						String pathtoUploadEventData=env.getProperty("spring.applicationexternalPath.name")+uploadEvent+"/"+eventId;
 						
-						String documentLocal=ServiceUtility.uploadFile(poster, pathtoUploadteacherData);
+						String documentLocal=ServiceUtility.uploadFile(poster, pathtoUploadEventData);
 						
 						int indexToStart=documentLocal.indexOf("Media");
 						
