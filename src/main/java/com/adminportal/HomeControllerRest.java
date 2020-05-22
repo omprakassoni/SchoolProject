@@ -1249,7 +1249,7 @@ public class HomeControllerRest {
 		for(MultipartFile temp:conceptImage) {
 			
 			if(temp.getSize()>0) {
-			if(!ServiceUtility.checkFileExtensionImage(conceptImage) ) {
+			if(!ServiceUtility.checkFileExtensionImage(conceptImage) && !ServiceUtility.checkFileExtensionHtml(conceptImage) ) {
 				msg.add("invalid-data");
 				return msg;
 			}else if(conceptImage[0].getSize()>fileSize) {
@@ -2624,7 +2624,7 @@ public class HomeControllerRest {
 		List<String> status=new ArrayList<String>();
 		
 		
-		if(!ServiceUtility.checkFileExtensionImage(uploadDocument)) {
+		if(!ServiceUtility.checkFileExtensionImage(uploadDocument) && !ServiceUtility.checkFileExtensionHtml(uploadDocument)) {
 			
 			status.add("failure");
 			return status;

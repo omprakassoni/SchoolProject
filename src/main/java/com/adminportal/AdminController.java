@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.security.Provider.Service;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1481,8 +1482,8 @@ public class AdminController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
-		if(!ServiceUtility.checkFileExtensionImage(conceptMapImage)) {    // check Image file
-			mv.addObject("fileError", "File must be a Image File");
+		if(!ServiceUtility.checkFileExtensionImage(conceptMapImage) && !ServiceUtility.checkFileExtensionHtml(conceptMapImage)) {    // check Image file
+			mv.addObject("fileError", "File must be a Image File or Html Page");
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
 

@@ -153,6 +153,17 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	public static boolean checkFileExtensionHtml(MultipartFile[] imageFile) {			// validate file against HTML Extension
+		
+		for(MultipartFile temp:imageFile) {
+			if(!temp.getOriginalFilename().endsWith(".html") && !temp.getOriginalFilename().endsWith(".xhtml")) {
+				
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	
 	
 	public static String presentDirectory() {

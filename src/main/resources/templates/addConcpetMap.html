@@ -193,9 +193,16 @@
 															<td><span th:text="${concept.getUser().getFname()}"></span></td>
 						
 						
-															<td><a href="#" class="pop"><img id="imagesource"
-																	th:src="@{/files/}+@{${concept.getUrl()}}"
-																	style="width: 150px; height: 100px" /></a></td>
+															<td th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')}">
+															<a href="#" class="pop"><img id="imagesource"
+															th:src="@{/files/}+@{${concept.getUrl()}}"
+															style="width: 150px; height: 100px" /></a></td>
+															
+															<td th:if="${#strings.endsWith(concept.getUrl(),'html')} or ${#strings.endsWith(concept.getUrl(),'xhtml')}">
+															<a th:href="@{/files/}+@{${concept.getUrl()}}"
+															target="_blank" class="pdfclass"><img id="pdfsource"
+															th:src="${concept.getUrl()}" alt="Click here"></img></a></td>
+															
 															<td><span th:if="${concept.getStatus()==1}"><div
 																		id="true" /></span> <span th:unless="${concept.getStatus()==1}"><div
 																		id="false" /></span></td>

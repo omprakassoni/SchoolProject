@@ -213,7 +213,7 @@
                                 <div class="card-body">
                                  <div class="row" th:each="concept:${ConceptOnTopic}">
                                  	<div class="col-sm-12 col-md-12 col-lg-12">
-										<h2 th:text="${concept.getRemark()}" style="color: blue"></h2>
+										<h2 th:text="${concept.getRemark()}" style="color: GREY"></h2>
 									</div>
 
 									<div class="col-sm-12 col-md-6 col-lg-6">
@@ -222,14 +222,18 @@
 
 									<div class="col-sm-12 col-md-6 col-lg-6">
 
-									<img class="img-responsive"
+									<img class="img-responsive" th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')}"
 									th:src="@{/files/}+@{${concept.getUrl()}}"
 									style="width: 100%; height: 300px" />
+									
+									<a th:href="@{/files/}+@{${concept.getUrl()}}" th:if="${#strings.endsWith(concept.getUrl(),'html')} or ${#strings.endsWith(concept.getUrl(),'xhtml')}"
+										target="_blank" class="pdfclass"><h4>Check Out</h4></a>
 
 									</div>
 									
+									 
 								</div>
-                                    
+                                   
                                 </div>
                             </div>
                         </div>
