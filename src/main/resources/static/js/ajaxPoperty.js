@@ -7,6 +7,15 @@ $(function(){
 	
 	/**************************** Reloading Page on closing of Modal ***********************************************/
 	
+	 $(".contentInstruction").hide();
+	 
+	 $(".show_hide").on("click", function () {
+	        var txt = $(".contentInstruction").is(':visible') ? 'Instructions?' : 'Read Less';
+	        $(".show_hide").text(txt);
+	        $(this).next('.contentInstruction').slideToggle(200);
+	    });
+	
+	
 	$('#VideoModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});

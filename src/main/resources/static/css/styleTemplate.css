@@ -71,7 +71,7 @@
     left: 5px;
     width: 50px;
     height: 32px;
-    background: url('/Images/testimonials-caret.png') no-repeat;
+    background: url('../Images/testimonials-caret.png') no-repeat;
 }
 
 .user-details {

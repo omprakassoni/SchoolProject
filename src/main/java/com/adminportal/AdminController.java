@@ -1789,12 +1789,50 @@ public class AdminController {
 		
 		if(!ServiceUtility.checkFileExtensionVideo(video)) {
 			
+			if(ServiceUtility.checkFileExtensiononeFilePDF(video)) {
+				
+				int testiId=testiService.getCount();
+				Testimonial addtestData=new Testimonial();
+				addtestData.setTestimonialId(testiId);
+				addtestData.setDateAdded(ServiceUtility.getCurrentTime());
+				addtestData.setName(req.getParameter("Name"));
+				addtestData.setDescription(req.getParameter("description"));
+				addtestData.setOrganization(req.getParameter("org"));
+				
+				testiService.save(addtestData);
+				
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadTestimonial+"/"+testiId);
+				
+				String pathtoUploadTestData=env.getProperty("spring.applicationexternalPath.name")+uploadTestimonial+"/"+testiId;
+				
+				String documentLocal=ServiceUtility.uploadVideoFile(video, pathtoUploadTestData);
+				
+				int indexToStart=documentLocal.indexOf("Media");
+				
+				String document=documentLocal.substring(indexToStart, documentLocal.length());
+				
+				Testimonial localTest=testiService.getbyId(testiId);
+				localTest.setFilePath(document);
+				
+				testiService.save(localTest);
+				
+				mv.addObject("returnStatus", "Testimonial added Successfully");
+				mv.addObject("addVideoActive","active");
+				List<Testimonial> local=testiService.findAll();
+				mv.addObject("Testimonial", local);
+				mv.setViewName("addTestimonial");
+				return mv;
+				
+				
+			}else {
+			
 			mv.addObject("returnStatus", "Video format not Supported (only MP4 and MOV)");
 			mv.addObject("addVideoActive","active");
 			List<Testimonial> local=testiService.findAll();
 			mv.addObject("Testimonial", local);
 			mv.setViewName("addTestimonial");
 			return mv;
+			}
 			
 		}
 		

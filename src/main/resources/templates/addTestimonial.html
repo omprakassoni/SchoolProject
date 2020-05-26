@@ -194,11 +194,20 @@
 															<td><span th:text="${testi.getDateAdded() }"></span></td>
 															<td style="width: 20%"><span
 																th:text="${testi.getDescription()}"></span></td>
-															<td> <span th:if="${testi.getVideoPath() }">
+															<td th:if="${testi.getFilePath()}">
+																	 <a th:href="@{/files/}+@{${testi.getFilePath()}}"
+																		target="_blank" class="pdfclass"><img id="pdfsource"
+																	th:src="${testi.getFilePath()}" alt="Document"></img></a>
+																
+															</td>
+															<td th:if="${testi.getVideoPath()}">
 																	 <video width="250" height="150" controls>
 																		  <source th:src="@{/files/}+@{${testi.getVideoPath()}}" type="video/mp4"/>
 																	 </video> 
-																</span>
+																
+															</td>
+															<td th:if="${testi.getFilePath()==null} and ${testi.getVideoPath()==null}">
+																	
 															</td>
 															
 															<td><a class="btn btn-secondary detailTestimonial"
@@ -294,7 +303,7 @@
 								id="video" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add Video Testimonial</h4>
+                                    <h4 class="card-title">Add Video/pdf Testimonial</h4>
                                     <div class="status" th:text="${returnStatus}"></div>
                             </div>
                             <div class="card-body">
@@ -350,7 +359,7 @@
                                          <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Upload Video</h4>
+                                                    <h4 style="margin: 0px">Upload Video/PDF</h4>
                                                 </div>
                                             </div>
                                              
@@ -359,6 +368,23 @@
                                                      <input type="file" class="form-control-file" 
 														title="upload only Video File" accept="video/*"
 														name="videoTesti" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                                
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="">
+                                                    <a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
+                                                    <div class="contentInstruction" style="color:red">
+                                                    	<p> * File must be mp4/mov format or Pdf format only </p>
+                                                    	<p> * File must be less than 50 MB in size </p>
+                                                    	<p> * Video duration must be atmost 5 min. </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

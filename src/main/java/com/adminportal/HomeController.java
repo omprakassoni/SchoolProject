@@ -843,20 +843,24 @@ public class HomeController {
 		
 		List<Testimonial> textTestimonial=new ArrayList<>();
 		List<Testimonial> mediaTestimonial=new ArrayList<>();
+		List<Testimonial> fileTestimonial=new ArrayList<>();
 		List<Testimonial> localTestimonial=testiService.findAll();
 		
 		for(Testimonial temp:localTestimonial) {
 			if(temp.getVideoPath() != null) {
 				
 				mediaTestimonial.add(temp);
-			}else {
+			}else if(temp.getFilePath() !=null){
 				
+				fileTestimonial.add(temp);
+			}else {
 				textTestimonial.add(temp);
 			}
 		}
 		
 		mv.addObject("textTestimonial",textTestimonial);
 		mv.addObject("mediaTestimonial",mediaTestimonial);
+		mv.addObject("fileTestimonial",fileTestimonial);
 		mv.addObject("textActive","active");
 		mv.setViewName("testimonial");
 		return mv;

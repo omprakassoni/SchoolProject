@@ -33,6 +33,10 @@
 								th:class="${mediaActive} ? 'nav-link active' : 'nav-link'"
 								id="profile-tab" data-toggle="tab" href="#profile" role="tab"
 								aria-controls="profile" aria-selected="false">Media</a></li>
+							<li class="nav-item"><a
+								th:class="${fileActive} ? 'nav-link active' : 'nav-link'"
+								id="profile-tab" data-toggle="tab" href="#pdf" role="tab"
+								aria-controls="profile" aria-selected="false">File</a></li>
 
 						</ul>
 						
@@ -88,6 +92,34 @@
 								
 									
 							</div>
+							
+							<div th:class="${fileActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
+								id="pdf" role="tabpanel" aria-labelledby="home-tab"> 
+								
+								<div class="testimonial-item" th:each="textTesti:${fileTestimonial}">
+				                    <div class="testimonial-content">
+				                        
+				                        <div class="message">
+				                            <i class="fa fa-quote-left" style="color:#e6e6e6;"></i><h5 th:text="${textTesti.getDescription()}"></h5> <i class="fa fa-quote-right pull-right" style="color:#e6e6e6;"></i>
+				                           
+				                        </div>
+				                        <div style="float:right">
+				                        	<a th:href="@{/files/}+@{${textTesti.getFilePath()}}"
+																target="_blank" class="pdfclass"><img id="pdfsource"
+																	th:src="${textTesti.getFilePath()}" alt="Click here to see"></img></a>
+				                        </div>
+				                    </div>
+				                    <div class="testimonials-details">
+				                        <div class="testimonials-caret"></div>
+				                        <div class="user-details">
+				                            <p th:text="${textTesti.getName()}+', ' + ${textTesti.getOrganization()}"/>
+				                        </div>
+				                    </div>
+				                </div>
+								   
+                                
+                                    
+                            </div>
                          	
                     </div>
                      

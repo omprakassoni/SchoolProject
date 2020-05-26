@@ -38,6 +38,9 @@ public class Testimonial {
 	@Column
 	private String videoPath;
 	
+	@Column
+	private String filePath;
+	
 	public int getTestimonialId() {
 		return testimonialId;
 	}
@@ -84,6 +87,14 @@ public class Testimonial {
 
 	public void setDateAdded(Timestamp dateAdded) {
 		this.dateAdded = dateAdded;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 }
