@@ -1997,7 +1997,7 @@ public class AdminController {
 			mv.addObject("Events", local);
 			mv.addObject("addActive","active");
 			mv.setViewName("addEvent");
-				
+			return mv;
 				
 			}
 		
@@ -2009,6 +2009,7 @@ public class AdminController {
 			mv.addObject("Events", local);
 			mv.addObject("addActive","active");
 			mv.setViewName("addEvent");
+			return mv;
 			
 		}
 		
