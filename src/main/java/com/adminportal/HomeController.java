@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,6 +47,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -160,12 +162,22 @@ public class HomeController {
 	private EventsRepository evenRepo;
 
 	/*
+	 * @Autowired HttpServletRequest req;
+	 */
+	/*
 	 * ------------------------------------------HOME
 	 * PAGE-------------------------------------------------
 	 */
 
 	@RequestMapping("/")
-	public ModelAndView home(ModelAndView mv) {
+	public ModelAndView home(@RequestHeader Map<String ,String> headers,ModelAndView mv) {
+		
+		/*
+		 * headers.forEach((key,value)->{
+		 * System.out.println("Header Name: "+key+" Header Value: "+value); });
+		 * 
+		 * System.out.println(req.getRemoteAddr());
+		 */
 
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 
@@ -523,6 +535,8 @@ public class HomeController {
 	public ModelAndView signup(ModelAndView mv) {
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("checkedOptionLearner", "checked");
+		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subject);
 		mv.addObject("classfromDatabase", standard);
 		mv.setViewName("Signup");
 		return mv;

@@ -1034,9 +1034,24 @@ public class AdminController {
 		boolean subjectExist=false;
 		
 		User localUser=userService.findByUsername(principal.getName());
-		
 		mv.addObject("LoggedUser",localUser);
 		
+		if(!ServiceUtility.checkContainNumeralInString(selectedSubject)) {
+			mv.addObject("statusError", "Please Enter only Charcter value");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+			
+			mv.addObject("classExist",classExist);										// setting variable for view for displaying purpose								
+			mv.addObject("addActive","active");
+			
+			List<Subject> subjectList=subjectService.findAll();
+			mv.addObject("Subject", subjectList);
+			
+			
+			mv.setViewName("addSubject");												// setting view name
+			return mv;
+			
+		}
 		ArrayList<Subject> subject=(ArrayList<Subject>) subjectService.findAll();
 		for(Subject temp:subject) {
 			if(selectedSubject.equalsIgnoreCase(temp.getSubName())) {

@@ -26,11 +26,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.adminportal.content.Class;
+import com.adminportal.content.Subject;
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
 import com.adminportal.service.ClassService;
 import com.adminportal.service.RoleDetailService;
+import com.adminportal.service.SubjectService;
 import com.adminportal.service.UserRoleService;
 import com.adminportal.service.UserService;
 import com.spoken.Utility.ServiceUtility;
@@ -56,6 +58,9 @@ public class RegistrationController {
 	@Autowired
 	private Environment env;
 	
+	@Autowired
+	private SubjectService subjectService;
+	
 /*------------------------------------------Registration Task Method (LEARNER)-----------------------------------------------------------------*/
 	
 	
@@ -71,6 +76,9 @@ public class RegistrationController {
 		String pincodeString=req.getParameter("txtPincode");
 		int pincode=Integer.parseInt(pincodeString);
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
+		
+		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subject);
 		
 		if(!ServiceUtility.checkEmailValidity(email)) {
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
@@ -113,7 +121,17 @@ public class RegistrationController {
 		SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date dateUtil=sd1.parse(date);
 		Date dateOfBirth=new Date(dateUtil.getTime());
-		
+		if(!dateOfBirth.before(ServiceUtility.getCurrentTime())) {
+			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
+			mv.addObject("classfromDatabase", standard);
+			
+			mv.addObject("FailureL", "Please enter previous date");
+			mv.addObject("checkedOptionLearner", "checked");
+			mv.setViewName("Signup");
+			
+			return mv;
+			
+		}
 	
 		RoleDetail role=roleService.findByRoleName("Learner");
 		
@@ -156,6 +174,9 @@ public class RegistrationController {
 		String password=req.getParameter("password");
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
+		
+		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subject);
 		
 		if(!ServiceUtility.checkEmailValidity(email)) {
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
@@ -232,6 +253,9 @@ public class RegistrationController {
 		String password=req.getParameter("password");
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
+		
+		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
+		mv.addObject("subjectfromDatabase", subject);
 		
 		if(!ServiceUtility.checkEmailValidity(email)) {
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();

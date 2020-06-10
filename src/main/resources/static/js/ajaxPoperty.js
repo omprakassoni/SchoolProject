@@ -199,6 +199,9 @@ $(function(){
 		$('#topicTutorial').change(function(){
 			
 			$("#foss").prop('disabled', true);
+			$("#fossLanguage").prop('disabled', true);
+			$("#fossTutorial").prop('disabled', true);
+			
 			
 			$.ajax({
 				  	 type: "GET",
@@ -212,6 +215,7 @@ $(function(){
 			       	    var html = '';
 			            var len = data.length;
 			           
+			            html+='<option>Select Foss</option>';
 			            for (var i = 0; i < len; i++) {
 			             html += '<option value="' + data[i].id + '">'
 			               + data[i].foss
@@ -247,6 +251,7 @@ $(function(){
 			var fossId=$(this).find(":selected").val();
 			
 			$("#fossLanguage").prop('disabled', true);
+			$("#fossTutorial").prop('disabled', true);
 			
 			var urlLanguage="https://spoken-tutorial.org/api/get_fosslanguage/"+fossId+"/";
 			
@@ -262,7 +267,8 @@ $(function(){
 		       			
 			       	    var html = '';
 			            var len = data.length;
-			           
+			            
+			            html+='<option>Select Language</option>';
 			            for (var i = 0; i < len; i++) {
 			             html += '<option value="' + data[i].id + '">'
 			               + data[i].name
@@ -311,7 +317,7 @@ $(function(){
 		       			
 			       	    var html = '';
 			            var len = data.length;
-			          
+			    
 			            for (var i = 0; i < len; i++) {
 			             html += '<option value="' + data[i].id + '">'
 			               + data[i].tutorial_name
@@ -3080,7 +3086,7 @@ $(function(){
   					
   					$('#modalClass [type=checkbox]').each(function() {
 	       				   if($(this).is(':checked')){
-	       					data[i++]=$(this).val();
+	       					dataSubject[i++]=$(this).val();
 	       					}
 	       				});
   					

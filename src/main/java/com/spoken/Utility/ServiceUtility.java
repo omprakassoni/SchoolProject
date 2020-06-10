@@ -196,4 +196,15 @@ public class ServiceUtility {
         
         return pat.matcher(email).matches(); 
 	}
+	
+	public static boolean checkContainNumeralInString(String input) {
+		for(int i=0 ; i<=input.length();i++) {
+			if(input.charAt(i)=='0' || input.charAt(i)=='1' || input.charAt(i)=='2' || input.charAt(i)=='3' ||
+					input.charAt(i)=='4' || input.charAt(i)=='5' || input.charAt(i)=='6' || input.charAt(i)=='7' ||
+					input.charAt(i)=='8' || input.charAt(i)=='9') {
+				return false;
+			}
+		}
+		return true;
+	}
 }

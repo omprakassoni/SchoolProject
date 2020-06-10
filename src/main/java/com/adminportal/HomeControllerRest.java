@@ -867,6 +867,11 @@ public class HomeControllerRest {
 			System.out.println(sub);
 			Subject subject=subjectService.findById(idsub);
 			
+			if(!ServiceUtility.checkContainNumeralInString(data.get(size-1))) {
+				msg.add("failure");
+				return msg;
+				
+			}
 			subjectService.updateSubjectName(data.get(size-1), idsub);
 				
 			
