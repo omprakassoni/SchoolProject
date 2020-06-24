@@ -87,6 +87,7 @@ import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.CommentAjaxQueryResolver;
 import com.spoken.Utility.CommentReplyAjaxQueryResolver;
+import com.spoken.Utility.LoadUserLearner;
 import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.SubjectAjaxQueryResolver;
 import com.spoken.Utility.SubjectClassAjaxQueryResolver;
@@ -499,13 +500,21 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOADING USER DETIAILS----------------------------------------------------------------------*/
 	
 	@PostMapping("/loadByUser")
-	public User loadByUser(@Valid @RequestBody User usr){
+	public LoadUserLearner loadByUser(@Valid @RequestBody User usr){
 	
 		User localUser=userService.findById(usr.getId());
-
-		localUser.setPassword("0");
-		localUser.setUserRoles(null);
-		return localUser;
+		LoadUserLearner local=new LoadUserLearner();
+		local.setFname(localUser.getFname());
+		local.setLname(localUser.getLname());
+		local.setEmail(localUser.getEmail());
+		local.setSex(localUser.getSex());
+		local.setDateOfBirth(localUser.getDateOfBirth());
+		local.setSchoolName(localUser.getSchoolName());
+		local.setSchoolAddress(localUser.getSchoolAddress());
+		local.setPincode(localUser.getPincode());
+		
+		
+		return local;
 		
 	
 	}

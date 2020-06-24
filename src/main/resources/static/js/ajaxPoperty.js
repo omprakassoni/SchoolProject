@@ -16,7 +16,7 @@ $(function(){
 	    });
 	
 	
-	$('#VideoModal').on('hidden.bs.modal', function () {
+/*	$('#VideoModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
 	
@@ -57,7 +57,7 @@ $(function(){
 	});
 	$('#ConceptMapModal').on('hidden.bs.modal', function () {
 		location.reload();
-	});
+	});*/
 	
 	/*------------------------------Profile Picture Update ----------------------------------------------------*/
 	$('#profilePicture').change(function(){
@@ -6611,6 +6611,12 @@ $(document).ready(function () {
 
 /********************************************************************/
 
+$(window).on('load',function(){
+	if($('#reg').val() == 'yes'){
+		
+		$('#registerModal').modal('show');
+	}
+})
 
 // -----------------------------------------AJAX FUNCTION FOR TOPIC---------------------------------------------------------------------------
   	

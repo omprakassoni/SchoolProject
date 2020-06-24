@@ -16,12 +16,12 @@
 	<div th:replace="common/header :: navbar"></div>
 
 
-	<div class="" style="background-color: rgb(10, 42, 102)">
+	<div class="" style="background-color: rgb(10, 42, 102)" th:if="${classSelected} or ${subjectSelected}">
 		<div class="container">
-			<h5 style="color: white; margin-bottom: 0px">
+			<h5 style="color: white; margin-bottom: 0px" th:if="${classSelected}">
 				<span th:text="'Class '+${classSelected}"></span>
 			</h5>
-			<h1 style="color: white; font-weight: bold">
+			<h1 style="color: white; font-weight: bold" th:if="${subjectSelected}">
 				<span th:text="${subjectSelected}"></span>
 			</h1>
 

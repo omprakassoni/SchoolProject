@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +27,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.adminportal.content.Class;
+import com.adminportal.content.Events;
 import com.adminportal.content.Subject;
+import com.adminportal.content.Testimonial;
 import com.adminportal.domain.RoleDetail;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
 import com.adminportal.service.ClassService;
+import com.adminportal.service.EventService;
 import com.adminportal.service.RoleDetailService;
 import com.adminportal.service.SubjectService;
+import com.adminportal.service.TestimonialService;
 import com.adminportal.service.UserRoleService;
 import com.adminportal.service.UserService;
 import com.spoken.Utility.ServiceUtility;
@@ -60,6 +65,12 @@ public class RegistrationController {
 	
 	@Autowired
 	private SubjectService subjectService;
+	
+	@Autowired
+	private TestimonialService testiService;
+
+	@Autowired
+	private EventService eventService;
 	
 /*------------------------------------------Registration Task Method (LEARNER)-----------------------------------------------------------------*/
 	
@@ -155,9 +166,50 @@ public class RegistrationController {
 			
 		
 		userService.createUser(usr, userRoles);
-		mv.setViewName("redirect:/");
+		mv.addObject("registerDone", "yes");
 		
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+
+		ArrayList<Subject> subject1 = (ArrayList<Subject>) subjectService.findAll();
+
+		List<Testimonial> testidata = testiService.getAlltestimonial();
+
+		List<Events> eventData = eventService.getAllEventdata();
+
+		if (testidata.size() > 0) {
+
+			Testimonial temp1 = testidata.get(0);
+			mv.addObject("TestimonialFirst", temp1);
+
+			List<Testimonial> temp2 = new ArrayList<Testimonial>();
+			for (int i = 1; i < testidata.size(); i++) {
+				temp2.add(testidata.get(i));
+			}
+
+			mv.addObject("TestimonialRest", temp2);
+
+		}
+
+		if (eventData.size() > 0) {
+
+			List<Events> eventTemp = new ArrayList<Events>();
+			eventTemp.add(eventData.get(0));
+			for (int i = 1; i < eventData.size(); i++) {
+				eventTemp.add(eventData.get(i));
+				if(i==5) {
+					break;
+				}
+			}
+
+			mv.addObject("Events", eventTemp);
+		}
+
+		mv.addObject("classfromDatabase", standard);
+		mv.addObject("subjectfromDatabase", subject1);
+
+		mv.setViewName("Index");
 		return mv;
+		
 	}
 	
 	
@@ -235,8 +287,47 @@ public class RegistrationController {
 		
 		userService.createUser(usr, userRoles);													// persisting user(Parent)
 		
-		
-		mv.setViewName("redirect:/");
+		mv.addObject("registerDone", "yes");
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+
+		ArrayList<Subject> subject1 = (ArrayList<Subject>) subjectService.findAll();
+
+		List<Testimonial> testidata = testiService.getAlltestimonial();
+
+		List<Events> eventData = eventService.getAllEventdata();
+
+		if (testidata.size() > 0) {
+
+			Testimonial temp1 = testidata.get(0);
+			mv.addObject("TestimonialFirst", temp1);
+
+			List<Testimonial> temp2 = new ArrayList<Testimonial>();
+			for (int i = 1; i < testidata.size(); i++) {
+				temp2.add(testidata.get(i));
+			}
+
+			mv.addObject("TestimonialRest", temp2);
+
+		}
+
+		if (eventData.size() > 0) {
+
+			List<Events> eventTemp = new ArrayList<Events>();
+			eventTemp.add(eventData.get(0));
+			for (int i = 1; i < eventData.size(); i++) {
+				eventTemp.add(eventData.get(i));
+				if(i==5) {
+					break;
+				}
+			}
+
+			mv.addObject("Events", eventTemp);
+		}
+
+		mv.addObject("classfromDatabase", standard);
+		mv.addObject("subjectfromDatabase", subject1);
+
+		mv.setViewName("Index");
 		return mv;
 	}
 	
@@ -356,8 +447,47 @@ public class RegistrationController {
 		
 		userService.createUser(usr, userRoles);										// persist user (Teacher)
 		
-		
-		mv.setViewName("redirect:/");
+		mv.addObject("registerDone", "yes");
+		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+
+		ArrayList<Subject> subject1 = (ArrayList<Subject>) subjectService.findAll();
+
+		List<Testimonial> testidata = testiService.getAlltestimonial();
+
+		List<Events> eventData = eventService.getAllEventdata();
+
+		if (testidata.size() > 0) {
+
+			Testimonial temp1 = testidata.get(0);
+			mv.addObject("TestimonialFirst", temp1);
+
+			List<Testimonial> temp2 = new ArrayList<Testimonial>();
+			for (int i = 1; i < testidata.size(); i++) {
+				temp2.add(testidata.get(i));
+			}
+
+			mv.addObject("TestimonialRest", temp2);
+
+		}
+
+		if (eventData.size() > 0) {
+
+			List<Events> eventTemp = new ArrayList<Events>();
+			eventTemp.add(eventData.get(0));
+			for (int i = 1; i < eventData.size(); i++) {
+				eventTemp.add(eventData.get(i));
+				if(i==5) {
+					break;
+				}
+			}
+
+			mv.addObject("Events", eventTemp);
+		}
+
+		mv.addObject("classfromDatabase", standard);
+		mv.addObject("subjectfromDatabase", subject1);
+
+		mv.setViewName("Index");
 		return mv;
 	}
 	

@@ -435,6 +435,19 @@ public class User implements UserDetails{
 		this.profilePic = profilePic;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", sex=" + sex + ", fname=" + fname
+				+ ", lname=" + lname + ", document=" + document + ", schoolName=" + schoolName + ", schoolAddress="
+				+ schoolAddress + ", pincode=" + pincode + ", dateAdded=" + dateAdded + ", lastLogin=" + lastLogin
+				+ ", dateOfBirth=" + dateOfBirth + ", Registered=" + Registered + ", token=" + token + ", profilePic="
+				+ profilePic + ", userRoles=" + userRoles + ", classDb=" + classDb + ", subjectDb=" + subjectDb
+				+ ", topic=" + topic + ", articleExternal=" + articleExternal + ", documentExternal=" + documentExternal
+				+ ", lessonPlan=" + lessonPlan + ", phet=" + phet + ", quiz=" + quiz + ", videoExternal="
+				+ videoExternal + ", tutorial=" + tutorial + ", conceptMap=" + conceptMap + ", comment=" + comment
+				+ ", commentReply=" + commentReply + "]";
+	}
+
 	
 	
 

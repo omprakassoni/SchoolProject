@@ -89,11 +89,11 @@
 								aria-labelledby="navbarDropdownMenuLink-4">
 								<!-- <div th:if="${session.UserLogedRole == 'Admin' or session.UserLogedRole == 'Parent' or session.UserLogedRole == 'Learner' }"> -->
 								<div sec:authorize="hasAnyAuthority('Admin','Learner','Parent','Teacher')">
-									<a th:href="@{dashBoard}" class="dropdown-item" type="button">DashBoard</a>
+									<a th:href="@{dashBoard}" class="dropdown-item" type="button" style="text-align:center">DashBoard</a>
 									<div class="dropdown-divider"></div>
 								</div> 
 			
-								<a th:href="@{/logout}" class="dropdown-item" type="button">Logout</a>
+								<a th:href="@{/logout}" class="dropdown-item" type="button" style="text-align:center">Logout</a>
 							</div>
 						</div>
 
