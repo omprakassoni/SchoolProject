@@ -74,6 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/addContactForm",
 			"/eventsList",
 			"/testimonials",
+			"/forgetPassword",
+			"/reset",
+			"/resetPassword",
 			
 			"/loadByClassnameAndSubject",
 			"/loadByUser",

@@ -522,6 +522,7 @@ public class HomeController {
 		usr.setToken(null);
 		userService.save(usr);
 
+		mv.addObject("Success", "Password got updated Successfully");
 		mv.setViewName("resetPassword");
 		return mv;
 

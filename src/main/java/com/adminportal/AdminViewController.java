@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +21,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adminportal.config.MailConstructor;
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Class;
 import com.adminportal.content.ConceptMap;
@@ -105,6 +108,12 @@ public class AdminViewController {
 	
 	@Autowired
 	private ClassService classService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+
+	@Autowired
+	private MailConstructor mailConstructor;
 	
 /*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
@@ -767,6 +776,8 @@ public class AdminViewController {
 		int id=Integer.parseInt(userId);
 		boolean status;
 		
+		User usrApprove=userService.findById(id);
+		
 		User localUser=userService.findByUsername(principal.getName());
 		
 		mv.addObject("LoggedUser",localUser);
@@ -774,6 +785,8 @@ public class AdminViewController {
 		status=userService.disableEnableUser(1, id);
 	
 		if(status) {
+			SimpleMailMessage emailSend=mailConstructor.confirmOnApproveTeacher(usrApprove);
+			mailSender.send(emailSend);
 			mv.addObject("status", "User Enabled Sucessfully");
 		}else {
 			mv.addObject("status", "Please try Again");
