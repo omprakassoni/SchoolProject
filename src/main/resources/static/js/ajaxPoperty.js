@@ -513,9 +513,9 @@ $(function(){
 	       		 success: function (data){
 	       			 
 	       			
-	       			$('#testimonialDesc').attr('placeholder',data["description"]);
-	       			$('#testimonialName').attr('placeholder',data["name"]);
-	       			$('#testimonialOrg').attr('placeholder',data["organization"]);
+	       			$('#testimonialDesc').val(data["description"]);
+	       			$('#testimonialName').attr('value',data["name"]);
+	       			$('#testimonialOrg').attr('value',data["organization"]);
 	       		
 				},
 				
@@ -571,8 +571,8 @@ $(function(){
 	       		 success: function (data){
 	       			 
 	       			
-	       			$('#eventDesc').attr('placeholder',data["description"]);
-	       			$('#eventHead').attr('placeholder',data["headline"]);
+	       			$('#eventDesc').val(data["description"]);
+	       			$('#eventHead').attr('value',data["headline"]);
 	       			$('#eventdate').attr('placeholder',data["dateToHappen"]);
 	       		
 				},
@@ -3219,7 +3219,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#topicDesc').attr('placeholder',data[0]);
+			       			$('#topicDesc').val(data[0]);
 			       		
 						},
 						
@@ -3392,7 +3392,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#videoDesc').attr('placeholder',data[0]);
+			       			$('#videoDesc').val(data[0]);
 			       		
 						},
 						
@@ -3500,7 +3500,7 @@ $(function(){
   				        	 timeout: 600000,
   				       		 success: function (data){
   				       			
-  				       			$('#conceptDesc').attr('placeholder',data[0]);
+  				       			$('#conceptDesc').val(data[0]);
   				       			$('#conceptHeadline').attr('value',data[1]);
   				       		
   							},
@@ -3621,7 +3621,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#articleDesc').attr('placeholder',data[0]);
+			       			$('#articleDesc').val(data[0]);
 			       		
 						},
 						
@@ -3731,7 +3731,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#documentDesc').attr('placeholder',data[0]);
+			       			$('#documentDesc').val(data[0]);
 			       		
 						},
 						
@@ -3885,7 +3885,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#phetDesc').attr('placeholder',data[0]);
+			       			$('#phetDesc').val(data[0]);
 			       		
 						},
 						

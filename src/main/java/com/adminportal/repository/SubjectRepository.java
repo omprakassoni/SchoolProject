@@ -7,15 +7,14 @@ package com.adminportal.repository;
 
 import java.sql.Timestamp;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
-import com.adminportal.content.Class;
 import com.adminportal.content.Subject;
-import com.adminportal.content.SubjectClassMapping;
 
-public interface SubjectRepository extends CrudRepository<Subject, Integer>{
+
+public interface SubjectRepository extends JpaRepository<Subject, Integer>{
 	
 	Subject findBysubName(String subName);		// list subject based on subject name
 	

@@ -69,14 +69,14 @@
 					<li class="nav-item"><a class="nav-link nav-weight" href="#">
 							About Us </a></li>
 
-					<li class="nav-item "><a class="nav-link nav-weight" href="#">
+					<li class="nav-item "><a class="nav-link nav-weight" th:href="@{/#Event}">
 							Event </a></li>
 		
-					<li class="nav-item "><a class="nav-link nav-weight" href="#">
+					<li class="nav-item "><a class="nav-link nav-weight" th:href="@{/#Testimonial}">
 							Testimonial</a></li>
 
 					<li class="nav-item "><a class="nav-link nav-weight"
-						href="/#Contact-us"> Contact Us</a></li>
+						th:href="@{/#Contact-us}"> Contact Us</a></li>
 					
 
 					<li class="nav-item dropdown">
@@ -89,7 +89,7 @@
 								aria-labelledby="navbarDropdownMenuLink-4">
 								<!-- <div th:if="${session.UserLogedRole == 'Admin' or session.UserLogedRole == 'Parent' or session.UserLogedRole == 'Learner' }"> -->
 								<div sec:authorize="hasAnyAuthority('Admin','Learner','Parent','Teacher')">
-									<a th:href="@{dashBoard}" class="dropdown-item" type="button" style="text-align:center">DashBoard</a>
+									<a th:href="@{/dashBoard}" class="dropdown-item" type="button" style="text-align:center">DashBoard</a>
 									<div class="dropdown-divider"></div>
 								</div> 
 			
@@ -99,8 +99,8 @@
 
 						<div sec:authorize="isAnonymous()">
 
-							<a th:href="@{Login}" class="btn btn-info btn-rounded ">Log
-								In</a> <a th:href="@{Signup}" class="btn btn-info btn-rounded">Register</a>
+							<a th:href="@{/Login}" class="btn btn-info btn-rounded ">Log
+								In</a> <a th:href="@{/Signup}" class="btn btn-info btn-rounded">Register</a>
 
 						</div> 
 			</div>

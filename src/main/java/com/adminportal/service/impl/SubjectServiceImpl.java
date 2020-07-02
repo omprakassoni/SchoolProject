@@ -78,7 +78,7 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public List<Subject> findAll() {
 		
-		List<Subject> local=(List<Subject>)subjectRepo.findAll();
+		List<Subject> local=(List<Subject>)subjectRepo.findAll(org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.ASC, "subName"));
 		return local;
 	}
 
