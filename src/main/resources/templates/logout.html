@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.w3.org/1000/xhtml">
+<head>
+<div th:replace="common/header :: common-header"></div>
+<style>
+	body{
+		background-color:F0F0F0 !important;
+	}
+	
+	.container{
+		text-align:center;
+	}
+	
+	.top-header{
+		padding:30px;
+	}
+	
+	.content-body{
+		margin-left:20%;
+		margin-right:20%;
+	}
+	
+	.loggedName{
+		font-size:45px;
+	}
+	
+	.loginName{
+		padding-top:25px;
+	}
+	
+	 @media(max-width: 767px){
+	 
+	 	.loggedName{
+	 		font-size:36px;
+	 	}
+	 	
+	 	.content-body{
+			margin-left:10%;
+			margin-right:10%;
+		}
+	 }
+
+</style>
+</head>
+<body >
+
+	<div class="container">
+	
+		<div class="top-header">
+			<a th:href="@{/}" ><img th:src="@{/Images/logo.png}" /></a>
+		
+		</div> 
+		
+		<div class="card content-body">
+			<div class="sign-out-btn">
+				<i class="fas fa-sign-out" aria-hidden="true"></i>
+				
+			</div>
+			
+			<h1 class="loggedName"> You Have Been Logged Out </h1>
+			<h4> Thank you for using our website </h4>
+			
+			<p  class="loginName">
+				Please <a style="color:green" th:href="@{/Login}">click here</a> to login back to our site
+			</p>
+		</div>
+	
+	
+	</div>
+
+
+
+
+</body>
+</html>

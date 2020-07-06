@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/addContactForm",
 			"/eventsList/**",
 			"/testimonials",
-			"/forgetPassword",
+			"/forgetPassword/**",
 			"/reset",
 			"/resetPassword",
 			
@@ -131,7 +131,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginPage("/Login").permitAll()
 			.and()
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/?logout").deleteCookies("remember-me").permitAll()
+			.logoutSuccessUrl("/logout-success").deleteCookies("remember-me").permitAll()
 			.and()
 			.rememberMe();
 		

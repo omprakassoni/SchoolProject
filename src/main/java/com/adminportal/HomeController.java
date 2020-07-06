@@ -880,5 +880,14 @@ public class HomeController {
 		mv.setViewName("testimonial");
 		return mv;
 	}
+	
+	
+	@RequestMapping(path = "/logout-success" ,method = RequestMethod.GET)
+	public ModelAndView logout(ModelAndView mv) {
+		
+		mv.setViewName("logout");
+		return mv;
+		
+	}
 	/*--------------------------------------------------------END----------------------------------------------------------------------------------*/
 }
