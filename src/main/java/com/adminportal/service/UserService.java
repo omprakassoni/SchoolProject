@@ -33,7 +33,7 @@ public interface UserService {
 	User findByToken(String token);
 	User save(User user);
 	
-	User existsByUser(String username,String password);
+	User existsByUser(String username,String password) throws Exception;
 	
 	User createUser(User user, Set<UserRole> userRoles) throws Exception;
 	

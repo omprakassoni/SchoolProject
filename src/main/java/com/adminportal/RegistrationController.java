@@ -132,6 +132,7 @@ public class RegistrationController {
 		SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date dateUtil=sd1.parse(date);
 		Date dateOfBirth=new Date(dateUtil.getTime());
+		
 		if(!dateOfBirth.before(ServiceUtility.getCurrentTime())) {
 			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
 			mv.addObject("classfromDatabase", standard);

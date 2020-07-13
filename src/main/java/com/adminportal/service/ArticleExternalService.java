@@ -17,7 +17,7 @@ public interface ArticleExternalService {
 	
 	List<ArticleExternal> findAll();
 	
-	void deleteArticleById(int id);
+	void deleteArticleById(int id) ;
 	
 	ArticleExternal findByid(int id);
 	

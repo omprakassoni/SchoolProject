@@ -33,7 +33,7 @@ public class ArticleExternalServiceImpl implements ArticleExternalService{
 		return articleRepo.findAllBytype("Article");
 	}
 	@Override
-	public void deleteArticleById(int id) {
+	public void deleteArticleById(int id){
 		
 		Optional<ArticleExternal> local=articleRepo.findById(id);
 		ArticleExternal temp=local.get();

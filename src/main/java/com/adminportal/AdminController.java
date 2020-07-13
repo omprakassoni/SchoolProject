@@ -800,7 +800,7 @@ public class AdminController {
 			
 		}
 		
-				try {
+		try {
 
 			Class localClass=classService.findByClassName(Integer.parseInt(className));
 			Subject localSubject=subjectService.findBysubName(subjectName);
@@ -819,13 +819,13 @@ public class AdminController {
 			mv.addObject("statusAdd", "Added Sucessfully");
 			
 			
-				} catch (Exception e) {
+			} catch (Exception e) {
 			
 			e.printStackTrace();
 			mv.addObject("failure", "Please Try Again");
 			
 			
-				}
+			}
 				
 		
 		
@@ -1379,7 +1379,7 @@ public class AdminController {
 			
 			return mv;
 		}
-		
+		try {
 		
 		Class localClass=classService.findByClassName(Integer.parseInt(className));
 		Subject localSubject=subjectService.findBysubName(subjectName);
@@ -1396,7 +1396,7 @@ public class AdminController {
 		boolean ques=ServiceUtility.createFolder(CreateFolderQuestion);
 		boolean ans=ServiceUtility.createFolder(CreateFolderAnswer);
 		
-		try {
+		
 			if(ques && ans) {
 			
 			questionPath=ServiceUtility.uploadFile(question, CreateFolderQuestion);
@@ -1669,23 +1669,67 @@ public class AdminController {
 			
 			User usr=userService.findByUsername(principal.getName());
 			
-			Class localClass=classService.findByClassName(Integer.parseInt(className));
-			Subject localSubject=subjectService.findBysubName(subjectName);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+			try {
+				Class localClass=classService.findByClassName(Integer.parseInt(className));
+				Subject localSubject=subjectService.findBysubName(subjectName);
+				SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+				Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+				
+				Set<Tutorial> tempTutorial=new HashSet<Tutorial>();
+				int tutorialCount=tutorialService.countRow();
+				tutorialCount++;
+				
+				for(int i=0;i<tutorialList.length;i++) {
+					int videoId=Integer.parseInt(tutorialList[i]);
+					tempTutorial.add(new Tutorial(tutorialCount+i, fossid, stLanguageId, videoId, 1, localTopic, usr));
+				}
+				
+				
+				userService.addUserToTutorial(usr, tempTutorial);				// persisting Tutorial
+				mv.addObject("statusAdd", "Tutorial Added Successfully");
+			} catch (Exception e1) {
+				
+				e1.printStackTrace();
+				
+				ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
+
+				mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
+				
+				mv.addObject("addActive","active");
+				
+				List<Tutorial> tempTutorialLocal=tutorialService.getAllTutorial();
+				
+				List<TutorialList> tutorialListData=new ArrayList<TutorialList>();
+				
+				
+				for(Tutorial localTemp:tempTutorialLocal) {
+					
+					try {
+						String url="https://spoken-tutorial.org/api/get_tutorialdetails/"+localTemp.getStVideoId()+"/";
+						RestTemplate restTemp=new RestTemplate();
+						TutorialList localTutorial=restTemp.getForObject(url, TutorialList.class);
+						
+						localTutorial.setTutorialId(localTemp.getTutorialId());
+						localTutorial.setTopicNAme(localTemp.getTopic().getTopicName());
+						localTutorial.setContributedBy(localTemp.getUser().getFname());
+						localTutorial.setStatus(localTemp.getStatus());
+						System.out.println(localTutorial.getOutline());
+						
+						tutorialListData.add(localTutorial);
+					} catch (RestClientException e) {
+						
+						e.printStackTrace();
+					}
+				}
+				
 			
-			Set<Tutorial> tempTutorial=new HashSet<Tutorial>();
-			int tutorialCount=tutorialService.countRow();
-			tutorialCount++;
-			
-			for(int i=0;i<tutorialList.length;i++) {
-				int videoId=Integer.parseInt(tutorialList[i]);
-				tempTutorial.add(new Tutorial(tutorialCount+i, fossid, stLanguageId, videoId, 1, localTopic, usr));
+				
+				mv.addObject("Tutorials", tutorialListData);
+				
+				mv.setViewName("addTutorial");													// setting view name
+				
+				return mv;
 			}
-			
-			
-			userService.addUserToTutorial(usr, tempTutorial);				// persisting Tutorial
-			mv.addObject("statusAdd", "Tutorial Added Successfully");
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
 

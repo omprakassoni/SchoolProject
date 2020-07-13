@@ -27,14 +27,14 @@ public interface LessonPlanService {
 	
 	LessonPlan findById(int id);
 	
-	List<LessonPlan> findAllByTopic(Topic topic);
+	List<LessonPlan> findAllByTopic(Topic topic) ;
 	
-	List<LessonPlan> findALlByUser(User usr);
+	List<LessonPlan> findALlByUser(User usr) ;
 
 
 	boolean updateLessonPlan(Timestamp dat,String lessonPath,int id);
 	
-	boolean EnableAcceptedByAdminLessonPlanContent(int status,int id);
+	boolean EnableAcceptedByAdminLessonPlanContent(int status,int id) ;
 	
 	List<LessonPlan> findAllByTopicAndStatus(Topic topic);
 }

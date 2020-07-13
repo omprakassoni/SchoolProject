@@ -19,15 +19,15 @@ public interface QuizQuestionService {
 	
 	List<QuizQuestion> findAll();
 	
-	void deleteQuizById(int id);
+	void deleteQuizById(int id) ;
 	
 	QuizQuestion findById(int id);
 	
-	boolean updateQuiz(String question,String answer,Timestamp date,int quizId);
+	boolean updateQuiz(String question,String answer,Timestamp date,int quizId) ;
 	
-	boolean updateQuizQuestion(String question,Timestamp date,int quizId);
+	boolean updateQuizQuestion(String question,Timestamp date,int quizId) ;
 	
-	boolean updateQuizAnswer(String answer,Timestamp date,int quizId);
+	boolean updateQuizAnswer(String answer,Timestamp date,int quizId) ;
 	
 	int countRow();
 	

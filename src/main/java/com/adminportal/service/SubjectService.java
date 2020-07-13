@@ -22,11 +22,11 @@ import com.adminportal.content.VideoExternal;
 
 public interface SubjectService {
 	
-	Subject findBySubjectName(String subjectName);
+	Subject findBySubjectName(String subjectName) throws Exception;
 	
 	List<Subject> findAll();
 	
-	Subject findBysubName(String sub);
+	Subject findBysubName(String sub) throws Exception;
 	
 	void deleteById(int id);
 	
@@ -44,7 +44,7 @@ public interface SubjectService {
 	
 	ArrayList<Phets> getAllPhetsByTopic(ArrayList<Topic> topic);
 	
-	Subject findById(int id);
+	Subject findById(int id) throws Exception;
 	
 	int countRow();
 	

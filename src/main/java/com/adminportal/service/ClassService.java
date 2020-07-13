@@ -12,7 +12,7 @@ import com.adminportal.content.Class;
 
 public interface ClassService {
 	
-	Class findByClassName(int className);
+	Class findByClassName(int className) throws Exception;
 	
 	List<Class> findAll();
 	

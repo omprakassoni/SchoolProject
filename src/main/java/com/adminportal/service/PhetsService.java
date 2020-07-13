@@ -20,15 +20,15 @@ public interface PhetsService {
 	
 	List<Phets> findAll();
 	
-	void deletePhetById(int id);
+	void deletePhetById(int id) ;
 	
-	Phets findByid(int id);
+	Phets findByid(int id) ;
 	
-	boolean updatePhet(String source,String url,Timestamp date,String desc,int id);
+	boolean updatePhet(String source,String url,Timestamp date,String desc,int id) ;
 	
 	int countRow();
 	
-	boolean EnablePhetContent(int status,int id);
+	boolean EnablePhetContent(int status,int id) ;
 	
 	List<Phets> findAllByTopic(Topic topic);
 	

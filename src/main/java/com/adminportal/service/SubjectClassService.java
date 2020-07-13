@@ -22,15 +22,15 @@ public interface SubjectClassService {
 	
 	Subject createTopic(Topic topic,SubjectClassMapping subjectClassmapping) throws Exception;
 	
-	List<SubjectClassMapping> getSubjectFromClass(Class classTemp);
+	List<SubjectClassMapping> getSubjectFromClass(Class classTemp) throws Exception;
 	
-	SubjectClassMapping findBysubAndstandard(Class tempClass,Subject subject);
+	SubjectClassMapping findBysubAndstandard(Class tempClass,Subject subject) throws Exception;
 	
-	List<SubjectClassMapping> getClassFromMapping(Class classTemp);
+	List<SubjectClassMapping> getClassFromMapping(Class classTemp) throws Exception;
 	
 	int countRow();
 	
-	List<SubjectClassMapping> getClassFromSubject(Subject subTemp);
+	List<SubjectClassMapping> getClassFromSubject(Subject subTemp) throws Exception;
 	
 	
 }

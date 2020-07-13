@@ -548,8 +548,25 @@ public class HomeController {
 
 // ---------------------------------- Event List on USer Side ------------------------------------------
 
+	/*
+	 * @RequestMapping(value = "/eventsList") public ModelAndView
+	 * viewEvent(ModelAndView mv, @RequestParam(defaultValue = "0") int page) {
+	 * 
+	 * // List<Events> localEvent=eventService.findAll();
+	 * 
+	 * ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
+	 * 
+	 * mv.addObject("classfromDatabase", standard);
+	 * 
+	 * ArrayList<Subject> subjectData = (ArrayList<Subject>)
+	 * subjectService.findAll(); mv.addObject("subjectfromDatabase", subjectData);
+	 * 
+	 * mv.addObject("EventList", evenRepo.findAll(new PageRequest(page, 6)));
+	 * mv.addObject("current", page); mv.setViewName("events"); return mv; }
+	 */
+	
 	@RequestMapping(value = "/eventsList")
-	public ModelAndView viewEvent(ModelAndView mv, @RequestParam(defaultValue = "0") int page) {
+	public ModelAndView viewEvent(ModelAndView mv) {
 
 		// List<Events> localEvent=eventService.findAll();
 
@@ -559,9 +576,25 @@ public class HomeController {
 
 		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subjectData);
-
-		mv.addObject("EventList", evenRepo.findAll(new PageRequest(page, 6)));
-		mv.addObject("current", page);
+		
+		List<Events> tempEvent=evenRepo.findAll();
+		List<Events> prevEvent = new ArrayList<>();
+		List<Events> futureEvent = new ArrayList<>();
+		
+		for(Events temp:tempEvent) {                                              
+			
+			if(!temp.getDateToHappen().before(ServiceUtility.getCurrentTime())) {   // future event
+				prevEvent.add(temp);
+				
+			}else {
+				futureEvent.add(temp);
+				
+			}
+		}
+	
+		mv.addObject("PrevEventList", prevEvent);
+		mv.addObject("FutureEventList", futureEvent);
+		
 		mv.setViewName("events");
 		return mv;
 	}
@@ -583,34 +616,43 @@ public class HomeController {
 		SubjectClassMapping localSubjectClassMapping;
 		List<Topic> localTopictemp = null;
 
-		if (subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
-			localTopictemp = topicService.findAll();
-			System.out.println("all value");
+		try {
+			if (subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
+				localTopictemp = topicService.findAll();
+				System.out.println("all value");
 
-		}
+			}
 
-		else if (subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
-			System.out.println("wow");
-			localClass = classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
-			List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
-					.getClassFromMapping(localClass);
-			localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+			else if (subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
+				System.out.println("wow");
+				localClass = classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
+				List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
+						.getClassFromMapping(localClass);
+				localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
 
-		} else if (!subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
-			localSubject = subjectService.findBySubjectName(subject);
-			List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
-					.getClassFromSubject(localSubject);
-			localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+			} else if (!subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
+				localSubject = subjectService.findBySubjectName(subject);
+				List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
+						.getClassFromSubject(localSubject);
+				localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
 
-		} else if (!subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
-			localClass = classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
+			} else if (!subject.contentEquals("Select Subject") && !classSelected.contentEquals("Select Class")) {
+				localClass = classService.findByClassName(Integer.parseInt(classSelected.substring(6)));
 
-			localSubject = subjectService.findBySubjectName(subject);
+				localSubject = subjectService.findBySubjectName(subject);
 
-			localSubjectClassMapping = subjectClassService.findBysubAndstandard(localClass, localSubject);
+				localSubjectClassMapping = subjectClassService.findBysubAndstandard(localClass, localSubject);
 
-			localTopictemp = topicService.findBysubjectclassMapping(localSubjectClassMapping);
+				localTopictemp = topicService.findBysubjectclassMapping(localSubjectClassMapping);
 
+			}
+		}  catch (Exception e) {
+			e.printStackTrace();
+			
+			mv.setViewName("redirect:/");
+
+			return mv;
+			
 		}
 
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();

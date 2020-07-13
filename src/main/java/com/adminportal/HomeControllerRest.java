@@ -413,7 +413,7 @@ public class HomeControllerRest {
 /*--------------------------------------------------LOAD BY CLASS NAME----------------------------------------------------------------------*/
 
 	@PostMapping("/loadByClassName")
-	public @ResponseBody List<String> loadByClassName(@Valid @RequestBody Class classSelected ){
+	public @ResponseBody List<String> loadByClassName(@Valid @RequestBody Class classSelected ) throws Exception{
 		
 		List<String> subjectName=new ArrayList<String>();
 		
@@ -439,7 +439,7 @@ public class HomeControllerRest {
 	/*------------------------------------- LOAD CLASS BY SUBJECT NAME------------------------------------------------------*/
 	
 	@PostMapping("/loadBySubjectName")
-	public @ResponseBody List<Integer> loadBySubjectName(@Valid @RequestBody Subject subjectSelected){
+	public @ResponseBody List<Integer> loadBySubjectName(@Valid @RequestBody Subject subjectSelected) throws Exception{
 		
 		List<Integer> subjectName=new ArrayList<Integer>();
 		
@@ -466,7 +466,7 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOAD BY CLASS NAME AND SUBJECT NAME----------------------------------------------------------------------*/
 	
 	@PostMapping("/loadByClassnameAndSubject")
-	public @ResponseBody List<String> loadByClassnameAndSubject(@Valid @RequestBody SubjectClassAjaxQueryResolver subjectClassSelected){
+	public @ResponseBody List<String> loadByClassnameAndSubject(@Valid @RequestBody SubjectClassAjaxQueryResolver subjectClassSelected) throws Exception{
 		List<String> topicName=new ArrayList<String>();
 		
 		
@@ -628,7 +628,7 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOAD BY SUBJECT----------------------------------------------------------------------*/
 	
 	@PostMapping("/loadBySubject")
-	public SubjectAjaxQueryResolver loadBySubject(@Valid @RequestBody Subject sub) {
+	public SubjectAjaxQueryResolver loadBySubject(@Valid @RequestBody Subject sub)throws Exception {
 		
 		SubjectAjaxQueryResolver local=new SubjectAjaxQueryResolver();
 		Subject localSub=subjectService.findById(sub.getSubId());
@@ -658,7 +658,7 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOAD BY SUBJECT CLASS----------------------------------------------------------------------*/
 	
 	@PostMapping("/loadBySubjectClass")
-	public Set<Integer> loadBySubjectClass(@Valid @RequestBody Subject sub){
+	public Set<Integer> loadBySubjectClass(@Valid @RequestBody Subject sub) throws Exception{
 		Set<Integer> subName= new HashSet<Integer>();
 		
 		Subject localSub=subjectService.findById(sub.getSubId());
@@ -2428,7 +2428,7 @@ public class HomeControllerRest {
 	@PostMapping("/addLessonFromUser")
 	public @ResponseBody List<String> addLessonFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
 										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("lesson") MultipartFile[] uploadLessonPlan){
+										   @RequestParam("lesson") MultipartFile[] uploadLessonPlan) throws Exception{
 		
 		List<String> status=new ArrayList<String>();
 		
@@ -2483,7 +2483,7 @@ public class HomeControllerRest {
 	public @ResponseBody List<String> addQuizFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
 										   @RequestParam("topicSelected") String topicSelected,Principal principal,
 										   @RequestParam("remarks") String remark,@RequestParam("Question") MultipartFile[] uploadQuestion,
-										   @RequestParam("Answer") MultipartFile[] uploadAnswer){
+										   @RequestParam("Answer") MultipartFile[] uploadAnswer) throws Exception{
 		
 		List<String> status=new ArrayList<String>();
 		
@@ -2572,7 +2572,7 @@ public class HomeControllerRest {
 	@PostMapping("/addDocumentFromUser")
 	public @ResponseBody List<String> addDocumentFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
 										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("Question") MultipartFile[] uploadDocument){
+										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("Question") MultipartFile[] uploadDocument) throws Exception{
 		
 		List<String> status=new ArrayList<String>();
 		
@@ -2633,7 +2633,7 @@ public class HomeControllerRest {
 	@PostMapping("/addConceptFromUser")
 	public @ResponseBody List<String> addConceptFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
 										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("descriptionConceptMap") String desc,@RequestParam("headlineConceptMap") String remark,@RequestParam("conceptMapImage") MultipartFile[] uploadDocument){
+										   @RequestParam("descriptionConceptMap") String desc,@RequestParam("headlineConceptMap") String remark,@RequestParam("conceptMapImage") MultipartFile[] uploadDocument) throws Exception{
 		
 		List<String> status=new ArrayList<String>();
 		

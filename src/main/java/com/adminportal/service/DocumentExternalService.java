@@ -18,17 +18,17 @@ import com.adminportal.domain.User;
 
 public interface DocumentExternalService {
 	List<DocumentExternal> findAll();
-	void deleteDocumentById(int id);
+	void deleteDocumentById(int id) ;
 	
-	DocumentExternal findByid(int id);
+	DocumentExternal findByid(int id) ;
 	
-	boolean updateDocument(String desc,String source,String url,Timestamp date,int Id);
+	boolean updateDocument(String desc,String source,String url,Timestamp date,int Id) ;
 	
-	boolean updateDocumentDesc(String desc,String source,Timestamp date,int Id);
+	boolean updateDocumentDesc(String desc,String source,Timestamp date,int Id) ;
 
 	int countRow();
 	
-	boolean EnableDocumentContent(int status,int id);
+	boolean EnableDocumentContent(int status,int id) ;
 	
 	List<DocumentExternal> findAllByTopic(Topic topic);
 	

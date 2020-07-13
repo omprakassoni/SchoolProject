@@ -58,6 +58,10 @@ $(function(){
 	$('#ConceptMapModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});*/
+	 
+	 $('#ProfilePictureModal').on('hidden.bs.modal', function () {
+			location.reload();
+	});
 	
 	/*------------------------------Profile Picture Update ----------------------------------------------------*/
 	$('#profilePicture').change(function(){
