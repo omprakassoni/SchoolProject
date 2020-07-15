@@ -24,7 +24,11 @@
 	}
 	
 	.loginName{
-		padding-top:25px;
+		padding-top:15px;
+	}
+	
+	.home{
+		padding-top:10px;
 	}
 	
 	 @media(max-width: 767px){
@@ -59,6 +63,9 @@
 			<h1 class="loggedName"> You Have Been Logged Out </h1>
 			<h4> Thank you for using our website </h4>
 			
+			<p class="home">
+				Please <a style="color:green" th:href="@{/}">click here</a> to go to Homepage
+			</p>
 			<p  class="loginName">
 				Please <a style="color:green" th:href="@{/Login}">click here</a> to login back to our site
 			</p>

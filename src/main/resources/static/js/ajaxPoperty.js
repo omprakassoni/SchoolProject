@@ -6572,7 +6572,12 @@ $(function(){
   	});
 
 $(document).ready(function () {                             //************Admin side              *//*
-	  $('#dtBasicExample').DataTable();
+	  $('#dtBasicExample').DataTable(/*{
+		   'aoColumnDefs': [{
+		        'bSortable': false,
+		        'aTargets': ['nosort']
+		    }]
+		}*/);
 	  $('.dataTables_length').addClass('bs-select');
 });   
 
