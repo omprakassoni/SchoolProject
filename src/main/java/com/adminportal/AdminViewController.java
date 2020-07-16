@@ -751,7 +751,7 @@ public class AdminViewController {
 			for(User a:usr) {
 				List<UserRole> userRole=a.getUserRoles();
 				for(UserRole x:userRole) {
-					if(x.getRole().getRoleName().contentEquals("Teacher") && a.getRegistered()==0) {
+					if(x.getRole().getRoleName().contentEquals("Teacher") && a.getApproveTeacherFlag()==0) {
 						local.add(a);
 					}
 				}
@@ -774,7 +774,7 @@ public class AdminViewController {
 	public ModelAndView approveTeacherPost(Principal principal,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
 		
 		int id=Integer.parseInt(userId);
-		boolean status;
+		boolean statusReg,statusApprove;
 		
 		User usrApprove=userService.findById(id);
 		
@@ -782,9 +782,11 @@ public class AdminViewController {
 		
 		mv.addObject("LoggedUser",localUser);
 		
-		status=userService.disableEnableUser(1, id);
+		statusReg=userService.disableEnableUser(1, id);
+		
+		statusApprove=userService.enableApproveTeacher(1, id);
 	
-		if(status) {
+		if(statusReg && statusApprove) {
 			SimpleMailMessage emailSend=mailConstructor.confirmOnApproveTeacher(usrApprove);
 			mailSender.send(emailSend);
 			mv.addObject("status", "User Enabled Sucessfully");

@@ -161,6 +161,7 @@ public class RegistrationController {
 		usr.setLastLogin(ServiceUtility.getCurrentTime());
 		usr.setDateOfBirth(dateOfBirth);
 		usr.setRegistered(1);
+		usr.setApproveTeacherFlag(0);
 		
 		Set<UserRole> userRoles=new HashSet<UserRole>();
 		userRoles.add(new UserRole(userRoleService.countRow()+1,usr, role));												// persisting user(Learner)
@@ -281,6 +282,7 @@ public class RegistrationController {
 		usr.setDateAdded(ServiceUtility.getCurrentTime());
 		usr.setLastLogin(ServiceUtility.getCurrentTime());
 		usr.setRegistered(1);
+		usr.setApproveTeacherFlag(0);
 		
 		Set<UserRole> userRoles=new HashSet<UserRole>();
 		userRoles.add(new UserRole(userRoleService.countRow()+1,usr, role));
@@ -439,6 +441,7 @@ public class RegistrationController {
 		usr.setDateAdded(ServiceUtility.getCurrentTime());
 		usr.setLastLogin(ServiceUtility.getCurrentTime());
 		usr.setRegistered(0);
+		usr.setApproveTeacherFlag(0);
 		usr.setDocument(document);
 
 		

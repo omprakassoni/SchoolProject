@@ -45,6 +45,8 @@ public interface UserService {
 	
 	boolean disableEnableUser(int isvalid,int id);
 	
+	boolean enableApproveTeacher(int isvalid,int id);
+	
 	boolean existByEmail(String Email);
 	
 

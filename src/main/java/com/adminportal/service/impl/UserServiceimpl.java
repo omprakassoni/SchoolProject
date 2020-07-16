@@ -269,6 +269,20 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	@Override
+	@Transactional
+	public boolean enableApproveTeacher(int isvalid, int id) {
+		
+		int status=userRepository.updateApproveTeacher(isvalid, id);
+		
+		if(status>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+
 
 
 	

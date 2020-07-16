@@ -103,6 +103,9 @@ public class User implements UserDetails{
 	@Column(name="profilePic")
 	private String profilePic;
 	
+	@Column(name = "approveTeacher")
+	private int approveTeacherFlag;
+	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<UserRole> userRoles=new ArrayList<UserRole>();
 	
@@ -446,6 +449,14 @@ public class User implements UserDetails{
 				+ ", lessonPlan=" + lessonPlan + ", phet=" + phet + ", quiz=" + quiz + ", videoExternal="
 				+ videoExternal + ", tutorial=" + tutorial + ", conceptMap=" + conceptMap + ", comment=" + comment
 				+ ", commentReply=" + commentReply + "]";
+	}
+
+	public int getApproveTeacherFlag() {
+		return approveTeacherFlag;
+	}
+
+	public void setApproveTeacherFlag(int approveTeacherFlag) {
+		this.approveTeacherFlag = approveTeacherFlag;
 	}
 
 	

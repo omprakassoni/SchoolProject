@@ -27,6 +27,10 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query("update User set Registered=?1 where id=?2")				// enabling user
 	int disableuser(int registered,int id);
 	
+	@Modifying
+	@Query("update User set approveTeacherFlag=?1 where id=?2")
+	int updateApproveTeacher(int approve,int id);
+	
 	boolean existsByemail(String email);							
 	
 	@Modifying
