@@ -215,7 +215,7 @@ public class AdminController {
 			userService.addUserToClass(usr, tempClass);											// pushing data into database 
 			mv.addObject("status", "Added Successfully");
 			}else {
-				mv.addObject("dataAvailable", "Data Already Exist");
+				mv.addObject("dataAvailable", "Class Already Exist");
 			}
 										
 
@@ -1182,6 +1182,7 @@ public class AdminController {
 
 				mv.addObject("classExist", classExist);
 				mv.addObject("addActive","active");
+				
 				mv.setViewName("addVideo");
 				
 				List<VideoExternal> videoListtemp=videoService.findAll();
@@ -1228,6 +1229,145 @@ public class AdminController {
 			mv.addObject("failure", "Please Try Again Later");
 		}
 
+		
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+
+		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+		
+		List<VideoExternal> videoListtemp=videoService.findAll();
+		List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+		for(VideoExternal temp:videoListtemp) {
+			if(temp.getAcceptedByAdmin()==1) {
+				videoList.add(temp);
+			}
+		}
+	
+		
+		mv.addObject("Video",videoList);
+		mv.addObject("addActive","active");
+		
+		mv.setViewName("addVideo");													// setting view name
+			
+		
+		
+		return mv;
+		
+	}
+	
+	
+	@RequestMapping(value="/admin/addView/addVideoUpload",method = RequestMethod.POST)
+	public ModelAndView addVideoUploadPost(@RequestParam(name="videoUpload") MultipartFile video,HttpServletRequest req,Principal principal,ModelAndView mv) {
+		
+		
+		String className=req.getParameter("classSelected");						// taking out various information given by user in view.
+		String subjectName=req.getParameter("subjectSelected");
+		String topicName=req.getParameter("topicSelected");
+		String desc=req.getParameter("description");
+		String source=req.getParameter("source");
+		String videourl=null;
+		String path1=null;
+	
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		
+		if(!ServiceUtility.checkFileExtensionVideo(video)) {
+			
+			mv.addObject("failure", "Please upload mp4 or mov file");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+
+			mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+			
+			List<VideoExternal> videoListtemp=videoService.findAll();
+			List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+			for(VideoExternal temp:videoListtemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					videoList.add(temp);
+				}
+			}
+		
+			
+			mv.addObject("Video",videoList);
+			mv.addObject("addActive","active");
+			
+			mv.setViewName("addVideo");													// setting view name
+				
+			
+			
+			return mv;
+			
+		}
+		
+		
+		if(video.getSize()>videoSize) {
+			
+			mv.addObject("failure", "Please upload file size within 50MB");
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+
+			mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
+			
+			List<VideoExternal> videoListtemp=videoService.findAll();
+			List<VideoExternal> videoList=new ArrayList<VideoExternal>();
+			for(VideoExternal temp:videoListtemp) {
+				if(temp.getAcceptedByAdmin()==1) {
+					videoList.add(temp);
+				}
+			}
+		
+			
+			mv.addObject("Video",videoList);
+			mv.addObject("addActive","active");
+			
+			mv.setViewName("addVideo");													// setting view name
+				
+			
+			
+			return mv;
+			
+		}
+		
+		try {
+			
+			int videoId=videoService.countRow()+1;
+			
+
+			Class localClass=classService.findByClassName(Integer.parseInt(className));
+			Subject localSubject=subjectService.findBysubName(subjectName);
+			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+			
+			User usr=userService.findByUsername(principal.getName());
+			
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Video/"+videoId+"/";  // path to save video
+			
+			boolean ques=ServiceUtility.createFolder(createFolder);
+			
+			if(ques) {
+			
+			path1=ServiceUtility.uploadVideoFile(video, createFolder);
+			
+			int indexToStart=path1.indexOf("Media");										// extracting proper Path from Actual path
+			String path=path1.substring(indexToStart, path1.length());
+			
+			
+			Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
+			videoMapping.add(new VideoExternal(videoId, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+			
+			userService.addUserToVideo(usr, videoMapping);							// persist Video Information
+			mv.addObject("statusAdd", "Added Sucessfully");
+			}else {
+				mv.addObject("failure", "Please Try Again Later");
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			mv.addObject("failure", "Please Try Again Later");
+		}
+
+		
 		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 
@@ -2071,15 +2211,23 @@ public class AdminController {
 			return mv;
 			
 		}
-		
 			
-			
-					
 					try {
 						String date=req.getParameter("date");
 						SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 						java.util.Date dateUtil=sd1.parse(date);
 						Date dateOfEvent=new Date(dateUtil.getTime());
+						
+						if(dateOfEvent.before(ServiceUtility.getCurrentTime())) {
+							mv.addObject("returnStatus", "Date must be future date");
+							
+							List<Events> local=eventService.findAll();
+							mv.addObject("Events", local);
+							mv.addObject("addActive","active");
+							mv.setViewName("addEvent");
+							return mv;
+							
+						}
 						
 						int eventId=eventService.getCount();
 						Events addEvent=new Events();

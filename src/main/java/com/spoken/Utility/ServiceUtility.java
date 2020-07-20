@@ -78,6 +78,7 @@ public class ServiceUtility {
 				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Lessonplan/").mkdirs();
 				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Quiz/").mkdirs();
 				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"ConceptMap/").mkdirs();
+				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Video/").mkdirs();
 			}
 		}
 		return status;

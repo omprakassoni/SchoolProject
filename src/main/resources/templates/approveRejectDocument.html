@@ -177,8 +177,7 @@
 													<td><span th:text="${document.getDateAdded()}"></span></td>
 													<td><span th:text="${document.getSource()}"></span></td>
 													<td><a th:href="@{/files/}+@{${document.getUrl()}}"
-														target="_blank" class="pdfclass"><img id="pdfsource"
-															th:src="${document.getUrl()}" alt="Document"></img></a></td>
+														target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a></td>
 						
 						
 													<td><span th:if="${document.isStatus()==1}"><div

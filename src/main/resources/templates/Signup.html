@@ -14,7 +14,7 @@
 	<div th:replace="common/header :: navbar"></div>
 	<!--  /CODE FOR NAVBAR -->
 
-	<div class="container">
+	<div class="container" style="padding-top:20px">
 		<!-- title -->
 		<h1 style="text-align: center">Register Yourself</h1>
 
@@ -259,8 +259,13 @@
 								placeholder="upload Document" id="txtTeacherDocument"
 								accept="image/*" required />
 						</div>
-						<p style="color: red">* Please upload Jpeg/Jpg/Png Image</p>
-						<p style="color: red">* File must be less than 10 MB in size</p>
+						<a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
+                             <div class="contentInstruction" style="color:red">
+                              <p >* Please Upload Your ID(Employee Id, Aadhaar Card Id etc)</p>
+                              <p >* Please upload Jpeg/Jpg/Png Image</p>
+							  <p >* File must be less than 10 MB in size</p>
+                              </div>
+						
 
 
 						<button type="submit" class="btn btn-primary btn-login"
@@ -280,7 +285,12 @@
 
 	<!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts"></div>
-
+	<script>
+	
+	$(function(){
+	$('#form-searchFuntion').hide();
+	});
+	</script>
 
 </body>
 

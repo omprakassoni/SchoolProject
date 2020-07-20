@@ -190,8 +190,21 @@
 															<td><span th:text="${video.getDescription()}"></span></td>
 															<td><span th:text="${video.getSource() }"></span></td>
 															<td><span th:text="${video.getDateAdded()}"></span></td>
-															<td><iframe th:src="${video.getUrl()}" width="250"
-																	height="150" scrolling="no" allowfullscreen></iframe></td>
+															<td>
+																<div th:if="${#strings.startsWith(video.getUrl(),'Media')}">
+																	<video width="250" height="150" controls>
+																		  <source th:src="@{/files/}+@{${video.getUrl()}}" type="video/mp4"/>
+																	 </video>
+																
+																</div>
+																<div th:unless="${#strings.startsWith(video.getUrl(),'Media')}">
+																
+																	<iframe th:src="${video.getUrl()}" width="250"
+																	height="150" scrolling="no" allowfullscreen></iframe>
+																
+																</div>
+															
+															</td>
 															<td><span th:if="${video.isStatus()==1}"><div
 																		id="true" /></span> <span th:unless="${video.isStatus()==1}"><div
 																		id="false" /></span></td>
@@ -213,9 +226,9 @@
 											<center>
 						
 						
-												<button class="btn btn-danger" id="disableVideo" disabled>Disable</button>
+												<button class="btn btn-danger" id="disableVideo" disabled>Hide</button>
 						
-												<button class="btn btn-primary" id="enableVideo" disabled>Enable</button>
+												<button class="btn btn-primary" id="enableVideo" disabled>Show</button>
 						
 						
 											</center>
@@ -236,12 +249,24 @@
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add New Reference Video</h4>
+                                    <h4 class="card-title">Add New Video</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
 									<div class="error" th:text="${failure}"></div>
 									<div class="error" th:text="${fileError}"></div>
                             </div>
-                            <div class="card-body">
+                            <div class="row">
+                            	<div class="col-md-6" style="text-align:center">
+                            		<input type="radio" name="videoType" value="embed" id="embedRadio"/>    
+                                           Embed Video
+                                          	
+                            	</div>
+                            	
+                            	<div class="col-md-6" style="text-align:center">
+                            		<input type="radio" name="videoType" value="filesystem" />      
+                                          Upload Video
+                            	</div>
+                            </div>
+                            <div class="card-body desc" id="embed" style="display:none">
 			                   <form th:action="@{addVideo}" method="post" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-4 ">
@@ -296,16 +321,19 @@
                                         <div class="row">
                                             <div class="col-md-6" >
                                                 <div class="" style="text-align: center">
-                                                    <h4 class="label-align">Paste Video Embed Code</h4>
+                                                    <h4 class="label-align"> Video</h4>
                                                 </div>
                                             </div>
                                             
                                             <div class="col-md-4" >
-                                                <div class="form-group" >
-                                                    <textarea class="form-control" placeholder="Url to the Link"
-												        title="Paste only Embed URL" style="height: 100px" id="url" name="url" disabled required></textarea>
+                                            	
+                                            				
+                                                <div class="form-group " >
+                                                    <textarea class="form-control" placeholder="Url to the Link(Embed)"
+												        title="Paste only Embed URL" style="height: 100px" id="url" name="url" required disabled></textarea>
                                                   
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         
@@ -323,6 +351,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         
                                          <div class="row">
                                             <div class="col-md-6">
@@ -345,6 +374,133 @@
                                         
                                         
                                         <button type="submit" class="btn btn-info btn-fill pull-right upload-submit" disabled>Upload</button>
+                                        <div class="clearfix"></div>
+                                    </form>
+                            
+                            </div>
+                            
+                            <div class="card-body desc" id="filesystem" style="display:none">
+			                   <form th:action="@{addVideoUpload}" method="post" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-4 ">
+                                                <div class="form-group">
+<!--                                                    <label>Company (disabled)</label>-->
+                                                    <select class="form-control" name="classSelected"
+														id="classSelectedUpload">
+														<option>Select Class</option>
+														<span th:each="classValue: ${classExist}">
+															<option><span th:text="${classValue.getClassName()}"></span></option>
+													</span>
+													</select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+<!--                                                    <label>Username</label>-->
+                                                    <select class="form-control" name="subjectSelected" id="subjectUpload"
+														path="subject" disabled>
+														<option value="0">Select Subject</option>
+														<options items="${cities}" itemValue="id" itemLabel="name" />
+					
+													</select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+<!--                                                    <label for="exampleInputEmail1">Email address</label>-->
+                                                    <select class="form-control" name="topicSelected" id="topicUpload"
+														path="topic" disabled>
+														<option value="0">Select Topic</option>
+														<options items="${cities}" itemValue="id" itemLabel="name" />
+					
+													</select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 class="label-align">Description</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                   <textarea class="form-control" placeholder="Enter Something"
+												        title="Max 10000 Character" style="height: 100px" id="descriptionUpload" name="description" required disabled></textarea> 
+                             
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" >
+                                                <div class="" style="text-align: center">
+                                                    <h4 class="label-align"> Video</h4>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4" >
+                                            	
+                                                <div >
+                                                     <input type="file" class="form-control-file"  id="videoFileUpload"
+														title="upload only Video File" accept="video/*"
+														name="videoUpload" required disabled/>
+                                                </div>	
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 class="label-align">Source</h4>
+                                                </div>
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="">
+                                                     <input type="text" class="form-control" id="sourceUpload" name="source" required disabled >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="">
+                                                    <a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
+                                                    <div class="contentInstruction" style="color:red">
+                                                    	<p> * Video files must be mp4 or mov files. </p>
+                                                    	<p> * Video duration, not more than 5 minutes. </p>
+                                                  
+                                                    </div>
+                                                </div>
+                                            </div>
+                                  	 </div>
+                                        
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <input class="form-check-input" type="checkbox" value="" required >
+                                                        </td>
+                                                        <td>
+                                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
+                                                        </td>
+                                                    </tr>
+                                                 </table>
+                                        </div>
+                                        </div>
+                                        
+                                        
+                                        <button type="submit" class="btn btn-info btn-fill pull-right upload-submitUpload" disabled>Upload</button>
                                         <div class="clearfix"></div>
                                     </form>
                             
@@ -474,5 +630,24 @@
 		</div>
 	</div>
 	
+	<script>
+	$(document).ready(function() {
+		
+	    $("input[name$='videoType']").click(function() {
+	        var test = $(this).val();
+	        $("div.desc").hide();
+	        $("#" + test).css({"display": "block"});
+	    });
+	    
+	    if($('#embedRadio').attr("checked") === true){
+	    	$('#embed').css({"display": "block"});
+	    	
+	    }
+	    
+	    
+	});
+	
+	
+	</script>
 </body>
 </html>

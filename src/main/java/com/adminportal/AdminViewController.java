@@ -1389,6 +1389,7 @@ public class AdminViewController {
 	}
 	
 	
+	// not in use 
 	@RequestMapping(value = "/admin/approve/tutorialList",method = RequestMethod.GET)
 	public ModelAndView TutorialList(Principal principal,ModelAndView mv) {
 
@@ -1433,13 +1434,16 @@ public class AdminViewController {
 		
 	}
 	
-	@RequestMapping(value="/admin/disableEnableTutorial",method = RequestMethod.POST)
-	public ModelAndView enableDisableTutorialListPost(HttpServletRequest req,@RequestParam(name="radioTutorial") String tutorialId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/disableEnableTutorial",method = RequestMethod.POST)
+	public ModelAndView enableDisableTutorialListPost(Principal principal,HttpServletRequest req,@RequestParam(name="radioTutorial") String tutorialId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(tutorialId);
 		boolean status;
 		String enableDisable;
 		
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
 		
 		Tutorial tutorialTemp=tutorialService.getById(id);
 		if(tutorialTemp.getStatus()==1) {

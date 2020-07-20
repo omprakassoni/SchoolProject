@@ -2262,6 +2262,158 @@ $(function(){
 	  				$("#conceptMapImage").prop('disabled', false);
 	  				
 	  				
+	  				
+  					
+  				})
+  				
+  				
+  				
+  				
+  				
+  				$('#classSelectedUpload').change(function(){
+  					
+  					var classname=$(this).find(":selected").val();
+  					var selectedClass={
+  							"className":classname,
+  					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassName";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassName";
+  				
+  		        	}
+  		
+  				
+  					$.ajax({
+  					  	type: "POST",
+  			        	contentType: "application/json",
+  			       		 url: urlPassed,
+  			       		 data: JSON.stringify(selectedClass),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+  			       		 },
+  			       		 dataType: 'json',
+  			       		 cache: false,
+  			        	 timeout: 600000,
+  			       		 success: function (data){
+  			       	    var html = '';
+  			            var len = data.length;
+  			            html += '<option value="0">Select Subject</option>';
+  			            for (var i = 0; i < len; i++) {
+  			             html += '<option value="' + data[i] + '">'
+  			               + data[i]
+  			               + '</option>';
+  			            }
+  			            html += '</option>';
+  			            
+  			            $("#subjectUpload").prop('disabled', false);
+  			            $('#subjectUpload').html(html);
+  			            
+  						},
+  						
+  						error : function(err){
+  							console.log("not working. ERROR: "+JSON.stringify(err));
+  						}
+  						
+  						
+  					});
+  				
+  					
+  				});
+  				
+  			/* -----------------------------------------------------End of code ----------------- -------------------------------------*/	
+  				
+  		    /* ------------------------------------Start to fetch Topic name based on Class And Subject Selected -------------------------------------  */	
+  				
+  				
+  				$('#subjectUpload').change(function(){
+			
+  					var subject=$(this).find(":selected").val();
+  					var classname = $("#classSelectedUpload").val();
+  					var selectedClassAndSubject={
+  							"subject":subject,
+  							"className":classname,
+  							
+  					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					var urlPassed;
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByClassnameAndSubject";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  				
+  		        	}
+  				
+  					$.ajax({
+  					  	type: "POST",
+  			        	contentType: "application/json",
+  			       		 url: urlPassed,
+  			       		 data: JSON.stringify(selectedClassAndSubject),
+  			       		 beforeSend: function(xhr) {
+                         xhr.setRequestHeader(header, token);
+                         },
+  			       		 dataType: 'json',
+  			       		 cache: false,
+  			        	 timeout: 600000,
+  			       		 success: function (data){
+  			       	    var html = '';
+  			            var len = data.length;
+  			            html += '<option value="0">Select Topic</option>';
+  			            for (var i = 0; i < len; i++) {
+  			             html += '<option value="' + data[i] + '">'
+  			               + data[i]
+  			               + '</option>';
+  			            }
+  			            html += '</option>';
+  			            
+  			            $("#subjectUpload").prop('disabled', false);
+  			            $('#topicUpload').html(html);
+  			            
+  			            
+  			            $("#topicUpload").prop('disabled', false);
+
+  			            
+  						},
+  						
+  						error : function(err){
+  							console.log("not working. ERROR: "+JSON.stringify(err));
+  						}
+  						
+  						
+  					});
+  					
+  				 
+  				  
+  				});
+  				
+  				/*---------------------------------- End of fetching topic name based on classname and subject------------------------------ */
+  				
+  				
+  				$('#topicUpload').change(function(){
+  					
+  					
+  				  	$("#descriptionUpload").prop('disabled', false);
+  				  
+	  				$("#sourceUpload").prop('disabled', false);
+	  				
+	  				$('.upload-submitUpload').prop('disabled',false)
+	  				
+	  				$("#videoFileUpload").prop('disabled', false);
+	  				
+	  				
   					
   				})
   				
@@ -3048,6 +3200,7 @@ $(function(){
 			       				$('#modalClass [type=checkbox]').each(function() {
 			       				   if($(this).val()==data[i]){
 			       					$(this).prop('disabled', true);
+			       					$(this).prop('checked', true);
 			       					}
 			       				});
 			       				
@@ -3089,7 +3242,7 @@ $(function(){
   					$('#updateSubject').prop('disabled',false);
   					
   					$('#modalClass [type=checkbox]').each(function() {
-	       				   if($(this).is(':checked')){
+	       				   if($(this).is(':checked') && $(this).is(':enabled')){
 	       					dataSubject[i++]=$(this).val();
 	       					}
 	       				});

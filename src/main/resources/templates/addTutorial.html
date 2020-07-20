@@ -3,7 +3,7 @@
 
 <head>
     <div th:replace="common/header :: common-header-Dashboard"></div>
-	<title>Add Tutorial</title>
+	<title>Add Spoken Tutorial</title>
 </head>
 
 <body>
@@ -156,7 +156,7 @@
 								
 								   
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Tutorial</h4>
+                                    <h4 class="card-title">Available Spoken Tutorial</h4>
                                     <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
@@ -209,9 +209,9 @@
 											<center>
 						
 						
-												<button class="btn btn-danger" id="disableTutorial" disabled>Disable</button>
+												<button class="btn btn-danger" id="disableTutorial" disabled>Hide</button>
 						
-												<button class="btn btn-primary" id="enableTutorial" disabled>Enable</button>
+												<button class="btn btn-primary" id="enableTutorial" disabled>Show</button>
 						
 						
 											</center>
@@ -230,7 +230,7 @@
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add New Tutorial</h4>
+                                    <h4 class="card-title">Add New Spoken Tutorial</h4>
                                     <div class="status" th:text="${statusAdd}"></div>
 									<div class="error" th:text="${failure}"></div>
 									<div class="error" th:text="${fileError}"></div>

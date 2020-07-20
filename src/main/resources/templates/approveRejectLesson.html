@@ -172,8 +172,7 @@
 													<td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>
 													<td><span th:text="${lesson.getDateAdded()}"></span></td>
 													<td><a th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
-														target="_blank" class="pdfclass"><img id="pdfsource"
-															th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+														target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a></td>
 						
 													<td><span th:if="${lesson.isStatus()==1}"><div
 																id="true" /></span> <span th:unless="${lesson.isStatus()==1}"><div

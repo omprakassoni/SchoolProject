@@ -175,8 +175,20 @@
 													<td><span th:text="${video.getDescription()}"></span></td>
 													<td><span th:text="${video.getSource() }"></span></td>
 													<td><span th:text="${video.getDateAdded()}"></span></td>
-													<td><iframe th:src="${video.getUrl()}" width="300"
-															height="150" scrolling="no" allowfullscreen></iframe></td>
+													<td>
+														<div th:if="${#strings.startsWith(video.getUrl(),'Media')}">
+																	<video width="250" height="150" controls>
+																		  <source th:src="@{/files/}+@{${video.getUrl()}}" type="video/mp4"/>
+																	 </video>
+																
+														</div>
+														<div th:unless="${#strings.startsWith(video.getUrl(),'Media')}">
+																
+																	<iframe th:src="${video.getUrl()}" width="250"
+																	height="150" scrolling="no" allowfullscreen></iframe>
+																
+														</div>
+													</td>
 													<td><span th:if="${video.isStatus()==1}"><div
 																id="true" /></span> <span th:unless="${video.isStatus()==1}"><div
 																id="false" /></span></td>

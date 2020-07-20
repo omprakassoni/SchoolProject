@@ -188,8 +188,7 @@
 															<td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>
 															<td><span th:text="${lesson.getDateAdded()}"></span></td>
 															<td><a th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
-																class="pdfclass" target="_blank"><img id="pdfsource"
-																	th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+																class="pdfclass" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
 						
 															<td><span th:if="${lesson.isStatus()==1}"><div
 																		id="true" /></span> <span th:unless="${lesson.isStatus()==1}"><div
@@ -215,9 +214,9 @@
 											<center>
 						
 						
-												<button class="btn btn-danger" id="disableLesson" disabled>Disable</button>
+												<button class="btn btn-danger" id="disableLesson" disabled>Hide</button>
 						
-												<button class="btn btn-primary" id="enableLesson" disabled>Enable</button>
+												<button class="btn btn-primary" id="enableLesson" disabled>Show</button>
 						
 						
 											</center>

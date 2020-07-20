@@ -29,5 +29,6 @@ public interface SubjectClassMappingRepository extends CrudRepository<SubjectCla
 	
 	ArrayList<SubjectClassMapping> findBysub(Subject sub);
 	
+	
 
 }

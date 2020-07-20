@@ -881,13 +881,16 @@ public class HomeControllerRest {
 				return msg;
 				
 			}
+			
 			subjectService.updateSubjectName(data.get(size-1), idsub);
 				
 			
 			for(int i=0;i<size-2;i++) {
 				Class classTemp=classService.findByClassName(Integer.parseInt(data.get(i)));
+				if(subjectClassService.findBysubAndstandard(classTemp, subject) == null) {
 				subjectClassMapping.add(new SubjectClassMapping(subjectClassService.countRow()+index++,classTemp,subject));
 				System.out.println(classTemp.getClassName());
+				}
 			}
 			
 			subjectClassService.createSubjectClass(subject, subjectClassMapping);
