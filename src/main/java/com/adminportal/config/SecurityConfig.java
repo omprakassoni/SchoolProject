@@ -107,14 +107,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	};
 	
 	public static final String[] CONTRIBUTOR_URL= {
-			"/conVideo",
-			"/conDocument",
-			"/conArticle",
-			"/conQuiz",
-			"/conPhet",
-			"/conLessonPlan",
-			"/conConceptMap",
-			"/conView"
+			"/conVideo/**",
+			"/conDocument/**",
+			"/conArticle/**",
+			"/conQuiz/**",
+			"/conPhet/**",
+			"/conLessonPlan/**",
+			"/conConceptMap/**",
+			"/conView/**"
 	};
 	
 	@Override

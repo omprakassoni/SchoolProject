@@ -101,6 +101,7 @@ public class HomeControllerRest {
 	public static String uploadDirectory="Media/content/";
 	public static final String uploadEvent="Media/Event/";
 	public static final long fileSize=10*1024*1024; 
+	public static final long videoSize=50*1024*1024; 
 	
 	public static String deleteDirectory="";
 		
@@ -732,6 +733,12 @@ public class HomeControllerRest {
 		
 		videodata.add(local.getDescription());
 		
+		if(local.getUrl().startsWith("Media")) {
+			videodata.add("Upload");
+		}else {
+			videodata.add("Embed");
+		}
+		
 		return videodata;
 	}
 	
@@ -745,6 +752,24 @@ public class HomeControllerRest {
 		VideoExternal local=videoService.findById(video.getVideoId());
 		
 		videodata.add(local.getSource());
+		
+		if(local.getUrl().startsWith("Media")) {
+			videodata.add("Upload");
+		}else {
+			videodata.add("Embed");
+		}
+		
+		return videodata;
+	}
+	
+	@PostMapping("/loadByVideoIDUrl")
+	public List<String> loadByVideoIDUrl(@Valid @RequestBody VideoExternal video){
+		
+		List<String> videodata=new ArrayList<String>();	/*--------------------------------------------------LOAD ----------------------------------------------------------------------*/
+		
+		VideoExternal local=videoService.findById(video.getVideoId());
+		
+		videodata.add(local.getUrl());
 		
 		return videodata;
 	}
@@ -1377,7 +1402,78 @@ public class HomeControllerRest {
 			description=videotemp.getDescription();
 		}
 		
-		boolean status=phetServcie.updatePhet(VSource, urlUpload, ServiceUtility.getCurrentTime(), description, videotemp.getVideoId());
+		if(VSource.length()>0) {
+			
+		}else {
+			VSource=videotemp.getSource();
+		}
+		
+		boolean status=videoService.updateVideo(description, VSource, urlUpload, ServiceUtility.getCurrentTime(), videotemp.getVideoId());
+		
+		if(status) {
+			msg.add("Success");
+			return msg;
+		}else {
+			msg.add("failure");
+			return msg;
+		}
+	}
+	
+	
+	@PostMapping("/updateVideoUpload")
+	public @ResponseBody List<String> updateVideoUpload(@RequestParam("videosource") String VSource,@RequestParam("videoId") String videoId,@RequestParam("videoDesc") String desc,@RequestParam("videourl") MultipartFile videourl){
+		List<String> msg=new ArrayList<String>();
+		
+		String description=null;
+		String urlUpload=null;
+		
+		VideoExternal videotemp=videoService.findById(Integer.parseInt(videoId));
+		
+		if(!videourl.isEmpty()) {
+			if(!ServiceUtility.checkFileExtensionVideo(videourl)) {
+				msg.add("failure");
+				return msg;
+			}
+			if(videourl.getSize()>videoSize) {
+				msg.add("failure");
+				return msg;
+			}
+			
+			String previousPath=env.getProperty("spring.applicationexternalPath.name")+videotemp.getUrl();
+			Path deletePreviousPath=Paths.get(previousPath);
+			
+			String uploadconceptImage=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+videotemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+videotemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+videotemp.getTopic().getTopicId()+"/"+"Video/"+videotemp.getVideoId();
+			
+			String document;
+		
+			try {
+				document = ServiceUtility.uploadVideoFile(videourl, uploadconceptImage);
+				int indexToStart=document.indexOf("Media");
+				urlUpload=document.substring(indexToStart, document.length());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			
+		}else {
+			urlUpload=videotemp.getUrl();
+		}
+		
+		if(desc.length()>0) {
+			description=desc;
+			
+		}else {
+			description=videotemp.getDescription();
+		}
+		
+		if(VSource.length()>0) {
+			
+		}else {
+			VSource=videotemp.getSource();
+		}
+		
+		boolean status=videoService.updateVideo(description, VSource, urlUpload, ServiceUtility.getCurrentTime(), videotemp.getVideoId());
 		
 		if(status) {
 			msg.add("Success");

@@ -3549,7 +3549,11 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#videoDesc').val(data[0]);
+			       			if(data[1]=="Upload"){
+			       				$('#videoDescUpload').val(data[0]);
+			       			}else{
+			       				$('#videoDesc').val(data[0]);
+			       			}
 			       		
 						},
 						
@@ -3583,8 +3587,58 @@ $(function(){
 			       		 cache: false,
 			        	 timeout: 600000,
 			       		 success: function (data){
+			       			 
+			       			if(data[1]=="Upload"){
+			       				$('#videosourceUpload').attr('value',data[0]);
+			       			}else{
+			       				$('#videosource').attr('value',data[0]);
+			       			}
 			       			
-			       			$('#videosource').attr('value',data[0]);
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  					
+  					if(DeploymentType){								// Url Creation based on depolyment 
+  						urlPassed= "/loadByVideoIDUrl";
+  				
+  		        	}else{
+  		        		urlPassed= projectName+"/loadByVideoIDUrl";
+  				
+  		        	}
+  					
+  					
+  					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: urlPassed,
+			       		 data: JSON.stringify(selectedVideo),
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			
+
+				       			if(data[0].match("^Media")){
+				       				
+				       				$('.videoId').prop('value',video_id);
+				  					$('#VideoModalUpload').modal('show');
+				       				
+				       			}else{
+				       				
+				       				$('.videoId').prop('value',video_id);
+				  					$('#VideoModal').modal('show');
+				       				
+				       			}
 			       		
 						},
 						
@@ -3595,8 +3649,7 @@ $(function(){
 					});
  
   	
-  					$('#videoId').prop('value',video_id);
-  					$('#VideoModal').modal('show');
+  					
   				})
   				
   				
@@ -3613,6 +3666,14 @@ $(function(){
 
   						 fire_ajax_submit_Video(); 
   					});
+  					
+  					$('#updateVideoUpload').click(function(){
+  						
+ 						 event.preventDefault();
+ 						
+
+ 						 fire_ajax_submit_VideoUpload(); 
+ 					});
   					
 //  					$('#updateVideoOnUser').click(function(){
 //  						
@@ -7003,6 +7064,60 @@ function fire_ajax_submit_Topic(){
 						 $('#FailureVideo').css({"display": "block"});
 					 }else{
 						 $('#invalid-dataVideo').css({"display": "block"}); 
+					 }
+					
+				
+				},
+			
+			error : function(err){
+				console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+	
+		});
+	}
+	
+	function fire_ajax_submit_VideoUpload(){
+		
+		var form=$('#uploadUpdateVideoUpload')[0];
+		var data=new FormData(form);
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateVideoUpload";
+	
+    	}else{
+    		urlPassed= projectName+"/updateVideoUpload";
+	
+    	}
+	
+			$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: urlPassed,
+				data:data,
+				beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		},
+				cache:false,
+				contentType:false,
+				processData:false,
+				timeout: 600000,
+				success:function(data){
+					
+					 $('#SuccessVideoUpload').css({"display": "none"}); 
+					 $('#invalid-dataVideoUpload').css({"display": "none"}); 
+					 $('#FailureVideoUpload').css({"display": "none"});
+					
+					 if(data[0]==="Success"){
+						 $('#SuccessVideoUpload').css({"display": "block"});
+					 }else if(data[0]==="failure"){
+						 $('#FailureVideoUpload').css({"display": "block"});
+					 }else{
+						 $('#invalid-dataVideoUpload').css({"display": "block"}); 
 					 }
 					
 				

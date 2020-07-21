@@ -191,35 +191,31 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Add Document</h4>
-                                </div>
-                                <div class="card-body">
-                                <div id="SuccessArticleReturnStatusDocument"
-								style="display: none; color: green; font-size: 18px; text-align: center">Data
-								Uploaded Successfully</div>
-								<div id="FailureArticleReturnStatusDocument"
-								style="display: none; color: red; font-size: 18px; text-align: center">Please
-								Try Again</div>
-                                    <form action="" method="post" enctype="multipart/form-data"
-									id="uploadDocument">
-                                       <div class="row">
+                                    <h4 class="card-title">Add New Document</h4>
+                                    <div class="status" th:text="${statusAdd}"></div>
+									<div class="error" th:text="${failure}"></div>
+									<div class="error" th:text="${fileError}"></div>
+									<div class="error" th:text="${sessionTimeOut}"></div>
+                            </div>
+                            <div class="card-body">
+			                   <form th:action="@{/conDocument/addDocument}" method="post" enctype="multipart/form-data">
+                                        <div class="row">
                                             <div class="col-md-4 ">
                                                 <div class="form-group">
 <!--                                                    <label>Company (disabled)</label>-->
-                                                    <select class="form-control" name="classSelected" id="classSelectedDocument">
-                                                        <option>Select Class</option>
-														<span th:each="classValue: ${classfromDatabase}">
-														<option>
-														<span th:text="${classValue.getClassName()}"></span>
-														</option>
+	                                                    <select class="form-control" name="classSelected"
+															id="classSelected">
+															<option>Select Class</option>
+															<span th:each="classValue: ${classExist}">
+																<option><span th:text="${classValue.getClassName()}"></span></option>
 														</span>
-                                                    </select>
+														</select>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
 <!--                                                    <label>Username</label>-->
-                                                    <select class="form-control" name="subjectSelected" id="subjectDocument" disabled>
+                                                    <select class="form-control" name="subjectSelected" id="subject" disabled>
                                                         <option value="0">Select Subject</option>
 														<options items="${cities}" itemValue="id" itemLabel="name" />
                                                     </select>
@@ -228,7 +224,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
 <!--                                                    <label for="exampleInputEmail1">Email address</label>-->
-                                                    <select class="form-control" name="topicSelected" id="topicDocument" disabled>
+                                                    <select class="form-control" name="topicSelected" id="topic" disabled>
                                                         <option value="0">Select Topic</option>
 														<options items="${cities}" itemValue="id" itemLabel="name" />
                                                     </select>
@@ -244,7 +240,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                    <textarea class="form-control" placeholder="Enter Something"
-												        title="Max 10000 Character" style="height: 100px" id="descriptionDocument" name="description" disabled></textarea> 
+												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required disabled></textarea> 
                                                 </div>
                                             </div>
                                         </div>
@@ -257,7 +253,7 @@
                                             
                                             <div class="col-md-4" >
                                                 <div class="form-group" >
-                                                    <input type="text" class="form-control" id="sourceDocument" name="source" disabled>
+                                                    <input type="text" class="form-control" id="source" name="source" required disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,7 +268,7 @@
                                              
                                              <div class="col-md-4">
                                                 <div class="">
-                                                    <input type="file" class="form-control" id="UrlDocument" name="Question" title="select file to upload" disabled/>
+                                                    <input type="file" class="form-control" id="Question" name="Question" accept="application/pdf" required disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -302,8 +298,7 @@
                                                 <table class="table">
                                                     <tr>
                                                         <td>
-                                                        	<input class="form-check-input" type="checkbox" value="" id="documentUserCheck" required>
-                                                            
+                                                            <input class="form-check-input" type="checkbox" value="" required>
                                                         </td>
                                                         <td>
                                                             <a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
@@ -314,10 +309,11 @@
                                         </div>
                                         
                                         
-                                        <button type="button" id="addDocumentfromUser" class="btn btn-info btn-fill pull-right" disabled>Upload</button>
+                                        <button type="submit"  class="btn btn-info btn-fill pull-right upload-submit" disabled>Upload</button>
                                         <div class="clearfix"></div>
                                     </form>
-                                </div>
+                            
+                            </div>
                             </div>
                         </div>
                       

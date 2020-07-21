@@ -191,93 +191,100 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Add Quiz</h4>
-                                </div>
-                                <div class="card-body">
-                                <div id="SuccessArticleReturnStatusQuiz"
-								style="display: none; color: green; font-size: 18px; text-align: center">Data
-								Uploaded Successfully</div>
-								<div id="FailureArticleReturnStatusQuiz"
-								style="display: none; color: red; font-size: 18px; text-align: center">Please
-								Try Again</div>
-                                    <form action="" method="post" enctype="multipart/form-data"
-									id="uploadQuiz">
-                                        <div class="row">
+                                    <h4 class="card-title">Add New Quiz</h4>
+                                    <div class="status" th:text="${statusAdd}"></div>
+									<div class="error" th:text="${failure}"></div>
+									<div class="error" th:text="${fileError}"></div>
+                            </div>
+                            <div class="card-body">
+			                   <form th:action="@{/conQuiz/addQuiz}" method="post"
+									enctype="multipart/form-data">
+                                      <div class="row">
                                             <div class="col-md-4 ">
                                                 <div class="form-group">
 <!--                                                    <label>Company (disabled)</label>-->
-                                                    <select class="form-control" name="classSelected" id="classSelectedQuiz">
-                                                        <option>Select Class</option>
-														<span th:each="classValue: ${classfromDatabase}">
-														<option>
-														<span th:text="${classValue.getClassName()}"></span>
-														</option>
-														</span>
-                                                    </select>
+                                                    <select class="form-control" name="classSelected"
+														id="classSelectedQuiz">
+														<option>Select Class</option>
+														<span th:each="classValue: ${classExist}">
+															<option><span th:text="${classValue.getClassName()}"></span></option>
+													</span>
+													</select>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
 <!--                                                    <label>Username</label>-->
-                                                    <select class="form-control" name="subjectSelected" id="subjectQuiz" disabled>
-                                                        <option value="0">Select Subject</option>
+                                                    <select class="form-control" name="subjectSelected"
+														id="subjectQuiz" path="subject" disabled>
+														<option value="0">Select Subject</option>
 														<options items="${cities}" itemValue="id" itemLabel="name" />
-                                                    </select>
+					
+													</select>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
 <!--                                                    <label for="exampleInputEmail1">Email address</label>-->
-                                                    <select class="form-control" name="topicSelected" id="topicQuiz" disabled>
-                                                        <option value="0">Select Topic</option>
+                                                   <select class="form-control" name="topicSelected" id="topicQuiz"
+														path="topic" disabled>
+														<option value="0">Select Topic</option>
 														<options items="${cities}" itemValue="id" itemLabel="name" />
-                                                    </select>
+					
+													</select>
+
                                                 </div>
                                             </div>
                                         </div>
-                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 class="label-align">Quiz Title</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                   <input type="text" class="form-control-file"
+													title="Max 255 character" id="remarksQuiz" name="remarks"
+													required disabled />
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6" >
                                                 <div class="" style="text-align: center">
-                                                    <h4 style="margin:0px">Headline</h4>
+                                                    <h4 style="margin:0px">Question Paper</h4>
                                                 </div>
                                             </div>
                                             
                                             <div class="col-md-4" >
                                                 <div class="form-group" >
-                                                    <input type="text" class="form-control" id="remarksQuiz" name="remarks" disabled>
+                                                    <input type="file" class="form-control-file"
+														title="upload only PDF file" id="QuestionQuiz"
+														accept="application/pdf" name="Question" required disabled />
                                                 </div>
                                             </div>
                                         </div>
                                         
+                                        
                                          <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Upload Questions</h4>
+                                                    <h4 style="margin:0px">Answer Key</h4>
                                                 </div>
                                             </div>
                                              
                                              <div class="col-md-4">
                                                 <div class="">
-                                                    <input type="file" class="form-control" id="QuestionQuiz" name="Question" title="please add only Pdf file" accept="application/pdf" disabled/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Upload Answers</h4>
-                                                </div>
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <div class="">
-                                                    <input type="file" class="form-control" id="AnswerQuiz" name="Answer" title="please add only Pdf file" accept="application/pdf" disabled/>
+                                                    <input type="file" class="form-control-file" id="AnswerQuiz"
+														title="upload only PDF file" accept="application/pdf"
+														name="Answer" required disabled />
                                                 </div>
                                             </div>
                                         </div>
                                         
-                                         <div class="row">
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 
                                             </div>
@@ -313,8 +320,8 @@
                                                 <table class="table">
                                                     <tr>
                                                         <td>
-                                                        	<input class="form-check-input" type="checkbox" value="" id="quizUserCheck" required>
-                                                           
+                                                                <input class="form-check-input" type="checkbox" value="" required >
+                                                             
                                                         </td>
                                                         <td>
                                                             <a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
@@ -325,10 +332,11 @@
                                         </div>
                                         
                                         
-                                        <button type="button" id="addQuizfromUser" class="btn btn-info btn-fill pull-right" disabled>Upload</button>
+                                        <button type="submit" class="btn btn-info btn-fill pull-right upload-submit" disabled>Upload</button>
                                         <div class="clearfix"></div>
-                                    </form>
-                                </div>
+                                </form>
+                            
+                            </div>
                             </div>
                         </div>
                       
