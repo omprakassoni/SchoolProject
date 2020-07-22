@@ -5,6 +5,10 @@ $(function(){
 							//	 use 1 -> Inhouse Level code
 	
 	
+	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+		localStorage.setItem('activeTab', $(e.target).attr('href'));
+	});
+	
 	/**************************** Reloading Page on closing of Modal ***********************************************/
 	
 	 $(".contentInstruction").hide();
@@ -16,7 +20,40 @@ $(function(){
 	    });
 	
 	
-/*	$('#VideoModal').on('hidden.bs.modal', function () {
+	$('.VideoModalReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.VideoModalReloadUploadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.QuizReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.ArticleReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.DocumentReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.LessonReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('.PhetReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+/*	$('#TestimonialModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#EventModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
 	
@@ -26,38 +63,11 @@ $(function(){
 	
 	$('#TopicModal').on('hidden.bs.modal', function () {
 		location.reload();
-	});
-	
-	$('#QuizModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#ArticleModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#DocumentModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#LessonPlanModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#PhetModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#TestimonialModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#EventModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	$('#ConceptMapModal').on('hidden.bs.modal', function () {
-		location.reload();
 	});*/
+	
+	$('.ConceptReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
 	 
 	 $('#ProfilePictureModal').on('hidden.bs.modal', function () {
 			location.reload();

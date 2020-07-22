@@ -103,7 +103,7 @@ public class User implements UserDetails{
 	@Column(name="profilePic")
 	private String profilePic;
 	
-	@Column(name = "approveTeacher")
+	@Column(name = "approveTeacher" , columnDefinition = "integer default 0")
 	private int approveTeacherFlag;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
