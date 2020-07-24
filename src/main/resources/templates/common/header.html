@@ -83,7 +83,7 @@
 						<div sec:authorize="isAuthenticated()">
 							<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4"
 								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> <i class="fas fa-user"></i> Profile
+								aria-expanded="false"> <i class="fas fa-user"></i>  <span th:text="${LoggedUser.getFname()}"></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right dropdown-info"
 								aria-labelledby="navbarDropdownMenuLink-4">

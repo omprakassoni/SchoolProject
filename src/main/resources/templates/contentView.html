@@ -621,8 +621,7 @@
 													<td><span th:text="${lesson.getDateAdded()}"></span></td>
 													<td><a
 														th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
-														class="pdfclass" target="_class"><img id="pdfsource"
-															th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+														class="pdfclass" target="_class"><i class="fas fa-external-link-alt"></i></a></td>
 
 													<td><span th:if="${lesson.isStatus()==1}"><div
 																id="true" /></span> <span th:unless="${lesson.isStatus()==1}"><div
@@ -688,11 +687,9 @@
 													<td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
 													<td><span th:text="${quiz.getDateAdded()}"></span></td>
 													<td><a th:href="@{/files/}+@{${quiz.getQuestion()}}"
-														class="pdfclass" target="_blank"><img id="pdfsource"
-															th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+														class="pdfclass" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
 													<td><a th:href="@{/files/}+@{${quiz.getAnswer()}}"
-														target="_blank" class="pdfclass"><img id="pdfsource"
-															th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+														target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a></td>
 													<td><span th:if="${quiz.isStatus()==1}"><div
 																id="true" /></span> <span th:unless="${quiz.isStatus()==1}"><div
 																id="false" /></span></td>

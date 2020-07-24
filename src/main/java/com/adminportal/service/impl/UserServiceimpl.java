@@ -283,6 +283,20 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	@Override
+	@Transactional
+	public boolean updateUserDetails(String fname, String lname, int id) {
+		int status=userRepository.updateUserDetails(fname, lname, id);
+		
+		if(status>0) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
+
 
 
 	

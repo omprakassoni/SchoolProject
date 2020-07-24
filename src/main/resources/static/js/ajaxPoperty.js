@@ -5,6 +5,66 @@ $(function(){
 							//	 use 1 -> Inhouse Level code
 	
 	
+	
+	/******************************** USER DETAILS UPDATE ******************************************************/
+	
+	$("#userDetailsUpdate").click(function(){
+		var fname=$('#fname').val();
+		var lname=$('#lname').val();
+		
+		var userData={
+			"fname":fname,
+			"lname":lname,
+		};
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateUserDetails";
+	
+    	}else{
+    		urlPassed= projectName+"/updateUserDetails";
+	
+    	}
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		$.ajax({
+	  	type: "GET",
+    	contentType: "application/json",
+   		 url: urlPassed,
+   		 data: userData,
+   		 beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		 },
+   		 dataType: 'json',
+   		 cache: false,
+    	 timeout: 600000,
+   		 success: function (data){
+   			 
+   			if(data){
+   				alert("Details updated successfully");
+   	
+   			}else{
+   				alert("Update failed");
+   			}
+   			
+   		
+		},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+		}
+		
+	});
+		
+
+
+
+	})
+	
+	
 	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
 		localStorage.setItem('activeTab', $(e.target).attr('href'));
 	});
@@ -6129,6 +6189,7 @@ $(function(){
   						 $('#Success').css({"display": "none"}); 
   						 $('#FailurePassMismatch').css({"display": "none"});
   						 $('#FailureCurPassWrong').css({"display": "none"});
+  						 $('#lengthIncorrect').css({"display": "none"});
   						
   						 if(data[0]==="Success"){
   							 $('#Success').css({"display": "block"});
@@ -6147,7 +6208,18 @@ $(function(){
  							 $('#updatePasswordTeacher').prop('disabled',true);
  							 
  							 setTimeout(function() {
- 					            $('#Failure').fadeOut(1000)}, 4000);
+ 					            $('#FailureCurPassWrong').fadeOut(1000)}, 4000);
+  						 }else if(data[0]==="passwordLengthError"){
+  							 
+  							 $('#lengthIncorrect').css({"display": "block"});
+  							 $('#newPassTeacher').prop('value',"");
+ 							 $('#confPassTeacher').prop('value',"");
+ 							 $('#currentPasswordTeacher').prop('value',"");
+ 							 $('#updatePasswordTeacher').prop('disabled',true);
+ 							 
+ 							 setTimeout(function() {
+ 					            $('#lengthIncorrect').fadeOut(1000)}, 4000);
+  							 
   						 }
   						
   					

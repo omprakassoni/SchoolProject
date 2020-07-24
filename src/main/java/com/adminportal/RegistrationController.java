@@ -8,6 +8,7 @@
 
 package com.adminportal;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class RegistrationController {
 	
 	
 	@RequestMapping(value = "/newUserL", method = RequestMethod.POST )
-	public ModelAndView addNewUserLearner(HttpServletRequest req,ModelAndView mv) throws Exception {
+	public ModelAndView addNewUserLearner(HttpServletRequest req,ModelAndView mv,Principal principal) throws Exception {
 		String email=req.getParameter("email");
 		String fname=req.getParameter("txtLearnersFirstname");
 		String lname=req.getParameter("txtLearnersLastname");
@@ -87,6 +88,12 @@ public class RegistrationController {
 		String pincodeString=req.getParameter("txtPincode");
 		int pincode=Integer.parseInt(pincodeString);
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
 		
 		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subject);
@@ -220,7 +227,7 @@ public class RegistrationController {
 	
 	
 	@RequestMapping(value = "/newUserP", method = RequestMethod.POST )
-	public ModelAndView addNewUserParent(HttpServletRequest req,ModelAndView mv) throws Exception {
+	public ModelAndView addNewUserParent(HttpServletRequest req,ModelAndView mv,Principal principal) throws Exception {
 		
 		String email=req.getParameter("email");
 		String fname=req.getParameter("txtParentsFirstname");
@@ -228,6 +235,12 @@ public class RegistrationController {
 		String password=req.getParameter("password");
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
 		
 		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subject);
@@ -339,7 +352,7 @@ public class RegistrationController {
 	
 	
 	@RequestMapping(value = "/newUserT", method = RequestMethod.POST )
-	public ModelAndView addNewUserTeacher(@RequestParam("txtTeacherDocument") MultipartFile[] uploadDocument,HttpServletRequest req,ModelAndView mv) throws Exception {
+	public ModelAndView addNewUserTeacher(Principal principal,@RequestParam("txtTeacherDocument") MultipartFile[] uploadDocument,HttpServletRequest req,ModelAndView mv) throws Exception {
 		
 		String email=req.getParameter("email");
 		String fname=req.getParameter("txtTeacherFirstname");
@@ -347,6 +360,12 @@ public class RegistrationController {
 		String password=req.getParameter("password");
 		String gender=req.getParameter("gender");
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
 		
 		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subject);

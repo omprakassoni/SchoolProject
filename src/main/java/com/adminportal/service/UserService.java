@@ -76,6 +76,8 @@ public interface UserService {
 	
 	boolean updateUserPassword(String password,int id);
 	
+	boolean updateUserDetails(String fname,String lname,int id);
+	
 	int countRow();
 	
 
