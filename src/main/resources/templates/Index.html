@@ -19,18 +19,256 @@
 		<input type="hidden" value="no" id="reg">
 	</div>
 
-
-	<div th:class="bg-poster">
-
-
-		<!--  CODE FOR NAVBAR -->
+	<!-- <div th:class="bg-poster"> -->
+	<div>
+		
 		<div th:replace="common/header :: navbar"></div>
-
-
 	</div>
+	<section class="intro">
+	<div class="i-select">
+	<div class="search row">
+	<div class="col-md-4">
+	<select class="form-control c-select">
+  			<option>Select Class</option>
+	</select>
+	</div>
+	<div class="col-md-4">
+	<select class="form-control c-select">
+  			<option>Select Subject</option>
+	</select>
+	</div>
+	<div class="col-md-4">
+	<select class="form-control c-select">
+  			<option>Select Topic</option>
+	</select>
+	</div>
+		
+	</div>
+	<div class="row">
+	<div class="col-md-12 search-btn">
+	<button type="button" class="btn c-btn">SUBMIT</button>
+	</div>
+	</div>
+	
+	<div>
+	<div class="tagline">
+			<h1>Repository for School <br> 
+			Teaching & Learning Resources</h1>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-6 i-content">
+	</div>
+	<div class="col-md-6 i-img"></div>
+	</div>	
+	</section>
+	
+	<section class="about">
+	<div class="row">
+		<div class="col-md-6 a-content">
+		<h1>About Us</h1>
+		<h5>Repository For School Resources</h5>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+		Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+		when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+		It has survived not only five centuries, but also the leap into electronic typesetting, 
+		remaining essentially unchanged. </p>
+		<a href="#" class="c-btn" style="padding: 10px 20px;">Read More</a>
+		</div>
+		<div class="col-md-6 a-img">
+		<img src="../Images/about.jpg">
+		</div>
+	</div>
+	</section>
+	<section class="resources" style="border-bottom: 1px solid #E6E6E6;">
+		<h1>Teaching / Learning Resources</h1>
+		<div class="row">
+			<div class="col-md-4 rb-border">
+				<div><span class="r-icon"><i class="fas fa-book-open"></i></span><span class="r-header">Concept-Maps</span></div>
+				<div><p>A diagram that depicts suggested relationships between concepts</p></div>
+			</div>
+			<div class="col-md-4 rb-border">
+				<div><span class="r-icon"><i class="far fa-file-video"></i></span><span class="r-header">Tutorials</span></div>
+				<div><p>Spoken Tutorials on more than 50+ topics in 22+ Indian languages</p></div>
+			</div>
+			<div class="col-md-4 b-border">
+				<div><span class="r-icon"><i class="fas fa-atom"></i></span><span class="r-header">PhETs</span></div>
+				<div><p>An acronym for "Physics Education Technology", includes simulations about many topics </p></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 r-border">
+				<div><span class="r-icon"><i class="fas fa-link"></i></span><span class="r-header">Links</span></div>
+				<div><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p></div>
+			</div>
+			<div class="col-md-4 r-border">
+				<div><span class="r-icon"><i class="far fa-list-alt"></i></span><span class="r-header">Lesson Plans</span></div>
+				<div><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p></div>
+			</div>
+			<div class="col-md-4">
+				<div><span class="r-icon"><i class="far fa-clipboard"></i></span><span class="r-header">Quizzes</span></div>
+				<div><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p></div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="events">
+	<div class="row">
+	<div class="col-md-12 events-heading"><h1>Events</h1></div>
+	</div>
+	
+	<div class="row">
+	<div class="col-md-8">
+	<div class="row item">
+		<div class="col-sm-12 col-md-2 e-calender e-odd">
+		<p><i class="far fa-calendar-alt e-cal"></i></p>
+		<p>23rd Aug, 2019</p>
+		</div>
+		<div class="col-sm-12 col-md-10 e-content">
+		<p class="e-title">Scilab Workshop - Aug, 2020</p>
+		<p><i class="fas fa-map-marker-alt e-map"></i> IIT Bombay</p>
+		</div>
+	</div>
+	<div class="row item">
+		<div class="col-sm-12 col-md-2 e-calender e-even">
+		<p><i class="far fa-calendar-alt e-cal"></i></p>
+		<p>23rd Aug, 2019</p>
+		</div>
+		<div class="col-sm-12 col-md-10 e-content">
+		<p class="e-title">Scilab Workshop - Aug, 2020</p>
+		<p><i class="fas fa-map-marker-alt e-map"></i> IIT Bombay</p>
+		</div>
+	</div>
+	<div class="row item">
+		<div class="col-sm-12 col-md-2 e-calender e-odd">
+		<p><i class="far fa-calendar-alt e-cal"></i></p>
+		<p>23rd Aug, 2019</p>
+		</div>
+		<div class="col-sm-12 col-md-10 e-content">
+		<p class="e-title">Scilab Workshop - Aug, 2020</p>
+		<p><i class="fas fa-map-marker-alt e-map"></i> IIT Bombay</p>
+		</div>
+	</div>
+	
+	</div>
+	<div class="col-md-3 offset-md-1 quote">
+	<p><i class="fas fa-quote-left icon-quote-l"></i>
+	Creativity is the key to success in the future, and primary education is where 
+	teachers can bring creativity in children at that level.<i class="fas fa-quote-right icon-quote-r"></i></p>
+	<hr><p><i class="fas fa-quote-left icon-quote-l"></i>
+	The future of the nation depends on the quality of primary education imparted.<i class="fas fa-quote-right icon-quote-r"></i>
+	</p>
+	<!-- <br> -->
+	<span class="dr-apj">- Dr. A. P. J. Abdul Kalam</span>
+	</div>
+	</div>
+	
+	
+	</section>
+	
+	<section class="testimonials">
+	<h1>Testimonials</h1>
+	<div class="card-deck">
+		<div class="card t-item">
+		  <div class="card-body">
+		  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+				when an unknown printer took a galley of type and scrambled it to make a type 
+				specimen book .... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
+				<p class="t-name">Riya Rana</p>
+				<p class="t-info">Principal, Kendriya Vidyalaya</p>
+		  </div>
+		</div>
+  		<div class="card t-item">
+		  <div class="card-body">
+		  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+				when an unknown printer took a galley of type and scrambled it to make a type 
+				specimen book .... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
+				<p class="t-name">Riya Rana</p>
+				<p class="t-info">Principal, Kendriya Vidyalaya</p>
+		  </div>
+		</div>
+  		<div class="card t-item">
+		  <div class="card-body">
+		  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+				when an unknown printer took a galley of type and scrambled it to make a type 
+				specimen book .... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
+				<p class="t-name">Riya Rana</p>
+				<p class="t-info">Principal, Kendriya Vidyalaya</p>
+		  </div>
+		</div>
+	</div>
+	</section>
+	<!-- Modal -->
+	<div class="modal fade" id="testimonialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      <div class="modal-title" id="testimonialModalTitle">
+	      <h5 class="modal-title t-name">Riya Rana</h5>
+	      <p class="t-info">Principal, Kendriya Vidyalaya</p>
+	      </div>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+				when an unknown printer took a galley of type and scrambled it to make a type 
+				specimen book. </p>
+	      </div>
+	      <div class="modal-footer">
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<h1 class="contact-header">Contact</h1>
+	<section class="footer">
+	<div class="row">
+	<div class="col-md-3 f-info f-address">
+	<p><i class="fas fa-map-marked-alt f-icon"></i></p>
+	<p>Spoken Tutorial Project</p>
+	<p>TCS Lab, Behind CAD Center,</p>
+	<p>IIT Bombay, Powai,</p>
+	<p>Mumbai - 400076</p>
+	</div>
+	<div class="col-md-3 f-info f-contact">
+	<!-- <h1 style="color: #fff;">Contact</h1> -->
+	<p><i class="fas fa-phone-square-alt f-icon"></i></p>
+	<p>+ 91 22 25764229</p>
+	<br>
+	<p><i class="fas fa-envelope f-icon"></i></p>
+	<p>contact@spoken-tutorial.org</p>
+	</div>
+	<div class="col-md-6 f-msg">
+	<div><h5>Feedback / Collaborate with us</h5></div>
+	<div class="w3agile_contact_left f-form">
 
+					<input type="text" id="name" name="Name" placeholder="Name"
+						required /> <input type="email" id="email" name="Email"
+						placeholder="Email" required />
+					<textarea name="Message" id="message" placeholder="Message.."
+						required></textarea>
+					<div id="statusOnContactForm"
+						style="color: red; display: none; margin-top: 10px;">Provide
+						Correct E-mail</div>
+					<div id="statusOnContactFormAfterAjaxCallSucess"
+						style="color: green; display: none; margin-top: 10px;">Query has been recorded,Soon you will be contacted.
+					</div>
+					<div id="statusOnContactFormAfterAjaxCallFailure"
+						style="color: red; display: none; margin-top: 10px;">Please
+						Try Again</div>
+					<button class="btn f-btn" style="margin-top: 30px"
+						id="contactForm" disabled>Send</button>
 
-
+				</div>
+	</div>
+	</div>
+	</section>
 	<section class="section-header" style="background: #a5b5b3">
 		<div class="container">
 			<div class="section1">
@@ -133,8 +371,6 @@
 			</div>
 
 		</div>
-
-
 	</section>
 
 

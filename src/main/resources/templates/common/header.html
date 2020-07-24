@@ -13,6 +13,7 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/css/mdb.css}" type="text/css" />
 <link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
 <link rel="stylesheet" th:href="@{/css/all.min.css}" type="text/css" />
 <link rel="stylesheet" th:href="@{/datatables.min.css}" type="text/css" />
 
@@ -55,9 +56,9 @@
 	<div th:fragment="navbar">
 
 		<!--Navbar -->
-		<nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-secondary">
+		<nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
 			<a class="navbar-brand" th:href="@{/}" id="logo"><img
-				th:src="@{/Images/logo.png}" /></a>
+				th:src="@{/Images/logo.png}" /></a><span class="brand-name">School Connex</span>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent-4"
 				aria-controls="navbarSupportedContent-4" aria-expanded="false"
@@ -66,6 +67,8 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link nav-weight" href="#">
+							Resources </a></li>
 					<li class="nav-item"><a class="nav-link nav-weight" href="#">
 							About Us </a></li>
 
@@ -77,7 +80,6 @@
 
 					<li class="nav-item "><a class="nav-link nav-weight"
 						th:href="@{/#Contact-us}"> Contact Us</a></li>
-					
 
 					<li class="nav-item dropdown">
 						<div sec:authorize="isAuthenticated()">
@@ -97,10 +99,10 @@
 							</div>
 						</div>
 
-						<div sec:authorize="isAnonymous()">
+						<div sec:authorize="isAnonymous()" class="nav-login">
 
-							<a th:href="@{/Login}" class="btn btn-info btn-rounded ">Log
-								In</a> <a th:href="@{/Signup}" class="btn btn-info btn-rounded">Register</a>
+							<a th:href="@{/Login}" class=" n-btn nav-link">Log
+								In</a> <a th:href="@{/Signup}" class="n-btn nav-link">Register</a>
 
 						</div> 
 			</div>
@@ -109,7 +111,7 @@
 			</li>
 			</ul>
 		</nav>
-		<form th:action="@{/courses}" method="get" id="form-searchFuntion">
+		<!-- <form th:action="@{/courses}" method="get" id="form-searchFuntion">
 			<div class="container">
 
 				<div class="row">
@@ -137,7 +139,7 @@
 							<span th:each="subjectValue: ${subjectfromDatabase}">
 								<option><span th:text="${subjectValue.getSubName()}"></span></option>
 						</span>
-							<!--  <options items="${cities}" itemValue="id" itemLabel="name" />-->
+							 <options items="${cities}" itemValue="id" itemLabel="name" />
 
 						</select>
 					</div>
@@ -154,7 +156,7 @@
 
 
 			</div>
-		</form>
+		</form> -->
 	</div>
 
 
@@ -361,8 +363,8 @@
 		<script th:src="@{/js/mdb.js}"></script>
 		
 		
-		<script src="https://use.fontawesome.com/0ef95eb641.js"></script>
 		
+		<script src="https://use.fontawesome.com/0ef95eb641.js"></script>
 
 
 	</div>
