@@ -9,7 +9,7 @@
 
 <body>
 	
-    <div class="wrapper">
+    <div class="wrapper res-wrapper">
         <div class="sidebar" th:data-image="@{/img/sidebar-5.jpg}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
@@ -65,9 +65,9 @@
         </div>
         <div class="main-panel">
             <!-- Navbar -->
-              <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+              <nav class="navbar navbar-expand-lg res-header-nav" color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
+                    
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -78,27 +78,25 @@
                         <ul class="nav navbar-nav mr-auto">
                             <li class="nav-item">
                                 
-										<div class="container" style="margin-top:10px">
+										<div class="container res-info" style="margin-top:10px;display:flex;">
 								
 											<span style="display: flex">
-												<h4 style="color: black; margin: 0px;">
-													<span th:text="'Class '+${classSelected}"></span>/
-												</h4>
-								
-												<h4 style="color: black; margin: 0px">
+												
+													<span th:text="'Class '+${classSelected}"></span>
+										
+									<span><i class="fas fa-chevron-right"></i></span>
+												
 													<span th:text="${subjectSelected}"></span>
-												</h4>
-								
+												<span><i class="fas fa-chevron-right"></i></span>
+												
+												<span class="res-topic" th:text="${TopicSelected.getTopicName()}"></span>
+											
 								
 											</span>
-											<h3 style="color: black; font-weight: bold;margin-top:0px;">
-												<span th:text="${TopicSelected.getTopicName()}"></span>
-											</h3>
-								
+											
 								
 										</div>
 									
-                               
                             </li>
                            <!--  <li class="dropdown nav-item">
                                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -152,6 +150,7 @@
                                 
                             </li> -->
                              <li class="nav-item">
+                             <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
                                 <a class="nav-link" data-toggle="modal" data-target="#frameModalBottom">
                                     <span class="no-icon">Modify Search ?</span>
                                 </a>
@@ -201,20 +200,35 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                	<h3 style="text-align: center">Phets</h3>
-                                     <p style="float: right">
+                            <div class="res-card">
+                                <div class="res-card-header row">
+                                <div class="col-md-8" style="display:flex;">
+                                <h3 class="res-topic-card"><span th:text="${TopicSelected.getTopicName()}"></span></h3>
+                                <h3>PhETs</h3>
+                                </div>
+                                <div class="col-md-4">
+                                <h4 >
+										<a href="https://spoken-tutorial.org/tutorial-search/?search_foss=PhET&search_language=English"><i class="fas fa-info-circle"></i> Check
+											Out how to Use Phets</a>
+									</h4>
+                                
+                                </div>
+                                	
+                                    <!-- <div style="float:right;">
+                                    <h4 >
 										<a href="https://spoken-tutorial.org/tutorial-search/?search_foss=PhET&search_language=English">Check
 											Out how to Use Phets</a>
-									</p>
+									</h4>
+                                    </div> -->
+                                     
                                 </div>
-                                <div class="card-body">
-									<div class="row" th:each="phet:${PhetOnTopic}">
+                                <div>
+									<div class="row phet-item" th:each="phet:${PhetOnTopic}">
 							
-										<div class="col-sm-12 col-md-4 col-lg-4">
+										<div class="col-sm-12 col-md-4">
 											<div class="embed-responsive embed-responsive-16by9">
-			
+												<a href="https://spoken-tutorial.org/tutorial-search/?search_foss=PhET&search_language=English">Check
+											Out how to Use Phets</a>
 												<iframe class="embed-responsive-item" th:src="${phet.getUrl()}"
 													frameborder="0"
 													allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -223,11 +237,11 @@
 			
 										</div>
 
-										<div class="col-sm-12 col-md-1 col-lg-1"></div>
 
-										<div class="col-sm-12 col-md-7 col-lg-7">
+										<div class="col-sm-12 col-md-7 content">
 
-											<p th:text="${phet.getDescription()}"></p>
+										<p th:text="${phet.getDescription()}"></p>
+										<div class="phet-src"> <p class="text-muted">Source : <span th:text="${phet.getSource()}"></span></p></div>
 
 										</div>
 

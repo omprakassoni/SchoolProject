@@ -1,5 +1,6 @@
 $(function(){
 	
+	
 	var projectName="/schoolProject";
 	var DeploymentType=1;   //   use 0 -> Production Level
 							//	 use 1 -> Inhouse Level code
@@ -6972,6 +6973,11 @@ $(document).ready(function () {
 $(document).ready(function () {
 	  $('#dtBasicExampleConcept').DataTable();
 	  $('.dataTables_length').addClass('bs-select');
+});
+//Quiz & Lesson Plan Table here
+$(document).ready(function () {
+	$('#quizTable').DataTable();
+	$('#lessonTable').DataTable();
 });
 
 /********************************************************************/

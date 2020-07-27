@@ -1,11 +1,12 @@
 /******************************************* Generic Start *******************************************/
 :root {
-  --main-bg-color: #00838f; /* cyan darken 3 */
+  --main-bg-color: #00838f; /* cyan darken 3 - rgb(0,131,143)*/
   --secondary-color: #ff9800;
   --accent-color:#E0A800; 
   --accent-color2: #01579b;
   --grey-color: #E6E6E6;
   --gap: 44px;
+  --font-sans-serif: Arial, Helvetica, sans-serif;
 }
 *{
 	margin: 0;
@@ -182,9 +183,6 @@ section{
 }
 .resources span{
 	font-size: 1.5rem;
-}
-.resources h1{
-	/* margin-bottom: 1.5rem; */
 }
 .r-border{
 	border-right: 1px solid var(--grey-color);
@@ -387,4 +385,81 @@ section{
 	margin-bottom: var(--gap);
 }
 /******************************************* Footer End *******************************************/
+/*---------------------------------------------Topics List Page Starts----------------------------*/
+#topicListView {
+	margin:1% 10%;
+}
+#topicListView .topicList-header{
+	border: 1px solid var(--grey-color);
+	border-bottom: 1px solid var(--accent-color);
+	background-color: #FBFBF9;
+	padding: calc(var(--gap)/3);	
+	border-bottom: 2px solid var(--accent-color2);
+}
+
+#topicListView .topicList-header .class-sub{
+	font-size: 2rem;
+	font-weight: bold;
+	
+}
+#topicListView .topicList-header .class-sub span{
+	color: var(--accent-color2)!important;
+	font-family:var(--font-sans-serif);
+}
+
+#topicListView .topicList-header .class-sub .topicList-class{
+	border-right: 4px solid var(--accent-color);
+	margin-right: 20px;
+	padding-right: 20px;
+}
+#topicListView  ul{
+	
+	list-style: none;
+	
+}
+#topicListView  ul li a{
+	/* border:1px solid red; */
+	display: block;
+	text-decoration: none!important;
+	color: var(--accent-color2);
+	color: rgb(0,0,0);
+	font-weight: bold;
+	color: var(--accent-color2);
+	
+}
+#topicListView  ul li a .topic-content{
+	text-decoration: none!important;
+}
+
+#topicListView  ul li{
+	border-bottom: 0.05rem solid rgba(0,131,143,0.4);
+	padding: calc(var(--gap)/2);
+}
+#topicListView .topic-img{
+	border: 1px solid var(--grey-color);
+	padding:0;
+}
+#topicListView .topic-img img{
+	/* border: 1px solid var(--grey-color); */
+	height: 100%;
+	width: auto;
+	float: right;
+	display:block;
+}
+#topicListView .topic-img div{
+	border: 1px solid var(--grey-color); 
+}
+#topicListView .topic-content{
+	font-family: var(--font-sans-serif);
+}
+#topicListView .topic-content p{
+	color: rgb(0,0,0);
+	font-weight: normal;
+}
+#topicListView .topic-content .date{
+	font-size: 0.8rem;
+	color: rgb(0,0,0,0.6);
+}
+
+/*---------------------------------------------Topics List Page Ends----------------------------*/
 

@@ -9,7 +9,7 @@
 
 <body>
 	
-    <div class="wrapper">
+    <div class="wrapper res-wrapper">
         <div class="sidebar" th:data-image="@{/img/sidebar-5.jpg}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
@@ -66,10 +66,8 @@
         </div>
         <div class="main-panel">
             <!-- Navbar -->
-              <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+              <nav class="navbar navbar-expand-lg res-header-nav" color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
-                    
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -77,27 +75,27 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
-                        <ul class="nav navbar-nav mr-auto">
+                        <ul class="nav navbar-nav mr-auto ">
                         
                             
                             <li class="nav-item">
                                 
-										<div class="container" style="margin-top:10px">
+										<div class="container res-info" style="margin-top:10px;display:flex;">
 								
 											<span style="display: flex">
-												<h4 style="color: black; margin: 0px;">
-													<span th:text="'Class '+${classSelected}"></span>/
-												</h4>
-								
-												<h4 style="color: black; margin: 0px">
+												
+													<span th:text="'Class '+${classSelected}"></span>
+										
+									<span><i class="fas fa-chevron-right"></i></span>
+												
 													<span th:text="${subjectSelected}"></span>
-												</h4>
-								
+												<span><i class="fas fa-chevron-right"></i></span>
+												
+												<span class="res-topic" th:text="${TopicSelected.getTopicName()}"></span>
+											
 								
 											</span>
-											<h3 style="color: black; font-weight: bold;margin-top:0px;">
-												<span th:text="${TopicSelected.getTopicName()}"></span>
-											</h3>
+											
 								
 										</div>
 									
@@ -155,6 +153,7 @@
                             </li> -->
                 
                              <li class="nav-item">
+                             <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
                                 <a class="nav-link" data-toggle="modal" data-target="#frameModalBottom">
                                     <span class="no-icon">Modify Search ?</span>
                                 </a>
@@ -206,25 +205,40 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 style="text-align: center">Concepts Map</h3>
+                            <div class="res-card">
+                                <div class="res-card-header">
+                                <div>
+                                <h3 class="res-topic-card"><span th:text="${TopicSelected.getTopicName()}"></span></h3>
+                                    <h3>Concepts Map</h3>
                                 </div>
-                                <div class="card-body">
+                                </div>
+                                <div>
                                  <div class="row" th:each="concept:${ConceptOnTopic}">
-                                 	<div class="col-sm-12 col-md-12 col-lg-12">
-										<h2 th:text="${concept.getRemark()}" style="color: GREY"></h2>
+                                 	<div class="col-sm-12 col-md-12">
+										<h4 th:text="${concept.getRemark()}"></h4>
 									</div>
+									<div class="col-sm-12">
+									<div class="accordion-desc" id="accordionDesc">
+  
+    <div id="a-header">
+        <button class="c-btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Read Description   <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
 
-									<div class="col-sm-12 col-md-6 col-lg-6">
-										<h4 th:text="${concept.getDescription()}"></h4>
+    <div id="collapseOne" class="collapse show" aria-labelledby="a-header" data-parent="#accordionDesc">
+      <div class="a-card-body">
+        <p th:text="${concept.getDescription()}"></p>
+      </div>
+    </div>
+  
+</div>
 									</div>
-
-									<div class="col-sm-12 col-md-6 col-lg-6">
+									<div class="col-sm-12 res-map">
 
 									<img class="img-responsive" th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')}"
 									th:src="@{/files/}+@{${concept.getUrl()}}"
-									style="width: 100%; height: 300px" />
+									 />
 									
 									<a th:href="@{/files/}+@{${concept.getUrl()}}" th:if="${#strings.endsWith(concept.getUrl(),'html')} or ${#strings.endsWith(concept.getUrl(),'xhtml')}"
 										target="_blank" class="pdfclass"><h4>Check Out</h4></a>
