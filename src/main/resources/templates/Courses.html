@@ -16,7 +16,7 @@
 	<div th:replace="common/header :: navbar"></div>
 
 
-	<div class="" style="background-color: rgb(10, 42, 102)" th:if="${classSelected} or ${subjectSelected}">
+	<!-- <div class="" style="background-color: rgb(10, 42, 102)" th:if="${classSelected} or ${subjectSelected}">
 		<div class="container">
 			<h5 style="color: white; margin-bottom: 0px" th:if="${classSelected}">
 				<span th:text="'Class '+${classSelected}"></span>
@@ -28,50 +28,52 @@
 
 
 		</div>
+	</div> -->
+
+	<!-- Topic list view starts here -->
+	<section id="topicListView">
+	<div class="topicList-header">
+	<div class="class-sub">
+	<span class="topicList-class" style="color: white; margin-bottom: 0px" th:if="${classSelected}">
+				<span th:text="'Class '+${classSelected}"></span>
+	</span><span style="color: white; font-weight: bold" th:if="${subjectSelected}">
+				<span th:text="${subjectSelected}"></span>
+	</span>
 	</div>
-
-
-
-
-	<div class="row" style="padding: 20px">
-
-
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
-			style="padding-top: 10px" th:each="topic:${TopicListOnSubjectClass}">
-			<!-- Card -->
-			<a th:href="'contentConcept/'+ ${topic.getTopicId()}">
-				<div class="card card-image"
-					th:style="'background-image:url(\''+@{files/}+@{${topic.getPoster()}} + '\');'" style="width:100%">
-
-					<!-- Content -->
-					<div
-						class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
-						<div style="text-align: center">
-							<h3 class="pink-text">
-								<i class="fas fa-chart-pie"></i> <span
-									th:text="${topic.getTopicName()}"></span>
-							</h3>
-							<!--  <h3 class="card-title pt-2"><strong><span th:text="${topic.getDescription()}"></span></strong></h3>-->
-							<br /> <br />
-
-						</div>
-					</div>
-
-				</div>
+	<div>
+	<p><span th:text="${#lists.size(TopicListOnSubjectClass)}"></span> Results Found</p>
+	
+	</div>
+	
+	
+	</div>
+	<ul>
+		<li th:each="topic:${TopicListOnSubjectClass}">
+		<a th:href="'contentConcept/'+ ${topic.getTopicId()}">
+		<div class="row">
+			<div class="col-sm-12 col-md-2 topic-img">
+				<img th:src="@{/files/}+@{${topic.getPoster()}}" >
+			</div>
+			<div class="col-sm-12 col-md-10 topic-content">
+				<h3><span th:text="${topic.getTopicName()}"></span></h3>
+				<p><span th:text="${topic.getDescription()}"></span></p>
+				<p class="date">Update on: <span th:text="${#dates.format(topic.getDateModified(), 'dd MMM , yyyy')}"></span> </p>
+			</div>
 		</div>
 		</a>
+		
+		</li>
+	</ul>
+	
+	
+	
+	</section>
+	
 
-		<!-- Card -->
-
-
-
-
-	</div>
-
-
+	<!-- Topic list view ends here -->
 	<span th:if="${NoTopicAvailable}">
-		<h1 style="text-align: center; color: red;"
-			th:text="${NoTopicAvailable}" />
+		<span style="text-align: center; color: red;"
+			th:text="${NoTopicAvailable}" /></span>
 	</span>
 
 

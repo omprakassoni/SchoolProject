@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapper res-wrapper">
         <div class="sidebar" th:data-image="@{/img/sidebar-5.jpg}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
@@ -64,10 +64,10 @@
         </div>
         <div class="main-panel">
             <!-- Navbar -->
-             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+             <nav class="navbar navbar-expand-lg res-header-nav" color-on-scroll="500">
                 <div class="container-fluid">
                     
-                    <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
+                    
                     
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -79,27 +79,25 @@
                         <ul class="nav navbar-nav mr-auto">
                             <li class="nav-item">
                                 
-										<div class="container" style="margin-top:10px">
+										<div class="container res-info" style="margin-top:10px;display:flex;">
 								
 											<span style="display: flex">
-												<h4 style="color: black; margin: 0px;">
-													<span th:text="'Class '+${classSelected}"></span>/
-												</h4>
-								
-												<h4 style="color: black; margin: 0px">
+												
+													<span th:text="'Class '+${classSelected}"></span>
+										
+									<span><i class="fas fa-chevron-right"></i></span>
+												
 													<span th:text="${subjectSelected}"></span>
-												</h4>
-								
+												<span><i class="fas fa-chevron-right"></i></span>
+												
+												<span class="res-topic" th:text="${TopicSelected.getTopicName()}"></span>
+											
 								
 											</span>
-											<h3 style="color: black; font-weight: bold;margin-top:0px;">
-												<span th:text="${TopicSelected.getTopicName()}"></span>
-											</h3>
-								
+											
 								
 										</div>
 									
-                               
                             </li>
                            <!--  <li class="dropdown nav-item">
                                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -153,6 +151,7 @@
                                 
                             </li> -->
                               <li class="nav-item">
+                              <a class="navbar-brand" style="color:blue" th:href="@{/}"><span class="fas fa-home"></span></a>
                                 <a class="nav-link" data-toggle="modal" data-target="#frameModalBottom">
                                     <span class="no-icon">Modify Search ?</span>
                                 </a>
@@ -202,32 +201,34 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                     <h3 style="text-align: center">Reference Links</h3>
+                            <div class="res-card">
+                                <div class="res-card-header">
+                                <div>
+                                <h3 class="res-topic-card"><span th:text="${TopicSelected.getTopicName()}"></span></h3>
+                                    <h3>Reference Links</h3>
                                 </div>
-                                <div class="card-body">
+                                </div>
+                                <br>
+                                <div >
                                		<ul class="nav nav-tabs" id="myTab" role="tablist">
 										<li class="nav-item"><a class="nav-link active"
 											id="video-tab" data-toggle="tab" href="#Video" role="tab"
-											aria-controls="home" aria-selected="true">Video</a></li>
+											aria-controls="home" aria-selected="true"><span><i class="fas fa-video"></i> Videos : <span th:text="${#lists.size(VideoOnTopic)}"></span></span></a></li>
 										<li class="nav-item"><a class="nav-link" id="link-tab"
 											data-toggle="tab" href="#Links" role="tab"
-											aria-controls="profile" aria-selected="false">Links</a></li>
+											aria-controls="profile" aria-selected="false"><span><i class="fas fa-link"></i> Links : <span th:text="${#lists.size(ArticleOnTopic)}"></span></span></a></li>
 										<li class="nav-item"><a class="nav-link" id="document-tab"
 											data-toggle="tab" href="#Document" role="tab"
-											aria-controls="contact" aria-selected="false">Document</a></li>
+											aria-controls="contact" aria-selected="false"><span><i class="far fa-file-alt"></i> Documents : <span th:text="${#lists.size(DocumentOnTopic)}"></span></span></a></li>
 									</ul>
 									<div class="tab-content" id="myTabContent">
 										<div class="tab-pane fade show active" id="Video" role="tabpanel"
 											aria-labelledby="Video-tab">
 			
 											<div class="clearfix"></div>
-											<div class="row" th:each="video:${VideoOnTopic}"
-												style="padding-top: 30px">
-			
-												<div class="col-sm-12 col-md-4 col-lg-4">
-													<div class="embed-responsive embed-responsive-16by9">
+											<div class="row link-video" th:each="video:${VideoOnTopic}">
+											<div class="col-md-4">
+											<div class="embed-responsive embed-responsive-16by9">
 														
 														<div th:if="${#strings.startsWith(video.getUrl(),'Media')}">
 																	<video width="250" height="150" controls>
@@ -246,27 +247,16 @@
 														
 														
 													</div>
-													<Strong
-														style="display: flex; padding-top: 10px; font-weight: 900; text-align: center"><h5>Source</h5>
-														<h5 style="padding-left: 15px; color: red"
-															th:text="${video.getSource()}"></h5></Strong>
-			
-												</div>
-			
-												<div class="col-sm-12 col-md-1 col-lg-1"></div>
-			
-												<div class="col-sm-12 col-md-7 col-lg-7">
-			
-													<h3 th:text="${video.getDescription()}"></h3>
-			
-												</div>
-			
-			
+											</div>
+											<div class="col-md-8 vid-content">
+											<p th:text="${video.getDescription()}"></p>
+											<p class="text-muted vid-src">Source : <span th:text="${video.getSource()}"></span></p>
+											</div>
 											</div>
 			
 											<span th:if="${VideoError}">
-												<h4 style="text-align: center; color: red;"
-													th:text="${VideoError}" />
+												<span style="text-align: center; color: red;"
+													th:text="${VideoError}"></span>
 											</span>
 			
 			
@@ -276,95 +266,43 @@
 										<div class="tab-pane fade" id="Links" role="tabpanel"
 											aria-labelledby="Links-tab">
 			
-											<div class="row">
-												<div class="col-6">
-													<h4>Description</h4>
-			
-												</div>
-												<div class="col-6">
-													<h4>URL</h4>
-												</div>
-											</div>
-											<hr />
-			
-			
-											<div class="row" th:each="link:${ArticleOnTopic}"
-												style="padding-bottom: 30px">
-			
-												<div class="col-6">
-			
-													<h4 th:text="${link.getDescription()}"></h4>
-													<Strong
-														style="display: flex; padding-top: 10px; font-weight: 900; text-align: center; color: #660000"><h5>Source</h5>
-														<h5 style="padding-left: 15px; color: red"
-															th:text="${link.getSource()}"></h5></Strong>
-			
-												</div>
-			
-			
-			
-												<div class="col-6">
-			
-													<a th:href="${link.getUrl()}" target="_blank"><h4
-															th:text="${link.getUrl()}"></h4></a>
-			
-												</div>
-			
-												<hr />
+											<div class="row link-item" th:each="link:${ArticleOnTopic}">
+											<div class="col-md-2 heading"><span> Description : </span></div>
+											<div class="col-md-10"><span th:text="${link.getDescription()}"></span></div>
+											<div class="col-md-2 heading"><span> URL : </span></div>
+											<div class="col-md-10 link-txt"><a th:href="${link.getUrl()}" target="_blank"><span class="text-muted" th:text="${link.getUrl()}"></span></a></div>
+											<div class="col-md-2 heading"><span> Source : </span></div>
+											<div class="col-md-10"><span class="text-muted" th:text="${link.getSource()}"></span></div>
 											</div>
 			
 											<span th:if="${ArticleError}">
-												<h4 style="text-align: center; color: red;"
-													th:text="${ArticleError}" />
+												<span style="text-align: center; color: red;"
+													th:text="${ArticleError}" /></span>
 											</span>
 			
 			
 			
 			
 										</div>
-										<div class="tab-pane fade" id="Document" role="tabpanel"
-											aria-labelledby="Document-tab">
-			
-			
-			
-											<div class="row">
-												<div class="col-6">
-													<h4>Description</h4>
-			
-												</div>
-												<div class="col-6">
-													<h4>Document</h4>
-												</div>
-											</div>
-											<hr />
-			
-			
-											<div class="row" th:each="document:${DocumentOnTopic}"
-												style="padding-bottom: 30px">
-			
-												<div class="col-6">
-			
-													<h4 th:text="${document.getDescription()}"></h4>
-													<Strong
-														style="display: flex; padding-top: 10px; font-weight: 900; text-align: center; color: #660000"><h5>Source</h5>
-														<h5 style="padding-left: 15px; color: red"
-															th:text="${document.getSource()}"></h5></Strong>
-			
-												</div>
-			
-												<div class="col-6">
-			
-													<a th:href="@{/files/}+@{${document.getUrl()}}"
-														target="_blank"><h4>Check Out</h4></a>
-			
-												</div>
-			
-			
-											</div>
-			
+										<div class="tab-pane fade" id="Document" role="tabpanel" aria-labelledby="Document-tab">
+										<div th:each="document:${DocumentOnTopic}" class="doc-item">
+										<div class="row doc-desc" >
+										<div class="col-md-12">
+										<p><i class="far fa-list-alt"></i><span th:text="${document.getDescription()}"></span></p>
+										</div>
+										</div>
+										<div class="row">
+										<div class="col-sm-4">
+										<p class="text-muted"> Source : <span th:text="${document.getSource()}"></span></p>
+										</div>
+										<div class="col-sm-8 doc-link">
+										<p> <a th:href="@{/files/}+@{${document.getUrl()}}" target="_blank"><i class="fas fa-link"></i> Check Out</a></p>
+										</div>
+										</div>
+										</div>
 											<span th:if="${DocumentError}">
-												<h4 style="text-align: center; color: red;"
-													th:text="${DocumentError}" />
+												<span style="text-align: center; color: red;"
+													th:text="${DocumentError}"></span>
 											</span>
 			
 										</div>
