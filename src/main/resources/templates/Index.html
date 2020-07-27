@@ -46,7 +46,7 @@
 	</div>
 	<div class="col-md-4">
 	<select class="form-control c-select" name="topicSelected" id="topicSelected">
-  			<option>Select Topic</option>
+  			<option value="Select Topic">Select Topic</option>
 	</select>
 	</div>	
 	</div>
@@ -127,7 +127,7 @@
 	</div>
 	
 	<div class="row">
-	<div class="col-md-8">
+	<div class="col-md-8" id=>
 	<div class="row item">
 		<div class="col-sm-12 col-md-2 e-calender e-odd">
 		<p><i class="far fa-calendar-alt e-cal"></i></p>
@@ -175,39 +175,17 @@
 	
 	</section>
 	
-	<section class="testimonials">
+	<section class="testimonials" th:if="${TestimonialRest!= null}" id="Testimonial">
 	<h1>Testimonials</h1>
 	<div class="card-deck">
-		<div class="card t-item">
-		  <div class="card-body">
-		  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-				when an unknown printer took a galley of type and scrambled it to make a type 
-				specimen book .... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
-				<p class="t-name">Riya Rana</p>
-				<p class="t-info">Principal, Kendriya Vidyalaya</p>
+		<div class="card t-item" th:each="testi:${TestimonialRest}">
+		  <div class="card-body" >
+		  <p> <span th:text="${testi.getDescription()}"/>.... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
+				<p class="t-name" th:text="${testi.getName()}"></p>
+				<p class="t-info" th:text="${testi.getOrganization()}"></p>
 		  </div>
 		</div>
-  		<div class="card t-item">
-		  <div class="card-body">
-		  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-				when an unknown printer took a galley of type and scrambled it to make a type 
-				specimen book .... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
-				<p class="t-name">Riya Rana</p>
-				<p class="t-info">Principal, Kendriya Vidyalaya</p>
-		  </div>
-		</div>
-  		<div class="card t-item">
-		  <div class="card-body">
-		  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-				when an unknown printer took a galley of type and scrambled it to make a type 
-				specimen book .... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
-				<p class="t-name">Riya Rana</p>
-				<p class="t-info">Principal, Kendriya Vidyalaya</p>
-		  </div>
-		</div>
+  		
 	</div>
 	</section>
 	<!-- Modal -->
@@ -521,7 +499,7 @@
 
 
 
-	<!-- Contact US and feedback section    -->
+	<!-- Contact US and feedback section    
 	<section class="section-header-contact" id="Contact-us">
 		<div class="container">
 			<div class="section">
@@ -564,7 +542,7 @@
 								class="fab fa-facebook-f font-color-facebook"></i></a> <!-- <a
 								href="https://plus.google.com/114550410376641567079"
 								target="_blank"><i
-								class="fab fa-google-plus font-color-gooplus"></i></a> --> <a><i
+								class="fab fa-google-plus font-color-gooplus"></i></a>  <a><i
 								class="fab fa-skype font-color-skype"></i></a>
 						</p>
 					</div>
@@ -594,7 +572,7 @@
 
 
 		</div>
-	</section>
+	</section>-->
 
 	<!--  ********************************FOOTER SECTION *********************************** -->
 	<div th:replace="common/header ::footer"></div>

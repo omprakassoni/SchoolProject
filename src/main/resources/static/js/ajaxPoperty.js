@@ -2049,6 +2049,7 @@ $(function(){
 			$('#inputClass').change(function(){
   					
   					var classname=$(this).find(":selected").val().substring(6);
+  					var subjectName=$('#subjectHome').find(":selected").val()
   					var selectedClass={
   							"className":classname,
   					};
@@ -2105,7 +2106,63 @@ $(function(){
   						
   					});
   					
-  					}
+  					}else{
+  	  					
+  	  					
+  	  					var token = $("meta[name='_csrf']").attr("content");
+  	  					var header = $("meta[name='_csrf_header']").attr("content");
+  	  					
+  	  					var selectedSubjectTemp={
+  							"subName":subjectName,
+  							"className":classname,
+  	  					};
+  	  					
+  	  					var urlPassedTemp;
+  	  					
+  	  					if(DeploymentType){								// Url Creation based on depolyment 
+  	  						urlPassedTemp= "/loadByTopicName";
+  	  				
+  	  		        	}else{
+  	  		        		urlPassedTemp= projectName+"/loadByTopicName";
+  	  				
+  	  		        	}
+  	  		
+  	  				
+  	  					$.ajax({
+  	  					  	type: "GET",
+  	  			        	contentType: "application/json",
+  	  			       		 url: urlPassedTemp,
+  	  			       		 data: selectedSubjectTemp,
+  	  			       		 beforeSend: function(xhr) {
+  	                         xhr.setRequestHeader(header, token);
+  	  			       		 },
+  	  			       		 dataType: 'json',
+  	  			       		 cache: false,
+  	  			        	 timeout: 600000,
+  	  			       		 success: function (data){
+  	  			       	    var html = '';
+  	  			            var len = data.length;
+  	  			            html += '<option value="Select Topic">Select Topic</option>';
+  	  			            $.each(data , function( key, value ) {
+	  	  			        html += '<option value=' + key + '>'
+	  			               + value
+	  			               + '</option>';
+	  	  			        })
+  	  			            html += '</option>';
+  	  			            
+  	  			           
+  	  			            $('#topicSelected').html(html);
+  	  			           
+  	  						},
+  	  						
+  	  						error : function(err){
+  	  							console.log("not working. ERROR: "+JSON.stringify(err));
+  	  						}
+  	  						
+  	  						
+  	  					});
+  	  					
+  	  					}
   				
   					
   				});
@@ -2114,7 +2171,7 @@ $(function(){
   				$('#subjectHome').change(function(){
   					
   					var subjectName=$(this).find(":selected").val();
-  					var Classname=$('#inputClass').find(":selected").val();
+  					var Classname=$('#inputClass').find(":selected").val().substring(6);
   					var selectedSubject={
   							"subName":subjectName,
   					};
@@ -2177,7 +2234,7 @@ $(function(){
   	  					var token = $("meta[name='_csrf']").attr("content");
   	  					var header = $("meta[name='_csrf_header']").attr("content");
   	  					
-  	  					var selectedSubject={
+  	  					var selectedSubjectTemp={
   							"subName":subjectName,
   							"className":Classname,
   	  					};
@@ -2197,7 +2254,7 @@ $(function(){
   	  					  	type: "GET",
   	  			        	contentType: "application/json",
   	  			       		 url: urlPassedTemp,
-  	  			       		 data: JSON.stringify(selectedSubject),
+  	  			       		 data: selectedSubjectTemp,
   	  			       		 beforeSend: function(xhr) {
   	                         xhr.setRequestHeader(header, token);
   	  			       		 },
@@ -2208,16 +2265,17 @@ $(function(){
   	  			       	    var html = '';
   	  			            var len = data.length;
   	  			            html += '<option value="Select Topic">Select Topic</option>';
-  	  			            for (var i = 0; i < len; i++) {
-  	  			             html += '<option value=' + data[i] + '>'
-  	  			               + data[i]
-  	  			               + '</option>';
-  	  			            }
+  	  			            
+	  	  			        $.each(data , function( key, value ) {
+	  	  			        html += '<option value=' + key + '>'
+	  			               + value
+	  			               + '</option>';
+	  	  			        })
+  	  			          
   	  			            html += '</option>';
   	  			            
+  	  			            $('#topicSelected').html(html);
   	  			           
-  	  			            $('#inputClass').html(html);
-  	  			            
   	  						},
   	  						
   	  						error : function(err){

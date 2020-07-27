@@ -77,6 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/forgetPassword/**",
 			"/reset",
 			"/resetPassword",
+			"/loadByTopicName",
+			"/topicOnClass/**",
+			"/topicOnSubject/**",
 			
 			"/loadByClassnameAndSubject",
 			"/loadByUser",

@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -480,6 +481,39 @@ public class HomeControllerRest {
 		Collections.sort(subjectName);
 		
 		return subjectName;
+		
+	}
+	
+	
+	@GetMapping("/loadByTopicName")
+	public @ResponseBody HashMap<Integer,String> loadByTopicName(@Valid String subName,int className ) throws Exception{
+		HashMap<Integer,String> topicName=new HashMap<>();
+		boolean classExist=true,SubjectExist=true;;
+		Class classTemp=null;
+		Subject subTemp=null;
+		try {
+			classTemp=classService.findByClassName(className);
+		} catch (Exception e) {
+			classExist=false;
+			e.printStackTrace();
+		}
+		
+		try {
+			subTemp =subjectService.findBySubjectName(subName);
+		} catch (Exception e) {
+			SubjectExist=false;
+			e.printStackTrace();
+		}
+		
+		if(classExist && SubjectExist) {
+			SubjectClassMapping temp=subjectClassService.findBysubAndstandard(classTemp, subTemp);
+			List<Topic> topicLocal=topicService.findBysubjectclassMapping(temp);
+			for(Topic x:topicLocal) {
+				topicName.put(x.getTopicId(),x.getTopicName());
+			}
+		}
+		
+		return topicName;
 		
 	}
 	

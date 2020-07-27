@@ -1,4 +1,13 @@
 
+
+.r-icon{
+	font-size: 2rem;
+	border-right: 1px solid black;
+	padding-right: 10px;
+	margin-right: 10px;
+	color: #ff9800;
+}
+
 .status{
 	color:green;
 	text-align:center;

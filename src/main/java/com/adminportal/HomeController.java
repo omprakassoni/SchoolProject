@@ -193,12 +193,11 @@ public class HomeController {
 
 		if (testidata.size() > 0) {
 
-			Testimonial temp1 = testidata.get(0);
-			mv.addObject("TestimonialFirst", temp1);
-
 			List<Testimonial> temp2 = new ArrayList<Testimonial>();
-			for (int i = 1; i < testidata.size(); i++) {
+			for (int i = 0; i < testidata.size(); i++) {
 				temp2.add(testidata.get(i));
+				if(i==2)
+					break;
 			}
 
 			mv.addObject("TestimonialRest", temp2);
@@ -211,7 +210,7 @@ public class HomeController {
 			eventTemp.add(eventData.get(0));
 			for (int i = 1; i < eventData.size(); i++) {
 				eventTemp.add(eventData.get(i));
-				if(i==5) {
+				if(i==3) {
 					break;
 				}
 			}
@@ -679,22 +678,36 @@ public class HomeController {
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public ModelAndView viewCoursesAvailable(HttpServletRequest req,
 			@RequestParam(name = "subjectSelected") String subject,
-			@RequestParam(name = "classSelected") String classSelected, ModelAndView mv,Principal principal) {
+			@RequestParam(name = "classSelected") String classSelected, 
+			@RequestParam(name = "topicSelected") String topicSelected,ModelAndView mv,Principal principal) {
 		/* System.out.println("test"+subject); */
 		Class localClass = null;
 
 		Subject localSubject = null;
 		SubjectClassMapping localSubjectClassMapping;
 		List<Topic> localTopictemp = null;
+		Topic singleTopic=null;
 		
 		if(principal != null) {
 			User localUser=userService.findByUsername(principal.getName());
 			
 			mv.addObject("LoggedUser",localUser);
 		}
+		
+		
+		
 
 		try {
-			if (subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
+			
+			if(!topicSelected.contentEquals("Select Topic")) {
+			
+				singleTopic=topicService.findById(Integer.parseInt(topicSelected));
+				
+				mv.setViewName("redirect:contentConcept/"+singleTopic.getTopicId());
+				return mv;
+			}
+			
+			else if (subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
 				localTopictemp = topicService.findAll();
 				System.out.println("all value");
 
@@ -1021,6 +1034,95 @@ public class HomeController {
 		mv.setViewName("accessDeniedPage");
 		return mv;
 		
+	}
+	
+	@RequestMapping(path = "/topicOnClass/{classID}", method = RequestMethod.GET)
+	public ModelAndView viewTopicOnClass(@PathVariable("classID") int classId, ModelAndView mv,Principal principal) {
+
+		Class localClass;
+		List<Topic> localTopictemp = null;
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
+		
+		try {
+			 localClass=classService.findByClassName(classId);
+			 List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
+						.getClassFromMapping(localClass);
+			localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+			List<Topic> localTopic = new ArrayList<Topic>();
+			for (Topic temp : localTopictemp) {
+				if (temp.getStatus() == 1) {
+					localTopic.add(temp);
+				}
+			}
+
+			if (!localTopic.isEmpty()) {
+				mv.addObject("TopicListOnSubjectClass", localTopic);
+			} else {
+				mv.addObject("NoTopicAvailable", "No Content Available to Show");
+			}
+			
+			mv.addObject("classSelected", localClass.getClassName());
+			
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
+		
+		
+		mv.setViewName("Courses");
+		return mv;
+	}
+	
+	@RequestMapping(path = "/topicOnSubject/{subName}", method = RequestMethod.GET)
+	public ModelAndView viewTopicOnSubject(@PathVariable("subName") String SubName, ModelAndView mv,Principal principal) {
+		Subject localSubject;
+		List<Topic> localTopictemp = null;
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
+		
+		try {
+			 localSubject=subjectService.findBySubjectName(SubName);
+			 List<SubjectClassMapping> tempLocalSubjectClassMapping = subjectClassService
+						.getClassFromSubject(localSubject);
+			localTopictemp = topicService.findBySubjectClassMppaing(tempLocalSubjectClassMapping);
+			List<Topic> localTopic = new ArrayList<Topic>();
+			for (Topic temp : localTopictemp) {
+				if (temp.getStatus() == 1) {
+					localTopic.add(temp);
+				}
+			}
+
+			if (!localTopic.isEmpty()) {
+				mv.addObject("TopicListOnSubjectClass", localTopic);
+			} else {
+				mv.addObject("NoTopicAvailable", "No Content Available to Show");
+			}
+			
+			mv.addObject("subjectSelected", localSubject.getSubName());
+			
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
+		
+		
+		mv.setViewName("Courses");
+		return mv;
 	}
 	
 	
