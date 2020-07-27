@@ -170,7 +170,7 @@ public class HomeController {
 	 */
 
 	@RequestMapping("/")
-	public ModelAndView home(@RequestHeader Map<String ,String> headers,ModelAndView mv) {
+	public ModelAndView home(@RequestHeader Map<String ,String> headers,ModelAndView mv,Principal principal) {
 		
 		/*
 		 * headers.forEach((key,value)->{
@@ -178,7 +178,11 @@ public class HomeController {
 		 * 
 		 * System.out.println(req.getRemoteAddr());
 		 */
-
+		if(principal != null) {
+		User localUser=userService.findByUsername(principal.getName());
+		
+		mv.addObject("LoggedUser",localUser);
+		}
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 
 		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
@@ -404,7 +408,18 @@ public class HomeController {
 //------------------------------------------LOGIN HYPERLINK--------------------------------------------------------------------
 
 	@RequestMapping("/Login")
-	public ModelAndView login(ModelAndView mv) {
+	public ModelAndView login(ModelAndView mv,Principal principal) {
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			mv.setViewName("accessDeniedPage");
+			return mv;
+			
+		}
+		
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 
@@ -420,7 +435,16 @@ public class HomeController {
 //------------------------------------------- FORGET PASSWORD --------------------------------------------------------
 
 	@RequestMapping("/forgetPassword")
-	public ModelAndView forgetPasswordGet(ModelAndView mv) {
+	public ModelAndView forgetPasswordGet(ModelAndView mv,Principal principal) {
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			mv.setViewName("accessDeniedPage");
+			return mv;
+		}
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 
@@ -435,7 +459,16 @@ public class HomeController {
 	/*------------------- FORGET PASSWORD TAKIN REQUEST FROM VIEW -----------------------------------------*/
 
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-	public ModelAndView forgetPasswordPost(HttpServletRequest req, ModelAndView mv) {
+	public ModelAndView forgetPasswordPost(HttpServletRequest req, ModelAndView mv,Principal principal) {
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			mv.setViewName("accessDeniedPage");
+			return mv;
+		}
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 
@@ -472,7 +505,16 @@ public class HomeController {
 	/*--------------------------- LINK TO WHICH USER WILL SET NEW PASSWORD ----------------------------------*/
 
 	@RequestMapping(value = "/reset", method = RequestMethod.GET)
-	public ModelAndView resetPasswordGet(ModelAndView mv, @RequestParam("token") String token) {
+	public ModelAndView resetPasswordGet(ModelAndView mv, @RequestParam("token") String token,Principal principal) {
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			mv.setViewName("accessDeniedPage");
+			return mv;
+		}
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
 
@@ -495,11 +537,20 @@ public class HomeController {
 	/*---------------------------- PERSISTING NEW PASSWORD OF USER ----------------------------------*/
 
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	public ModelAndView resetPasswordPost(ModelAndView mv, HttpServletRequest req) {
+	public ModelAndView resetPasswordPost(ModelAndView mv, HttpServletRequest req,Principal principal) {
 
 		String newPassword = req.getParameter("Password");
 		String confNewPassword = req.getParameter("Confirm");
 		String token = req.getParameter("token");
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			mv.setViewName("accessDeniedPage");
+			return mv;
+		}
 
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("classfromDatabase", standard);
@@ -517,7 +568,12 @@ public class HomeController {
 			mv.addObject("Error", "Both password doesn't match");
 			return mv;
 		}
-
+		
+		if(newPassword.length()<6) {
+			mv.addObject("Error", "Password must be atleast 6 character");
+			return mv;
+		}
+		
 		usr.setPassword(ServiceUtility.passwordEncoder().encode(newPassword));
 		usr.setToken(null);
 		userService.save(usr);
@@ -533,7 +589,16 @@ public class HomeController {
 //-----------------------------------------------SIGNUP HYPERLINK------------------------------------------------------------------	
 
 	@RequestMapping("/Signup")
-	public ModelAndView signup(ModelAndView mv) {
+	public ModelAndView signup(ModelAndView mv,Principal principal) {
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			mv.setViewName("accessDeniedPage");
+			return mv;
+		}
+		
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("checkedOptionLearner", "checked");
 		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
@@ -566,9 +631,15 @@ public class HomeController {
 	 */
 	
 	@RequestMapping(value = "/eventsList")
-	public ModelAndView viewEvent(ModelAndView mv) {
+	public ModelAndView viewEvent(ModelAndView mv,Principal principal) {
 
 		// List<Events> localEvent=eventService.findAll();
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
 
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 
@@ -608,13 +679,19 @@ public class HomeController {
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public ModelAndView viewCoursesAvailable(HttpServletRequest req,
 			@RequestParam(name = "subjectSelected") String subject,
-			@RequestParam(name = "classSelected") String classSelected, ModelAndView mv) {
+			@RequestParam(name = "classSelected") String classSelected, ModelAndView mv,Principal principal) {
 		/* System.out.println("test"+subject); */
 		Class localClass = null;
 
 		Subject localSubject = null;
 		SubjectClassMapping localSubjectClassMapping;
 		List<Topic> localTopictemp = null;
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
 
 		try {
 			if (subject.contentEquals("Select Subject") && classSelected.contentEquals("Select Class")) {
@@ -896,12 +973,18 @@ public class HomeController {
 	/************************************** Testimonial Page *****************************************************/
 	
 	@RequestMapping(path = "testimonials", method = RequestMethod.GET)
-	public ModelAndView testimonialPage(ModelAndView mv) {
+	public ModelAndView testimonialPage(ModelAndView mv,Principal principal) {
 		
 		List<Testimonial> textTestimonial=new ArrayList<>();
 		List<Testimonial> mediaTestimonial=new ArrayList<>();
 		List<Testimonial> fileTestimonial=new ArrayList<>();
 		List<Testimonial> localTestimonial=testiService.findAll();
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+		}
 		
 		for(Testimonial temp:localTestimonial) {
 			if(temp.getVideoPath() != null) {
@@ -928,6 +1011,14 @@ public class HomeController {
 	public ModelAndView logout(ModelAndView mv) {
 		
 		mv.setViewName("logout");
+		return mv;
+		
+	}
+	
+	@RequestMapping(path = "/accessDenied" ,method = RequestMethod.GET)
+	public ModelAndView accessDenied(ModelAndView mv) {
+		
+		mv.setViewName("accessDeniedPage");
 		return mv;
 		
 	}

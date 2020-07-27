@@ -163,6 +163,22 @@ public class HomeControllerRest {
 	@Autowired
 	private Environment env;
 	
+	/*------------------------------------UPDATING USER FIRST AND LAST NAME-------------------------------------*/
+	@GetMapping("/updateUserDetails")
+	public @ResponseBody boolean updateUserInfo(String fname,String lname,Principal principal){
+		
+		User usrTemp=userService.findByUsername(principal.getName());
+		boolean updateStatus=userService.updateUserDetails(fname, lname, usrTemp.getId());
+		if(updateStatus) {
+			return true;
+		}else {
+			return false;
+		}
+		
+		
+	}
+	
+	
 	/*--------------------------------------TAKING CONTACT FORM DATA FROM INDEX PAGE ------------------------------------------------------*/
 	@PostMapping("/addContactForm")
 	public @ResponseBody List<String> addContactData(@Valid @RequestBody ContactForm contactData){
@@ -369,6 +385,12 @@ public class HomeControllerRest {
 		boolean statusPassword=false;
 		
 		User usr=userService.findByUsername(principal.getName());
+		if(localpass.getPassword().length()<6) {
+			System.out.println("vik");
+			status.add("passwordLengthError");
+			return status;
+		}
+		
 		statusPassword =ServiceUtility.passwordEncoder().matches(localpass.getCurrentPassword(), usr.getPassword());
 		
 		if(statusPassword) {
