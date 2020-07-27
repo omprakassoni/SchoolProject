@@ -2113,6 +2113,7 @@ $(function(){
   				$('#subjectHome').change(function(){
   					
   					var subjectName=$(this).find(":selected").val();
+  					var Classname=$('#inputClass').find(":selected").val();
   					var selectedSubject={
   							"subName":subjectName,
   					};
@@ -2169,10 +2170,69 @@ $(function(){
   						
   					});
   					
-  					}
+  					}else{
+  	  					
+  	  					
+  	  					var token = $("meta[name='_csrf']").attr("content");
+  	  					var header = $("meta[name='_csrf_header']").attr("content");
+  	  					
+  	  					var selectedSubject={
+  							"subName":subjectName,
+  							"className":Classname,
+  	  					};
+  	  					
+  	  					var urlPassedTemp;
+  	  					
+  	  					if(DeploymentType){								// Url Creation based on depolyment 
+  	  						urlPassedTemp= "/loadByTopicName";
+  	  				
+  	  		        	}else{
+  	  		        		urlPassedTemp= projectName+"/loadByTopicName";
+  	  				
+  	  		        	}
+  	  		
+  	  				
+  	  					$.ajax({
+  	  					  	type: "GET",
+  	  			        	contentType: "application/json",
+  	  			       		 url: urlPassedTemp,
+  	  			       		 data: JSON.stringify(selectedSubject),
+  	  			       		 beforeSend: function(xhr) {
+  	                         xhr.setRequestHeader(header, token);
+  	  			       		 },
+  	  			       		 dataType: 'json',
+  	  			       		 cache: false,
+  	  			        	 timeout: 600000,
+  	  			       		 success: function (data){
+  	  			       	    var html = '';
+  	  			            var len = data.length;
+  	  			            html += '<option value="Select Topic">Select Topic</option>';
+  	  			            for (var i = 0; i < len; i++) {
+  	  			             html += '<option value=' + data[i] + '>'
+  	  			               + data[i]
+  	  			               + '</option>';
+  	  			            }
+  	  			            html += '</option>';
+  	  			            
+  	  			           
+  	  			            $('#inputClass').html(html);
+  	  			            
+  	  						},
+  	  						
+  	  						error : function(err){
+  	  							console.log("not working. ERROR: "+JSON.stringify(err));
+  	  						}
+  	  						
+  	  						
+  	  					});
+  	  					
+  	  					}
+  					
   				
   					
   				});
+  				
+  				
 			
 			
   		// ------------------------------------------------ADDING TOPIC TO VIEW-----------------------------------------------------

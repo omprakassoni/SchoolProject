@@ -8,7 +8,7 @@
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" th:data-image="@{/img/sidebar-5.jpg}">
+         <div class="sidebar" th:data-image="@{/img/sidebar-5.jpg}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -36,7 +36,7 @@
                     </li>
                     </div>
                     <div sec:authorize="hasAuthority('Teacher')">
-                    <li >
+                    <li>
                         <a class="nav-link" th:href="@{/conPhet}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Phets</p>

@@ -26,29 +26,37 @@
 	</div>
 	<section class="intro">
 	<div class="i-select">
+	<form th:action="@{/courses}" method="get">
 	<div class="search row">
 	<div class="col-md-4">
-	<select class="form-control c-select">
+	<select class="form-control c-select"  name="classSelected" id="inputClass">
   			<option>Select Class</option>
+  			<span th:each="classValue: ${classfromDatabase}">
+				<option><span th:text="'Class '+${classValue.getClassName()}"></span></option>
+			</span>
 	</select>
 	</div>
 	<div class="col-md-4">
-	<select class="form-control c-select">
+	<select class="form-control c-select" name="subjectSelected" id="subjectHome">
   			<option>Select Subject</option>
+  			<span th:each="subjectValue: ${subjectfromDatabase}">
+				<option><span th:text="${subjectValue.getSubName()}"></span></option>
+			</span>
 	</select>
 	</div>
 	<div class="col-md-4">
-	<select class="form-control c-select">
+	<select class="form-control c-select" name="topicSelected" id="topicSelected">
   			<option>Select Topic</option>
 	</select>
+	</div>	
 	</div>
-		
-	</div>
+	
 	<div class="row">
 	<div class="col-md-12 search-btn">
-	<button type="button" class="btn c-btn">SUBMIT</button>
+	<button type="submit" class="btn c-btn">SUBMIT</button>
 	</div>
 	</div>
+	</form>
 	
 	<div>
 	<div class="tagline">
