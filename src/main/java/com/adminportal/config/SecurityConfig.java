@@ -80,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/loadByTopicName",
 			"/topicOnClass/**",
 			"/topicOnSubject/**",
+			"/loadByTestimonialID",
 			
 			"/loadByClassnameAndSubject",
 			"/loadByUser",

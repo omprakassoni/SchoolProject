@@ -196,8 +196,7 @@
 																th:text="${testi.getDescription()}"></span></td>
 															<td th:if="${testi.getFilePath()}">
 																	 <a th:href="@{/files/}+@{${testi.getFilePath()}}"
-																		target="_blank" class="pdfclass"><img id="pdfsource"
-																	th:src="${testi.getFilePath()}" alt="Document"></img></a>
+																		target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a>
 																
 															</td>
 															<td th:if="${testi.getVideoPath()}">

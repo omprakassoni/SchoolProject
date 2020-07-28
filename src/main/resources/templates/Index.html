@@ -4,7 +4,7 @@
 
 <div th:replace="common/header :: common-header"></div>
 
-<title>Homepage</title>   
+<title>Homepage</title>  
 
 </head>
 
@@ -127,9 +127,9 @@
 	</div>
 	
 	<div class="row">
-	<div class="col-md-8" id=>
+	<div class="col-md-8">
 	<div class="row item">
-		<div class="col-sm-12 col-md-2 e-calender e-odd">
+		<div class="col-sm-12 col-md-2 e-calender ">
 		<p><i class="far fa-calendar-alt e-cal"></i></p>
 		<p>23rd Aug, 2019</p>
 		</div>
@@ -139,7 +139,7 @@
 		</div>
 	</div>
 	<div class="row item">
-		<div class="col-sm-12 col-md-2 e-calender e-even">
+		<div class="col-sm-12 col-md-2 e-calender ">
 		<p><i class="far fa-calendar-alt e-cal"></i></p>
 		<p>23rd Aug, 2019</p>
 		</div>
@@ -149,7 +149,7 @@
 		</div>
 	</div>
 	<div class="row item">
-		<div class="col-sm-12 col-md-2 e-calender e-odd">
+		<div class="col-sm-12 col-md-2 e-calender ">
 		<p><i class="far fa-calendar-alt e-cal"></i></p>
 		<p>23rd Aug, 2019</p>
 		</div>
@@ -180,7 +180,7 @@
 	<div class="card-deck">
 		<div class="card t-item" th:each="testi:${TestimonialRest}">
 		  <div class="card-body" >
-		  <p> <span th:text="${testi.getDescription()}"/>.... <span><a href="#testimonialModal" data-toggle="modal" data-target="#testimonialModal"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
+		  <p> <span th:text="${testi.getDescription()}"/>.... <span><a class="testimonialModal" th:value="${testi.getTestimonialId()}"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
 				<p class="t-name" th:text="${testi.getName()}"></p>
 				<p class="t-info" th:text="${testi.getOrganization()}"></p>
 		  </div>
@@ -188,30 +188,9 @@
   		
 	</div>
 	</section>
-	<!-- Modal -->
-	<div class="modal fade" id="testimonialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	      <div class="modal-title" id="testimonialModalTitle">
-	      <h5 class="modal-title t-name">Riya Rana</h5>
-	      <p class="t-info">Principal, Kendriya Vidyalaya</p>
-	      </div>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-				when an unknown printer took a galley of type and scrambled it to make a type 
-				specimen book. </p>
-	      </div>
-	      <div class="modal-footer">
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	
+	
+
 	<h1 class="contact-header">Contact</h1>
 	<section class="footer">
 	<div class="row">
@@ -623,6 +602,114 @@
 			</div>
 		</div>
 	</div>
+	
+	
+		<!-- Modal -->
+	<div class="modal fade" id="testimonialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      <div class="modal-title" id="testimonialModalTitle">
+	      <h5 class="modal-title t-name" id="testiDataName"></h5>
+	      <p class="t-info" id="testiDataProf"></p>
+	      </div>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p id="testiDataDesc"></p>
+	        <div id="pdfdiv" style="display:none">
+	        <a id="testiDataPDF"
+				target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a>
+			</div>
+			<div id="videodiv" style="display:none">
+			
+				<video width="auto" height="150" controls>
+					<source  id="testDataVideo"type="video/mp4"/>
+				 </video> 
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script  th:inline="javascript">
+	
+	$(function(){
+		
+		$('.testimonialModal').click(function(){
+			var testi_id=$(this).attr('value');
+			
+			$('#videodiv').css('display','none');
+			$('#pdfdiv').css('display','none');
+			
+			var testimonialID={
+					"testimonialId":testi_id
+				};
+				
+				var urlPassed;
+				
+				if(DeploymentType){								// Url Creation based on depolyment 
+					urlPassed= "/loadByTestimonialID";
+			
+	        	}else{
+	        		urlPassed= projectName+"/loadByTestimonialID";
+			
+	        	}
+				
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
+				$.ajax({
+			  	type: "POST",
+	        	contentType: "application/json",
+	       		 url: "/loadByTestimonialID",
+	       		 data: JSON.stringify(testimonialID),
+	       		 beforeSend: function(xhr) {
+                     xhr.setRequestHeader(header, token);
+	       		 },
+	       		 dataType: 'json',
+	       		 cache: false,
+	        	 timeout: 600000,
+	       		 success: function (data){
+	       			 
+	       			$('#testiDataName').text(data["name"]);
+	       			$('#testiDataProf').text(data["organization"]);
+	       			$('#testiDataDesc').text(data["description"]);
+	       			
+	       			if(data["filePath"] != null){
+	       	
+	       		 	$('#testiDataPDF').attr("href", [(@{/files/})]+data["filePath"]);
+	       		 	$('#pdfdiv').css('display','block');
+	       		 	
+	       			}else if(data["videoPath"] != null){
+	     
+	       			$('#testDataVideo').attr("src", [(@{/files/})]+data["videoPath"]);
+		       		$('#videodiv').css('display','block');
+	       			}
+	       			
+	     
+	       		
+				},
+				
+				error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+			});
+				
+				$('#testimonialModal').modal('show');
+			
+		})
+		
+		
+	});
+	
+	
+	</script>
 
 
 
