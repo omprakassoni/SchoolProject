@@ -206,23 +206,6 @@ body{
 
 
 
-.section-header{
-    padding: 70px 0 50px;
-    
-}
-
-.section-header-contact{
-    padding: 10px;
-    color: #454545;
-    background: #f1f1f1;
-}
-
-.section1{
- 	font-weight: 700 !important;  
- 	font-size:36px;
- 	
-}
-
 .event-xs{
 	letter-spacing: 6px;
 	font-weight: 300 !important;

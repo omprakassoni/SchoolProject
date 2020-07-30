@@ -481,12 +481,12 @@ public class RegistrationController {
 
 		if (testidata.size() > 0) {
 
-			Testimonial temp1 = testidata.get(0);
-			mv.addObject("TestimonialFirst", temp1);
 
 			List<Testimonial> temp2 = new ArrayList<Testimonial>();
-			for (int i = 1; i < testidata.size(); i++) {
+			for (int i = 0; i < testidata.size(); i++) {
 				temp2.add(testidata.get(i));
+				if(i==2)
+					break;
 			}
 
 			mv.addObject("TestimonialRest", temp2);
@@ -499,7 +499,7 @@ public class RegistrationController {
 			eventTemp.add(eventData.get(0));
 			for (int i = 1; i < eventData.size(); i++) {
 				eventTemp.add(eventData.get(i));
-				if(i==5) {
+				if(i==3) {
 					break;
 				}
 			}
