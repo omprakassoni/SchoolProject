@@ -188,7 +188,7 @@
 																name="radioPhet" onchange="radioCall()" /></th>
 															<td><span th:text="${phet.getTopic().getTopicName()}"></span></td>
 															<td><span th:text="${phet.getDescription()}"></span></td>
-															<td><span th:text="${phet.getDateAdded()}"></span></td>
+															<td><span th:text="${#dates.format(phet.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 															<td><span th:text="${phet.getSource()}"></span></td>
 															<td><iframe th:src="${phet.getUrl()}" width="250"
 																	height="150" scrolling="no" allowfullscreen></iframe></td>

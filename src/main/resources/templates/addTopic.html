@@ -188,7 +188,7 @@
 																name="radioTopic" /></th>
 															<td><span th:text="${topic.getTopicName()}"></span></td>
 															<td><span th:text="${topic.getDescription()}"></span></td>
-															<td><span th:text="${topic.getDateAdded()}"></span></td>
+															<td><span th:text="${#dates.format(topic.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 															<td><span
 																th:text=" 'Class '+${topic.getSubjectClassMapping().getStandard().getClassName()}"></span></td>
 															<td><span

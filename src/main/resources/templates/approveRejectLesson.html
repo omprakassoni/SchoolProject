@@ -170,7 +170,7 @@
 														th:id="${lesson.getLessonPlanId()}" name="selectionRadio"
 														onchange="radioCall()" /></th>
 													<td><span th:text="${lesson.getTopic().getTopicName()}"></span></td>
-													<td><span th:text="${lesson.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(lesson.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><a th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
 														target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a></td>
 						

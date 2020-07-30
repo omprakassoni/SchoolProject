@@ -186,7 +186,7 @@
 																name="selectionRadio" onchange="radioCall()" /></th> -->
 															<td><span th:text="${event.getDateToHappen()}"></span></td>
 															<td><span th:text="${event.getHeadline()}"></span></td>
-															<td><span th:text="${event.getDateAdded() }"></span></td>
+															<td><span th:text="${#dates.format(event.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 															<td><span th:text="${event.getDescription()}"></span></td>
 															<td><a href="#" class="pop"><img id="imagesource"
 																	th:src="@{/files/}+@{${event.getPotser_path()}}"

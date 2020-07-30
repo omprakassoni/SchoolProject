@@ -225,7 +225,7 @@
 													<td><span th:text="${user.getLname()}"></span></td>
 													<td><span th:text="${user.getSex()}"></span></td>
 													<td><span th:text="${user.getEmail()}"></span></td>
-													<td><span th:text="${user.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(user.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><span th:text="${user.getLastLogin()}"></span></td>
 													<td><span th:with="roles=${user.getUserRoles()}"> <span
 															th:each="role:${roles}"> <span
