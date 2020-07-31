@@ -137,7 +137,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="card">
+                    <div class="spk-card-body spk-tab">
                     	<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item"><a
 								th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
@@ -156,7 +156,7 @@
 								
 								   
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Video</h4>
+                                    <!-- <h4 class="card-title">Available Video</h4> -->
                                     <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
@@ -211,7 +211,7 @@
 						
 															<td><a href=""><span
 																	th:text="${video.getUser().getFname()}"></span></a></td>
-															<td><a class="btn btn-secondary detailVideo"
+															<td><a class="btn spk-btn-sm detailVideo"
 																th:value="${video.getVideoId()}" id="detailVideo">Update</a></td>
 														</tr>
 													</span>
@@ -226,9 +226,9 @@
 											<center>
 						
 						
-												<button class="btn btn-danger" id="disableVideo" disabled>Hide</button>
+												<button class="btn spk-btn-hide" id="disableVideo" disabled>Hide</button>
 						
-												<button class="btn btn-primary" id="enableVideo" disabled>Show</button>
+												<button class="btn spk-btn" id="enableVideo" disabled>Show</button>
 						
 						
 											</center>
@@ -249,12 +249,12 @@
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add New Video</h4>
+                                    <!-- <h4 class="card-title">Add New Video</h4> -->
                                     <div class="status" th:text="${statusAdd}"></div>
 									<div class="error" th:text="${failure}"></div>
 									<div class="error" th:text="${fileError}"></div>
                             </div>
-                            <div class="row">
+                            <div class="row p-3">
                             	<div class="col-md-6" style="text-align:center">
                             		<input type="radio" name="videoType" value="embed" id="embedRadio"/>    
                                            Embed Video
@@ -620,7 +620,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-primary" id="updateVideo" value="">Update</button>
+							<button class="btn spk-btn" id="updateVideo" value="">Update</button>
 						</div>
 
 					</div>

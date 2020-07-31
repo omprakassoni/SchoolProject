@@ -138,7 +138,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="card">
+                    <div class="spk-card-body spk-tab">
                     	<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item"><a
 								th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
@@ -157,7 +157,7 @@
 								
 								   
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Subject</h4>
+                                  <!--   <h4 class="card-title">Available Subject</h4> -->
                                     <div class="status" th:text="${statusView}"></div>
                                 </div>
                                 <div class="card-body">
@@ -188,7 +188,7 @@
 															</span>
 														</span></td>
 					
-														<td><a class="btn btn-secondary detailSubject"
+														<td><a class="btn spk-btn-sm detailSubject"
 															th:value="${subject.getSubId()}" id="detailSubject">Update</a>
 														</td>
 					
@@ -208,33 +208,28 @@
                         
                         <div th:class="${addActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
-							
-							<div class="card-header">
-                                    <h4 class="card-title">Add Subject</h4>
-                                    <div class="status" th:text="${statusAdd}"></div>
-                                    <div class="error" th:text="${statusError}"></div>
-                            </div>
-                            <div class="card-body">
+                            <div class="card-body spk-card-body">
 			                   <form th:action="@{addSubject}" method="post">
                                        
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div  style="text-align: center">
-                                                    <h4 style="margin:10px">Enter new Subject</h4>
-                                                </div>
-                                            </div>
                                             <div class="col-md-4">
+                                            <div class="spk-comp-header">
+                <p>Enter Subject</p>
+                                    <div class="status" th:text="${statusAdd}"></div>
+                                    <div class="error" th:text="${statusError}"></div>
+                                </div>
                                                 <div class="form-group">
                                                    <input type="text" class="form-control" name="SelectedSubject"
-														oninput="myFunction()" required />
+														oninput="myFunction()" required placeholder="Enter subject to be added"/>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-4 offset-md-3">
                                             </div>
                                         </div>
                                         
                                         <hr style="width: 50%" />
 										<div class="row">
 
-											<div class="col-sm-3"></div>
 
 											<div class="col-sm-6">
 												<div class="form-check">
@@ -251,7 +246,7 @@
 
 											</div>
 										</div>
-										<button type="submit" class="btn btn-info btn-fill pull-right" id="subjectSubmit" disabled>Add Subject</button>
+										<button type="submit" class="btn spk-btn btn-fill pull-right" id="subjectSubmit" disabled>Add Subject</button>
                                         <div class="clearfix"></div>
                                 </form>
                             
@@ -336,7 +331,7 @@
 						<hr />
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-primary" id="updateSubject" value="">Update</button>
+						<button class="btn spk-btn" id="updateSubject" value="">Update</button>
 					</div>
 
 				</div>
