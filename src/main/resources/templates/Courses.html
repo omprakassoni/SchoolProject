@@ -52,7 +52,7 @@
 		<a th:href="'contentTutorial/'+ ${topic.getTopicId()}">
 		<div class="row">
 			<div class="col-sm-12 col-md-2 topic-img" style="height:unset !important">
-				<img th:src="@{/files/}+@{${topic.getPoster()}}" style="height:100px !important">
+				<img th:src="@{/files/}+@{${topic.getPoster()}}" style="height:100% !important">
 			</div>
 			<div class="col-sm-12 col-md-10 topic-content">
 				<h3><span th:text="${topic.getTopicName()}"></span></h3>

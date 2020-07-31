@@ -1,11 +1,12 @@
 
 
 .r-icon{
-	font-size: 2rem;
-	border-right: 1px solid black;
+	font-size: 1.5rem;
+	/* border-right: 1px solid black; */
 	padding-right: 10px;
 	margin-right: 10px;
-	color: #ff9800;
+	/* color: #ff9800; */
+	color: #fff;
 }
 
 .status{

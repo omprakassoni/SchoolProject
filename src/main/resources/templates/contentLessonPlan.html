@@ -210,7 +210,7 @@
                                 <h3 class="res-topic-card"><span th:text="${TopicSelected.getTopicName()}"></span></h3>
                                    <h3>Lesson Plan</h3>
                                 </div>
-                                     
+                                  <p><span th:text="${#lists.size(LessonOnTopic)}"></span> Results Found</p>   
                                 </div>
                                 <br>
                                 <table id="lessonTable" class="table table-striped table-bordered">

@@ -138,8 +138,7 @@
 		<p><i class="fas fa-map-marker-alt e-map"></i> <span th:text="${event.getLocation()}"></span></p>
 		</div>
 	</div>
-	<a  th:href="@{eventsList}" ><button type="button" class="viewButton">View all</button> </a>
-	
+	<a th:href="@{eventsList}" class="know-more-btn"><div class="row know-more">Click here for all events information</div></a>
 	
 	</div>
 	<div class="col-md-3 offset-md-1 quote">
@@ -169,13 +168,11 @@
 		</div>
   		
 	</div>
-	<a style="float:right;" th:href="@{testimonials}">Click here to read more</a>
+	<a th:href="@{eventsList}" class="know-more-btn-t" ><div class=" know-more" >View all Testimonials</div></a>
 	</section>
 	
-	
-
-	<h1 class="contact-header" id="Contact-us">Contact</h1>
-	<section class="footer" >
+	<h1 class="contact-header text-center" id="Contact-us">Contact</h1>
+	<section class="footer">
 	<div class="row">
 	<div class="col-md-3 f-info f-address">
 	<p><i class="fas fa-map-marked-alt f-icon"></i></p>
@@ -218,6 +215,115 @@
 	</div>
 	</section>
 	
+<<<<<<< HEAD
+=======
+	
+	<!-- <section class="section-header" style="background: #a5b5b3">
+		<div class="container">
+			<div class="section1">
+				<h3 class="section-title-except-contact-us">Check out Our
+					Latest Videos</h3>
+				<div class="line" style="width: 20%"></div>
+			</div>
+
+			<div id="carouselExampleInterval" class="carousel slide"
+				data-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<div class="row" style="padding-left:100px;padding-right: 100px">
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/ru032Mfsfig"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/8Posj4WMo0o"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="row" style="padding-left:100px;padding-right: 100px">
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/xFQgt47_R2Y"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/8Posj4WMo0o"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="carousel-item">
+						<div class="row" style="padding-left:100px;padding-right: 100px">
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/ru032Mfsfig"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+
+							<div class="col-sm-6 column-video-property">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/8Posj4WMo0o"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<a class="carousel-control-prev" href="#carouselExampleInterval"
+					role="button" data-slide="prev"> <span class="sr-only">Previous</span>
+				</a> <a class="carousel-control-next" href="#carouselExampleInterval"
+					role="button" data-slide="next"> <span class="sr-only">Next</span>
+				</a>
+				
+				<a class="carousel-control-prev " href="#carouselExampleInterval"
+						role="button" data-slide="prev"> <span
+						class="icon-prev carousel-control-prev-icon " aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a> <a class="carousel-control-next right carousel-control"
+						href="#carouselExampleInterval" role="button" data-slide="next"> <span
+						class="icon-next carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+			</div>
+
+		</div>
+	</section> -->
+
+
+>>>>>>> 84a72b5213f10b9ad14d6f0c287c02867b0ff2d5
 
 	<!--  ********************************FOOTER SECTION *********************************** -->
 	<div th:replace="common/header ::footer"></div>
