@@ -172,6 +172,8 @@
 														<th>Headline</th>
 														<th>Date added</th>
 														<th data-orderable="false">Description</th>
+														<th data-orderable="false">Mode</th>
+														<th data-orderable="false">Location</th>
 														<th data-orderable="false">Poster</th>
 														<th data-orderable="false">Operation</th>
 													</tr>
@@ -188,6 +190,8 @@
 															<td><span th:text="${event.getHeadline()}"></span></td>
 															<td><span th:text="${#dates.format(event.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 															<td><span th:text="${event.getDescription()}"></span></td>
+															<td><span th:text="${event.getMode()}"></span></td>
+															<td><span th:text="${event.getLocation()}"></span></td>
 															<td><a href="#" class="pop"><img id="imagesource"
 																	th:src="@{/files/}+@{${event.getPotser_path()}}"
 																	style="width: 150px; height: 100px" />
@@ -265,6 +269,40 @@
                                                 <div class="form-group">
                                                      <textarea class="form-control" placeholder="Enter Something"
 												        title="Max 10000 Character" rows="3" id="description" name="description" required></textarea>
+                            
+                                                </div> 
+                                                </div>
+                                            </div>
+                                            
+                                             <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 style="margin: 0px">Location</h4>
+                                                </div>
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="form-group">
+                                                     <input type="text" class="form-control" name="location" required/>
+                            
+                                                </div> 
+                                                </div>
+                                            </div>
+                                            
+                                             <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="text-align: center">
+                                                    <h4 style="margin: 0px">Mode to Event</h4>
+                                                </div>
+                                            </div>
+                                             
+                                             <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <select class="form-control c-select" name="modeEvent" id="modeEvent" required>
+  														<option value="">Select Mode</option>
+  														<option value="1">Remote</option>
+  														<option value="2">Virtual</option>
+													</select>
                             
                                                 </div> 
                                                 </div>

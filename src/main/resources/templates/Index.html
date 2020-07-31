@@ -135,7 +135,7 @@
 		</div>
 		<div class="col-sm-12 col-md-10 e-content">
 		<p th:text="${event.getHeadline()}" class="e-title"></p>
-		<p><i class="fas fa-map-marker-alt e-map"></i> IIT Bombay</p>
+		<p><i class="fas fa-map-marker-alt e-map"></i> <span th:text="${event.getLocation()}"></span></p>
 		</div>
 	</div>
 	<a  th:href="@{eventsList}" ><button type="button" class="viewButton">View all</button> </a>

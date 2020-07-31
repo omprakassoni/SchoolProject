@@ -322,7 +322,7 @@ public class AdminController {
 			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 			userService.addUserToArticle(usr, articlemapping);								// saving the article information into database.
-			mv.addObject("statusAdd", "Added Sucessfully");									// setting status for view(success)
+			mv.addObject("statusAdd", "Added Successfully");									// setting status for view(success)
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -639,7 +639,7 @@ public class AdminController {
 			
 			
 			userService.addUserToLessonplan(usr, lessonMapping);					// saving lessonPaln data
-			mv.addObject("statusAdd", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Successfully");
 			
 		} catch (Exception e) {
 		
@@ -652,7 +652,7 @@ public class AdminController {
 
 		mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 		
-		mv.addObject("lessonStatus", "Added Sucessfully");	
+		mv.addObject("lessonStatus", "Added Successfully");	
 		
 		List<LessonPlan> lessonListTemp=lessonService.findAll();
 		List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
@@ -816,7 +816,7 @@ public class AdminController {
 
 			
 			userService.addUserToPhets(usr, phetMapping);							// persist Phet data 
-			mv.addObject("statusAdd", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Successfully");
 			
 			
 			} catch (Exception e) {
@@ -956,7 +956,7 @@ public class AdminController {
 			}
 			
 			
-			mv.addObject("statusAdd", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Successfully");
 			
 		} catch (Exception e) {
 			
@@ -1084,11 +1084,11 @@ public class AdminController {
 
 				subjectClassService.createSubjectClass(addsubject, subjectClassMapping);
 
-				mv.addObject("statusAdd", "Added Sucessfully");
+				mv.addObject("statusAdd", "Added Successfully");
 			} catch (Exception e) {
 				
 				subjectService.save(addsubject);
-				mv.addObject("statusAdd", "Added Sucessfully");
+				mv.addObject("statusAdd", "Added Successfully");
 			}
 			
 				
@@ -1221,7 +1221,7 @@ public class AdminController {
 			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 			userService.addUserToVideo(usr, videoMapping);							// persist Video Information
-			mv.addObject("statusAdd", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Successfully");
 			
 		} catch (Exception e) {
 			
@@ -1356,7 +1356,7 @@ public class AdminController {
 			videoMapping.add(new VideoExternal(videoId, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 			
 			userService.addUserToVideo(usr, videoMapping);							// persist Video Information
-			mv.addObject("statusAdd", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Successfully");
 			}else {
 				mv.addObject("failure", "Please Try Again Later");
 			}
@@ -1556,7 +1556,7 @@ public class AdminController {
 			
 			userService.addUserToQuizQuestion(usr, quizMapping);   // persist Quiz details
 			
-			mv.addObject("statusAdd", "Added Sucessfully");
+			mv.addObject("statusAdd", "Added Successfully");
 			
 			}else {
 				mv.addObject("failure", " Try again Later");
@@ -1574,7 +1574,7 @@ public class AdminController {
 
 		mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
 		
-		mv.addObject("quizStatus", "Added Sucessfully");
+		mv.addObject("quizStatus", "Added Successfully");
 		mv.addObject("addActive","active");
 		
 		List<QuizQuestion> quizListTemp=quizService.findAll();
@@ -1958,7 +1958,7 @@ public class AdminController {
 						addtestData.setOrganization(organization);
 						
 						testiService.save(addtestData);
-						mv.addObject("returnStatus", "Data Added Sucessfully");
+						mv.addObject("returnStatus", "Data Added Successfully");
 						mv.addObject("addActive","active");
 						List<Testimonial> local=testiService.findAll();
 						mv.addObject("Testimonial", local);
@@ -2145,7 +2145,7 @@ public class AdminController {
 		 * addtestData.setOrganization(organization);
 		 * 
 		 * testiService.save(addtestData); mv.addObject("returnStatus",
-		 * "Data Added Sucessfully"); mv.addObject("addVideoActive","active");
+		 * "Data Added Successfully"); mv.addObject("addVideoActive","active");
 		 * List<Testimonial> local=testiService.findAll(); mv.addObject("Testimonial",
 		 * local); mv.setViewName("addTestimonial"); // setting view name } catch
 		 * (Exception e) {
@@ -2183,6 +2183,10 @@ public class AdminController {
 		
 		String headline=req.getParameter("headline");									// taking out various information given by user in view.
 		String Desc=req.getParameter("description");
+		String location=req.getParameter("location");
+		String mode=req.getParameter("modeEvent");
+		String modeOfEvent;
+		
 		
 		User localUser=userService.findByUsername(principal.getName());
 		
@@ -2211,6 +2215,21 @@ public class AdminController {
 			return mv;
 			
 		}
+		
+		if(mode.equals("1")) {
+			modeOfEvent="Remote";
+		}else if(mode.equals("2")){
+			modeOfEvent="Virtual";
+		}else {
+			
+			mv.addObject("returnStatus", "Please Try Again");
+			
+			List<Events> local=eventService.findAll();
+			mv.addObject("Events", local);
+			mv.addObject("addActive","active");
+			mv.setViewName("addEvent");
+			return mv;
+		}
 			
 					try {
 						String date=req.getParameter("date");
@@ -2236,6 +2255,8 @@ public class AdminController {
 						addEvent.setDescription(Desc);
 						addEvent.setHeadline(headline);
 						addEvent.setDateToHappen(dateOfEvent);
+						addEvent.setLocation(location);
+						addEvent.setMode(modeOfEvent);
 						addEvent.setPotser_path("null");
 						
 						eventService.save(addEvent);
@@ -2260,7 +2281,7 @@ public class AdminController {
 						mv.addObject("Events", local);
 						mv.addObject("addActive","active");
 						
-						mv.addObject("returnStatus", "Data Added Sucessfully");
+						mv.addObject("returnStatus", "Data Added Successfully");
 						mv.setViewName("addEvent");											// setting view name
 					} catch (Exception e) {
 						

@@ -39,6 +39,12 @@ public class Events {
 	@Column(nullable = false)
 	private String potser_path;
 	
+	@Column(nullable = false)
+	private String mode;
+	
+	@Column(nullable = false)
+	private String location;
+	
 	public int getEventId() {
 		return eventId;
 	}
@@ -85,6 +91,22 @@ public class Events {
 
 	public void setPotser_path(String potser_path) {
 		this.potser_path = potser_path;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	
