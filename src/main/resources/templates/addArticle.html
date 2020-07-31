@@ -29,22 +29,6 @@
                     </li>
                     <div sec:authorize="hasAuthority('Teacher')">
                     <li>
-                        <a class="nav-link" th:href="@{/conConceptMap}">
-                            <i class="nc-icon nc-paper-2"></i>
-                            <p>Concepts-Map</p>
-                        </a>
-                    </li>
-                    </div>
-                    <div sec:authorize="hasAuthority('Teacher')">
-                    <li>
-                        <a class="nav-link" th:href="@{/conPhet}">
-                            <i class="nc-icon nc-paper-2"></i>
-                            <p>Phets</p>
-                        </a>
-                    </li>
-                    </div>
-                    <div sec:authorize="hasAuthority('Teacher')">
-                    <li>
                         <a class="nav-link" th:href="@{/conArticle}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Article</p>
@@ -53,9 +37,9 @@
                     </div>
                     <div sec:authorize="hasAuthority('Teacher')">
                     <li>
-                        <a class="nav-link" th:href="@{/conLessonPlan}">
+                        <a class="nav-link" th:href="@{/conConceptMap}">
                             <i class="nc-icon nc-paper-2"></i>
-                            <p>Lesson Plan</p>
+                            <p>Concepts-Map</p>
                         </a>
                     </li>
                     </div>
@@ -69,9 +53,17 @@
                     </div>
                     <div sec:authorize="hasAuthority('Teacher')">
                     <li>
-                        <a class="nav-link" th:href="@{/conVideo}">
+                        <a class="nav-link" th:href="@{/conLessonPlan}">
                             <i class="nc-icon nc-paper-2"></i>
-                            <p>Video</p>
+                            <p>Lesson Plan</p>
+                        </a>
+                    </li>
+                    </div>
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conPhet}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Phets</p>
                         </a>
                     </li>
                     </div>
@@ -83,6 +75,16 @@
                         </a>
                     </li>
                     </div>
+                   
+                    <div sec:authorize="hasAuthority('Teacher')">
+                    <li>
+                        <a class="nav-link" th:href="@{/conVideo}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Video</p>
+                        </a>
+                    </li>
+                    </div>
+                    
                     <div sec:authorize="hasAuthority('Teacher')">
                     <li>
                         <a class="nav-link" th:href="@{/conView}">

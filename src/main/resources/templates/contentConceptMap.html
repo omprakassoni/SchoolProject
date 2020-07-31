@@ -24,28 +24,17 @@
                 </div>
          
                 <ul class="nav">
-                    <li class="nav-item active">
+                   
+                    <li>
+                        <a class="nav-link" th:href="@{'/contentTutorial/'+ ${TopicSelected.getTopicId()}}">
+                            <span class="r-icon"><i class="far fa-file-video"></i></span>
+                            <p>Spoken Tutorial</p>
+                        </a>
+                    </li>
+                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{'/contentConcept/'+ ${TopicSelected.getTopicId()}}">
                             <span class="r-icon"><i class="fas fa-book-open"></i></span>
                             <p>Concept-Map</p>
-                        </a>
-                    </li>
-                    <li  >
-                        <a class="nav-link" th:href="@{'/contentTutorial/'+ ${TopicSelected.getTopicId()}}">
-                            <span class="r-icon"><i class="far fa-file-video"></i></span>
-                            <p>Tutorial</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" th:href="@{'/contentPhet/'+ ${TopicSelected.getTopicId()}}">
-                            <span class="r-icon"><i class="fas fa-atom"></i></span>
-                            <p>Phets</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" th:href="@{'/contentLink/'+ ${TopicSelected.getTopicId()}}">
-                            <span class="r-icon"><i class="fas fa-link"></i></span>
-                            <p>Links</p>
                         </a>
                     </li>
                     <li>
@@ -54,6 +43,19 @@
                             <p>Lesson Plan</p>
                         </a>
                     </li>
+                     <li>
+                        <a class="nav-link" th:href="@{'/contentLink/'+ ${TopicSelected.getTopicId()}}">
+                            <span class="r-icon"><i class="fas fa-link"></i></span>
+                            <p>Links</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" th:href="@{'/contentPhet/'+ ${TopicSelected.getTopicId()}}">
+                            <span class="r-icon"><i class="fas fa-atom"></i></span>
+                            <p>Phets</p>
+                        </a>
+                    </li>
+                   
                     <li>
                         <a class="nav-link" th:href="@{'/contentQuiz/'+ ${TopicSelected.getTopicId()}}">
                             <span class="r-icon"><i class="far fa-clipboard"></i></span>

@@ -653,7 +653,7 @@ public class HomeController {
 		
 		for(Events temp:tempEvent) {                                              
 			
-			if(!temp.getDateToHappen().before(ServiceUtility.getCurrentTime())) {   // future event
+			if(!temp.getDateToHappenEnd().before(ServiceUtility.getCurrentTime())) {   // future event
 				prevEvent.add(temp);
 				
 			}else {

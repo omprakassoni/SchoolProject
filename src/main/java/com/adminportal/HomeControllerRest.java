@@ -311,7 +311,7 @@ public class HomeControllerRest {
 			java.util.Date dateUtil=sd1.parse(date);
 			newdate=new java.sql.Date(dateUtil.getTime());
 		}else {
-			newdate=localEvent.getDateToHappen();
+			newdate=localEvent.getDateToHappenStart();
 		}
 		
 		for(MultipartFile temp:uploadPoster) {

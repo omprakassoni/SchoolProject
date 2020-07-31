@@ -26,6 +26,12 @@ public class Events {
 	@Column(nullable = false)
 	private String headline;
 	
+	@Column(nullable = false)
+	private String coordName;
+	
+	@Column(nullable = false)
+	private int coordContactNo;
+	
 	@Column(nullable = false,length = 10000)
 	@Length(max = 10000)
 	private String description;
@@ -34,7 +40,16 @@ public class Events {
 	private Timestamp dateAdded;
 	
 	@Column(nullable = false)
-	private Date dateToHappen;
+	private Date dateToHappenStart;
+	
+	@Column(nullable = false)
+	private Date dateToHappenEnd;
+	
+	@Column(nullable = false)
+	private Date registStart;
+	
+	@Column(nullable = false)
+	private Date registEnd;
 	
 	@Column(nullable = false)
 	private String potser_path;
@@ -77,13 +92,6 @@ public class Events {
 		this.dateAdded = dateAdded;
 	}
 
-	public Date getDateToHappen() {
-		return dateToHappen;
-	}
-
-	public void setDateToHappen(Date dateToHappen) {
-		this.dateToHappen = dateToHappen;
-	}
 
 	public String getPotser_path() {
 		return potser_path;
@@ -107,6 +115,54 @@ public class Events {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String getCoordName() {
+		return coordName;
+	}
+
+	public void setCoordName(String coordName) {
+		this.coordName = coordName;
+	}
+
+	public int getCoordContactNo() {
+		return coordContactNo;
+	}
+
+	public void setCoordContactNo(int coordContactNo) {
+		this.coordContactNo = coordContactNo;
+	}
+
+	public Date getDateToHappenStart() {
+		return dateToHappenStart;
+	}
+
+	public void setDateToHappenStart(Date dateToHappenStart) {
+		this.dateToHappenStart = dateToHappenStart;
+	}
+
+	public Date getDateToHappenEnd() {
+		return dateToHappenEnd;
+	}
+
+	public void setDateToHappenEnd(Date dateToHappenEnd) {
+		this.dateToHappenEnd = dateToHappenEnd;
+	}
+
+	public Date getRegistStart() {
+		return registStart;
+	}
+
+	public void setRegistStart(Date registStart) {
+		this.registStart = registStart;
+	}
+
+	public Date getRegistEnd() {
+		return registEnd;
+	}
+
+	public void setRegistEnd(Date registEnd) {
+		this.registEnd = registEnd;
 	}
 	
 	

@@ -2186,6 +2186,9 @@ public class AdminController {
 		String location=req.getParameter("location");
 		String mode=req.getParameter("modeEvent");
 		String modeOfEvent;
+		String coordName=req.getParameter("cordinatorName");
+		String coordMobile=req.getParameter("cordinatorMobile");
+		
 		
 		
 		User localUser=userService.findByUsername(principal.getName());
@@ -2232,13 +2235,71 @@ public class AdminController {
 		}
 			
 					try {
-						String date=req.getParameter("date");
+						String date=req.getParameter("startDate");
 						SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 						java.util.Date dateUtil=sd1.parse(date);
-						Date dateOfEvent=new Date(dateUtil.getTime());
+						Date dateOfEventStart=new Date(dateUtil.getTime());
 						
-						if(dateOfEvent.before(ServiceUtility.getCurrentTime())) {
-							mv.addObject("returnStatus", "Date must be future date");
+						String datetemp1=req.getParameter("endDate");
+						dateUtil=sd1.parse(datetemp1);
+						Date dateOfEventend=new Date(dateUtil.getTime());
+						
+						String datetemp2=req.getParameter("RegStartDate");
+						dateUtil=sd1.parse(datetemp2);
+						Date registStart=new Date(dateUtil.getTime());
+						
+						
+						String datetemp3=req.getParameter("RegEndDate");
+						dateUtil=sd1.parse(datetemp3);
+						Date registEnd=new Date(dateUtil.getTime());
+						
+						
+						if(dateOfEventStart.before(ServiceUtility.getCurrentTime())) {
+							mv.addObject("returnStatus", "Date of Event Must be Future Date");
+							
+							List<Events> local=eventService.findAll();
+							mv.addObject("Events", local);
+							mv.addObject("addActive","active");
+							mv.setViewName("addEvent");
+							return mv;
+							
+						} 
+						
+						if(dateOfEventend.before(dateOfEventStart)) {
+							mv.addObject("returnStatus", "End Date of Event Must be After Start Date");
+							
+							List<Events> local=eventService.findAll();
+							mv.addObject("Events", local);
+							mv.addObject("addActive","active");
+							mv.setViewName("addEvent");
+							return mv;
+							
+						} 
+						
+						if(registStart.before(ServiceUtility.getCurrentTime()) ) {
+							mv.addObject("returnStatus", "Regsitration Date of Event Must be Future Date");
+							
+							List<Events> local=eventService.findAll();
+							mv.addObject("Events", local);
+							mv.addObject("addActive","active");
+							mv.setViewName("addEvent");
+							return mv;
+							
+						} 
+						
+						if(registStart.after(dateOfEventStart) || registEnd.after(dateOfEventStart)  ) {
+							mv.addObject("returnStatus", "Regsitration Date of Event Must be Earlier Date");
+							
+							List<Events> local=eventService.findAll();
+							mv.addObject("Events", local);
+							mv.addObject("addActive","active");
+							mv.setViewName("addEvent");
+							return mv;
+							
+						}
+						
+						if(registEnd.before(registStart) ) {
+							mv.addObject("returnStatus", "Regsitration End Date of Event Must be Future Date");
 							
 							List<Events> local=eventService.findAll();
 							mv.addObject("Events", local);
@@ -2254,7 +2315,12 @@ public class AdminController {
 						addEvent.setDateAdded(ServiceUtility.getCurrentTime());
 						addEvent.setDescription(Desc);
 						addEvent.setHeadline(headline);
-						addEvent.setDateToHappen(dateOfEvent);
+						addEvent.setDateToHappenStart(dateOfEventStart);
+						addEvent.setDateToHappenStart(dateOfEventend);
+						addEvent.setRegistStart(registStart);
+						addEvent.setRegistEnd(registEnd);
+						addEvent.setCoordName(coordName);
+						addEvent.setCoordContactNo(Integer.parseInt(coordMobile));
 						addEvent.setLocation(location);
 						addEvent.setMode(modeOfEvent);
 						addEvent.setPotser_path("null");
