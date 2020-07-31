@@ -187,13 +187,12 @@
 														<tr class="clickable-row">
 															<td><span th:text="${testi.getName()}"></span></td>
 															<td><span th:text="${testi.getOrganization()}"></span></td>
-															<td><span th:text="${testi.getDateAdded() }"></span></td>
+															<td><span th:text="${#dates.format(testi.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 															<td style="width: 20%"><span
 																th:text="${testi.getDescription()}"></span></td>
 															<td th:if="${testi.getFilePath()}">
 																	 <a th:href="@{/files/}+@{${testi.getFilePath()}}"
-																		target="_blank" class="pdfclass"><img id="pdfsource"
-																	th:src="${testi.getFilePath()}" alt="Document"></img></a>
+																		target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a>
 																
 															</td>
 															<td th:if="${testi.getVideoPath()}">

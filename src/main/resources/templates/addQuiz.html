@@ -188,7 +188,7 @@
 																th:id="${quiz.getQuizQuestionId()}" name="radioQuiz" /></th>
 															<td><span th:text="${quiz.getRemark()}"></span></td>
 															<td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
-															<td><span th:text="${quiz.getDateAdded()}"></span></td>
+															<td><span th:text="${#dates.format(quiz.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 															<td><a th:href="@{/files/}+@{${quiz.getQuestion()}}"
 																class="pdfclass" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
 															<td><a th:href="@{/files/}+@{${quiz.getAnswer()}}"

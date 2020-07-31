@@ -6,6 +6,70 @@ $(function(){
 							//	 use 1 -> Inhouse Level code
 	
 	
+	
+	/******************************** USER DETAILS UPDATE ******************************************************/
+	
+	$("#userDetailsUpdate").click(function(){
+		var fname=$('#fname').val();
+		var lname=$('#lname').val();
+		
+		var userData={
+			"fname":fname,
+			"lname":lname,
+		};
+		
+		var urlPassed;
+		
+		if(DeploymentType){								// Url Creation based on depolyment 
+			urlPassed= "/updateUserDetails";
+	
+    	}else{
+    		urlPassed= projectName+"/updateUserDetails";
+	
+    	}
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		$.ajax({
+	  	type: "GET",
+    	contentType: "application/json",
+   		 url: urlPassed,
+   		 data: userData,
+   		 beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		 },
+   		 dataType: 'json',
+   		 cache: false,
+    	 timeout: 600000,
+   		 success: function (data){
+   			 
+   			if(data){
+   				alert("Details updated successfully");
+   	
+   			}else{
+   				alert("Update failed");
+   			}
+   			
+   		
+		},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+		}
+		
+	});
+		
+
+
+
+	})
+	
+	
+	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+		localStorage.setItem('activeTab', $(e.target).attr('href'));
+	});
+	
 	/**************************** Reloading Page on closing of Modal ***********************************************/
 	
 	 $(".contentInstruction").hide();
@@ -17,7 +81,40 @@ $(function(){
 	    });
 	
 	
-/*	$('#VideoModal').on('hidden.bs.modal', function () {
+	$('.VideoModalReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.VideoModalReloadUploadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.QuizReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.ArticleReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.DocumentReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('.LessonReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('.PhetReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+/*	$('#TestimonialModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	$('#EventModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
 	
@@ -27,38 +124,11 @@ $(function(){
 	
 	$('#TopicModal').on('hidden.bs.modal', function () {
 		location.reload();
-	});
-	
-	$('#QuizModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#ArticleModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#DocumentModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#LessonPlanModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#PhetModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#TestimonialModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	
-	$('#EventModal').on('hidden.bs.modal', function () {
-		location.reload();
-	});
-	$('#ConceptMapModal').on('hidden.bs.modal', function () {
-		location.reload();
 	});*/
+	
+	$('.ConceptReloadTeacher').on('hidden.bs.modal', function () {
+		location.reload();
+	});
 	 
 	 $('#ProfilePictureModal').on('hidden.bs.modal', function () {
 			location.reload();
@@ -1979,6 +2049,7 @@ $(function(){
 			$('#inputClass').change(function(){
   					
   					var classname=$(this).find(":selected").val().substring(6);
+  					var subjectName=$('#subjectHome').find(":selected").val()
   					var selectedClass={
   							"className":classname,
   					};
@@ -2035,7 +2106,63 @@ $(function(){
   						
   					});
   					
-  					}
+  					}else{
+  	  					
+  	  					
+  	  					var token = $("meta[name='_csrf']").attr("content");
+  	  					var header = $("meta[name='_csrf_header']").attr("content");
+  	  					
+  	  					var selectedSubjectTemp={
+  							"subName":subjectName,
+  							"className":classname,
+  	  					};
+  	  					
+  	  					var urlPassedTemp;
+  	  					
+  	  					if(DeploymentType){								// Url Creation based on depolyment 
+  	  						urlPassedTemp= "/loadByTopicName";
+  	  				
+  	  		        	}else{
+  	  		        		urlPassedTemp= projectName+"/loadByTopicName";
+  	  				
+  	  		        	}
+  	  		
+  	  				
+  	  					$.ajax({
+  	  					  	type: "GET",
+  	  			        	contentType: "application/json",
+  	  			       		 url: urlPassedTemp,
+  	  			       		 data: selectedSubjectTemp,
+  	  			       		 beforeSend: function(xhr) {
+  	                         xhr.setRequestHeader(header, token);
+  	  			       		 },
+  	  			       		 dataType: 'json',
+  	  			       		 cache: false,
+  	  			        	 timeout: 600000,
+  	  			       		 success: function (data){
+  	  			       	    var html = '';
+  	  			            var len = data.length;
+  	  			            html += '<option value="Select Topic">Select Topic</option>';
+  	  			            $.each(data , function( key, value ) {
+	  	  			        html += '<option value=' + key + '>'
+	  			               + value
+	  			               + '</option>';
+	  	  			        })
+  	  			            html += '</option>';
+  	  			            
+  	  			           
+  	  			            $('#topicSelected').html(html);
+  	  			           
+  	  						},
+  	  						
+  	  						error : function(err){
+  	  							console.log("not working. ERROR: "+JSON.stringify(err));
+  	  						}
+  	  						
+  	  						
+  	  					});
+  	  					
+  	  					}
   				
   					
   				});
@@ -2044,6 +2171,7 @@ $(function(){
   				$('#subjectHome').change(function(){
   					
   					var subjectName=$(this).find(":selected").val();
+  					var Classname=$('#inputClass').find(":selected").val().substring(6);
   					var selectedSubject={
   							"subName":subjectName,
   					};
@@ -2100,10 +2228,70 @@ $(function(){
   						
   					});
   					
-  					}
+  					}else{
+  	  					
+  	  					
+  	  					var token = $("meta[name='_csrf']").attr("content");
+  	  					var header = $("meta[name='_csrf_header']").attr("content");
+  	  					
+  	  					var selectedSubjectTemp={
+  							"subName":subjectName,
+  							"className":Classname,
+  	  					};
+  	  					
+  	  					var urlPassedTemp;
+  	  					
+  	  					if(DeploymentType){								// Url Creation based on depolyment 
+  	  						urlPassedTemp= "/loadByTopicName";
+  	  				
+  	  		        	}else{
+  	  		        		urlPassedTemp= projectName+"/loadByTopicName";
+  	  				
+  	  		        	}
+  	  		
+  	  				
+  	  					$.ajax({
+  	  					  	type: "GET",
+  	  			        	contentType: "application/json",
+  	  			       		 url: urlPassedTemp,
+  	  			       		 data: selectedSubjectTemp,
+  	  			       		 beforeSend: function(xhr) {
+  	                         xhr.setRequestHeader(header, token);
+  	  			       		 },
+  	  			       		 dataType: 'json',
+  	  			       		 cache: false,
+  	  			        	 timeout: 600000,
+  	  			       		 success: function (data){
+  	  			       	    var html = '';
+  	  			            var len = data.length;
+  	  			            html += '<option value="Select Topic">Select Topic</option>';
+  	  			            
+	  	  			        $.each(data , function( key, value ) {
+	  	  			        html += '<option value=' + key + '>'
+	  			               + value
+	  			               + '</option>';
+	  	  			        })
+  	  			          
+  	  			            html += '</option>';
+  	  			            
+  	  			            $('#topicSelected').html(html);
+  	  			           
+  	  						},
+  	  						
+  	  						error : function(err){
+  	  							console.log("not working. ERROR: "+JSON.stringify(err));
+  	  						}
+  	  						
+  	  						
+  	  					});
+  	  					
+  	  					}
+  					
   				
   					
   				});
+  				
+  				
 			
 			
   		// ------------------------------------------------ADDING TOPIC TO VIEW-----------------------------------------------------
@@ -6120,6 +6308,7 @@ $(function(){
   						 $('#Success').css({"display": "none"}); 
   						 $('#FailurePassMismatch').css({"display": "none"});
   						 $('#FailureCurPassWrong').css({"display": "none"});
+  						 $('#lengthIncorrect').css({"display": "none"});
   						
   						 if(data[0]==="Success"){
   							 $('#Success').css({"display": "block"});
@@ -6138,7 +6327,18 @@ $(function(){
  							 $('#updatePasswordTeacher').prop('disabled',true);
  							 
  							 setTimeout(function() {
- 					            $('#Failure').fadeOut(1000)}, 4000);
+ 					            $('#FailureCurPassWrong').fadeOut(1000)}, 4000);
+  						 }else if(data[0]==="passwordLengthError"){
+  							 
+  							 $('#lengthIncorrect').css({"display": "block"});
+  							 $('#newPassTeacher').prop('value',"");
+ 							 $('#confPassTeacher').prop('value',"");
+ 							 $('#currentPasswordTeacher').prop('value',"");
+ 							 $('#updatePasswordTeacher').prop('disabled',true);
+ 							 
+ 							 setTimeout(function() {
+ 					            $('#lengthIncorrect').fadeOut(1000)}, 4000);
+  							 
   						 }
   						
   					

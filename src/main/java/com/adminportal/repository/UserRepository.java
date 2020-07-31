@@ -37,6 +37,11 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query("update User set password=?1 where id=?2")			// update password
 	int updateUserPassword(String password,int id);
 	
+
+	@Modifying
+	@Query("update User set fname=?1,lname=?2 where id=?3")			// update password
+	int updateUserDetails(String fname,String lname,int id);
+	
 	User findBytoken(String token);
 	
 

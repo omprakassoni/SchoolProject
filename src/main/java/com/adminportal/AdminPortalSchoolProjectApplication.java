@@ -49,8 +49,8 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	
 
 	public static void main(String[] args) {
-		new java.io.File(HomeController.uploadDirectory).mkdir();
-		new java.io.File(HomeController.uploadTeacherDirectory).mkdir();
+//		new java.io.File(HomeController.uploadDirectory).mkdir();
+//		new java.io.File(HomeController.uploadTeacherDirectory).mkdir();
 		SpringApplication.run(AdminPortalSchoolProjectApplication.class, args);
 	}
 	

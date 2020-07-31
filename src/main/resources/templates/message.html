@@ -165,7 +165,7 @@
 												<td><span th:text="${message.getName()}"></span></td>
 												<td><span th:text="${message.getEmail()}"></span></td>
 												<td><span th:text="${message.getMessage()}"></span></td>
-												<td><span th:text="${message.getDataAdded()}"></span></td>
+												<td><span th:text="${#dates.format(message.getDataAdded(), 'dd MMM , yyyy')}"></span></td>
 						
 						
 						

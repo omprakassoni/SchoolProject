@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -162,6 +163,22 @@ public class HomeControllerRest {
 	
 	@Autowired
 	private Environment env;
+	
+	/*------------------------------------UPDATING USER FIRST AND LAST NAME-------------------------------------*/
+	@GetMapping("/updateUserDetails")
+	public @ResponseBody boolean updateUserInfo(String fname,String lname,Principal principal){
+		
+		User usrTemp=userService.findByUsername(principal.getName());
+		boolean updateStatus=userService.updateUserDetails(fname, lname, usrTemp.getId());
+		if(updateStatus) {
+			return true;
+		}else {
+			return false;
+		}
+		
+		
+	}
+	
 	
 	/*--------------------------------------TAKING CONTACT FORM DATA FROM INDEX PAGE ------------------------------------------------------*/
 	@PostMapping("/addContactForm")
@@ -369,6 +386,12 @@ public class HomeControllerRest {
 		boolean statusPassword=false;
 		
 		User usr=userService.findByUsername(principal.getName());
+		if(localpass.getPassword().length()<6) {
+			System.out.println("vik");
+			status.add("passwordLengthError");
+			return status;
+		}
+		
 		statusPassword =ServiceUtility.passwordEncoder().matches(localpass.getCurrentPassword(), usr.getPassword());
 		
 		if(statusPassword) {
@@ -458,6 +481,39 @@ public class HomeControllerRest {
 		Collections.sort(subjectName);
 		
 		return subjectName;
+		
+	}
+	
+	
+	@GetMapping("/loadByTopicName")
+	public @ResponseBody HashMap<Integer,String> loadByTopicName(@Valid String subName,int className ) throws Exception{
+		HashMap<Integer,String> topicName=new HashMap<>();
+		boolean classExist=true,SubjectExist=true;;
+		Class classTemp=null;
+		Subject subTemp=null;
+		try {
+			classTemp=classService.findByClassName(className);
+		} catch (Exception e) {
+			classExist=false;
+			e.printStackTrace();
+		}
+		
+		try {
+			subTemp =subjectService.findBySubjectName(subName);
+		} catch (Exception e) {
+			SubjectExist=false;
+			e.printStackTrace();
+		}
+		
+		if(classExist && SubjectExist) {
+			SubjectClassMapping temp=subjectClassService.findBysubAndstandard(classTemp, subTemp);
+			List<Topic> topicLocal=topicService.findBysubjectclassMapping(temp);
+			for(Topic x:topicLocal) {
+				topicName.put(x.getTopicId(),x.getTopicName());
+			}
+		}
+		
+		return topicName;
 		
 	}
 	

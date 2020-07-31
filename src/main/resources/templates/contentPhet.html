@@ -25,37 +25,37 @@
                 <ul class="nav">
                     <li>
                         <a class="nav-link" th:href="@{'/contentConcept/'+ ${TopicSelected.getTopicId()}}">
-                            <i class="nc-icon nc-paper-2"></i>
+                            <span class="r-icon"><i class="fas fa-book-open"></i></span>
                             <p>Concept-Map</p>
                         </a>
                     </li>
                     <li  >
                         <a class="nav-link" th:href="@{'/contentTutorial/'+ ${TopicSelected.getTopicId()}}">
-                            <i class="nc-icon nc-paper-2"></i>
+                            <span class="r-icon"><i class="far fa-file-video"></i></span>
                             <p>Tutorial</p>
                         </a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{'/contentPhet/'+ ${TopicSelected.getTopicId()}}">
-                            <i class="nc-icon nc-paper-2"></i>
+                            <span class="r-icon"><i class="fas fa-atom"></i></span>
                             <p>Phets</p>
                         </a>
                     </li>
                     <li>
                         <a class="nav-link" th:href="@{'/contentLink/'+ ${TopicSelected.getTopicId()}}">
-                            <i class="nc-icon nc-paper-2"></i>
+                            <span class="r-icon"><i class="fas fa-link"></i></span>
                             <p>Links</p>
                         </a>
                     </li>
                     <li>
                         <a class="nav-link" th:href="@{'/contentLesson/'+ ${TopicSelected.getTopicId()}}">
-                            <i class="nc-icon nc-paper-2"></i>
+                            <span class="r-icon"><i class="far fa-list-alt"></i></span>
                             <p>Lesson Plan</p>
                         </a>
                     </li>
                     <li>
                         <a class="nav-link" th:href="@{'/contentQuiz/'+ ${TopicSelected.getTopicId()}}">
-                            <i class="nc-icon nc-paper-2"></i>
+                            <span class="r-icon"><i class="far fa-clipboard"></i></span>
                             <p>Quiz</p>
                         </a>
                     </li>
@@ -82,11 +82,11 @@
 								
 											<span style="display: flex">
 												
-													<span th:text="'Class '+${classSelected}"></span>
+													<a th:href="@{'/topicOnClass/'+ ${classSelected}}"><span th:text="'Class '+${classSelected}"></span></a>
 										
 									<span><i class="fas fa-chevron-right"></i></span>
 												
-													<span th:text="${subjectSelected}"></span>
+													<a th:href="@{'/topicOnSubject/'+ ${subjectSelected}}"><span th:text="${subjectSelected}"></span></a>
 												<span><i class="fas fa-chevron-right"></i></span>
 												
 												<span class="res-topic" th:text="${TopicSelected.getTopicName()}"></span>

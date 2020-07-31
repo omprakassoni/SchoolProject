@@ -255,7 +255,7 @@
 
 													<td><span th:text="${phet.getTopic().getTopicName()}"></span></td>
 													<td><span th:text="${phet.getDescription()}"></span></td>
-													<td><span th:text="${phet.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(phet.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><span th:text="${phet.getSource()}"></span></td>
 													<td><iframe th:src="${phet.getUrl()}" width="250"
 															height="150" scrolling="no" allowfullscreen></iframe></td>
@@ -324,13 +324,19 @@
 													<td><span
 														th:text="${concept.getTopic().getTopicName()}"></span></td>
 													<td><span th:text="${concept.getDescription()}"></span></td>
-													<td><span th:text="${concept.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(concept.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 
 
 
-													<td><a href="#" class="pop"><img id="imagesource"
+													<td th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')}">
+															<a href="#" class="pop"><img id="imagesource"
 															th:src="@{/files/}+@{${concept.getUrl()}}"
-															style="width: 250px; height: 150px" /></a></td>
+															style="width: 150px; height: 100px" /></a></td>
+															
+															<td th:if="${#strings.endsWith(concept.getUrl(),'html')} or ${#strings.endsWith(concept.getUrl(),'xhtml')}">
+															<a th:href="@{/files/}+@{${concept.getUrl()}}"
+															target="_blank" class="pdfclass"><img id="pdfsource"
+															th:src="${concept.getUrl()}" alt="Click here"></img></a></td>
 													<td><span th:if="${concept.getStatus()==1}"><div
 																id="true" /></span> <span th:unless="${concept.getStatus()==1}"><div
 																id="false" /></span></td>
@@ -394,7 +400,7 @@
 													<td><span th:text="${video.getTopic().getTopicName()}"></span></td>
 													<td><span th:text="${video.getDescription()}"></span></td>
 													<td><span th:text="${video.getSource() }"></span></td>
-													<td><span th:text="${video.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(video.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td>
 														<div th:if="${#strings.startsWith(video.getUrl(),'Media')}">
 																	<video width="250" height="150" controls>
@@ -472,7 +478,7 @@
 													<td><span
 														th:text="${article.getTopic().getTopicName()}"></span></td>
 													<td><span th:text="${article.getDescription()}"></span></td>
-													<td><span th:text="${article.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(article.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><span th:text="${article.getSource()}"></span></td>
 													<td><a th:href="${article.getUrl()}"><span
 															th:text="${article.getUrl()}"></span></a></td>
@@ -539,11 +545,17 @@
 													<td><span
 														th:text="${document.getTopic().getTopicName()}"></span></td>
 													<td><span th:text="${document.getDescription()}"></span></td>
-													<td><span th:text="${document.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(document.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><span th:text="${document.getSource()}"></span></td>
-													<td><a th:href="@{/files/}+@{${document.getUrl()}}"
-														target="_blank"><img id="pdfsource"
-															th:src="${document.getUrl()}" alt="Document"></img></a></td>
+													
+													<td th:if="${#strings.endsWith(document.getUrl(),'jpeg')} or ${#strings.endsWith(document.getUrl(),'jpg')} or ${#strings.endsWith(document.getUrl(),'png')}">
+															<a href="#" class="pop"><img id="imagesource"
+															th:src="@{/files/}+@{${document.getUrl()}}"
+															style="width: 150px; height: 100px" /></a></td>
+															
+															<td th:if="${#strings.endsWith(document.getUrl(),'pdf')} or ${#strings.endsWith(document.getUrl(),'PDF')}">
+															<a th:href="@{/files/}+@{${document.getUrl()}}"
+															target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a></td>
 
 
 													<td><span th:if="${document.isStatus()==1}"><div
@@ -606,11 +618,10 @@
 												<tr class="clickable-row">
 													<td><span
 														th:text="${lesson.getTopic().getTopicName()}"></span></td>
-													<td><span th:text="${lesson.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(lesson.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><a
 														th:href="@{/files/}+@{${lesson.getLessonPlan()}}"
-														class="pdfclass" target="_class"><img id="pdfsource"
-															th:src="${lesson.getLessonPlan()}" alt="Click To Open"></img></a></td>
+														class="pdfclass" target="_class"><i class="fas fa-external-link-alt"></i></a></td>
 
 													<td><span th:if="${lesson.isStatus()==1}"><div
 																id="true" /></span> <span th:unless="${lesson.isStatus()==1}"><div
@@ -674,13 +685,11 @@
 												<tr class="clickable-row">
 													<td><span th:text="${quiz.getRemark()}"></span></td>
 													<td><span th:text="${quiz.getTopic().getTopicName()}"></span></td>
-													<td><span th:text="${quiz.getDateAdded()}"></span></td>
+													<td><span th:text="${#dates.format(quiz.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><a th:href="@{/files/}+@{${quiz.getQuestion()}}"
-														class="pdfclass" target="_blank"><img id="pdfsource"
-															th:src="${quiz.getQuestion()}" alt="Question"></img></a></td>
+														class="pdfclass" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
 													<td><a th:href="@{/files/}+@{${quiz.getAnswer()}}"
-														target="_blank" class="pdfclass"><img id="pdfsource"
-															th:src="${quiz.getAnswer()}" alt="Answer"></img></a></td>
+														target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a></td>
 													<td><span th:if="${quiz.isStatus()==1}"><div
 																id="true" /></span> <span th:unless="${quiz.isStatus()==1}"><div
 																id="false" /></span></td>
@@ -735,7 +744,7 @@
     
     <!-- Modal for updating Video-->
 
-	<div class="modal fade" id="VideoModal" tabindex="-1" role="dialog"
+	<div class="modal fade VideoModalReloadTeacher" id="VideoModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -805,7 +814,7 @@
 	</div>
 	
 	
-	<div class="modal fade" id="VideoModalUpload" tabindex="-1" role="dialog"
+	<div class="modal fade VideoModalReloadUploadTeacher" id="VideoModalUpload" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -879,7 +888,7 @@
 
 	<!-- Modal for updating Quiz-->
 
-	<div class="modal fade" id="QuizModal" tabindex="-1" role="dialog"
+	<div class="modal fade QuizReloadTeacher" id="QuizModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -950,7 +959,7 @@
 
 	<!-- Modal for updating the Document-->
 
-	<div class="modal fade" id="DocumentModal" tabindex="-1" role="dialog"
+	<div class="modal fade DocumentReloadTeacher" id="DocumentModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -1023,7 +1032,7 @@
 
 	<!-- Modal for updating Lesson-->
 
-	<div class="modal fade" id="LessonPlanModal" tabindex="-1"
+	<div class="modal fade LessonReloadTeacher" id="LessonPlanModal" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -1073,7 +1082,7 @@
 
 	<!-- Modal for updating the Artilce-->
 
-	<div class="modal fade" id="ArticleModal" tabindex="-1" role="dialog"
+	<div class="modal fade ArticleReloadTeacher" id="ArticleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -1144,7 +1153,7 @@
 
 	<!-- Modal for updating Phet-->
 
-	<div class="modal fade" id="PhetModal" tabindex="-1" role="dialog"
+	<div class="modal fade PhetReloadTeacher" id="PhetModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -1214,7 +1223,7 @@
 
 	<!-- Modal for updating Lesson Plan-->
 
-	<div class="modal fade" id="LessonPlanModal" tabindex="-1"
+	<!-- <div class="modal fade LessonReloadTeacher" id="LessonPlanModal" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -1261,11 +1270,11 @@
 			</div>
 		</div>
 	</div>
-
+ -->
 
 	<!-- Modal for updating the data  CONCEPT - MAP    -->
 
-	<div class="modal fade" id="ConceptMapModal" tabindex="-1"
+	<div class="modal fade ConceptReloadTeacher" id="ConceptMapModal" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -1857,6 +1866,20 @@
     
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	<script>
+	
+	$(document).ready(function(){
+		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+			localStorage.setItem('activeTab', $(e.target).attr('href'));
+		});
+		var activeTab = localStorage.getItem('activeTab');
+		if(activeTab){
+			$('#myTabMD a[href="' + activeTab + '"]').tab('show');
+		}
+	});
+	
+	
+	</script>
 
 </body>
 

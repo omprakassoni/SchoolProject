@@ -77,6 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/forgetPassword/**",
 			"/reset",
 			"/resetPassword",
+			"/loadByTopicName",
+			"/topicOnClass/**",
+			"/topicOnSubject/**",
+			"/loadByTestimonialID",
 			
 			"/loadByClassnameAndSubject",
 			"/loadByUser",
@@ -124,7 +128,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/admin/**").hasAnyAuthority("Admin")
 			.antMatchers(CONTRIBUTOR_URL).hasAnyAuthority("Teacher")
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
-			.anyRequest().authenticated();
+			.anyRequest().authenticated()
+			.and()
+			.exceptionHandling().accessDeniedPage("/accessDenied");
 		
 		http.
 			formLogin().failureUrl("/Login?error").defaultSuccessUrl("/")

@@ -153,17 +153,36 @@
                                                 </div>
                                             </div>
                                         </div>
+                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Joined On</label>
+                                                    <input type="text" class="form-control" placeholder="Date" disabled th:value="${LoggedUser.getDateAdded()}">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6 pr-1">
                                                 <div class="form-group">
                                                     <label>First Name</label>
-                                                    <input type="text" class="form-control" placeholder="First Name" disabled th:value="${LoggedUser.getFname()}" >
+                                                    <input type="text" class="form-control" placeholder="First Name" th:value="${LoggedUser.getFname()}" id="fname" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-1">
                                                 <div class="form-group">
                                                     <label>Last Name</label>
-                                                    <input type="text" class="form-control" placeholder="Last Name" disabled th:value="${LoggedUser.getLname()}" >
+                                                    <input type="text" class="form-control" placeholder="Last Name" th:value="${LoggedUser.getLname()}" id="lname">
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div class="row">
+                                            <div class="col-md-6 pr-1">
+                                                
+                                            </div>
+                                            <div class="col-md-6 pl-1">
+                                                <div class="form-group">
+                                           
+                                                    <button type="button" class="btn btn-info btn-fill pull-right" id="userDetailsUpdate">Update</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,14 +214,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Joined On</label>
-                                                    <input type="text" class="form-control" placeholder="Date" disabled th:value="${LoggedUser.getDateAdded()}">
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                         
                                         <div class="">
                                             <p class="profile-title">Update Password</p>
@@ -216,6 +228,8 @@
 										<div id="FailureCurPassWrong"
 										style="display: none; color: red; font-size: 18px; text-align: center">Current
 										Password is Wrong</div>
+										<div id="lengthIncorrect"
+										style="display: none; color: red; font-size: 18px; text-align: center">Password must be atleast 6 character</div>
                                         
                                         
                                          <div class="row">
