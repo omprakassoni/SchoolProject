@@ -191,7 +191,7 @@
 																id="true" /></span> <span th:unless="${concept.getStatus()==1}"><div
 																id="false" /></span></td>
 						
-													<td><a class="btn btn-secondary commentConcept"
+													<td><a class="btn spk-btn-sm commentConcept"
 														th:value="${concept.getConcepMapid()}" id="commentConcept">Comment</a>
 												</tr>
 											</span>
@@ -199,12 +199,6 @@
 										</tbody>
 						
 									</table>
-						
-									<!-- <span th:if="${conceptStatus}">
-										<div style="text-align: center; color: red; font-size: 22px"
-											th:text="${conceptStatus}" />
-									</span> -->
-						
 								</div>
 						
 								<div class="container">
@@ -212,7 +206,7 @@
 						
 						
 						
-										<button class="btn btn-primary" id="deleteConcept" disabled>Enable</button>
+										<button class="btn spk-btn" id="deleteConcept" disabled>Enable</button>
 						
 						
 									</center>
@@ -292,7 +286,7 @@
 								placeholder="Add Reply" cols="30" rows="2"></textarea>
 							<br />
 							<button style="float: right"
-								class="btn btn-primary commentConceptModalReply" name="reply">Add
+								class="btn spk-btn commentConceptModalReply" name="reply">Add
 								Reply</button>
 							<button style="float: right" class="btn btn-default"
 								onclick="$('.replyRowConcept').hide();">Close</button>

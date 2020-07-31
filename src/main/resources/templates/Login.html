@@ -12,17 +12,28 @@
 
 	<!--  CODE FOR NAVBAR -->
 	<div th:replace="common/header :: navbar"></div>
-
-	<div class="spk-login-form ">
+	
+	<div class="container">
+	<div class="row login-wrapper">
+		<div class="col-md-6 login-bg">
+		<div class="overlay">
+		
+		</div>
+		</div>
+		<div class="col-md-6 login-form">
+		<div class="spk-login-form ">
 		<center>
 			<h2>Login Here</h2>
 		</center>
 		<center>
 			<h6>
-				<div th:if="${param.error != null}" style="color:red;">Incorrect username or password.</div>
+				<div th:if="${param.error != null}">Incorrect username or password.</div>
 			</h6>
 		</center>
+		
 		<form th:action="@{/Login}" method="post">
+		
+		
 		
 			<div class="spk-form-group">
 				<label>Email:</label>
@@ -50,18 +61,26 @@
 			</div>
 
 			<div>
-				<a style="color: red" th:href="@{forgetPassword}">Forgot
+				<a th:href="@{forgetPassword}">Forgot
 					Password?</a>
 			</div>
 
-			<button class="btn btn-primary btn-login" type="submit" id="login">Login</button>
+			<button class="btn btn-login" type="submit" id="login">Login</button>
 
 		</form>
 		<p class="spk-register-p">
-			Don't have an account?<a href="Signup"> Register</a>
+			Don't have an account?<a href="Signup">Register</a>
 		</p>
 	</div>
 
+		</div>
+		
+		
+		</div>
+	
+	</div>
+	
+	
 
 
 

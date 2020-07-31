@@ -137,7 +137,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="card">
+                   <div class="spk-card-body spk-tab">
                     	<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item"><a
 								th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
@@ -146,7 +146,7 @@
 							<li class="nav-item"><a
 								th:class="${addActive} ? 'nav-link active' : 'nav-link'"
 								id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-								aria-controls="profile" aria-selected="false">Add texted Testimonial</a></li>
+								aria-controls="profile" aria-selected="false">Add Text Testimonial</a></li>
 							<li class="nav-item"><a
 								th:class="${addVideoActive} ? 'nav-link active' : 'nav-link'"
 								id="profile-tab" data-toggle="tab" href="#video" role="tab"
@@ -160,7 +160,7 @@
 								
 								   
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Testimonial</h4>
+                                    <!-- <h4 class="card-title">Available Testimonial</h4> -->
                                     <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
@@ -185,10 +185,6 @@
 						
 													<span th:each="testi:${Testimonial}">
 														<tr class="clickable-row">
-															<!-- <th scope="row"><input type="radio"
-																th:value="${testi.getTestimonialId()}"
-																th:id="${testi.getTestimonialId()}" name="selectionRadio"
-																onchange="radioCall()" /></th> -->
 															<td><span th:text="${testi.getName()}"></span></td>
 															<td><span th:text="${testi.getOrganization()}"></span></td>
 															<td><span th:text="${#dates.format(testi.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
@@ -209,7 +205,7 @@
 																	
 															</td>
 															
-															<td><a class="btn btn-secondary detailTestimonial"
+															<td><a class="btn spk-btn-sm detailTestimonial"
 																th:value="${testi.getTestimonialId()}" id="detailTestimonial">Update</a>
 						
 															</td>
@@ -236,61 +232,36 @@
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add New Testimonial</h4>
+                                    <!-- <h4 class="card-title">Add New Testimonial</h4> -->
                                     <div class="status" th:text="${returnStatus}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addTestimonial}" method="post" enctype="multipart/form-data">
-                                    
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 class="label-align">Enter Name</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                   <input type="text" class="form-control" placeholder="Enter Name"
+                                    	 <div class="form-group row">
+										    <label for="Name" class="col-sm-2 col-form-label">Enter Name</label>
+										    <div class="col-sm-4">
+										      <input type="text" class="form-control" placeholder="Enter Name"
 													name="Name" aria-label="name" aria-describedby="basic-addon1"
 													id="Name" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6" >
-                                                <div class="" style="text-align: center">
-                                                    <h4 style="margin:0px">Organization</h4>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-4" >
-                                                <div class="form-group" >
-                                                    <input type="text" class="form-control"
+										    </div>
+										  </div>
+                                        <div class="form-group row">
+										    <label for="org" class="col-sm-2 col-form-label">Organization</label>
+										    <div class="col-sm-4">
+										      <input type="text" class="form-control"
 													placeholder="Enter Organization name" name="org"
 													aria-label="org" aria-describedby="basic-addon1" id="org"
 													required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Description</h4>
-                                                </div>
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <div class="">
-                                                     <textarea class="form-control" placeholder="Enter Something"
-												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required></textarea> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                   
-                                        <button type="submit"  class="btn btn-info btn-fill pull-right">ADD</button>
+										    </div>
+										  </div>
+                                        <div class="form-group row">
+										    <label for="description" class="col-sm-2 col-form-label">Description</label>
+										    <div class="col-sm-4">
+										      <textarea class="form-control" placeholder="Enter Something"
+												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required></textarea>
+										    </div>
+										  </div>
+                                        <button type="submit"  class="btn spk-btn btn-fill pull-right">ADD</button>
                                         <div class="clearfix"></div>
                                     </form>
                             
@@ -302,82 +273,47 @@
 								id="video" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add Video/pdf Testimonial</h4>
+                                    <!-- <h4 class="card-title">Add Video/pdf Testimonial</h4> -->
                                     <div class="status" th:text="${returnStatus}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addVideoTestimonial}" method="post" enctype="multipart/form-data">
                                     
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 class="label-align">Enter Name</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                   <input type="text" class="form-control" placeholder="Enter Name"
+                                    	 <div class="form-group row">
+										    <label for="Name" class="col-sm-2 col-form-label">Enter Name</label>
+										    <div class="col-sm-4">
+										      <input type="text" class="form-control" placeholder="Enter Name"
 													name="Name" aria-label="name" aria-describedby="basic-addon1"
 													id="Name" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6" >
-                                                <div class="" style="text-align: center">
-                                                    <h4 style="margin:0px">Organization</h4>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-4" >
-                                                <div class="form-group" >
-                                                    <input type="text" class="form-control"
+										    </div>
+										  </div>
+                                        <div class="form-group row">
+										    <label for="org" class="col-sm-2 col-form-label">Organization</label>
+										    <div class="col-sm-4">
+										      <input type="text" class="form-control"
 													placeholder="Enter Organization name" name="org"
 													aria-label="org" aria-describedby="basic-addon1" id="org"
 													required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Description</h4>
-                                                </div>
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <div class="">
-                                                     <textarea class="form-control" placeholder="Enter Something"
-												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required></textarea> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Upload Video/PDF</h4>
-                                                </div>
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <div class="">
-                                                     <input type="file" class="form-control-file" 
+										    </div>
+										  </div>
+                                        <div class="form-group row">
+										    <label for="description" class="col-sm-2 col-form-label">Description</label>
+										    <div class="col-sm-4">
+										      <textarea class="form-control" placeholder="Enter Something"
+												        title="Max 10000 Character" style="height: 100px" id="description" name="description" required></textarea>
+										    </div>
+										  </div>
+                                        <div class="form-group row">
+										    <label class="col-sm-2 col-form-label">Upload Video/PDF</label>
+										    <div class="col-sm-4">
+										      <input type="file" class="form-control-file" 
 														title="upload only Video File" accept="video/*"
 														name="videoTesti" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
+										    </div>
+										  </div>                                        
                                           <div class="row">
-                                            <div class="col-md-6">
-                                                
-                                            </div>
-                                             
                                              <div class="col-md-4">
-                                                <div class="">
+                                                 <div class="instr">
                                                     <a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
                                                     <div class="contentInstruction" style="color:red">
                                                     	<p> * Video files must be mp4 or mov files. </p>
@@ -389,7 +325,7 @@
                                         </div>
                                         
                                    
-                                        <button type="submit"  class="btn btn-info btn-fill pull-right">ADD</button>
+                                        <button type="submit"  class="btn spk-btn btn-fill pull-right">ADD</button>
                                         <div class="clearfix"></div>
                                     </form>
                             
@@ -483,7 +419,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-primary" id="updateTestimonial" value="">Update</button>
+						<button class="btn spk-btn" id="updateTestimonial" value="">Update</button>
 					</div>
 
 				</div>

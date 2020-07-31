@@ -16,11 +16,10 @@
 	<!--  CODE FOR NAVBAR -->
 	<div th:replace="common/header :: navbar"></div>
 
-		<div class="container">
+		<div class="container" id="testimonials"> 
+		<div style="text-align:center">
 
-			<div style="text-align:center">
-
-				<h1 >---Testimonial---</h1>
+				<h1>Testimonials</h1>
 
 			</div>
 			
@@ -28,15 +27,15 @@
 							<li class="nav-item"><a
 								th:class="${textActive} ? 'nav-link active' : 'nav-link'"
 								id="home-tab" data-toggle="tab" href="#home" role="tab"
-								aria-controls="home" aria-selected="true">Text</a></li>
+								aria-controls="home" aria-selected="true"><i class="fas fa-align-justify"></i> Text : <span th:text="${#lists.size(textTestimonial)}"></span> </a></li>
 							<li class="nav-item"><a
 								th:class="${mediaActive} ? 'nav-link active' : 'nav-link'"
 								id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-								aria-controls="profile" aria-selected="false">Media</a></li>
+								aria-controls="profile" aria-selected="false"><i class="far fa-file-video"></i> Media : <span th:text="${#lists.size(mediaTestimonial)}"></span></a></li>
 							<li class="nav-item"><a
 								th:class="${fileActive} ? 'nav-link active' : 'nav-link'"
 								id="profile-tab" data-toggle="tab" href="#pdf" role="tab"
-								aria-controls="profile" aria-selected="false">File</a></li>
+								aria-controls="profile" aria-selected="false"><i class="fas fa-file-alt"></i> File : <span th:text="${#lists.size(fileTestimonial)}"></span> </a></li>
 
 						</ul>
 						
@@ -44,7 +43,17 @@
 							<div th:class="${textActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
 								id="home" role="tabpanel" aria-labelledby="home-tab"> 
 								
-								<div class="testimonial-item" th:each="textTesti:${textTestimonial}">
+								<div class="item" th:each="textTesti:${textTestimonial}">
+				                    <div class="content">
+				                    <p class="t-txt"><span th:text="${textTesti.getDescription()}"></span> </p>
+				                            
+				                    </div>
+				                    <div class="details">
+				                            <p class="name" th:text="${textTesti.getName()}"></p>
+				                            <p class="org" th:text="${textTesti.getOrganization()}"></p>
+				                    </div>
+				                </div>
+								<!-- <div class="testimonial-item" th:each="textTesti:${textTestimonial}">
 				                    <div class="testimonial-content">
 				                        
 				                        <div class="message">
@@ -58,7 +67,7 @@
 				                            <p th:text="${textTesti.getName()}+', ' + ${textTesti.getOrganization()}"/>
 				                        </div>
 				                    </div>
-				                </div>
+				                </div> -->
 								   
                                 
                                     
@@ -66,30 +75,33 @@
                         
 	                        <div th:class="${mediaActive} ? 'tab-pane fade show active' : 'tab-pane fade show'"
 									id="profile" role="tabpanel" aria-labelledby="profile-tab">
-								
-								<div class="testimonial-item" th:each="mediaTesti:${mediaTestimonial}">
-				                    <div class="row testimonial-content">
-				                        <div class='st_wrapper col-xs-12 col-md-7'>
-				                            
-				                                <video width="100%" height="250" controls>
-				                                <source th:src="@{/files/}+@{${mediaTesti.getVideoPath()}}" type="video/mp4"/>
-				                                </video>
-				                            
-				                        </div>
-				                        <div class='col-xs-12 col-md-4 col-lg-5 col-md-offset-1 col-lg-offset-0'>
-				                            <i class="fa fa-quote-left" style="color:#e6e6e6;"></i>
-				                            <h5 class='st_wrapper' th:text="${mediaTesti.getDescription()}"> </h5>
-				                            <i class="fa fa-quote-right pull-right" style="color:#e6e6e6;"></i>
-				                        </div>
-				                    </div>
-				                    <div class="testimonials-details">
-				                        <div class="testimonials-caret"></div>
-				                        <div class="user-details">
-				                        	 <h6 th:text="${mediaTesti.getName()}+', ' + ${mediaTesti.getOrganization()}"></h6>
-				                        </div>
-				                    </div>
-				                </div>
-								
+									
+									<div class="row">
+										<div class=" media-item col-sm-12 col-md-4" th:each="mediaTesti:${mediaTestimonial}">
+										<div class="testimonials-details">
+						                        <div>
+						                        	 <p th:text="${mediaTesti.getName()}" class="name"></p>
+						                        	 <p th:text="${mediaTesti.getOrganization()}" class="org"></p>
+						                        </div>
+										<div class="media-wrapper">
+										<div class='st_wrapper'>
+						                            
+						                                <video width="100%" height="250" controls>
+						                                <source th:src="@{/files/}+@{${mediaTesti.getVideoPath()}}" type="video/mp4"/>
+						                                </video>
+						                            
+						                        </div>
+						                        <div>
+						                            <p class='st_wrapper t-txt' th:text="${mediaTesti.getDescription()}"> </p>
+						                        </div>
+						                    
+										
+										
+										</div>
+										
+						                    </div>
+						                </div>
+									</div>
 									
 							</div>
 							
@@ -116,30 +128,11 @@
 				                        </div>
 				                    </div>
 				                </div>
-								   
-                                
-                                    
                             </div>
                          	
                     </div>
-                     
-		
-			<!-- <div class="pagination" style="float: right">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination pg-blue">
-						<li class="page-item"
-							th:each="i:${#numbers.sequence(0,EventList.totalPages-1)}"
-							th:classappend="${current}==${i} ? 'active':''"><a
-							th:href="@{/eventsList/(page=${i})}" th:text="${i}"
-							class="page-link" th:classappend="${current}==${i} ? 'active':''" />
+		</div>
 
-						</li>
-
-					</ul>
-				</nav>
-
-			</div> -->
-		
 			
 
 	<!--  COMMON CODE FOR LIBRARY ADDED -->

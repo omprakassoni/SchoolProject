@@ -137,7 +137,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="card">
+                    <div class="spk-card-body spk-tab">
                     	<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item"><a
 								th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
@@ -156,7 +156,7 @@
 								
 								   
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Spoken Tutorial</h4>
+                                    <!-- <h4 class="card-title">Available Spoken Tutorial</h4> -->
                                     <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
@@ -209,9 +209,9 @@
 											<center>
 						
 						
-												<button class="btn btn-danger" id="disableTutorial" disabled>Hide</button>
+												<button class="btn spk-btn-hide" id="disableTutorial" disabled>Hide</button>
 						
-												<button class="btn btn-primary" id="enableTutorial" disabled>Show</button>
+												<button class="btn spk-btn" id="enableTutorial" disabled>Show</button>
 						
 						
 											</center>
@@ -230,7 +230,7 @@
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add New Spoken Tutorial</h4>
+                                    <!-- <h4 class="card-title">Add New Spoken Tutorial</h4> -->
                                     <div class="status" th:text="${statusAdd}"></div>
 									<div class="error" th:text="${failure}"></div>
 									<div class="error" th:text="${fileError}"></div>
@@ -271,89 +271,55 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 class="label-align">Select Foss</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
+                                         <div class="form-group row">
+										    <label for="foss" class="col-sm-2 col-form-label">Select Foss</label>
+										    <div class="col-sm-4">
+										      <div class="form-group">
                                                    <select class="form-control" name="fossSelected" id="foss" disabled>
 													<option value="0">Select Foss</option>
 													<options items="${cities}" itemValue="id" itemLabel="name" /> 
 												</select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6" >
-                                                <div class="" style="text-align: center">
-                                                    <h4 style="margin:0px">Select Language</h4>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-4" >
-                                                <div class="form-group" >
-                                                    <select class="form-control" name="fossLanguageSelected"
+										    </div>
+										  </div>
+                                        <div class="form-group row">
+										    <label for="foss" class="col-sm-2 col-form-label">Select Language</label>
+										    <div class="col-sm-4">
+										      <div class="form-group">
+                                                   <select class="form-control" name="fossLanguageSelected"
 														id="fossLanguage" disabled>
 														<option value="0">Select Language</option>
 														<options items="${cities}" itemValue="id" itemLabel="name" />
-					
 													</select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Select Tutorial</h4>
-                                                </div>
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <div class="">
-                                                     <select class="form-control " name="fossTutorialSelected"
+										    </div>
+										  </div>                                        
+                                        <div class="form-group row">
+										    <label for="foss" class="col-sm-2 col-form-label">Select Tutorial</label>
+										    <div class="col-sm-4">
+										      <div class="form-group">
+                                                   <select class="form-control " name="fossTutorialSelected"
 														id="fossTutorial" disabled multiple>
 														<option value="0">Select Tutorial</option>
 														<options items="${cities}" itemValue="id" itemLabel="name" />
 					
 													</select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <table class="table">
-                                                    <tr>
-                                                        <td>
-                                                             <input class="form-check-input" type="checkbox" value="" required >
-                                                        </td>
-                                                        <td>
-                                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
-                                                        </td>
-                                                    </tr>
-                                                 </table>
-                                        </div>
-                                        </div>
-                                        
-                                        
-                                        <button type="submit"  class="btn btn-info btn-fill pull-right upload-submit" disabled>Upload</button>
+										    </div>
+										  </div>
+                                        <div class="form-group row terms-c">
+                                        	<div class="col-sm-12">
+                                        	<hr>
+                                        	<div class="pl15"><input class="form-check-input" type="checkbox" value="" required >
+                                        	
+                                        	<a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
+                                        	</div></div>
+											</div>
+                                        <button type="submit"  class="btn spk-btn btn-fill pull-right upload-submit" disabled>Upload</button>
                                         <div class="clearfix"></div>
                                     </form>
-                            
                             </div>
-								
 						</div>
-                        
-                             
                              </div>
                          </div>
                      </div>

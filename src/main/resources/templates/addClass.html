@@ -138,62 +138,45 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Add New Class</h4>
-                                    <div class="status" th:text="${status}"></div>
-                                    <div class="error" th:text="${dataAvailable}"></div>
-                                </div>
+                            <div class="spk-card-body">
                                 <div class="card-body">
                                 
                                     <form th:action="@{addClass}" method="post">
-                                       
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div  style="text-align: center">
-                                                    <h4 style="margin:10px">Enter New class</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                   <input type="number" min="1" max="12" class="form-control"
-														name="classSelected" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="">
-                                                    <a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
+                                       <div class="row">
+                                       <div class="col-md-4">
+                                       <div class="spk-comp-header">
+                <p>Add Class</p>
+                                    <div class="status" th:text="${status}"></div>
+                                    <div class="error" th:text="${dataAvailable}"></div>
+                                </div>
+                                       <input type="number" min="1" max="12" class="form-control"
+														name="classSelected" required placeholder="Enter class to be added"/>
+									
+										<div class="instr">
+										<a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
                                                     <div class="contentInstruction" style="color:red">
-                                                    	<p> * Please Add only class from 1 to 12 </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <h4 style="padding-left: 80px; color: red">
-													 Available Class
-												</h4>
-												<span th:each="classValue:${classExist}"> <label
-												style="padding-left: 100px; color: #9d250c"> <span
+                                                    	<p> * Please Add class from 1 to 12 only</p>
+                                                    </div>	
+										</div>
+														
+                                       </div>
+                                       <div class="col-md-4 offset-md-2">
+                                       <div class="spk-comp-header">
+                						<p> Available Class</p>
+                                    <div class="status" th:text="${status}"></div>
+                                    <div class="error" th:text="${dataAvailable}"></div>
+                                </div>
+
+								<ul class="list-group list-group-flush">
+                                        <li th:each="classValue:${classExist}" class="list-group-item"><span> <label> <span
 												th:text="'Class ' +${classValue.getClassName()}"></span>
 												</label> <br />
-												</span>
-                                            </div>
-                                             
-                                            
-                                        </div>
+												</span></li>
+                                      </ul>                                       
+                                       </div>
+                                       </div>
                                         
-                                        
-                                        <button type="submit" class="btn btn-info btn-fill pull-right" >Add Class</button>
+                                        <button type="submit" class="btn spk-btn btn-fill pull-right" >Add Class</button>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
