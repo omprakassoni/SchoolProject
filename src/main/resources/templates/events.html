@@ -17,13 +17,17 @@
 	<!--  CODE FOR NAVBAR -->
 	<div th:replace="common/header :: navbar"></div>
 
-		<div class="container">
+		<div class="container" id="eventlist">
+		<div style="text-align:center">
 
-			<div style="background-color: rgb(10, 42, 102)">
+				<h1>Events</h1>
+
+			</div>
+			<!-- <div style="background-color: rgb(10, 42, 102)">
 
 				<h1 style="color: white; padding-left: 50px">Event List</h1>
 
-			</div>
+			</div> -->
 			<br />
 		<!-- 	<div class="pagination" style="float: right">
 				<nav aria-label="Page navigation example">
@@ -46,11 +50,11 @@
 							<li class="nav-item"><a
 								class="nav-link active"
 								id="home-tab" data-toggle="tab" href="#home" role="tab"
-								aria-controls="home" aria-selected="true">Upcoming</a></li>
+								aria-controls="home" aria-selected="true">Upcoming : <span th:text="${#lists.size(PrevEventList)}"></span></a></li>
 							<li class="nav-item"><a
 								class="nav-link"
 								id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-								aria-controls="profile" aria-selected="false">Archived</a></li>
+								aria-controls="profile" aria-selected="false">Archived : <span th:text="${#lists.size(FutureEventList)}"></span></a></li>
 
 			</ul>
 			
@@ -60,39 +64,23 @@
 								
 									<div class="row shadow-lg p-3 mb-5 bg-white rounded"
 										th:each="event:${PrevEventList}">
-										<div class=" col-sm-12 col-md-4 ">
+										<div class="col-md-3 event-img"> 
 											<a href="#" class="pop">
 											<img id="imagesource" th:src="@{/files/}+@{${event.getPotser_path()}}"
 												style="width:100%"	 />
 											</a>
-											
-										</div>
-										<div class="col-1">
-										</div>
-										<div class=" col-sm-12 col-md-7 ">
-										
-											<div class="row" style="text-align:center">
-												<span ><i style="color: #900C3F" class="fas fa-calendar-week"></i>
-												<span th:text="${#calendars.day(event.getDateToHappen())}"></span>
-												<span th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span>
-												</span>
-											</div>
-											
-											<div class="row">
-												
-												<h2 style="color:skyblue;" th:text="${event.getHeadline()}"></h2>
-											
-											</div>
-											<hr style="margin-top: unset !important"/>
-											<div class="row">
-											
-												<p th:text="${event.getDescription()}"></p>
-												
-											</div>
-										
 										</div>
 										
-									
+										<div class="col-md-9 event-content"> 
+										<p class="event-title" th:text="${event.getHeadline()}"></p>
+										<p th:text="${event.getDescription()}"></p>
+										<div>
+										<span ><i class="fas fa-calendar-week"></i></span>
+										<span th:text="${#calendars.day(event.getDateToHappen())}"></span>
+												<span th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span> , 
+												<span th:text="${#calendars.year(event.getDateToHappen())} "></span>
+										</div>
+										</div>
 									</div>
 														   
                                 

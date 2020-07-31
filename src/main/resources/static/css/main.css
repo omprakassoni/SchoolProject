@@ -385,8 +385,8 @@ section{
 	border-right: 1px solid var(--grey-color);
 }
 .contact-header{
-	padding-left:10%;
-	margin-bottom: var(--gap);
+	/* padding-left:10%; */
+	/* margin-bottom: var(--gap); */
 }
 /******************************************* Footer End *******************************************/
 /*---------------------------------------------Topics List Page Starts----------------------------*/
@@ -455,6 +455,9 @@ section{
 #topicListView .topic-content{
 	font-family: var(--font-sans-serif);
 }
+#topicListView .topic-content h3{
+	font-size: 1.2rem!important;
+}
 #topicListView .topic-content p{
 	color: rgb(0,0,0);
 	font-weight: normal;
@@ -475,14 +478,14 @@ section{
 	padding: calc(var(--gap)/2) 0;
 	
 }
-#testimonials .nav-tabs .nav-link{
+#eventlist .nav-tabs .nav-link,#testimonials .nav-tabs .nav-link{
 	border: none;
 }
-#testimonials .nav-tabs .nav-link.active{
+#eventlist .nav-tabs .nav-link.active, #testimonials .nav-tabs .nav-link.active{
 	/* border: none; */
 	border-bottom: 4px solid var(--accent-color);
 }
-#testimonials ul li a{
+#eventlist ul li a, #testimonials ul li a{
 	color: var(--accent-color2)!important;
 	font-size: 1rem;
 	padding: 8px 32px;
@@ -536,6 +539,32 @@ position: relative;
 	/* text-align: center; */
 }
 /*---------------------------------------------Testimonial Page Ends----------------------------*/
+
+/*---------------------------------------------Events Page Starts----------------------------*/
+#eventlist{
+	
+}
+#eventlist .event-img{
+	padding: 10px 22px;
+	border: 1px solid var(--grey-color);
+}
+#eventlist .event-content{
+	padding: 10px 22px;
+	border: 1px solid var(--grey-color);
+}
+#eventlist .event-content .fa-calendar-week{
+	color: var(--accent-color2)!important;
+	opacity: 0.8;
+}
+#eventlist p{
+	
+}
+#eventlist .event-title{
+	color: var(--accent-color2)!important;
+	margin-bottom: 0;
+	font-weight: bold;
+}
+/*---------------------------------------------Events Page Ends----------------------------*/
 
 /*---------------------------------------------Customized Login Page Starts----------------------------*/
 .login-form{
@@ -706,3 +735,32 @@ padding-left:20px!important;
 	color: var(--accent-color2)!important;
 }
 /*--------------------------------------- main navbar ends---------------------------------------*/
+.know-more-btn{
+	font-weight: bold;
+	display: block!important;
+}
+.know-more-btn div{
+	border: 2px solid var(--accent-color2);
+	padding: 5px 10px;
+	color: var(--accent-color2)!important;
+	width:50%;
+}
+
+.know-more-btn-t{
+	font-weight: bold;
+	display: block!important;
+	margin-top: 15px;
+}
+.know-more-btn-t div{
+	border: 2px solid #fff;
+	padding: 5px 10px;
+	/* color: #fff!important; */
+	width:33%;
+	font-weight: bold;
+	background: #fff;
+	color: var(--accent-color2)!important;
+	
+}
+/* .spk-modal-content{
+	padding: 22px !important;
+} */
