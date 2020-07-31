@@ -180,7 +180,7 @@
 						
 													<td><a href=""><span
 															th:text="${lesson.getUser().getFname()}"></span></a></td>
-													<td><a class="btn btn-secondary commentLesson"
+													<td><a class="btn spk-btn-sm commentLesson"
 														th:value="${lesson.getLessonPlanId()}" id="commentLesson">Comment</a></td>
 						
 												</tr>
@@ -189,19 +189,13 @@
 										</tbody>
 						
 									</table>
-						
-									<!-- <span th:if="${LessonStatus}">
-										<div style="text-align: center; color: red; font-size: 22px"
-											th:text="${LessonStatus}" />
-									</span> -->
-						
 								</div>
 						
 								<div class="container">
 									<center>
 						
 						
-										<button class="btn btn-primary" id="deleteLesson" disabled>Enable</button>
+										<button class="btn spk-btn" id="deleteLesson" disabled>Enable</button>
 						
 						
 									</center>
@@ -263,7 +257,7 @@
 								placeholder="Add Reply" cols="30" rows="2"></textarea>
 							<br />
 							<button style="float: right"
-								class="btn btn-primary commentLessonModalReply" name="reply">Add
+								class="btn spk-btn commentLessonModalReply" name="reply">Add
 								Reply</button>
 							<button style="float: right" class="btn btn-default"
 								onclick="$('.replyRowLesson').hide();">Close</button>

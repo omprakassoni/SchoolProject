@@ -137,7 +137,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="card">
+                    <div class="spk-card-body spk-tab">
                     	<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item"><a
 								th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
@@ -156,7 +156,7 @@
 								
 								   
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Lesson Plan</h4>
+                                    <!-- <h4 class="card-title">Available Lesson Plan</h4> -->
                                     <div class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
@@ -196,7 +196,7 @@
 						
 															<td><a href=""><span
 																	th:text="${lesson.getUser().getFname()}"></span></a></td>
-															<td><a class="btn btn-secondary detailLesson"
+															<td><a class="btn spk-btn-sm detailLesson"
 																th:value="${lesson.getLessonPlanId()}" id="detailLesson">Update</a>
 						
 															</td>
@@ -214,9 +214,9 @@
 											<center>
 						
 						
-												<button class="btn btn-danger" id="disableLesson" disabled>Hide</button>
+												<button class="btn spk-btn-hide" id="disableLesson" disabled>Hide</button>
 						
-												<button class="btn btn-primary" id="enableLesson" disabled>Show</button>
+												<button class="btn spk-btn" id="enableLesson" disabled>Show</button>
 						
 						
 											</center>
@@ -235,7 +235,7 @@
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add New Lesson Plan</h4>
+                                   <!--  <h4 class="card-title">Add New Lesson Plan</h4> -->
                                     <div class="status" th:text="${statusAdd}"></div>
 									<div class="error" th:text="${failure}"></div>
 									<div class="error" th:text="${fileError}"></div>
@@ -274,61 +274,34 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" style="text-align: center">
-                                                    <h4 style="margin: 0px">Upload Lesson Plan</h4>
-                                                </div>
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <div class="">
-                                                    <input type="file" class="form-control" id="lesson" name="lesson" accept="application/pdf" title="please add only Pdf file" required disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
+                                         <div class="form-group row">
+										    <label for="lesson" class="col-sm-2 col-form-label">Upload Lesson Plan</label>
+										    <div class="col-sm-4">
+										      <input type="file" class="form-control" id="lesson" name="lesson" accept="application/pdf" title="please add only Pdf file" required disabled>
+										    </div>
+										  </div>
                                           <div class="row">
-                                            <div class="col-md-6">
-                                                
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <div class="">
-                                                    <a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
+                                          <div class="col-sm-12">
+                                                <div class="instr">
+													<a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
                                                     <div class="contentInstruction" style="color:red">
                                                     	<p> * File must be pdf format only </p>
                                                     	<p> * File must be less than 10 MB in size </p>
                                                     </div>
-                                                </div>
+											</div>
                                             </div>
                                         </div>
                                         
+                                        <div class="form-group row terms-c">
+                                        	<div class="col-sm-12">
+                                        	<hr>
+                                        	<div class="pl15"><input class="form-check-input" type="checkbox" value="" required >
+                                        	
+                                        	<a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
+                                        	</div></div>
+											</div>
                                         
-                                        
-                                        
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                
-                                            </div>
-                                             
-                                             <div class="col-md-4">
-                                                <table class="table">
-                                                    <tr>
-                                                        <td>
-                                                            <input class="form-check-input" type="checkbox" value="" required >
-                                                        </td>
-                                                        <td>
-                                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable">Agree to terms and conditions</a>
-                                                        </td>
-                                                    </tr>
-                                                 </table>
-                                        </div>
-                                        </div>
-                                        
-                                        
-                                        <button type="submit"  class="btn btn-info btn-fill pull-right upload-submit" disabled>Upload</button>
+                                        <button type="submit"  class="btn spk-btn btn-fill pull-right upload-submit" disabled>Upload</button>
                                         <div class="clearfix"></div>
                                     </form>
                             
@@ -427,7 +400,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-primary" id="updateLesson" value="">Update</button>
+							<button class="btn spk-btn" id="updateLesson" value="">Update</button>
 						</div>
 
 					</div>

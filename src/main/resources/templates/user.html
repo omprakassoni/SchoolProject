@@ -124,59 +124,7 @@
                         <span class="navbar-toggler-bar burger-lines"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-<!--
-                        <ul class="nav navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="dropdown">
-                                    <i class="nc-icon nc-palette"></i>
-                                    <span class="d-lg-none">Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="dropdown nav-item">
-                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <i class="nc-icon nc-planet"></i>
-                                    <span class="notification">5</span>
-                                    <span class="d-lg-none">Notification</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Notification 1</a>
-                                    <a class="dropdown-item" href="#">Notification 2</a>
-                                    <a class="dropdown-item" href="#">Notification 3</a>
-                                    <a class="dropdown-item" href="#">Notification 4</a>
-                                    <a class="dropdown-item" href="#">Another notification</a>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nc-icon nc-zoom-split"></i>
-                                    <span class="d-lg-block">&nbsp;Search</span>
-                                </a>
-                            </li>
-                        </ul>
--->
                         <ul class="navbar-nav ml-auto">
-<!--
-                            <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
-                                    <span class="no-icon">Account</span>
-                                </a>
-                            </li>
--->
-<!--
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="no-icon">Dropdown</span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                    <div class="divider"></div>
-                                    <a class="dropdown-item" href="#">Separated link</a>
-                                </div>
-                            </li>
--->
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/logout}">
                                     <span class="no-icon">Log out</span>
@@ -191,29 +139,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="card">
+                            <div class="spk-card-body">
                                 <div class="card-header">
-                                    <h4 class="card-title">Profile</h4>
+                                    <p class="profile-title">Profile</p>
                                 </div>
                                 <div class="card-body">
                                     <form>
                                         <div class="row">
-<!--
-                                            <div class="col-md-5 pr-1">
-                                                <div class="form-group">
-                                                    <label>Company (disabled)</label>
-                                                    <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
-                                                </div>
-                                            </div>
--->
-<!--
-                                            <div class="col-md-3 px-1">
-                                                <div class="form-group">
-                                                    <label>Username</label>
-                                                    <input type="text" class="form-control" placeholder="Username" value="michael23">
-                                                </div>
-                                            </div>
--->
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Email address</label>
@@ -273,7 +205,7 @@
                                         </div>
                                         
                                         <div class="">
-                                            <h4 class="card-title">Update Password</h4>
+                                            <p class="profile-title">Update Password</p>
                                         </div>
                                         <div id="Success"
 										style="display: none; color: green; font-size: 18px; text-align: center">Data
@@ -313,7 +245,7 @@
                                             </div>
                                         </div>
                                        
-                                        <button type="button" class="btn btn-info btn-fill pull-right" id="updatePasswordTeacher" disabled>Update Password</button>
+                                        <button type="button" class="btn spk-btn btn-fill pull-right" id="updatePasswordTeacher" disabled>Update Password</button>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
@@ -336,14 +268,12 @@
                                         		<img class="avatar border-gray" th:src="@{/img/default-avatar.png}">
                                         	</span>
                                             
-                                            <h5 class="title"><span th:text="${LoggedUser.getFname()}"></span></h5>
+                                            <p class="profile-title"><span th:text="${LoggedUser.getFname()}"></span></p>
                                         </a>
                                     
                                     </div>
                 
                                 </div>
-                                <hr>
-                              
                             </div>
                         </div>
                     </div>

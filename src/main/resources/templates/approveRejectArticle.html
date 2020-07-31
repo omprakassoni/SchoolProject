@@ -186,27 +186,20 @@
 						
 													<td><a href=""><span
 															th:text="${article.getUser().getFname()}"></span></a></td>
-													<td><a class="btn btn-secondary commentArticle"
+													<td><a class="btn spk-btn-sm commentArticle"
 														th:value="${article.getArticleId()}" id="commentArticle">Comment</a>
 												</tr>
 											</span>
 						
 										</tbody>
-						
 									</table>
-						
-									<!-- <span th:if="${articleStatus}">
-										<div style="text-align: center; color: red; font-size: 22px"
-											th:text="${articleStatus}" />
-									</span> -->
-						
 								</div>
 						
 								<div class="container">
 									<center>
 						
 						
-										<button class="btn btn-primary" id="deleteArticle" disabled>Enable</button>
+										<button class="btn spk-btn" id="deleteArticle" disabled>Enable</button>
 						
 						
 									</center>
@@ -263,7 +256,7 @@
 								placeholder="Add Reply" cols="30" rows="2"></textarea>
 							<br />
 							<button style="float: right"
-								class="btn btn-primary commentArticleModalReply" name="reply">Add
+								class="btn spk-btn commentArticleModalReply" name="reply">Add
 								Reply</button>
 							<button style="float: right" class="btn btn-default"
 								onclick="$('.replyRowArticle').hide();">Close</button>

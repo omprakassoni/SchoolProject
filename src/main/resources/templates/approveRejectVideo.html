@@ -195,7 +195,7 @@
 						
 													<td><a href=""><span
 															th:text="${video.getUser().getFname()}"></span></a></td>
-													<td><a class="btn btn-secondary commentVideo"
+													<td><a class="btn spk-btn-sm commentVideo"
 														th:value="${video.getVideoId()}" id="commentVideo">Comment</a>
 												</tr>
 											</span>
@@ -214,7 +214,7 @@
 									<center>
 						
 						
-										<button class="btn btn-primary" id="deleteVideo" disabled>Enable</button>
+										<button class="btn spk-btn" id="deleteVideo" disabled>Enable</button>
 						
 						
 									</center>
@@ -274,7 +274,7 @@
 								placeholder="Add Reply" cols="30" rows="2"></textarea>
 							<br />
 							<button style="float: right"
-								class="btn btn-primary commentVideoModalReply" name="reply">Add
+								class="btn spk-btn commentVideoModalReply" name="reply">Add
 								Reply</button>
 							<button style="float: right" class="btn btn-default"
 								onclick="$('.replyRowVideo').hide();">Close</button>

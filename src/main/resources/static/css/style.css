@@ -93,7 +93,7 @@ body{
 }
 .row label{
 	font-size:22px;
-	padding-left:70px;
+	/* padding-left:70px; */
 }
 
 .btn-action{
@@ -520,12 +520,13 @@ a.bottom-text-w3ls {
 /*------------------------------------------------------------ Login Page Design ----------------------------------------------------------------*/
 
 .spk-login-form{
-    background: rgba(0, 0, 0, 0.4117647058823529);
+    /* background: rgba(0, 0, 0, 0.4117647058823529); */
     max-width: 500px;
     margin: 50px auto;
     padding: 3em;
     border-radius: 10px;
     box-sizing: border-box;
+    margin:0 auto!important;
 }
 
 .spk-form-group{
@@ -592,6 +593,7 @@ p.spk-register-p {
     background-color: 
     #1a252f;
 } */
+
 .text-white {
     color: 
     #fff !important;

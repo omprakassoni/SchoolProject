@@ -184,7 +184,7 @@
 													<td><a href=""><span
 															th:text="${quiz.getUser().getFname()}"></span></a></td>
 						
-													<td><a class="btn btn-secondary commentQuiz"
+													<td><a class="btn spk-btn-sm commentQuiz"
 														th:value="${quiz.getQuizQuestionId()}" id="commentQuiz">Comment</a>
 												</tr>
 											</span>
@@ -204,7 +204,7 @@
 									<center>
 						
 						
-										<button class="btn btn-primary" id="deleteQuiz" disabled>Enable</button>
+										<button class="btn spk-btn" id="deleteQuiz" disabled>Enable</button>
 						
 						
 									</center>
@@ -261,7 +261,7 @@
 								placeholder="Add Reply" cols="30" rows="2"></textarea>
 							<br />
 							<button style="float: right"
-								class="btn btn-primary commentQuizModalReply" name="reply">Add
+								class="btn spk-btn commentQuizModalReply" name="reply">Add
 								Reply</button>
 							<button style="float: right" class="btn btn-default"
 								onclick="$('.replyRowQuiz').hide();">Close</button>

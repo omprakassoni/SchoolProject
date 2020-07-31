@@ -137,7 +137,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="card">
+                    <div class="spk-card-body spk-tab">
                     	<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item"><a
 								th:class="${viewActive} ? 'nav-link active' : 'nav-link'"
@@ -156,7 +156,7 @@
 								
 								   
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Topic</h4>
+                                   <!--  <h4 class="card-title">Available Topic</h4> -->
                                     <div style="text-align: center" class="status" th:text="${status}"></div>
                                 </div>
                                 <div class="card-body">
@@ -201,7 +201,7 @@
 																		id="true" /></span> <span th:unless="${topic.getStatus()==1}"><div
 																		id="false" /></span></td>
 						
-															<td><a class="btn btn-secondary detailTopic"
+															<td><a class="btn spk-btn-sm detailTopic"
 																th:value="${topic.getTopicId()}" id="detailTopic">Update</a>
 														</tr>
 													</span>
@@ -216,9 +216,9 @@
 											<center>
 						
 						
-												<button class="btn btn-danger" id="disableTopic" disabled>Hide</button>
+												<button class="btn spk-btn-hide" id="disableTopic" disabled>Hide</button>
 						
-												<button class="btn btn-primary" id="enableTopic" disabled>Show</button>
+												<button class="btn spk-btn" id="enableTopic" disabled>Show</button>
 						
 						
 											</center>
@@ -237,21 +237,17 @@
 								id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<div class="card-header">
-                                    <h4 class="card-title">Add New Topic</h4>
+                                    <!-- <h4 class="card-title">Add New Topic</h4> -->
                                     <div class="status" th:text="${statusAdd}"></div>
 									<div class="error" th:text="${failure}"></div>
 									<div class="error" th:text="${fileError}"></div>
                             </div>
                             <div class="card-body">
 			                   <form th:action="@{addTopic}" method="post" enctype="multipart/form-data">
-                                      <div class="row">
-										<div class="col-md-6">
-											<div style="text-align: center">
-                                                  <h4 class="label-align">Select Class</h4>
-                                            </div>
-										</div>
-										<div class="col-md-4">
-											<select class="form-control" name="classSelected"
+			                   <div class="form-group row">
+							    <label for="classSelected" class="col-sm-2 col-form-label">Select Class</label>
+							    <div class="col-sm-4">
+							      <select class="form-control" name="classSelected"
 												id="classSelected">
 												<option></option>
 												<span th:each="classValue: ${classExist}">
@@ -259,19 +255,11 @@
 															th:text="${classValue.getClassName()}"></span></option>
 											</span>
 											</select>
-
-										</div>
-
-									</div>
-								
-
-								<div class="row">
-									<div class="col-sm-6">
-										<div style="text-align: center">
-                                                  <h4 class="label-align">Select Subject</h4>
-                                         </div>
-									</div>
-									<div class="col-sm-4">
+							    </div>
+							  </div>
+								<div class="form-group row">
+							    <label for="subject" class="col-sm-2 col-form-label">Select Subject</label>
+							    <div class="col-sm-4">
 										<select class="form-control" name="subjectSelected"
 											id="subject" path="subject" disabled>
 											<option value="0" label="Subject" />
@@ -280,72 +268,43 @@
 
 										</select>
 									</div>
+							  </div>
 
-								</div>
-								
-
-								<div class="row">
-									<div class="col-sm-6">
-										<div style="text-align: center">
-                                                  <h4 class="label-align">Enter Topic Name</h4>
-                                         </div>
-									</div>
-									<div class="col-sm-4">
+								<div class="form-group row">
+							    <label for="addtopic" class="col-sm-2 col-form-label">Enter Topic Name</label>
+							    <div class="col-sm-4">
 										<input type="text" class="form-control"
 											placeholder="Enter Topic" title="Enter Topic Name"
 											name="topic" aria-label="TopicQ"
 											aria-describedby="basic-addon1" id="addtopic" required
 											disabled />
 									</div>
-
-								</div>
-								<br />
-
-								<div class="row">
-									<div class="col-sm-6">
-										
-										<div style="text-align: center">
-                                                  <h4 class="label-align">Description</h4>
-                                         </div>
-										
-									</div>
-									<div class="col-sm-4">
-
+							  </div>
+								<div class="form-group row">
+							    <label for="descriptionTopic" class="col-sm-2 col-form-label">Description</label>
+							    <div class="col-sm-4">
 										<textarea class="form-control" placeholder="Enter Something"
 											title="Max length 10000 Character" id="descriptionTopic"
 											name="descriptionQ" rows="3" required disabled></textarea>
 									</div>
-
-								</div>
-								<br />
-
-								<div class="row">
-									<div class="col-sm-6">
-										<div style="text-align: center">
-                                                  <h4 class="label-align">Thumbnail</h4>
-                                         </div>
-									</div>
-									<div class="col-sm-4">
+							  </div>
+								<div class="form-group row">
+							    <label for="posterTopic" class="col-sm-2 col-form-label">Description</label>
+							    <div class="col-sm-4">
 										<input type="file" class="form-control-file"
 											title="upload Jpeg/Jpg File" id="posterTopic" name="posterQ"
 											accept="image/*" required disabled />
 									</div>
-
-								</div>
-								
+							  </div>
 								  <div class="row">
-                                            <div class="col-md-6">
-                                                
-                                            </div>
-                                             
                                              <div class="col-md-4">
-                                                <div class="">
-                                                    <a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
+                                             <div class="instr">
+										<a href="#" class="show_hide" data-content="toggle-text">Instructions?</a>
                                                     <div class="contentInstruction" style="color:red">
                                                     	<p> * File must be Jpeg/jpg/png format only </p>
                                                     	<p> * File must be less than 10 MB in size </p>
-                                                    </div>
-                                                </div>
+                                                    </div>	
+										</div>
                                             </div>
                                    </div>
 								
@@ -353,7 +312,7 @@
 
 			
                                      
-										<button type="submit" class="btn btn-info btn-fill pull-right" id="upload-topic" disabled>Add Topic</button>
+										<button type="submit" class="btn spk-btn btn-fill pull-right" id="upload-topic" disabled>Add Topic</button>
                                         <div class="clearfix"></div>
                                 </form>
                             
@@ -477,7 +436,7 @@
 
 
 						<div class="modal-footer">
-							<button class="btn btn-primary" id="updateTopic" value=""
+							<button class="btn spk-btn" id="updateTopic" value=""
 								disabled>Update</button>
 						</div>
 

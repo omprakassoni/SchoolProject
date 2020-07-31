@@ -3,7 +3,7 @@
   --main-bg-color: #00838f; /* cyan darken 3 - rgb(0,131,143)*/
   --secondary-color: #ff9800;
   --accent-color:#E0A800; 
-  --accent-color2: #01579b;
+  --accent-color2: #01579b;  /* rgb(1,87,155) */
   --grey-color: #E6E6E6;
   --gap: 44px;
   --font-sans-serif: Arial, Helvetica, sans-serif;
@@ -11,6 +11,7 @@
 *{
 	margin: 0;
 	padding: 0;
+	box-shadow:none!important;
 }
 h1{
 	color: var(--main-bg-color);
@@ -329,6 +330,9 @@ section{
 	padding-right:10%;
 	padding-bottom: 5%;
 	background: var(--main-bg-color);
+	/* position: absolute!important;
+	width: 100%!important;
+	bottom: 0!important; */
 }
 .footer .row{
 	line-height: 1rem;
@@ -418,7 +422,6 @@ section{
 	
 }
 #topicListView  ul li a{
-	/* border:1px solid red; */
 	display: block;
 	text-decoration: none!important;
 	color: var(--accent-color2);
@@ -462,4 +465,240 @@ section{
 }
 
 /*---------------------------------------------Topics List Page Ends----------------------------*/
+/*---------------------------------------------Testimonial Page Starts----------------------------*/
+#testimonials{
+	/* border: 1px solid red; */
+	padding-top: 70px;
+}
+#testimonials .item{
+	border-bottom: 1px solid var(--grey-color);
+	padding: calc(var(--gap)/2) 0;
+	
+}
+#testimonials .nav-tabs .nav-link{
+	border: none;
+}
+#testimonials .nav-tabs .nav-link.active{
+	/* border: none; */
+	border-bottom: 4px solid var(--accent-color);
+}
+#testimonials ul li a{
+	color: var(--accent-color2)!important;
+	font-size: 1rem;
+	padding: 8px 32px;
+}
+
+#testimonials  .org{
+	margin-bottom: 0!important;
+	color: var(--main-bg-color);
+	margin-bottom: 5px;
+}
+#testimonials  .name{
+	color: var(--main-bg-color);
+	color: var(--accent-color2);
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+#testimonials   .t-txt{
+	font-family: var(--font-sans-serif);
+	color: rgba(0,0,0,0.6 );
+}
+#testimonials .media-item{
+	/* border: 1px solid red; */
+	padding: 1.5%;
+position: relative;
+	
+}
+#testimonials .media-wrapper{
+	/* border: 1px solid green; */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, .06), 0 3px 6px rgba(0, 0, 0, .13);
+	padding: calc(var(--gap)/2);
+	height:450px;
+	overflow-y: scroll;
+	
+}
+#testimonials .media-wrapper .testimonials-details{
+	/* position: absolute;
+	bottom: 0;
+	z-index: 1; */
+	background-color: #fff;
+	width: 100%;
+	
+	border: 1px solid red;
+}
+.media-user{
+	padding-left:   20px;
+	position: absolute;
+	bottom: 0;
+	background-color: #fff;
+	width: 95.5%;
+	border: 1px solid red;
+	/* text-align: center; */
+}
+/*---------------------------------------------Testimonial Page Ends----------------------------*/
+
+/*---------------------------------------------Customized Login Page Starts----------------------------*/
+.login-form{
+/* 	background: red; */
+	padding:0!important;
+	border: 1px solid rgba(0,131,143,0.4);
+}
+.login-wrapper{
+	margin-top: 70px;
+}
+.login-bg{
+	/* border: 1px solid red; */
+	background-image: url('../Images/main_bg2.png');
+	width:100%;
+	background-size: cover;
+	position: relative;
+	overflow: hidden;
+	height: 600px;
+	padding:0!important;
+	
+}
+.login-bg .overlay{
+	background: var(--main-bg-color);
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.9;
+/* 	right:0; */
+	
+}
+.spk-login-form h2{
+	color: var(--main-bg-color);
+}
+.spk-login-form label{
+	color: var(--main-bg-color);
+	font-size: 1.2rem;
+	font-family: var(--font-sans-serif)!important;
+}
+.input-group-text{
+	color: var(--accent-color2);
+}
+.spk-login-form button,#register button{
+	background: var(--accent-color2);
+	color: #fff;
+	font-family: var(--font-sans-serif)!important;
+}
+.spk-login-form a{
+	color : var(--secondary-color);
+}
+.spk-login-form .spk-register-p a{
+	color: var(--accent-color2);
+	font-weight : bold;
+	border-bottom : 1px solid var(--accent-color2);
+	padding: 5px 10px;
+	
+}
+
+p.spk-register-p{
+	color: rgba(1,87,155,0.9)!important;
+} 
+/*---------------------------------------------Customized Login Page Ends----------------------------*/
+
+/*---------------------------------------------Customized register Starts----------------------------*/
+#register{
+	width: 50%;
+}
+#register .nav-tabs .nav-link.active {
+	border-bottom: 6px solid var(--accent-color);
+	
+}
+label.icon-left-w3pvt{
+	background: var(--accent-color2)!important;
+	margin-bottom: 0 !important; 
+	color: #fff !important;
+	/* padding: 12px 22px!important; */
+	font-family: var(--font-sans-serif)!important;
+	
+}
+#register ul{
+	border: 1px solid var(--accent-color);
+	display:flex;
+	width:100%;
+	margin:auto;
+	background: var(--accent-color2);
+	/* padding-right: 20px;
+	padding-left: 20px; */
+	/* justify-content: space-around; */
+	justify-content: start;
+}
+#register ul li{
+/* 	margin-right:10px;
+	margin-left:10px; */
+	border-right:1px solid #fff!important;
+	/* width: calc(100%/3-10px); */
+	width: 100px;
+	
+}
+#register ul li:active{
+	border-bottom: 1px solid var(--accent-color);
+	
+}
+#register ul li a:active{
+	border-bottom: 1px solid var(--accent-color);
+}
+#register ul li a{
+	border: none;
+	color: var(--accent-color)!important;
+	background: var(--accent-color2)!important;
+	border-bottom: 1px solid var(--accent-color2);
+	padding:20px 0!important;
+	
+}
+#register ul li a:active{
+	border: none;
+	border-bottom : 4px solid var(--accent-color2);
+}
+
+#register .tab-content{
+	border: none;
+	z-index: -1;
+	padding: 0!important;
+	/* border: 1px solid green; */
+}
+#register .tab-content .tab-pane{
+	padding: 0!important;
+}
+#register ul li a input{
+	display: none;
+}
+#register .input{
+	background: rgba(0,131,143,0.1)!important;
+	background: #fff!important;
+/* 	border-bottom: 2px solid var(--accent-color2)!important; */
+padding: 0!important;
+padding-left:20px!important;
+}
+#register .input input{
+	height: 44px;
+}
+#register div.input:focus, input:focus{
+	border-bottom: 2px solid var(--accent-color2)!important;
+}
+#register .gender-dob{
+	display: flex;
+	justify-content: space-between;
+}
+#register .gender-dob small{
+	width:50%;
+}
+#register .legend{
+	font-size: 1.2rem;
+	color: var(--accent-color2);
+	font-family: Arial, Helvetica, sans-serif;
+	
+}
+#register .login-end{
+	color: var(--accent-color2);
+}
+#register .login-end a{
+	color: var(--accent-color2);
+	font-weight: bold;
+}
+/*---------------------------------------------Customized register Ends----------------------------*/
 
