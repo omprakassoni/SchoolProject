@@ -701,4 +701,8 @@ padding-left:20px!important;
 	font-weight: bold;
 }
 /*---------------------------------------------Customized register Ends----------------------------*/
-
+/*--------------------------------------- main navbar starts---------------------------------------*/
+#navbarSupportedContent-4 ul li a{
+	color: var(--accent-color2)!important;
+}
+/*--------------------------------------- main navbar ends---------------------------------------*/
