@@ -131,7 +131,8 @@
 	<div class="row item" th:each="event:${Events}">
 		<div th:class="${eventStat.even} ? 'col-sm-12 col-md-2 e-calender e-even' : 'col-sm-12 col-md-2 e-calender e-odd'">
 		<p><i class="far fa-calendar-alt e-cal"></i></p>
-		<p th:text="${#calendars.day(event.getDateToHappen())+ '  '+#calendars.monthNameShort(event.getDateToHappen()) + ', '+ #calendars.year(event.getDateToHappen())} "></p>
+		<p th:text="${#calendars.day(event.getDateToHappenStart())+ '  '+#calendars.monthNameShort(event.getDateToHappenStart()) + ', '+ #calendars.year(event.getDateToHappenStart())} "></p>
+		<p th:text="${#calendars.day(event.getDateToHappenEnd())+ '  '+#calendars.monthNameShort(event.getDateToHappenEnd()) + ', '+ #calendars.year(event.getDateToHappenEnd())} "></p>
 		</div>
 		<div class="col-sm-12 col-md-10 e-content">
 		<p th:text="${event.getHeadline()}" class="e-title"></p>
@@ -168,7 +169,7 @@
 		</div>
   		
 	</div>
-	<a th:href="@{eventsList}" class="know-more-btn-t" ><div class=" know-more" >View all Testimonials</div></a>
+	<a th:href="@{testimonials}" class="know-more-btn-t" ><div class=" know-more" >View all Testimonials</div></a>
 	</section>
 	
 	<h1 class="contact-header text-center" id="Contact-us">Contact</h1>
@@ -214,9 +215,7 @@
 	</div>
 	</div>
 	</section>
-	
-<<<<<<< HEAD
-=======
+
 	
 	<!-- <section class="section-header" style="background: #a5b5b3">
 		<div class="container">
@@ -321,9 +320,6 @@
 
 		</div>
 	</section> -->
-
-
->>>>>>> 84a72b5213f10b9ad14d6f0c287c02867b0ff2d5
 
 	<!--  ********************************FOOTER SECTION *********************************** -->
 	<div th:replace="common/header ::footer"></div>

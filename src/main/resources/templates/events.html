@@ -76,9 +76,13 @@
 										<p th:text="${event.getDescription()}"></p>
 										<div>
 										<span ><i class="fas fa-calendar-week"></i></span>
-										<span th:text="${#calendars.day(event.getDateToHappen())}"></span>
-												<span th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span> , 
-												<span th:text="${#calendars.year(event.getDateToHappen())} "></span>
+										<span th:text="${#calendars.day(event.getDateToHappenStart())}"></span>
+												<span th:text="${#calendars.monthNameShort(event.getDateToHappenStart())} "></span> , 
+												<span th:text="${#calendars.year(event.getDateToHappenStart())} "></span>
+												
+										<span th:text="' -- '+${#calendars.day(event.getDateToHappenEnd())}"></span>
+												<span th:text="${#calendars.monthNameShort(event.getDateToHappenEnd())} "></span> , 
+												<span th:text="${#calendars.year(event.getDateToHappenEnd())} "></span>
 										</div>
 										</div>
 									</div>
@@ -106,8 +110,8 @@
 										
 											<div class="row" style="text-align:center">
 												<span ><i style="color: #900C3F" class="fas fa-calendar-week"></i>
-												<span th:text="${#calendars.day(event.getDateToHappen())}"></span>
-												<span th:text="${#calendars.monthNameShort(event.getDateToHappen())} "></span>
+												<span th:text="${#calendars.day(event.getDateToHappenStart())}"></span>
+												<span th:text="${#calendars.monthNameShort(event.getDateToHappenStart())} "></span>
 												</span>
 											</div>
 											

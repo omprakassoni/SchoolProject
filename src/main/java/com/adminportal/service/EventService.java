@@ -21,7 +21,7 @@ public interface EventService {
 	
 	Events getbyid(int id);
 	
-	boolean updateEvent(String head,String desc,Date date,String poster_path,int id) throws Exception;
+	boolean updateEvent(String head,String desc,Date startDate,Date enddate,Date regStart,Date regEnd,String coordName,String poster_Path,int id) throws Exception;
 	
 	
 }

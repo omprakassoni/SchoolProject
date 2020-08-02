@@ -1,7 +1,7 @@
 $(function(){
 	
 	
-	var projectName="/schoolProject";
+	var projectName="/schoolConnex";
 	var DeploymentType=1;   //   use 0 -> Production Level
 							//	 use 1 -> Inhouse Level code
 	
@@ -563,6 +563,9 @@ $(function(){
 				
 				var urlPassed;
 				
+				$('#Success').css({"display": "none"}); 
+				$('#Failure').css({"display": "none"});
+				
 				if(DeploymentType){								// Url Creation based on depolyment 
 					urlPassed= "/loadByTestimonialID";
 			
@@ -619,6 +622,9 @@ $(function(){
 					"eventId":event_id
 				};
 				
+				$('#Success').css({"display": "none"}); 
+				 $('#Failure').css({"display": "none"});
+				
 				var urlPassed;
 				
 				if(DeploymentType){								// Url Creation based on depolyment 
@@ -648,7 +654,11 @@ $(function(){
 	       			
 	       			$('#eventDesc').val(data["description"]);
 	       			$('#eventHead').attr('value',data["headline"]);
-	       			$('#eventdate').attr('placeholder',data["dateToHappen"]);
+	       			$('#eventCoordName').attr('value',data["coordName"]);
+	       			$('#startDate').val(data["dateToHappenStart"]);
+	       			$('#endDate').val(data["dateToHappenEnd"]);
+	       			$('#regStartDate').val(data["registStart"]);
+	       			$('#regEndDate').val(data["registEnd"]);
 	       		
 				},
 				
@@ -3273,6 +3283,10 @@ $(function(){
 							"subId":subject_id
 					};
   					
+  					$('#updateSubject').prop('disabled',false);
+  					$('#Success').css({"display": "none"}); 
+	    			$('#Failure').css({"display": "none"});
+  					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
@@ -3506,6 +3520,11 @@ $(function(){
 							"topicId":topic_id
 					};
   					
+  					 $('#Success').css({"display": "none"}); 
+  					 $('#invalid-data').css({"display": "none"}); 
+  					 $('#Failure').css({"display": "none"});
+  					 $("#updateTopic").prop('disabled', false);
+  					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
@@ -3622,6 +3641,10 @@ $(function(){
 							"quizQuestionId":quiz_id
 					};
   					
+  					 $('#SuccessQuiz').css({"display": "none"}); 
+					 $('#invalid-dataQuiz').css({"display": "none"}); 
+					 $('#FailureQuiz').css({"display": "none"});
+  					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
@@ -3711,6 +3734,13 @@ $(function(){
   					var selectedVideo={
 							"videoId":video_id
 					};
+  					
+  					 $('#SuccessVideo').css({"display": "none"}); 
+					 $('#invalid-dataVideo').css({"display": "none"}); 
+					 $('#FailureVideo').css({"display": "none"});
+					 $('#SuccessVideoUpload').css({"display": "none"}); 
+					 $('#invalid-dataVideoUpload').css({"display": "none"}); 
+					 $('#FailureVideoUpload').css({"display": "none"});
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -3881,6 +3911,10 @@ $(function(){
   								"concepMapid":concept_id
   						};
   	  					
+  	  					$('#SuccessConcept').css({"display": "none"}); 
+						 $('#invalid-dataConcept').css({"display": "none"}); 
+						 $('#FailureConcept').css({"display": "none"});
+  	  					
   	  					var token = $("meta[name='_csrf']").attr("content");
   	  					var header = $("meta[name='_csrf_header']").attr("content");
   	  					
@@ -3927,7 +3961,7 @@ $(function(){
   	  			/* -------------------------------------------------------------END-----------------------------------------------------------*/
   	  				
   	  			/* --------------------------------------------START OF UPDATING CONCEPT--------------------------------------------------------*/
-  	  					$('#conceptDesc').change(function(){
+  	  					/*$('#conceptDesc').change(function(){
   					
   	  						$('#updateConcept').prop('disabled',false);
 //  	  						$('#updateConceptOnUser').prop('disabled',false);
@@ -3937,7 +3971,7 @@ $(function(){
   					
   	  						$('#updateConcept').prop('disabled',false);
 //  	  						$('#updateConceptOnUser').prop('disabled',false);
-  	  					})
+  	  					})*/
   	  				
 
   	  				
@@ -3967,6 +4001,11 @@ $(function(){
   					var selectedArticle={
 							"articleId":article_id
 					};
+  					
+  					 $('#SuccessArticle').css({"display": "none"}); 
+					 $('#invalid-dataArticle').css({"display": "none"}); 
+					 $('#FailureArticle').css({"display": "none"});
+					 $('#articleurl').val("");
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -4078,6 +4117,10 @@ $(function(){
 							"documentId":document_id
 					};
   					
+  					$('#SuccessDocument').css({"display": "none"}); 
+					 $('#invalid-dataDocument').css({"display": "none"}); 
+					 $('#FailureDocument').css({"display": "none"});
+  					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
@@ -4157,7 +4200,7 @@ $(function(){
   				
   				
   			/* --------------------------------------------START OF UPDATING DOCUMENT--------------------------------------------------------*/
-  				$('#documentDesc').change(function(){
+  				/*$('#documentDesc').change(function(){
   					
   					$('#updateDocument').prop('disabled',false);
   				})
@@ -4165,7 +4208,7 @@ $(function(){
   				$('#documentFile').change(function(){
   					
   					$('#updateDocument').prop('disabled',false);
-  				})
+  				})*/
   					
  
   				
@@ -4231,6 +4274,11 @@ $(function(){
   					var selectedPhet={
 							"phetId":phet_id
 					};
+  					
+  					 $('#SuccessPhet').css({"display": "none"}); 
+					 $('#invalid-dataPhet').css({"display": "none"}); 
+					 $('#FailurePhet').css({"display": "none"});
+					 $('#phetUrl').val("");
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -7049,7 +7097,7 @@ $(window).on('load',function(){
 
 // -----------------------------------------AJAX FUNCTION FOR TOPIC---------------------------------------------------------------------------
   	
-var projectName="/schoolProject";
+var projectName="/schoolConnex";
 
 var DeploymentType=1;   //   use 0 -> Production Level
 						//	 use 1 -> Inhouse Level code
@@ -7424,15 +7472,14 @@ function fire_ajax_submit_Topic(){
 					
 					 if(data[0]==="Success"){
 						 $('#SuccessConcept').css({"display": "block"});
-						 $('#updateConcept').prop('disabled',true);
+					//	 $('#updateConcept').prop('disabled',true);
 	  					
 					 }else if(data[0]==="failure"){
 						 $('#FailureConcept').css({"display": "block"});
-						 $('#updateConcept').prop('disabled',true);
+					//	 $('#updateConcept').prop('disabled',true);
 	  						
-					 }else{
 						 $('#invalid-dataConcept').css({"display": "block"}); 
-						 $('#updateConcept').prop('disabled',true);
+					//	 $('#updateConcept').prop('disabled',true);
 	  			
 					 }
 					
@@ -7634,12 +7681,12 @@ function fire_ajax_submit_Article(){
 					
 					 if(data[0]==="Success"){
 						 $('#SuccessDocument').css({"display": "block"});
-						 $('#updateDocument').prop('disabled',true);
+						// $('#updateDocument').prop('disabled',true);
 					 }else if(data[0]==="failure"){
-						 $('#FailureDocument').css({"display": "block"});
+						// $('#FailureDocument').css({"display": "block"});
 					 }else{
 						 $('#invalid-dataDocument').css({"display": "block"}); 
-						 $('#updateDocument').prop('disabled',true);
+						// $('#updateDocument').prop('disabled',true);
 					 }
 					
 				

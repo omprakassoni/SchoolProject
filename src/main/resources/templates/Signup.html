@@ -17,30 +17,27 @@
 	<div class="container" style="padding-top:20px" id="register">
 	<ul class="nav nav-tabs row" id="myTab" role="tablist" >
   <li class="nav-item col-md-4">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-    <input type="radio" name="sections" id="option1"
-					th:checked="${checkedOptionLearner}"> <label for="option1"
+    <a th:class="${checkedOptionLearner} ? 'nav-link active' : 'nav-link'" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+    <input type="radio" name="sections" id="option1"> <label for="option1"
 					class="icon-left-w3pvt">Learner</label>
     
     </a>
   </li>
   <li class="nav-item col-md-4">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-    <input type="radio" name="sections" id="option2"
-					th:checked="${checkedOptionParent}"> <label for="option2"
+    <a th:class="${checkedOptionParent} ? 'nav-link active' : 'nav-link'" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+    <input type="radio" name="sections" id="option2"> <label for="option2"
 					class="icon-left-w3pvt">Parent</label>
     </a>
   </li>
   <li class="nav-item col-md-4">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
-    <input type="radio" name="sections" id="option3"
-					th:checked="${checkedOptionTeacher}"> <label for="option3"
+    <a th:class="${checkedOptionTeacher} ? 'nav-link active' : 'nav-link'" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+    <input type="radio" name="sections" id="option3"> <label for="option3"
 					class="icon-left-w3pvt">Teacher</label>
     </a>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  <div th:class="${checkedOptionLearner} ? 'tab-pane fade show active' : 'tab-pane fade show'" id="home" role="tabpanel" aria-labelledby="home-tab">
   <article class="shadow-lg p-3 mb-5 bg-white rounded">
 					<form th:action="@{/newUserL}" method="post">
 
@@ -145,7 +142,7 @@
   
   
   </div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  <div th:class="${checkedOptionParent} ? 'tab-pane fade show active' : 'tab-pane fade show'" id="profile" role="tabpanel" aria-labelledby="profile-tab">
   <article class="shadow-lg p-3 mb-5 bg-white rounded">
 					<form th:action="@{/newUserP}" method="post">
 						<div class="legend">Parent</div>
@@ -213,7 +210,7 @@
   
   
   </div>
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+  <div th:class="${checkedOptionTeacher} ? 'tab-pane fade show active' : 'tab-pane fade show'" id="contact" role="tabpanel" aria-labelledby="contact-tab">
   <article class="shadow-lg p-3 mb-5 bg-white rounded">
 					<form th:action="@{/newUserT}" method="post"
 						enctype="multipart/form-data">

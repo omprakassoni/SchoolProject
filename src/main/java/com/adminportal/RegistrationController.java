@@ -86,7 +86,7 @@ public class RegistrationController {
 		String school_name=req.getParameter("txtLearnersSchoolName");
 		String school_address=req.getParameter("txtLearnersSchoolAddress");
 		String pincodeString=req.getParameter("txtPincode");
-		int pincode=Integer.parseInt(pincodeString);
+		int pincode=0;
 		String passwordEncrypt=ServiceUtility.passwordEncoder().encode(password);
 		
 		if(principal != null) {
@@ -98,9 +98,21 @@ public class RegistrationController {
 		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
 		mv.addObject("subjectfromDatabase", subject);
 		
+		if(pincodeString.length()>6) {
+			
+			mv.addObject("FailureL", "Please Enter 6 Digit Pincode");
+			mv.addObject("checkedOptionLearner", "checked");
+			mv.setViewName("Signup");
+			
+			return mv;
+			
+		}else {
+			
+			pincode=Integer.parseInt(pincodeString);
+			
+		}
+		
 		if(!ServiceUtility.checkEmailValidity(email)) {
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureL", "Please Enter valid E-mail");
 			mv.addObject("checkedOptionLearner", "checked");
@@ -111,9 +123,6 @@ public class RegistrationController {
 		
 		if(userService.existByEmail(email)) {										// check for already email exist
 			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
-			
 			mv.addObject("FailureL", "E-mail Already Exist");
 			mv.addObject("checkedOptionLearner", "checked");
 			mv.setViewName("Signup");
@@ -123,9 +132,6 @@ public class RegistrationController {
 		}
 	
 		if(!password.equals(req.getParameter("password2"))) {						// check for password and confirm password equality
-			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureL", "Password & Confirm Password Doesn't match");
 			mv.addObject("checkedOptionLearner", "checked");
@@ -141,8 +147,6 @@ public class RegistrationController {
 		Date dateOfBirth=new Date(dateUtil.getTime());
 		
 		if(!dateOfBirth.before(ServiceUtility.getCurrentTime())) {
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureL", "Please enter previous date");
 			mv.addObject("checkedOptionLearner", "checked");
@@ -246,8 +250,6 @@ public class RegistrationController {
 		mv.addObject("subjectfromDatabase", subject);
 		
 		if(!ServiceUtility.checkEmailValidity(email)) {
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureP", "Please Enter Valid E-mail");
 			mv.addObject("checkedOptionParent", "checked");
@@ -258,8 +260,6 @@ public class RegistrationController {
 		
 		if(userService.existByEmail(email)) {											// check for already email exist
 			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureP", "E-mail Already Exist");
 			mv.addObject("checkedOptionParent", "checked");
@@ -271,8 +271,6 @@ public class RegistrationController {
 		
 		if(!password.equals(req.getParameter("Confpassword"))) {						// check for password and confirm password equality
 			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureP", "Password & Confirm Password Doesn't match");
 			mv.addObject("checkedOptionParent", "checked");
@@ -371,8 +369,6 @@ public class RegistrationController {
 		mv.addObject("subjectfromDatabase", subject);
 		
 		if(!ServiceUtility.checkEmailValidity(email)) {
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureT", "Please Enter Valid E-mail");
 			mv.addObject("checkedOptionTeacher", "checked");
@@ -383,9 +379,6 @@ public class RegistrationController {
 		
 		if(!ServiceUtility.checkFileExtensionImage(uploadDocument)) {						// validate against Image file
 			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
-			
 			mv.addObject("checkedOptionTeacher", "checked");
 			mv.addObject("FailureT", "Please Upload only Image File");
 			mv.setViewName("Signup");
@@ -395,9 +388,6 @@ public class RegistrationController {
 		}
 		
 		if(uploadDocument[0].getSize()>fileSize) {
-			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("checkedOptionTeacher", "checked");
 			mv.addObject("FailureT", "FileSize must be within 10MB");
@@ -410,9 +400,6 @@ public class RegistrationController {
 		
 		if(userService.existByEmail(email)) {												// check for already email exist
 			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
-			
 			mv.addObject("FailureT", "E-mail Already Exist");
 			mv.addObject("checkedOptionTeacher", "checked");
 			mv.setViewName("Signup");
@@ -423,8 +410,6 @@ public class RegistrationController {
 		
 		if(!password.equals(req.getParameter("Confpassword"))) {							// check for password and confirm password equality
 			
-			ArrayList<Class> standard=(ArrayList<Class>) classService.findAll();
-			mv.addObject("classfromDatabase", standard);
 			
 			mv.addObject("FailureT", "Password & Confirm Password Doesn't match");
 			mv.addObject("checkedOptionTeacher", "checked");

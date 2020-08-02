@@ -29,9 +29,6 @@ public class Events {
 	@Column(nullable = false)
 	private String coordName;
 	
-	@Column(nullable = false)
-	private int coordContactNo;
-	
 	@Column(nullable = false,length = 10000)
 	@Length(max = 10000)
 	private String description;
@@ -125,13 +122,6 @@ public class Events {
 		this.coordName = coordName;
 	}
 
-	public int getCoordContactNo() {
-		return coordContactNo;
-	}
-
-	public void setCoordContactNo(int coordContactNo) {
-		this.coordContactNo = coordContactNo;
-	}
 
 	public Date getDateToHappenStart() {
 		return dateToHappenStart;

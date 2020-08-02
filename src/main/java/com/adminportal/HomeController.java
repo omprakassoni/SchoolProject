@@ -598,11 +598,8 @@ public class HomeController {
 			return mv;
 		}
 		
-		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 		mv.addObject("checkedOptionLearner", "checked");
-		ArrayList<Subject> subject = (ArrayList<Subject>) subjectService.findAll();
-		mv.addObject("subjectfromDatabase", subject);
-		mv.addObject("classfromDatabase", standard);
+		
 		mv.setViewName("Signup");
 		return mv;
 
@@ -640,12 +637,6 @@ public class HomeController {
 			mv.addObject("LoggedUser",localUser);
 		}
 
-		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
-
-		mv.addObject("classfromDatabase", standard);
-
-		ArrayList<Subject> subjectData = (ArrayList<Subject>) subjectService.findAll();
-		mv.addObject("subjectfromDatabase", subjectData);
 		
 		List<Events> tempEvent=evenRepo.findAll();
 		List<Events> prevEvent = new ArrayList<>();
@@ -703,7 +694,7 @@ public class HomeController {
 			
 				singleTopic=topicService.findById(Integer.parseInt(topicSelected));
 				
-				mv.setViewName("redirect:contentConcept/"+singleTopic.getTopicId());
+				mv.setViewName("redirect:contentTutorial/"+singleTopic.getTopicId());
 				return mv;
 			}
 			
@@ -791,6 +782,13 @@ public class HomeController {
 		mv.addObject("subjectfromDatabase", subjectData);
 
 		Topic localTopic = topicService.findById(topicId);
+		
+		if(localTopic.getStatus()==0) {
+			
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
 
 		List<Tutorial> localTutorial = tutorialService.findAllByTopicAndStatus(localTopic);
 
@@ -835,6 +833,13 @@ public class HomeController {
 		mv.addObject("subjectfromDatabase", subjectData);
 
 		Topic localTopic = topicService.findById(topicId);
+		
+		if(localTopic.getStatus()==0) {
+			
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
 
 		List<ArticleExternal> localArticle = articleService.findAllByTopicAndStatus(localTopic);
 		List<DocumentExternal> localDocument = documentService.findAllByTopicAndStatus(localTopic);
@@ -874,6 +879,13 @@ public class HomeController {
 		mv.addObject("subjectfromDatabase", subjectData);
 
 		Topic localTopic = topicService.findById(topicId);
+		
+		if(localTopic.getStatus()==0) {
+			
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
 
 		List<LessonPlan> localLesson = lessonService.findAllByTopicAndStatus(localTopic);
 
@@ -900,6 +912,13 @@ public class HomeController {
 		mv.addObject("subjectfromDatabase", subjectData);
 
 		Topic localTopic = topicService.findById(topicId);
+		
+		if(localTopic.getStatus()==0) {
+			
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
 
 		List<Phets> localPhets = phetService.findAllByTopicAndStatus(localTopic);
 
@@ -926,6 +945,13 @@ public class HomeController {
 		mv.addObject("subjectfromDatabase", subjectData);
 
 		Topic localTopic = topicService.findById(topicId);
+		
+		if(localTopic.getStatus()==0) {
+			
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
 		List<QuizQuestion> localQuiz = quizService.findAllByTopicAndStatus(localTopic);
 
 		if (localQuiz.isEmpty()) {
@@ -951,6 +977,13 @@ public class HomeController {
 		mv.addObject("subjectfromDatabase", subjectData);
 
 		Topic localTopic = topicService.findById(topicId);
+		
+		if(localTopic.getStatus()==0) {
+			
+			mv.setViewName("redirect:/");
+			return mv;
+			
+		}
 
 		List<ConceptMap> localConcept = conceptMapService.findAllByTopicAndStatus(localTopic);
 

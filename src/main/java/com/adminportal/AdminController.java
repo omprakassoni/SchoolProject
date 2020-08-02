@@ -2187,7 +2187,7 @@ public class AdminController {
 		String mode=req.getParameter("modeEvent");
 		String modeOfEvent;
 		String coordName=req.getParameter("cordinatorName");
-		String coordMobile=req.getParameter("cordinatorMobile");
+		
 		
 		
 		
@@ -2316,11 +2316,10 @@ public class AdminController {
 						addEvent.setDescription(Desc);
 						addEvent.setHeadline(headline);
 						addEvent.setDateToHappenStart(dateOfEventStart);
-						addEvent.setDateToHappenStart(dateOfEventend);
+						addEvent.setDateToHappenEnd(dateOfEventend);
 						addEvent.setRegistStart(registStart);
 						addEvent.setRegistEnd(registEnd);
 						addEvent.setCoordName(coordName);
-						addEvent.setCoordContactNo(Integer.parseInt(coordMobile));
 						addEvent.setLocation(location);
 						addEvent.setMode(modeOfEvent);
 						addEvent.setPotser_path("null");

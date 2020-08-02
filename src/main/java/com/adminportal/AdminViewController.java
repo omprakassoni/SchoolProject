@@ -162,7 +162,7 @@ public class AdminViewController {
 		  enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "User "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "User "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -198,7 +198,7 @@ public class AdminViewController {
 		
 		subjectService.deleteById(id);
 		
-		mv.addObject("status", "Subject Deleted Sucessfully");
+		mv.addObject("status", "Subject Deleted Successfully");
 		
 		List<Subject> subjectList=subjectService.findAll();
 		mv.addObject("Subject", subjectList);
@@ -244,7 +244,7 @@ public class AdminViewController {
 		  enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Topic "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Topic "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -306,7 +306,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Video "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Video "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -376,7 +376,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Article "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Article "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -444,7 +444,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Document "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Document "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -509,7 +509,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Phet "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Phet "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -576,7 +576,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Lesson "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Lesson "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -642,7 +642,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Quiz "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Quiz "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -706,7 +706,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Concept "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Concept "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -787,9 +787,9 @@ public class AdminViewController {
 		statusApprove=userService.enableApproveTeacher(1, id);
 	
 		if(statusReg && statusApprove) {
-			SimpleMailMessage emailSend=mailConstructor.confirmOnApproveTeacher(usrApprove);
-			mailSender.send(emailSend);
-			mv.addObject("status", "User Enabled Sucessfully");
+//			SimpleMailMessage emailSend=mailConstructor.confirmOnApproveTeacher(usrApprove);
+//			mailSender.send(emailSend);
+			mv.addObject("status", "User Enabled Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}
@@ -871,7 +871,7 @@ public class AdminViewController {
 		  status=videoService.EnableAcceptedByAdminVideoContent(1, id);
 			
 			if(status) {
-				mv.addObject("status", "Video Enabled Sucessfully");
+				mv.addObject("status", "Video Enabled Successfully");
 			}else {
 				mv.addObject("status", "Please try Again");
 			}
@@ -948,7 +948,7 @@ public class AdminViewController {
 		  status=documentService.EnableAcceptedByAdminDocumentContent(1, id);
 			
 			if(status) {
-				mv.addObject("status", "Document Enabled Sucessfully");
+				mv.addObject("status", "Document Enabled Successfully");
 			}else {
 				mv.addObject("status", "Please try Again");
 			}
@@ -1025,7 +1025,7 @@ public class AdminViewController {
 		  status=articleService.EnableAcceptedByAdminArticleContent(1, id);
 			
 			if(status) {
-				mv.addObject("status", "Article Enabled Sucessfully");
+				mv.addObject("status", "Article Enabled Successfully");
 			}else {
 				mv.addObject("status", "Please try Again");
 			}
@@ -1099,7 +1099,7 @@ public class AdminViewController {
 		  status=phetService.EnableAcceptedByAdminPhetContent(1, id);
 			
 			if(status) {
-				mv.addObject("status", "Phets Enabled Sucessfully");
+				mv.addObject("status", "Phets Enabled Successfully");
 			}else {
 				mv.addObject("status", "Please try Again");
 			}
@@ -1174,7 +1174,7 @@ public class AdminViewController {
 		  status=quizService.EnableAcceptedByAdminQuizContent(1, id);
 			
 			if(status) {
-				mv.addObject("status", "Quiz Enabled Sucessfully");
+				mv.addObject("status", "Quiz Enabled Successfully");
 			}else {
 				mv.addObject("status", "Please try Again");
 			}
@@ -1246,7 +1246,7 @@ public class AdminViewController {
 		  status=lessonService.EnableAcceptedByAdminLessonPlanContent(1, id);
 			
 			if(status) {
-				mv.addObject("status", "Lesson Plan Enabled Sucessfully");
+				mv.addObject("status", "Lesson Plan Enabled Successfully");
 			}else {
 				mv.addObject("status", "Please try Again");
 			}
@@ -1315,7 +1315,7 @@ public class AdminViewController {
 		  status=conceptService.EnableAcceptedByAdminConceptContent(1, id);
 			
 			if(status) {
-				mv.addObject("status", "Concept-Map Enabled Sucessfully");
+				mv.addObject("status", "Concept-Map Enabled Successfully");
 			}else {
 				mv.addObject("status", "Please try Again");
 			}
@@ -1455,7 +1455,7 @@ public class AdminViewController {
 			enableDisable="Enabled";
 		}
 		if(status) {
-			mv.addObject("status", "Tutorial "+enableDisable+ " Sucessfully");
+			mv.addObject("status", "Tutorial "+enableDisable+ " Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");
 		}

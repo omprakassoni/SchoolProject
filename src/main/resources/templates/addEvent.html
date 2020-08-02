@@ -168,9 +168,9 @@
 												<thead class="">
 													<tr>
 														<!-- <th>#</th> -->
-														<th>Date</th>
+														<th>Start Date -- End Start</th>
 														<th>Headline</th>
-														<th>Date added</th>
+														<th>Registration start -- End</th>
 														<th data-orderable="false">Description</th>
 														<th data-orderable="false">Mode</th>
 														<th data-orderable="false">Location</th>
@@ -186,9 +186,9 @@
 															<!-- <th scope="row"><input type="radio"
 																th:value="${event.getEventId()}" th:id="${event.getEventId()}"
 																name="selectionRadio" onchange="radioCall()" /></th> -->
-															<td><span th:text="${event.getDateToHappen()}"></span></td>
+															<td><span th:text="${event.getDateToHappenStart() + '---'+ event.getDateToHappenEnd()}"></span></td>
 															<td><span th:text="${event.getHeadline()}"></span></td>
-															<td><span th:text="${#dates.format(event.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
+															<td><span th:text="${event.getRegistStart() + '---' + event.getRegistEnd()}"></span></td>
 															<td><span th:text="${event.getDescription()}"></span></td>
 															<td><span th:text="${event.getMode()}"></span></td>
 															<td><span th:text="${event.getLocation()}"></span></td>
@@ -309,13 +309,13 @@
                                                 </div> 
                                                 </div>
                                                 
-                                                <div class="form-group row">
+                                            <!--     <div class="form-group row">
 										    <label for="description" class="col-sm-2 col-form-label">Event Coordinator Contact no.</label>
 										    <div class="col-sm-4">
 										     <input type="text" class="form-control" name="cordinatorMobile" required/>
 
                                                 </div> 
-                                                </div>
+                                                </div> -->
                                           
                                          <div class="form-group row">
 										    <label class="col-sm-2 col-form-label">Poster</label>
@@ -453,20 +453,59 @@
 							<label>HeadLine</label>
 						</div>
 						<div class="col-sm-6">
-							<input type="text" class="form-control-file" id="eventHead"
+							<input type="text" class="form-control" id="eventHead"
 								name="eventHead" value="" />
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-sm-6">
+							<label>Coordinator Name</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="eventCoordName"
+								name="eventCoordName" value="" />
 						</div>
 					</div>
 					<br />
 					<div class="row">
 
 						<div class="col-sm-6">
-							<label>Date to Happen</label>
+							<label>Start Date</label>
 						</div>
 						<div class="col-sm-6">
-							<input type="date" id="eventdate" name="eventdate" />
+							<input class="form-control" type="date" id="startDate" name="startDate" />
 						</div>
 					</div>
+					
+					<div class="row">
+
+						<div class="col-sm-6">
+							<label>End Date</label>
+						</div>
+						<div class="col-sm-6">
+							<input  class="form-control" type="date" id="endDate" name="endDate" />
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-sm-6">
+							<label>Reg Start Date</label>
+						</div>
+						<div class="col-sm-6">
+							<input class="form-control" type="date" id="regStartDate" name="regStartDate" />
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-sm-6">
+							<label>Reg End Date</label>
+						</div>
+						<div class="col-sm-6">
+							<input class="form-control" type="date" id="regEndDate" name="regEndDate" />
+						</div>
+					</div>
+					
 					<br />
 					<div class="row">
 

@@ -272,7 +272,7 @@
 			<div class="container" style="text-align:center">
 				<form th:action="@{/courses}" method="get"><form>
 				<div class="row" style="padding-left:100px;padding-right:100px;">
-					<div class="col-sm-6 col-md-4">
+					<div class="col-sm-12 col-md-4">
 						 <select id="inputClass" class="browser-default custom-select pad-extra" name="classSelected" style="margin-top:10px">
 
 										<option selected>Select Class</option>
@@ -281,7 +281,7 @@
 										</span>
 						</select>
 					</div>
-					<div class="col-sm-6 col-md-4">
+					<div class="col-sm-12 col-md-4">
 						<select class="browser-default custom-select pad-extra"
 								name="subjectSelected" id="subjectHome" path="subject" style="margin-top:10px">
 								<option selected>Select Subject</option>
@@ -292,12 +292,19 @@
 							
 						</select>
 					</div>
-					<div class="col-sm-6 col-md-2">
-						 <button type="submit" class="btn btn-primary">Submit</button>
+					<div class="col-sm-12 col-md-4">
+						<select class="browser-default custom-select" name="topicSelected" id="topicSelected" style="margin-top:10px">
+  							<option value="Select Topic">Select Topic</option>
+						</select>
+					</div>
+					</div>
+				<div class="row" style="padding-top:10px;">
+					<div class="col-sm-6 col-md-6" >
+						 <button type="submit" class="btn btn-primary" style="float:right">Submit</button>
 					</div>
 					
-					<div class="col-sm-6 col-md-2">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<div class="col-sm-6 col-md-6">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" style="float:left">Close</button>
 					</div>
 				</div>
 				</form>				

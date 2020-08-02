@@ -20,6 +20,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -207,5 +209,11 @@ public class ServiceUtility {
 			}
 		}
 		return true;
+	}
+	
+	public static java.sql.Date convertStringToDate(String date) throws ParseException{
+		SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date dateUtil=sd1.parse(date);
+		return new java.sql.Date(dateUtil.getTime());
 	}
 }

@@ -283,14 +283,21 @@ public class HomeControllerRest {
 	
 	
 	@PostMapping("/updateEvent")
-	public @ResponseBody List<String> updateEvent(@RequestParam("poster") MultipartFile[] uploadPoster,@RequestParam("eventdate") String date,@RequestParam("eventHead") String eventHead,@RequestParam("eventDesc") String eventDesc,@RequestParam("eventId") String eventId) throws Exception{
+	public @ResponseBody List<String> updateEvent(@RequestParam("poster") MultipartFile[] uploadPoster,@RequestParam("eventCoordName") String corrdName,@RequestParam("eventHead") String eventHead,@RequestParam("eventDesc") String eventDesc,@RequestParam("eventId") String eventId,
+													@RequestParam("startDate")	String starttemp,
+													@RequestParam("endDate")	String endtemp,
+													@RequestParam("regStartDate")	String regStarttemp,
+													@RequestParam("regEndDate")	String regEndtemp) throws Exception{
 		
 		List<String> status=new ArrayList<String>();
 		
 		Events localEvent=eventService.getbyid(Integer.parseInt(eventId));
 		String headline; 
 		String desc; 
-		java.sql.Date newdate;
+		java.sql.Date startdate;
+		java.sql.Date enddate;
+		java.sql.Date regStartdate;
+		java.sql.Date regEnddate;
 		boolean fileExist=true;
 		
 		if(eventHead.length()>0) {
@@ -305,20 +312,73 @@ public class HomeControllerRest {
 			desc=localEvent.getDescription();
 		}
 		
-		if(date.length()>0) {
-			System.out.println(date);
-			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date dateUtil=sd1.parse(date);
-			newdate=new java.sql.Date(dateUtil.getTime());
-		}else {
-			newdate=localEvent.getDateToHappenStart();
+		try {
+			if(starttemp.length()>0) {
+				startdate=ServiceUtility.convertStringToDate(starttemp);
+			}else {
+				startdate=localEvent.getDateToHappenStart();
+			}
+			
+			if(endtemp.length()>0) {
+				enddate=ServiceUtility.convertStringToDate(endtemp);
+			}else {
+				enddate=localEvent.getDateToHappenStart();
+			}
+			
+			if(regStarttemp.length()>0) {
+				regStartdate=ServiceUtility.convertStringToDate(regStarttemp);
+			}else {
+				regStartdate=localEvent.getDateToHappenStart();
+			}
+			
+			if(regEndtemp.length()>0) {
+				regEnddate=ServiceUtility.convertStringToDate(regEndtemp);
+			}else {
+				regEnddate=localEvent.getDateToHappenStart();
+			}
+		} catch (ParseException e1) {
+			
+			e1.printStackTrace();
+			status.add("failure");
+			return status;
+			
+		}
+		
+		if(startdate.before(ServiceUtility.getCurrentTime())) {
+			status.add("failure");
+			return status;
+			
+		} 
+		
+		if(enddate.before(startdate)) {
+			status.add("failure");
+			return status;
+			
+		} 
+		
+		if(regStartdate.before(ServiceUtility.getCurrentTime()) ) {
+			status.add("failure");
+			return status;
+			
+		} 
+		
+		if(regStartdate.after(startdate) || regEnddate.after(startdate)  ) {
+			status.add("failure");
+			return status;
+			
+		}
+		
+		if(regEnddate.before(regStartdate) ) {
+			status.add("failure");
+			return status;
+			
 		}
 		
 		for(MultipartFile temp:uploadPoster) {
 			
 			if(temp.getSize()>0) {
 			if(!ServiceUtility.checkFileExtensionImage(uploadPoster)) {
-				status.add("invalid-data");
+				status.add("failure");
 			return status;
 			}
 			}else {
@@ -340,7 +400,7 @@ public class HomeControllerRest {
 			int indexToStart=document.indexOf("Media");
 			String documentToUpload=document.substring(indexToStart, document.length());
 			
-			boolean done=eventService.updateEvent(headline, desc, newdate, documentToUpload,localEvent.getEventId());
+			boolean done=eventService.updateEvent(headline, desc, startdate,enddate,regEnddate,regEnddate,corrdName, documentToUpload,localEvent.getEventId());
 			
 			if(done) {
 				try {
@@ -359,7 +419,7 @@ public class HomeControllerRest {
 				return status;
 			}
 		}else {
-			boolean done=eventService.updateEvent(headline, desc, newdate, localEvent.getPotser_path(),localEvent.getEventId());
+			boolean done=eventService.updateEvent(headline, desc, startdate,enddate,regEnddate,regEnddate,corrdName, localEvent.getPotser_path(),localEvent.getEventId());
 			
 			if(done) {
 				status.add("Success");
@@ -946,7 +1006,7 @@ public class HomeControllerRest {
 	@PostMapping("/updateSubject")
 	public List<String> updateSubject(@Valid @RequestBody List<String> data) throws Exception {
 		int index=0;
-		
+		boolean subjectExist=false;
 		List<String> msg=new ArrayList<String>();
 		int size=data.size();
 		Set<SubjectClassMapping> subjectClassMapping=new HashSet<SubjectClassMapping>();
@@ -957,7 +1017,14 @@ public class HomeControllerRest {
 			System.out.println(sub);
 			Subject subject=subjectService.findById(idsub);
 			
-			if(!ServiceUtility.checkContainNumeralInString(data.get(size-1))) {
+			ArrayList<Subject> subjectTemp=(ArrayList<Subject>) subjectService.findAll();
+			for(Subject temp:subjectTemp) {
+				if(data.get(size-1).equalsIgnoreCase(temp.getSubName())) {
+					subjectExist=true;
+				}
+			}
+			
+			if(!ServiceUtility.checkContainNumeralInString(data.get(size-1)) || subjectExist) {
 				msg.add("failure");
 				return msg;
 				
@@ -1289,6 +1356,10 @@ public class HomeControllerRest {
 			desc=docuTemp.getDescription();
 		}
 		
+		if(!(dSource.length()>0)) {
+			dSource=docuTemp.getSource();
+		}
+		
 		if(fileExist) {
 			
 			String previousPath=env.getProperty("spring.applicationexternalPath.name")+docuTemp.getUrl();
@@ -1365,6 +1436,10 @@ public class HomeControllerRest {
 		
 		if(!(desc.length()>0)) {
 			desc=conceptTemp.getDescription();
+		}
+		
+		if(!(remark.length()>0) ){
+			remark=conceptTemp.getRemark();
 		}
 		
 		if(fileExist) {
