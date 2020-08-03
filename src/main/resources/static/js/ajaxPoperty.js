@@ -1,5 +1,8 @@
 $(function(){
 	
+	$('.nl').on('click', function(){
+	    $('.navbar-collapse').collapse('hide');
+	});
 	
 	var projectName="/schoolConnex";
 	var DeploymentType=1;   //   use 0 -> Production Level

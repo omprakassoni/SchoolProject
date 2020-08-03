@@ -66,9 +66,9 @@
 	</div>
 	</div>
 	<div class="row">
-	<div class="col-md-6 i-content">
+	<div class="col-lg-6 i-content">
 	</div>
-	<div class="col-md-6 i-img"></div>
+	<div class="col-lg-6 i-img"></div>
 	</div>	
 	</section>
 	
@@ -127,14 +127,14 @@
 	</div>
 	
 	<div class="row">
-	<div class="col-md-8">
+	<div class="col-md-7">
 	<div class="row item" th:each="event:${Events}">
-		<div th:class="${eventStat.even} ? 'col-sm-12 col-md-2 e-calender e-even' : 'col-sm-12 col-md-2 e-calender e-odd'">
+		<div th:class="${eventStat.even} ? 'col-sm-12 col-md-4 col-lg-2 e-calender e-even' : 'col-sm-12 col-md-4 col-lg-2 e-calender e-odd'">
 		<p><i class="far fa-calendar-alt e-cal"></i></p>
 		<p th:text="${#calendars.day(event.getDateToHappenStart())+ '  '+#calendars.monthNameShort(event.getDateToHappenStart()) + ', '+ #calendars.year(event.getDateToHappenStart())} "></p>
 		<p th:text="${#calendars.day(event.getDateToHappenEnd())+ '  '+#calendars.monthNameShort(event.getDateToHappenEnd()) + ', '+ #calendars.year(event.getDateToHappenEnd())} "></p>
 		</div>
-		<div class="col-sm-12 col-md-10 e-content">
+		<div class="col-sm-12 col-md-8 col-lg-10 e-content">
 		<p th:text="${event.getHeadline()}" class="e-title"></p>
 		<p><i class="fas fa-map-marker-alt e-map"></i> <span th:text="${event.getLocation()}"></span></p>
 		</div>
@@ -142,7 +142,7 @@
 	<a th:href="@{eventsList}" class="know-more-btn"><div class="row know-more">Click here for all events information</div></a>
 	
 	</div>
-	<div class="col-md-3 offset-md-1 quote">
+	<div class="col-md-4  quote">
 	<p><i class="fas fa-quote-left icon-quote-l"></i>
 	Creativity is the key to success in the future, and primary education is where 
 	teachers can bring creativity in children at that level.<i class="fas fa-quote-right icon-quote-r"></i></p>
@@ -162,7 +162,9 @@
 	<div class="card-deck">
 		<div class="card t-item" th:each="testi:${TestimonialRest}">
 		  <div class="card-body" >
-		  <p> <span th:text="${testi.getDescription()}"/>.... <span><a class="testimonialModal" th:value="${testi.getTestimonialId()}"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
+		    
+		  <p> <span th:text="${#strings.abbreviate(testi.getDescription(),250)} "/>.... <span><a class="testimonialModal" th:value="${testi.getTestimonialId()}"><i class="far fa-plus-square t-plus"></i></a>    </span></p>
+		  <!-- <p> <span th:text="${testi.getDescription()}"/>.... <span><a class="testimonialModal" th:value="${testi.getTestimonialId()}"><i class="far fa-plus-square t-plus"></i></a>    </span></p> -->
 				<p class="t-name" th:text="${testi.getName()}"></p>
 				<p class="t-info" th:text="${testi.getOrganization()}"></p>
 		  </div>
@@ -173,7 +175,7 @@
 	</section>
 	
 	<h1 class="contact-header text-center" id="Contact-us">Contact</h1>
-	<section class="footer">
+	<section class="c-footer">
 	<div class="row">
 	<div class="col-md-3 f-info f-address">
 	<p><i class="fas fa-map-marked-alt f-icon"></i></p>
