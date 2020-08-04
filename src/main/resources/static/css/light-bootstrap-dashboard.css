@@ -2333,9 +2333,10 @@ fieldset[disabled] .form-control {
 
 .footer {
     background-color: #FFFFFF;
-    position: fixed!important;
-	width: 80%!important;
+   /*  position: fixed!important; */
+/* 	width: 80%!important; */
 	bottom: 0!important;
+	
 }
 
 .footer .footer-menu {
