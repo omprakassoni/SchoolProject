@@ -85,7 +85,7 @@
 		<a href="#" class="c-btn" style="padding: 10px 20px;">Read More</a>
 		</div>
 		<div class="col-md-6 a-img">
-		<img src="../Images/about.jpg">
+		<img th:src="@{/Images/about.jpg}">
 		</div>
 	</div>
 	</section>
@@ -390,8 +390,7 @@
 	      <div class="modal-body">
 	        <p id="testiDataDesc"></p>
 	        <div id="pdfdiv" style="display:none">
-	        <a id="testiDataPDF"
-				target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a>
+	        
 			</div>
 			<div id="videodiv" style="display:none">
 			
@@ -449,18 +448,17 @@
 	       			$('#testiDataDesc').text(data["description"]);
 	       			
 	       			if(data["filePath"] != null){
-	       	
-	       		 	$('#testiDataPDF').attr("href", [(@{/files/})]+data["filePath"]);
-	       		 	$('#pdfdiv').css('display','block');
+	       			
+		       			var tempPdf='<a href="'+[(@{/files/})]+data["filePath"]+'" target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a>';
+		       		 	$('#pdfdiv').html(tempPdf);
+		       		 	$('#pdfdiv').css('display','block');
 	       		 	
 	       			}else if(data["videoPath"] != null){
 	       				
-	       				
-	       			var vik='<video width="480" height="150" controls><source src="'+  [(@{/files/})]+data["videoPath"] + '"type="video/mp4"/> </video>';
-	     
-	       			//$('#testDataVideo').attr("src", [(@{/files/})]+data["videoPath"]);
-	       			$('#videodiv').html(vik);
-		       		$('#videodiv').css('display','block');
+		       			var vik='<video width="480" height="150" controls><source src="'+  [(@{/files/})]+data["videoPath"] + '"type="video/mp4"/> </video>';
+		     
+		       			$('#videodiv').html(vik);
+			       		$('#videodiv').css('display','block');
 	       			}
 	       			
 	     

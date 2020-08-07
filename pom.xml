@@ -128,7 +128,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>schoolProject</finalName>
+		<finalName>schoolConnex</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
