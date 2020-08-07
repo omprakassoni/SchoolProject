@@ -4,6 +4,34 @@ $(function(){
 	    $('.navbar-collapse').collapse('hide');
 	});
 	
+	
+	
+	$("#navbarSupportedContent-4 a").click(function() {
+		var id =  $(this).attr('href');
+		var href = id.substring(2);
+		var div = '#'+href;
+		console.log(id);
+		console.log(href);
+	     $('html, body').animate({         
+	         scrollTop: $(div).offset().top-40
+	     }, 1000);
+	});
+	
+//	this populates the description text based on the ids of btn and description of the resource
+	$('.full-txt-btn').on('click', function(){
+		var btn_id = this.id;
+		console.log(btn_id);
+		var start = btn_id.search("_");
+		var id_val = btn_id.substring(parseInt(start)+1);
+		console.log(id_val);
+		var phet_id = '#'+'phet_'+id_val;
+		console.log(phet_id);
+		var txt = $(phet_id).html();
+		console.log(txt);
+		$('.fullText').html(txt);
+	    
+	});
+	
 	var projectName="/schoolConnex";
 	var DeploymentType=1;   //   use 0 -> Production Level
 							//	 use 1 -> Inhouse Level code
@@ -4763,9 +4791,9 @@ $(function(){
 							       				        				 
 							       				 
 							       				 
-							       				 
+							       				 alert('here');
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="/Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 							       				 html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
