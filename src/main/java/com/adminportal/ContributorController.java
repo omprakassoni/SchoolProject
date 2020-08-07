@@ -171,7 +171,7 @@ public class ContributorController {
 				videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 				
 				userService.addUserToVideo(usr, videoMapping);							// persist Video Information
-				mv.addObject("statusAdd", "Added Sucessfully");
+				mv.addObject("statusAdd", "Added Successfully");
 				
 			} catch (Exception e) {
 				
@@ -270,7 +270,7 @@ public class ContributorController {
 				videoMapping.add(new VideoExternal(videoId, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 				
 				userService.addUserToVideo(usr, videoMapping);							// persist Video Information
-				mv.addObject("statusAdd", "Added Sucessfully");
+				mv.addObject("statusAdd", "Added Successfully");
 				}else {
 					mv.addObject("failure", "Please Try Again Later");
 				}
@@ -393,7 +393,7 @@ public class ContributorController {
 				
 				userService.addUserToQuizQuestion(usr, quizMapping);   // persist Quiz details
 				
-				mv.addObject("statusAdd", "Added Sucessfully");
+				mv.addObject("statusAdd", "Added Successfully");
 				
 				}else {
 					mv.addObject("failure", " Try again Later");
@@ -411,7 +411,7 @@ public class ContributorController {
 
 			mv.addObject("classExist", classExist);										// setting variable for view for displaying purpose
 			
-			mv.addObject("quizStatus", "Added Sucessfully");
+			mv.addObject("quizStatus", "Added Successfully");
 			
 			mv.setViewName("quiz");													// setting view name
 			
@@ -584,7 +584,7 @@ public class ContributorController {
 
 				
 				userService.addUserToPhets(usr, phetMapping);							// persist Phet data 
-				mv.addObject("statusAdd", "Added Sucessfully");
+				mv.addObject("statusAdd", "Added Successfully");
 				
 				
 				} catch (Exception e) {
@@ -678,7 +678,7 @@ public class ContributorController {
 				
 				
 				userService.addUserToLessonplan(usr, lessonMapping);					// saving lessonPaln data
-				mv.addObject("statusAdd", "Added Sucessfully");
+				mv.addObject("statusAdd", "Added Successfully");
 				
 			} catch (Exception e) {
 			
@@ -691,7 +691,7 @@ public class ContributorController {
 
 			mv.addObject("classExist", classExist);											// setting variable for view for displaying purpose
 			
-			mv.addObject("lessonStatus", "Added Sucessfully");	
+			mv.addObject("lessonStatus", "Added Successfully");	
 				
 			mv.setViewName("lessonPlan");												// setting view name
 				
@@ -836,7 +836,7 @@ public class ContributorController {
 				articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
 				
 				userService.addUserToArticle(usr, articlemapping);								// saving the article information into database.
-				mv.addObject("statusAdd", "Added Sucessfully");									// setting status for view(success)
+				mv.addObject("statusAdd", "Added Successfully");									// setting status for view(success)
 			} catch (Exception e) {
 				
 				e.printStackTrace();

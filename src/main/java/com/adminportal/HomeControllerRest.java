@@ -314,6 +314,7 @@ public class HomeControllerRest {
 		
 		try {
 			if(starttemp.length()>0) {
+				System.out.println(starttemp);
 				startdate=ServiceUtility.convertStringToDate(starttemp);
 			}else {
 				startdate=localEvent.getDateToHappenStart();
@@ -322,19 +323,19 @@ public class HomeControllerRest {
 			if(endtemp.length()>0) {
 				enddate=ServiceUtility.convertStringToDate(endtemp);
 			}else {
-				enddate=localEvent.getDateToHappenStart();
+				enddate=localEvent.getDateToHappenEnd();
 			}
 			
 			if(regStarttemp.length()>0) {
 				regStartdate=ServiceUtility.convertStringToDate(regStarttemp);
 			}else {
-				regStartdate=localEvent.getDateToHappenStart();
+				regStartdate=localEvent.getRegistStart();
 			}
 			
 			if(regEndtemp.length()>0) {
 				regEnddate=ServiceUtility.convertStringToDate(regEndtemp);
 			}else {
-				regEnddate=localEvent.getDateToHappenStart();
+				regEnddate=localEvent.getRegistEnd();
 			}
 		} catch (ParseException e1) {
 			
@@ -387,7 +388,10 @@ public class HomeControllerRest {
 		}
 		
 		
-		
+		System.out.println(startdate);
+		System.out.println(enddate);
+		System.out.println(regStartdate);
+		System.out.println(regEnddate);
 		if(fileExist) {
 			
 			String previousPath=env.getProperty("spring.applicationexternalPath.name")+localEvent.getPotser_path();
@@ -400,7 +404,7 @@ public class HomeControllerRest {
 			int indexToStart=document.indexOf("Media");
 			String documentToUpload=document.substring(indexToStart, document.length());
 			
-			boolean done=eventService.updateEvent(headline, desc, startdate,enddate,regEnddate,regEnddate,corrdName, documentToUpload,localEvent.getEventId());
+			boolean done=eventService.updateEvent(headline, desc, startdate,enddate,regStartdate,regEnddate,corrdName, documentToUpload,localEvent.getEventId());
 			
 			if(done) {
 				try {
@@ -419,7 +423,7 @@ public class HomeControllerRest {
 				return status;
 			}
 		}else {
-			boolean done=eventService.updateEvent(headline, desc, startdate,enddate,regEnddate,regEnddate,corrdName, localEvent.getPotser_path(),localEvent.getEventId());
+			boolean done=eventService.updateEvent(headline, desc, startdate,enddate,regStartdate,regEnddate,corrdName, localEvent.getPotser_path(),localEvent.getEventId());
 			
 			if(done) {
 				status.add("Success");
