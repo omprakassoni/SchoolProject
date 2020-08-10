@@ -1864,12 +1864,15 @@
 		</div>
 	</div>
     
-    
+  
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
-	<script>
 	
-	$(document).ready(function(){
+	  <script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+	
+		$(document).ready(function(){
 		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
 			localStorage.setItem('activeTab', $(e.target).attr('href'));
 		});
@@ -1877,7 +1880,7 @@
 		if(activeTab){
 			$('#myTabMD a[href="' + activeTab + '"]').tab('show');
 		}
-	});
+		});
 	
 	
 	</script>

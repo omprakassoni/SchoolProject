@@ -85,7 +85,7 @@
 		<a href="#" class="c-btn" style="padding: 10px 20px;">Read More</a>
 		</div>
 		<div class="col-md-6 a-img">
-		<img src="../Images/about_us.jpg">
+		<img th:src="@{/Images/about_us.jpg}">
 		</div>
 	</div>
 	</section>
@@ -407,6 +407,10 @@
 	
 	$(function(){
 		
+		var projectName="/schoolConnex";
+		var DeploymentType=0;   //   use 0 -> Production Level
+								//	 use 1 -> Inhouse Level code
+		
 		$('.testimonialModal').click(function(){
 			var testi_id=$(this).attr('value');
 			
@@ -433,7 +437,7 @@
 				$.ajax({
 			  	type: "POST",
 	        	contentType: "application/json",
-	       		 url: "/loadByTestimonialID",
+	       		 url: urlPassed,
 	       		 data: JSON.stringify(testimonialID),
 	       		 beforeSend: function(xhr) {
                      xhr.setRequestHeader(header, token);
@@ -449,13 +453,13 @@
 	       			
 	       			if(data["filePath"] != null){
 	       			
-		       			var tempPdf='<a href="'+[(@{/files/})]+data["filePath"]+'" target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a>';
+		       			var tempPdf='<a href="'+'[(@{/files/})]'+data["filePath"]+'" target="_blank" class="pdfclass"><i class="fas fa-external-link-alt"></i></a>';
 		       		 	$('#pdfdiv').html(tempPdf);
 		       		 	$('#pdfdiv').css('display','block');
 	       		 	
 	       			}else if(data["videoPath"] != null){
 	       				
-		       			var vik='<video width="480" height="150" controls><source src="'+  [(@{/files/})]+data["videoPath"] + '"type="video/mp4"/> </video>';
+		       			var vik='<video width="480" height="150" controls><source src="'+  '[(@{/files/})]'+data["videoPath"] + '"type="video/mp4"/> </video>';
 		     
 		       			$('#videodiv').html(vik);
 			       		$('#videodiv').css('display','block');

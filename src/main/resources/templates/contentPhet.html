@@ -246,15 +246,15 @@
 										<div class="col-sm-12 col-md-7 content">
 
 										<!-- <p th:text="${#strings.abbreviate(phet.getDescription(),250)}" th:id="'phet_' + ${phet.getPhetId()}"></p> -->
-										<div th:if="${#strings.length(phet.getDescription())>250}">
+										<!-- <div th:if="${#strings.length(phet.getDescription())>250}">
 										
 										    <p th:text="${#strings.abbreviate(phet.getDescription(),250)}"></p>
 										    <button th:id="'phetBtn_' + ${phet.getPhetId()}" type="button" class="btn spk-btn-sm full-txt-btn" data-toggle="modal" data-target=".full-text-modal">Read more..</button>
 										    <p th:text="${phet.getDescription()}" th:id="'phet_' + ${phet.getPhetId()}" style="display:none;"></p>
-										</div>
-    									<div th:unless="${#strings.length(phet.getDescription())>250}">
+										</div> -->
+    									
     									<p th:text="${phet.getDescription()}"></p>
-    									</div>
+    									
 										<!-- <p th:text="${#strings.abbreviate(phet.getDescription(),250)}"></p>
 										<div th:if="${#strings.length(phet.getDescription())>250}">
 										    
@@ -290,7 +290,11 @@
                     </nav>
                 </div>
             </footer>
-            <!-- Modal for reading full text starts-->
+           
+        </div>
+    </div>
+    
+     <!-- Modal for reading full text starts-->
             <div class="modal fade full-text-modal" tabindex="-1" role="dialog" aria-labelledby="fullTextModal" aria-hidden="true">
 			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
@@ -309,9 +313,7 @@
 			    </div>
 			  </div>
 			</div>
-			<!-- Modal for reading full text ends-->
-        </div>
-    </div>
+	<!-- Modal for reading full text ends-->
 
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>

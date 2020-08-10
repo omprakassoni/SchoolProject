@@ -172,7 +172,17 @@
 														th:value="${video.getVideoId()}" th:id="${video.getVideoId()}"
 														name="selectionRadio" onchange="radioCall()" /></th>
 													<td><span th:text="${video.getTopic().getTopicName()}"></span></td>
-													<td><span th:text="${video.getDescription()}"></span></td>
+													<td>
+																	<div th:if="${#strings.length(video.getDescription())>150}">
+	
+																    <span th:text="${#strings.abbreviate(video.getDescription(),150)}"></span>
+																    <button th:id="'phetBtn_' + ${video.getVideoId()}" type="button" class="btn spk-btn-sm full-txt-btn" data-toggle="modal" data-target=".full-text-modal">Read more..</button>
+																    <p th:text="${video.getDescription()}" th:id="'phet_' + ${video.getVideoId()}" style="display:none;"></p>
+																	</div>
+							    									<div th:unless="${#strings.length(video.getDescription())>150}">
+							    									<span th:text="${video.getDescription()}"></span>
+							    									</div>
+													</td>
 													<td><span th:text="${video.getSource() }"></span></td>
 													<td><span th:text="${#dates.format(video.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td>
@@ -250,6 +260,26 @@
     </div>
     
     
+    <!-- Modal for reading full text starts-->
+            <div class="modal fade full-text-modal" tabindex="-1" role="dialog" aria-labelledby="fullTextModal" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+				    <div class="modal-header">
+	        			<h5 class="modal-title">Video Description</h5>
+	        			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	         				 <span aria-hidden="true">&times;</span>
+	        			</button>
+	      			</div>
+	      			<div class="modal-body">
+			        	<p class="fullText"></p>
+			      	</div>
+				    <div class="modal-footer">
+				        <button type="button" class="btn spk-btn-hide" data-dismiss="modal">Close</button>
+				    </div>
+			    </div>
+			  </div>
+			</div>
+	<!-- Modal for reading full text ends-->
     
     <!-- Modal for updating the data-->
 
@@ -327,5 +357,10 @@
     
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 </body>
 </html>

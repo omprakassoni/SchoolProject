@@ -4465,7 +4465,7 @@ $(function(){
 			       			 for(var i=0;i<len;i++){
 			       			 
 					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
-					       			 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> ';
+					       			 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> ';
 					       			 //html+= data[i].dateReceived;
 					       			 html+= '</div> <div class="col-md-10"> <p><strong>';
 					       			 html+= data[i].userName;
@@ -4519,7 +4519,7 @@ $(function(){
 							       				 
 							       				 
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/>';
+							       				 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/>';
 							       				// html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
@@ -4742,7 +4742,7 @@ $(function(){
 			       			 for(var i=0;i<len;i++){
 			       			 
 					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
-					       			 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+					       			 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 					       			 html+= data[i].dateReceived;
 					       			 html+= '</p></div> <div class="col-md-10"> <p><strong>';
 					       			 html+= data[i].userName;
@@ -4793,7 +4793,7 @@ $(function(){
 							       				 
 							       				 alert('here');
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 							       				 html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
@@ -5011,7 +5011,7 @@ $(function(){
 			       			 for(var i=0;i<len;i++){
 			       			 
 					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
-					       			 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+					       			 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 					       			 html+= data[i].dateReceived;
 					       			 html+= '</p></div> <div class="col-md-10"> <p><strong>';
 					       			 html+= data[i].userName;
@@ -5062,7 +5062,7 @@ $(function(){
 							       				 
 							       				 
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 							       				 html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
@@ -5280,7 +5280,7 @@ $(function(){
 			       			 for(var i=0;i<len;i++){
 			       			 
 					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
-					       			 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+					       			 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 					       			 html+= data[i].dateReceived;
 					       			 html+= '</p></div> <div class="col-md-10"> <p><strong>';
 					       			 html+= data[i].userName;
@@ -5331,7 +5331,7 @@ $(function(){
 							       				 
 							       				 
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 							       				 html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
@@ -5553,7 +5553,7 @@ $(function(){
 			       			 for(var i=0;i<len;i++){
 			       			 
 					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
-					       			 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+					       			 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 					       			 html+= data[i].dateReceived;
 					       			 html+= '</p></div> <div class="col-md-10"> <p><strong>';
 					       			 html+= data[i].userName;
@@ -5604,7 +5604,7 @@ $(function(){
 							       				 
 							       				 
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 							       				 html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
@@ -5824,7 +5824,7 @@ $(function(){
 			       			 for(var i=0;i<len;i++){
 			       			 
 					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
-					       			 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+					       			 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 					       			 html+= data[i].dateReceived;
 					       			 html+= '</p></div> <div class="col-md-10"> <p><strong>';
 					       			 html+= data[i].userName;
@@ -5875,7 +5875,7 @@ $(function(){
 							       				 
 							       				 
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 							       				 html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
@@ -6092,7 +6092,7 @@ $(function(){
 			       			 for(var i=0;i<len;i++){
 			       			 
 					       			 html+='<div class="card"> <div class="card-body"> <div class="row"> <div class="col-md-2">';
-					       			 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+					       			 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 					       			 html+= data[i].dateReceived;
 					       			 html+= '</p></div> <div class="col-md-10"> <p><strong>';
 					       			 html+= data[i].userName;
@@ -6144,7 +6144,7 @@ $(function(){
 							       				 
 							       				 
 							       				 html+='<div class="card card-inner"> <div class="card-body"> <div class="row"><div class="col-md-2">';
-							       				 html+='<img src="../Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
+							       				 html+='<img src="'+projectPath+'Images/def_face.jpg" class="img img-rounded img-fluid"/> <p class="text-secondary text-center">';
 							       				 html+= dataReply[j].dateReceived;
 							       				 html+= '</p></div><div class="col-md-10"> <p><strong>';
 							       				 html+= dataReply[j].userName;
