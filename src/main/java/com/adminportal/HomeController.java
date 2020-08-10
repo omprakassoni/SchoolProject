@@ -224,6 +224,22 @@ public class HomeController {
 		mv.setViewName("Index");
 		return mv;
 	}
+	
+	@RequestMapping(value = "/About-Us", method = RequestMethod.GET)
+	public ModelAndView aboutUsSection(ModelAndView mv, Principal principal) {
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+		}
+
+		mv.setViewName("about");
+		
+		return mv;
+		
+	}
 
 
 	/*******************************
