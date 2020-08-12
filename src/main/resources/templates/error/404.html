@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.w3.org/1000/xhtml" xmlns:sec="http://www.w3.org/1000/xhtml">
 <head>
 <div th:replace="common/header :: common-header"></div>
-<title> 403 </title>
+<title> 404 </title>
 <style>
 	.container{
 		padding:50px;
@@ -24,15 +24,9 @@
 </head>
 <body >
 	<div class="container" >
-		<h1>Forbidden!</h1>
-		<h2>Code 403</h2>
-		<p>"Access Denied. You Do Not Have The Permission To Access This Page On This Server" </p>
-		
-		<div sec:authorize="isAuthenticated()" style="color:orange;font-weight:bolder">
-		
-		<h4>"You are already logged In"</h4>
-		
-		</div>
+		<h1>Page Not Found!</h1>
+		<h2>Code 404</h2>
+		<p>"We Couldn't Found The Resource You Are Looking For" </p>
 		
 		<a th:href="@{/}"><button class="btn btn-primary">Homepage</button></a>
 	
