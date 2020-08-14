@@ -240,7 +240,7 @@
 									</div>
 									<div class="col-sm-12 res-map">
 
-									<img class="img-responsive" th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')}"
+									<img class="img-responsive" th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')} or ${#strings.endsWith(concept.getUrl(),'JPEG')} or ${#strings.endsWith(concept.getUrl(),'JPG')} or ${#strings.endsWith(concept.getUrl(),'PNG')}"
 									th:src="@{/files/}+@{${concept.getUrl()}}"
 									 />
 									

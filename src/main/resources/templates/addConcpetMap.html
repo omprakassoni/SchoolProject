@@ -204,7 +204,7 @@
 															<td><span th:text="${concept.getUser().getFname()}"></span></td>
 						
 						
-															<td th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')}">
+															<td th:if="${#strings.endsWith(concept.getUrl(),'jpeg')} or ${#strings.endsWith(concept.getUrl(),'jpg')} or ${#strings.endsWith(concept.getUrl(),'png')} or ${#strings.endsWith(concept.getUrl(),'JPEG')} or ${#strings.endsWith(concept.getUrl(),'JPG')} or ${#strings.endsWith(concept.getUrl(),'PNG')}">
 															<a href="#" class="pop"><img id="imagesource"
 															th:src="@{/files/}+@{${concept.getUrl()}}"
 															style="width: 150px; height: 100px" /></a></td>

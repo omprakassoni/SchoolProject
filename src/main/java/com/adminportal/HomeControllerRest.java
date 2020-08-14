@@ -345,11 +345,11 @@ public class HomeControllerRest {
 			
 		}
 		
-		if(startdate.before(ServiceUtility.getCurrentTime())) {
-			status.add("failure");
-			return status;
-			
-		} 
+//		if(startdate.before(ServiceUtility.getCurrentTime())) {
+//			status.add("failure");
+//			return status;
+//			
+//		} 
 		
 		if(enddate.before(startdate)) {
 			status.add("failure");
@@ -357,11 +357,11 @@ public class HomeControllerRest {
 			
 		} 
 		
-		if(regStartdate.before(ServiceUtility.getCurrentTime()) ) {
-			status.add("failure");
-			return status;
-			
-		} 
+//		if(regStartdate.before(ServiceUtility.getCurrentTime()) ) {
+//			status.add("failure");
+//			return status;
+//			
+//		} 
 		
 		if(regStartdate.after(startdate) || regEnddate.after(startdate)  ) {
 			status.add("failure");

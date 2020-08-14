@@ -188,7 +188,7 @@
 													<td><span th:text="${#dates.format(document.getDateAdded(), 'dd MMM , yyyy')}"></span></td>
 													<td><span th:text="${document.getSource()}"></span></td>
 													
-													<td th:if="${#strings.endsWith(document.getUrl(),'jpeg')} or ${#strings.endsWith(document.getUrl(),'jpg')} or ${#strings.endsWith(document.getUrl(),'png')}">
+													<td th:if="${#strings.endsWith(document.getUrl(),'jpeg')} or ${#strings.endsWith(document.getUrl(),'jpg')} or ${#strings.endsWith(document.getUrl(),'png')} or ${#strings.endsWith(document.getUrl(),'JPEG')} or ${#strings.endsWith(document.getUrl(),'JPG')} or ${#strings.endsWith(document.getUrl(),'PNG')}">
 															<a href="#" class="pop"><img id="imagesource"
 															th:src="@{/files/}+@{${document.getUrl()}}"
 															style="width: 150px; height: 100px" /></a></td>

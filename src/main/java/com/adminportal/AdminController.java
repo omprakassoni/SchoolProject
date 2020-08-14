@@ -936,8 +936,7 @@ public class AdminController {
 			addTopic.setUserId(usr);
 			
 			subjectClassService.createTopic(addTopic, localsubjectClassMapping);
-			
-			
+	
 			
 			boolean b=ServiceUtility.createclassSubjectFolder(className, Integer.toString(localSubjectTemp.getSubId()),Integer.toString(newTopicId)) ;
 			

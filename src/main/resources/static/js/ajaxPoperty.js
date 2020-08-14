@@ -1,3 +1,9 @@
+
+var projectName="/schoolConnex";
+
+var DeploymentType=1;   //   use 0 -> Production Level
+						//	 use 1 -> Inhouse Level code
+
 $(function(){
 	
 	$('.nl').on('click', function(){
@@ -32,9 +38,9 @@ $(function(){
 	    
 	});
 	
-	var projectName="/schoolConnex";
-	var DeploymentType=1;   //   use 0 -> Production Level
-							//	 use 1 -> Inhouse Level code
+//	var projectName="/schoolConnex";
+//	var DeploymentType=1;   //   use 0 -> Production Level
+//							//	 use 1 -> Inhouse Level code
 	
 	
 	
@@ -7128,10 +7134,10 @@ $(window).on('load',function(){
 
 // -----------------------------------------AJAX FUNCTION FOR TOPIC---------------------------------------------------------------------------
   	
-var projectName="/schoolConnex";
-
-var DeploymentType=1;   //   use 0 -> Production Level
-						//	 use 1 -> Inhouse Level code
+//var projectName="/schoolConnex";
+//
+//var DeploymentType=1;   //   use 0 -> Production Level
+//						//	 use 1 -> Inhouse Level code
 
 
 function fire_ajax_submit_Topic(){

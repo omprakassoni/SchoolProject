@@ -127,7 +127,7 @@ public class ServiceUtility {
 	public static boolean checkFileExtensionPDF(MultipartFile[] pdfFile) {				// validate file against PDF extension
 		
 		for(MultipartFile temp:pdfFile) {
-			if(!temp.getOriginalFilename().endsWith(".pdf")) {
+			if(!temp.getOriginalFilename().endsWith(".pdf") && !temp.getOriginalFilename().endsWith(".PDF")) {
 				return false;
 			}
 		}
@@ -137,7 +137,7 @@ public class ServiceUtility {
 	public static boolean checkFileExtensiononeFilePDF(MultipartFile pdfFile) {				// validate file against PDF extension
 		
 		
-			if(!pdfFile.getOriginalFilename().endsWith(".pdf")) {
+			if(!pdfFile.getOriginalFilename().endsWith(".pdf") && !pdfFile.getOriginalFilename().endsWith(".PDF")) {
 				return false;
 			}
 		
@@ -148,7 +148,8 @@ public class ServiceUtility {
 	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {			// validate file against Image Extension
 		
 		for(MultipartFile temp:imageFile) {
-			if(!temp.getOriginalFilename().endsWith(".jpg") && !temp.getOriginalFilename().endsWith(".jpeg") && !temp.getOriginalFilename().endsWith(".png")) {
+			if(!temp.getOriginalFilename().endsWith(".jpg") && !temp.getOriginalFilename().endsWith(".jpeg") && !temp.getOriginalFilename().endsWith(".png")
+					&& !temp.getOriginalFilename().endsWith(".JPG") && !temp.getOriginalFilename().endsWith(".JPEG") && !temp.getOriginalFilename().endsWith(".PNG")) {
 				
 				return false;
 			}
@@ -159,7 +160,8 @@ public class ServiceUtility {
 	public static boolean checkFileExtensionVideo(MultipartFile videoFile) {			// validate file against Image Extension
 		
 		
-		if(!videoFile.getOriginalFilename().endsWith(".mp4") && !videoFile.getOriginalFilename().endsWith(".mov")) {
+		if(!videoFile.getOriginalFilename().endsWith(".mp4") && !videoFile.getOriginalFilename().endsWith(".mov")
+				&& !videoFile.getOriginalFilename().endsWith(".MP4") && !videoFile.getOriginalFilename().endsWith(".MOV")) {
 			return false;
 		}
 		

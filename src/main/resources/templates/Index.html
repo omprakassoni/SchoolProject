@@ -135,8 +135,13 @@
 	<div class="row item" th:each="event:${Events}">
 		<div th:class="${eventStat.even} ? 'col-sm-12 col-md-4 col-lg-2 e-calender e-even' : 'col-sm-12 col-md-4 col-lg-2 e-calender e-odd'">
 		<p><i class="far fa-calendar-alt e-cal"></i></p>
-		<p th:text="${#calendars.day(event.getDateToHappenStart())+ '  '+#calendars.monthNameShort(event.getDateToHappenStart()) + ', '+ #calendars.year(event.getDateToHappenStart())} "></p>
-		<p th:text="${#calendars.day(event.getDateToHappenEnd())+ '  '+#calendars.monthNameShort(event.getDateToHappenEnd()) + ', '+ #calendars.year(event.getDateToHappenEnd())} "></p>
+		<div th:if="${#calendars.monthNameShort(event.getDateToHappenStart()) == #calendars.monthNameShort(event.getDateToHappenEnd())}">
+		<p style="text-align:center" th:text="${#calendars.day(event.getDateToHappenStart())+ ' - '+ #calendars.day(event.getDateToHappenEnd()) + ' ' + #calendars.monthNameShort(event.getDateToHappenStart())} "></p>
+		</div>
+		<div th:unless="${#calendars.monthNameShort(event.getDateToHappenStart()) == #calendars.monthNameShort(event.getDateToHappenEnd())}">
+		<p style="text-align:center" th:text="${#calendars.day(event.getDateToHappenStart())+ ' ' + #calendars.monthNameShort(event.getDateToHappenStart()) + ' - ' + #calendars.day(event.getDateToHappenEnd())+ '  '+#calendars.monthNameShort(event.getDateToHappenEnd())} "></p>
+		
+		</div>
 		</div>
 		<div class="col-sm-12 col-md-8 col-lg-10 e-content">
 		<p th:text="${event.getHeadline()}" class="e-title"></p>
@@ -194,7 +199,7 @@
 	<p>+ 91 22 25764229</p>
 	<br>
 	<p><i class="fas fa-envelope f-icon"></i></p>
-	<p>contact@spoken-tutorial.org</p>
+	<p> contact-school@spoken-tutorial.org</p>
 	</div>
 	<div class="col-md-6 f-msg">
 	<div><h5>Feedback / Collaborate with us</h5></div>
