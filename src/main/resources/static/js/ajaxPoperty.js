@@ -8,13 +8,18 @@ $(function(){
 	
 	$("#navbarSupportedContent-4 a").click(function() {
 		var id =  $(this).attr('href');
-		var href = id.substring(2);
-		var div = '#'+href;
-		console.log(id);
-		console.log(href);
-	     $('html, body').animate({         
-	         scrollTop: $(div).offset().top-40
-	     }, 1000);
+		try {
+			var n = id.indexOf("#");
+			var href = id.substring(n);
+			var div = href;
+		     $('html, body').animate({         
+		         scrollTop: $(div).offset().top-40
+		     }, 1000);
+		}
+		catch(err) {
+			 console.log(err.message);
+		}
+		
 	});
 	
 //	this populates the description text based on the ids of btn and description of the resource
