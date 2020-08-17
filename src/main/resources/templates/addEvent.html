@@ -396,6 +396,11 @@
     
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 	
 	<!-- Modal  for previewing the Images -->
 	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"

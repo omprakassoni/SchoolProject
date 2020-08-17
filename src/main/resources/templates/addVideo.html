@@ -475,6 +475,11 @@
     
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 	
 	<div th:replace="common/header :: Terms-condition-Modal"></div>
 

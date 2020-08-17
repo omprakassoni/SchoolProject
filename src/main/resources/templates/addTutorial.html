@@ -356,6 +356,11 @@
     
         <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 	
 		<div class="modal fade" id="exampleModalScrollable" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"

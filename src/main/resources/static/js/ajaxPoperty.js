@@ -1,8 +1,8 @@
-
-var projectName="/schoolConnex";
-
-var DeploymentType=1;   //   use 0 -> Production Level
-						//	 use 1 -> Inhouse Level code
+//
+//var projectPath="/schoolConnex";
+//
+//var DeploymentType=0;   //   use 0 -> Production Level
+//						//	 use 1 -> Inhouse Level code
 
 $(function(){
 	
@@ -43,11 +43,6 @@ $(function(){
 	    
 	});
 	
-//	var projectName="/schoolConnex";
-//	var DeploymentType=1;   //   use 0 -> Production Level
-//							//	 use 1 -> Inhouse Level code
-	
-	
 	
 	/******************************** USER DETAILS UPDATE ******************************************************/
 	
@@ -62,13 +57,10 @@ $(function(){
 		
 		var urlPassed;
 		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateUserDetails";
+		
+    		urlPassed= projectPath+"updateUserDetails";
 	
-    	}else{
-    		urlPassed= projectName+"/updateUserDetails";
-	
-    	}
+    	
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
@@ -527,14 +519,8 @@ $(function(){
 				var jsdata= JSON.stringify(json);
 				var urlPassed;
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/addContactForm";
+				urlPassed= projectPath+"addContactForm";
 			
-	        	}else{
-	        		urlPassed= projectName+"/addContactForm";
-			
-	        	}
-				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				
@@ -608,13 +594,10 @@ $(function(){
 				$('#Success').css({"display": "none"}); 
 				$('#Failure').css({"display": "none"});
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/loadByTestimonialID";
+				
+	        		urlPassed= projectPath+"loadByTestimonialID";
 			
-	        	}else{
-	        		urlPassed= projectName+"/loadByTestimonialID";
-			
-	        	}
+	        	
 				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
@@ -669,13 +652,9 @@ $(function(){
 				
 				var urlPassed;
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/loadByEventID";
+	        		urlPassed= projectPath+"loadByEventID";
 			
-	        	}else{
-	        		urlPassed= projectName+"/loadByEventID";
-			
-	        	}
+	        	
 				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
@@ -738,13 +717,10 @@ $(function(){
 				
 				var urlPassed;
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/updateTestimonial";
+				
+	        		urlPassed= projectPath+"updateTestimonial";
 			
-	        	}else{
-	        		urlPassed= projectName+"/updateTestimonial";
-			
-	        	}
+	        	
 				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
@@ -822,7 +798,7 @@ $(function(){
 					urlPassed= "/updateEvent";
 			
 	        	}else{
-	        		urlPassed= projectName+"/updateEvent";
+	        		urlPassed= projectPath+"/updateEvent";
 			
 	        	}
 				
@@ -893,13 +869,10 @@ $(function(){
 			
 			var urlPassed;
 			
-			if(DeploymentType){								// Url Creation based on depolyment 
-				urlPassed= "/loadByClassName";
 		
-        	}else{
-        		urlPassed= projectName+"/loadByClassName";
+        		urlPassed= projectPath+"loadByClassName";
 		
-        	}
+        	
 			
 		
 			$.ajax({
@@ -956,13 +929,10 @@ $(function(){
 			
 			var urlPassed;
 			
-			if(DeploymentType){								// Url Creation based on depolyment 
-				urlPassed= "/loadByClassnameAndSubject";
+			
+        		urlPassed= projectPath+"loadByClassnameAndSubject";
 		
-        	}else{
-        		urlPassed= projectName+"/loadByClassnameAndSubject";
-		
-        	}
+        	
 		
 			$.ajax({
 			  	type: "POST",
@@ -1034,13 +1004,9 @@ $(function(){
 
 			var urlPassed;
 			
-			if(DeploymentType){								// Url Creation based on depolyment 
-				urlPassed= "/loadByClassName";
+        		urlPassed= projectPath+"loadByClassName";
 		
-        	}else{
-        		urlPassed= projectName+"/loadByClassName";
-		
-        	}
+        	
 		
 			$.ajax({
 			  	type: "POST",
@@ -1093,13 +1059,10 @@ $(function(){
 			
 			var urlPassed;
 			
-			if(DeploymentType){								// Url Creation based on depolyment 
-				urlPassed= "/loadByClassnameAndSubject";
+			
+        		urlPassed= projectPath+"loadByClassnameAndSubject";
 		
-        	}else{
-        		urlPassed= projectName+"/loadByClassnameAndSubject";
-		
-        	}
+        	
 			
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
@@ -1176,13 +1139,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
+  					
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1241,13 +1201,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassnameAndSubject";
+  					
+  		        		urlPassed= projectPath+"loadByClassnameAndSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1318,13 +1275,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
+  					
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1383,13 +1337,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassnameAndSubject";
+  					
+  		        		urlPassed= projectPath+"loadByClassnameAndSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1461,13 +1412,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
+  					
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
-  				
-  		        	}
+  		        	
   				
   					$.ajax({
   					  	type: "POST",
@@ -1527,13 +1475,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassnameAndSubject";
+  					
+  		        		urlPassed= projectPath+"loadByClassnameAndSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1603,13 +1548,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}
+  		        	
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -1672,13 +1614,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassnameAndSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
+  		        		urlPassed= projectPath+"loadByClassnameAndSubject";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1748,13 +1687,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
+  					
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1813,13 +1749,10 @@ $(function(){
   				
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassnameAndSubject";
+  					
+  		        		urlPassed= projectPath+"loadByClassnameAndSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
   					  	type: "POST",
@@ -1895,13 +1828,10 @@ $(function(){
 				
 				var urlPassed;
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/validateEmail";
+				
+	        		urlPassed= projectPath+"validateEmail";
 			
-	        	}else{
-	        		urlPassed= projectName+"/validateEmail";
-			
-	        	}
+	        	
 				
 				if(emailL[0].length>0){
 				if(validateEmail(emailL)){
@@ -1963,13 +1893,10 @@ $(function(){
 				
 				var urlPassed;
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/validateEmail";
+				
+	        		urlPassed= projectPath+"validateEmail";
 			
-	        	}else{
-	        		urlPassed= projectName+"/validateEmail";
-			
-	        	}
+	        	
 				
 				if(emailP[0].length>0){
 				if(validateEmail(emailP)){
@@ -2031,13 +1958,10 @@ $(function(){
 				
 				var urlPassed;
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/validateEmail";
+				
+	        		urlPassed= projectPath+"validateEmail";
 			
-	        	}else{
-	        		urlPassed= projectName+"/validateEmail";
-			
-	        	}
+	        	
 				
 				if(emailT[0].length>0){
 				if(validateEmail(emailT)){
@@ -2115,13 +2039,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
+  					
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
-  				
-  		        	}
+  		        	
   		
   				
   					$.ajax({
@@ -2171,13 +2092,10 @@ $(function(){
   	  					
   	  					var urlPassedTemp;
   	  					
-  	  					if(DeploymentType){								// Url Creation based on depolyment 
-  	  						urlPassedTemp= "/loadByTopicName";
+  	  					
+  	  		        		urlPassedTemp= projectPath+"loadByTopicName";
   	  				
-  	  		        	}else{
-  	  		        		urlPassedTemp= projectName+"/loadByTopicName";
-  	  				
-  	  		        	}
+  	  		        	
   	  		
   	  				
   	  					$.ajax({
@@ -2237,13 +2155,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadBySubjectName";
+  					
+  		        		urlPassed= projectPath+"loadBySubjectName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadBySubjectName";
-  				
-  		        	}
+  		        	
   		
   				
   					$.ajax({
@@ -2293,13 +2208,10 @@ $(function(){
   	  					
   	  					var urlPassedTemp;
   	  					
-  	  					if(DeploymentType){								// Url Creation based on depolyment 
-  	  						urlPassedTemp= "/loadByTopicName";
+  	  					
+  	  		        		urlPassedTemp= projectPath+"loadByTopicName";
   	  				
-  	  		        	}else{
-  	  		        		urlPassedTemp= projectName+"/loadByTopicName";
-  	  				
-  	  		        	}
+  	  		        	
   	  		
   	  				
   	  					$.ajax({
@@ -2361,13 +2273,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
+  					
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
-  				
-  		        	}
+  		        	
   		
   				
   					$.ajax({
@@ -2427,13 +2336,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassnameAndSubject";
+  					
+  		        		urlPassed= projectPath+"loadByClassnameAndSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
-  				
-  		        	}
+  		        	
   				
   					$.ajax({
   					  	type: "POST",
@@ -2524,13 +2430,9 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassName";
+  		        		urlPassed= projectPath+"loadByClassName";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassName";
-  				
-  		        	}
+  		        	
   		
   				
   					$.ajax({
@@ -2590,13 +2492,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClassnameAndSubject";
+  					
+  		        		urlPassed= projectPath+"loadByClassnameAndSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClassnameAndSubject";
-  				
-  		        	}
+  		        	
   				
   					$.ajax({
   					  	type: "POST",
@@ -2676,13 +2575,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidity";
+  					
+  		        		urlPassed= projectPath+"loadByValidity";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidity";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -2733,13 +2629,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityTopic";
+  					
+  		        		urlPassed= projectPath+"loadByValidityTopic";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityTopic";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -2788,13 +2681,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityPhet";
+  					
+  		        		urlPassed= projectPath+"loadByValidityPhet";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityPhet";
-  				
-  		        	}
+  		        	
   					
   					
   					
@@ -2845,13 +2735,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityLesson";
+  					
+  		        		urlPassed= projectPath+"loadByValidityLesson";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityLesson";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -2900,13 +2787,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityDocument";
+  					
+  		        		urlPassed= projectPath+"loadByValidityDocument";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityDocument";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -2955,13 +2839,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityArticle";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityArticle";
+  		        		urlPassed= projectPath+"loadByValidityArticle";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3010,13 +2891,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityQuiz";
+  					
+  		        		urlPassed= projectPath+"loadByValidityQuiz";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityQuiz";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3065,13 +2943,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityVideo";
+  					
+  		        		urlPassed= projectPath+"loadByValidityVideo";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityVideo";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3120,13 +2995,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityConcept";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityConcept";
+  		        		urlPassed= projectPath+"loadByValidityConcept";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3176,13 +3048,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByValidityTutorial";
+  					
+  		        		urlPassed= projectPath+"loadByValidityTutorial";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByValidityTutorial";
-  				
-  		        	}
+  		        	
   					
   					
   					$.ajax({
@@ -3250,13 +3119,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByUser";
+  					
+  		        		urlPassed= projectPath+"loadByUser";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByUser";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3334,13 +3200,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByClass";
+  					
+  		        		urlPassed= projectPath+"loadByClass";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByClass";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3378,13 +3241,10 @@ $(function(){
   					
   					
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadBySubject";
+  					
+  		        		urlPassed= projectPath+"loadBySubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadBySubject";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3416,13 +3276,9 @@ $(function(){
   					
   					
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadBySubjectClass";
+  		        		urlPassed= projectPath+"loadBySubjectClass";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadBySubjectClass";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3500,13 +3356,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/updateSubject";
+  					
+  		        		urlPassed= projectPath+"updateSubject";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/updateSubject";
-  				
-  		        	}
+  		        	
   			
   					
   					$.ajax({
@@ -3572,13 +3425,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByTopic";
+  					
+  		        		urlPassed= projectPath+"loadByTopic";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByTopic";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3605,13 +3455,10 @@ $(function(){
   					
   				
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByTopicDesc";
+  					
+  		        		urlPassed= projectPath+"loadByTopicDesc";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByTopicDesc";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3692,13 +3539,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByQuizQuestionID";
+  					
+  		        		urlPassed= projectPath+"loadByQuizQuestionID";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByQuizQuestionID";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3789,13 +3633,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByVideoID";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByVideoID";
+  		        		urlPassed= projectPath+"loadByVideoID";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -3827,13 +3668,9 @@ $(function(){
   					
   	
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByVideoIDSource";
+  		        		urlPassed= projectPath+"loadByVideoIDSource";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByVideoIDSource";
-  				
-  		        	}
+  		        	
   					
   					
   					$.ajax({
@@ -3866,13 +3703,10 @@ $(function(){
 					});
   					
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByVideoIDUrl";
+  					
+  		        		urlPassed= projectPath+"loadByVideoIDUrl";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByVideoIDUrl";
-  				
-  		        	}
+  		        	
   					
   					
   					$.ajax({
@@ -3962,13 +3796,10 @@ $(function(){
   	  					
   	  					var urlPassed;
   					
-  	  					if(DeploymentType){								// Url Creation based on depolyment 
-  	  						urlPassed= "/loadByConceptID";
+  	  					
+  		        		urlPassed= projectPath+"loadByConceptID";
   				
-  	  					}else{
-  		        		urlPassed= projectName+"/loadByConceptID";
-  				
-  	  					}
+  	  					
   	  					
   	  					$.ajax({
   						  	type: "POST",
@@ -4054,13 +3885,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByArtcileID";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByArtcileID";
+  		        		urlPassed= projectPath+"loadByArtcileID";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4088,13 +3916,10 @@ $(function(){
   					
   			
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByArtcileIDDesc";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByArtcileIDDesc";
+  		        		urlPassed= projectPath+"loadByArtcileIDDesc";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4167,14 +3992,10 @@ $(function(){
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
   					var urlPassed;
-  					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByDocumentID";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByDocumentID";
+  		        	urlPassed= projectPath+"loadByDocumentID";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4201,14 +4022,9 @@ $(function(){
   					
   					
   				
-  					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByDocumentIDDesc";
+  		        		urlPassed= projectPath+"loadByDocumentIDDesc";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByDocumentIDDesc";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4327,13 +4143,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByphetID";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByphetID";
+  		        		urlPassed= projectPath+"loadByphetID";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4361,13 +4174,10 @@ $(function(){
   					
   					
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByphetIDDesc";
+  			
+  		        		urlPassed= projectPath+"loadByphetIDDesc";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByphetIDDesc";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4448,13 +4258,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByVideoComment";
+  					
+  		        		urlPassed= projectPath+"loadByVideoComment";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByVideoComment";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4498,13 +4305,9 @@ $(function(){
 					       			 
 					       		
 									
-									if(DeploymentType){								// Url Creation based on depolyment 
-										urlPassed= "/loadReplyOnComment";
+						        		urlPassed= projectPath+"loadReplyOnComment";
 								
-						        	}else{
-						        		urlPassed= projectName+"/loadReplyOnComment";
-								
-						        	}
+						        	
 					       			 
 					       			
 					       			$.ajax({
@@ -4650,13 +4453,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/uploadCommentOnVideo";
+  					
+  		        		urlPassed= projectPath+"uploadCommentOnVideo";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/uploadCommentOnVideo";
-  				
-  		        	}
+  		        	
   					
   					
   					$.ajax({
@@ -4725,13 +4525,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByArticleComment";
+  					
+  		        		urlPassed= projectPath+"loadByArticleComment";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByArticleComment";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4773,13 +4570,10 @@ $(function(){
 					       			 
 					       		
 									
-									if(DeploymentType){								// Url Creation based on depolyment 
-										urlPassed= "/loadReplyOnComment";
+									
+						        		urlPassed= projectPath+"loadReplyOnComment";
 								
-						        	}else{
-						        		urlPassed= projectName+"/loadReplyOnComment";
-								
-						        	}
+						        	
 					       			
 					       			$.ajax({
 					       				
@@ -4922,13 +4716,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/uploadCommentOnArticle";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/uploadCommentOnArticle";
+  		        		urlPassed= projectPath+"uploadCommentOnArticle";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -4994,13 +4785,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByDocumentComment";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByDocumentComment";
+  		        		urlPassed= projectPath+"loadByDocumentComment";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -5042,13 +4830,10 @@ $(function(){
 					       			 
 					       			
 									
-									if(DeploymentType){								// Url Creation based on depolyment 
-										urlPassed= "/loadReplyOnComment";
 								
-						        	}else{
-						        		urlPassed= projectName+"/loadReplyOnComment";
+						        		urlPassed= projectPath+"loadReplyOnComment";
 								
-						        	}
+						        	
 					       			
 					       			$.ajax({
 					       				
@@ -5193,13 +4978,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/uploadCommentOnDocument";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/uploadCommentOnDocument";
+  		        		urlPassed= projectPath+"uploadCommentOnDocument";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -5263,13 +5045,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByConceptComment";
+  					
+  		        		urlPassed= projectPath+"loadByConceptComment";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByConceptComment";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -5311,13 +5090,9 @@ $(function(){
 					       			 
 					       			
 									
-									if(DeploymentType){								// Url Creation based on depolyment 
-										urlPassed= "/loadReplyOnComment";
+						        		urlPassed= projectPath+"loadReplyOnComment";
 								
-						        	}else{
-						        		urlPassed= projectName+"/loadReplyOnComment";
-								
-						        	}
+						        	
 					       			
 					       			$.ajax({
 					       				
@@ -5461,14 +5236,10 @@ $(function(){
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
   					var urlPassed;
-  					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/uploadCommentOnConcept";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/uploadCommentOnConcept";
+  		        		urlPassed= projectPath+"uploadCommentOnConcept";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -5536,13 +5307,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByQuizComment";
+  					
+  		        		urlPassed= projectPath+"loadByQuizComment";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByQuizComment";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -5584,13 +5352,10 @@ $(function(){
 					       			 
 					       		
 									
-									if(DeploymentType){								// Url Creation based on depolyment 
-										urlPassed= "/loadReplyOnComment";
+						
+						        		urlPassed= projectPath+"loadReplyOnComment";
 								
-						        	}else{
-						        		urlPassed= projectName+"/loadReplyOnComment";
-								
-						        	}
+						        	
 					       			
 					       			$.ajax({
 					       				
@@ -5736,13 +5501,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/uploadCommentOnQuiz";
+  					
+  		        		urlPassed= projectPath+"uploadCommentOnQuiz";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/uploadCommentOnQuiz";
-  				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -5807,14 +5569,10 @@ $(function(){
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
   					var urlPassed;
-  					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByLessonComment";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByLessonComment";
+  		        		urlPassed= projectPath+"loadByLessonComment";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -5855,13 +5613,10 @@ $(function(){
 					       			 
 					       			
 									
-									if(DeploymentType){								// Url Creation based on depolyment 
-										urlPassed= "/loadReplyOnComment";
+									
+						        		urlPassed= projectPath+"loadReplyOnComment";
 								
-						        	}else{
-						        		urlPassed= projectName+"/loadReplyOnComment";
-								
-						        	}
+						        	
 					       			
 					       			$.ajax({
 					       				
@@ -6004,13 +5759,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/uploadCommentOnLesson";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/uploadCommentOnLesson";
+  		        	urlPassed= projectPath+"uploadCommentOnLesson";
   				
-  		        	}
+  		        	
   					
   					$.ajax({
 					  	type: "POST",
@@ -6075,14 +5827,10 @@ $(function(){
   					
   					var urlPassed;
   					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/loadByPhetComment";
-  				
-  		        	}else{
-  		        		urlPassed= projectName+"/loadByPhetComment";
-  				
-  		        	}
   					
+  		        	urlPassed= projectPath+"loadByPhetComment";
+  				
+  		        	
   					$.ajax({
 					  	type: "POST",
 					  	
@@ -6124,13 +5872,9 @@ $(function(){
 					       			
 					       			
 									
-									if(DeploymentType){								// Url Creation based on depolyment 
-										urlPassed= "/loadReplyOnComment";
+						        		urlPassed= projectPath+"loadReplyOnComment";
 								
-						        	}else{
-						        		urlPassed= projectName+"/loadReplyOnComment";
-								
-						        	}
+						        	
 					       			
 					       			$.ajax({
 					       				
@@ -6273,15 +6017,9 @@ $(function(){
   					var header = $("meta[name='_csrf_header']").attr("content");
   					
   					var urlPassed;
-  					
-  					if(DeploymentType){								// Url Creation based on depolyment 
-  						urlPassed= "/uploadCommentOnPhet";
   				
-  		        	}else{
-  		        		urlPassed= projectName+"/uploadCommentOnPhet";
+  		        	urlPassed= projectPath+"uploadCommentOnPhet";
   				
-  		        	}
-  					
   					$.ajax({
 					  	type: "POST",
 			        	contentType: "application/json",
@@ -6364,15 +6102,10 @@ $(function(){
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
 			var urlPassed;
-			
-			if(DeploymentType){								// Url Creation based on depolyment 
-				urlPassed= "/updatePassword";
 		
-        	}else{
-        		urlPassed= projectName+"/updatePassword";
+        	urlPassed= projectPath+"updatePassword";
 		
-        	}
-			
+        
   			if(pass === confpass){
   				
   				var passwordData={
@@ -6495,15 +6228,9 @@ $(function(){
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
 			var urlPassed;
-			
-			if(DeploymentType){								// Url Creation based on depolyment 
-				urlPassed= "/updatePassword";
+			urlPassed= projectPath+"updatePassword";
 		
-        	}else{
-        		urlPassed= projectName+"/updatePassword";
-		
-        	}
-			
+        
   			if(pass === confpass){
   				
   				var passwordData={
@@ -6607,13 +6334,8 @@ $(function(){
 			
 			var urlPassed;
 			
-			if(DeploymentType){								// Url Creation based on depolyment 
-				urlPassed= "/updatePassword";
+        	urlPassed= projectPath+"updatePassword";
 		
-        	}else{
-        		urlPassed= projectName+"/updatePassword";
-		
-        	}
 			
   			if(pass === confpass){
   				
@@ -7138,12 +6860,6 @@ $(window).on('load',function(){
 })
 
 // -----------------------------------------AJAX FUNCTION FOR TOPIC---------------------------------------------------------------------------
-  	
-//var projectName="/schoolConnex";
-//
-//var DeploymentType=1;   //   use 0 -> Production Level
-//						//	 use 1 -> Inhouse Level code
-
 
 function fire_ajax_submit_Topic(){
 
@@ -7154,14 +6870,9 @@ function fire_ajax_submit_Topic(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateTopic";
 	
-    	}else{
-    		urlPassed= projectName+"/updateTopic";
+    	urlPassed= projectPath+"updateTopic";
 	
-    	}
 			
 	$.ajax({
 		type: "POST",
@@ -7215,15 +6926,10 @@ function fire_ajax_submit_Topic(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateQuiz";
 	
-    	}else{
-    		urlPassed= projectName+"/updateQuiz";
+    	urlPassed= projectPath+"updateQuiz";
 	
-    	}
-	
+    	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -7282,7 +6988,7 @@ function fire_ajax_submit_Topic(){
 //			$.ajax({
 //				type: "POST",
 //				enctype: 'multipart/form-data',
-//				url: /*projectName+*/"/updateQuiz",
+//				url: /*projectPath+*/"/updateQuiz",
 //				data:data,
 //				beforeSend: function(xhr) {
 //                     xhr.setRequestHeader(header, token);
@@ -7327,14 +7033,10 @@ function fire_ajax_submit_Topic(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateVideo";
 	
-    	}else{
-    		urlPassed= projectName+"/updateVideo";
+    	urlPassed= projectPath+"updateVideo";
 	
-    	}
+    
 	
 			$.ajax({
 				type: "POST",
@@ -7381,14 +7083,10 @@ function fire_ajax_submit_Topic(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateVideoUpload";
 	
-    	}else{
-    		urlPassed= projectName+"/updateVideoUpload";
+    	urlPassed= projectPath+"updateVideoUpload";
 	
-    	}
+    	
 	
 			$.ajax({
 				type: "POST",
@@ -7437,7 +7135,7 @@ function fire_ajax_submit_Topic(){
 //			$.ajax({
 //				type: "POST",
 //				enctype: 'multipart/form-data',
-//				url:/* projectName+*/"/updateVideo",
+//				url:/* projectPath+*/"/updateVideo",
 //				data:data,
 //				beforeSend: function(xhr) {
 //                     xhr.setRequestHeader(header, token);
@@ -7486,14 +7184,9 @@ function fire_ajax_submit_Topic(){
 		
 		var urlPassed;
 		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateConcept";
+    	urlPassed= projectPath+"updateConcept";
 	
-    	}else{
-    		urlPassed= projectName+"/updateConcept";
-	
-    	}
-	
+    	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -7546,7 +7239,7 @@ function fire_ajax_submit_Topic(){
 //			$.ajax({
 //				type: "POST",
 //				enctype: 'multipart/form-data',
-//				url: projectName+"/updateConcept",
+//				url: projectPath+"/updateConcept",
 //				data:data,
 //				beforeSend: function(xhr) {
 //                     xhr.setRequestHeader(header, token);
@@ -7595,7 +7288,7 @@ function fire_ajax_submit_Topic(){
 //			$.ajax({
 //				type: "POST",
 //				enctype: 'multipart/form-data',
-//				url: /*projectName+*/"/updateArticle",
+//				url: /*projectPath+*/"/updateArticle",
 //				data:data,
 //				beforeSend: function(xhr) {
 //                     xhr.setRequestHeader(header, token);
@@ -7638,15 +7331,10 @@ function fire_ajax_submit_Article(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateArticle";
 	
-    	}else{
-    		urlPassed= projectName+"/updateArticle";
+    	urlPassed= projectPath+"updateArticle";
 	
-    	}
-	
+    	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -7695,14 +7383,9 @@ function fire_ajax_submit_Article(){
 		
 		var urlPassed;
 		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateDocument";
+    	urlPassed= projectPath+"updateDocument";
 	
-    	}else{
-    		urlPassed= projectName+"/updateDocument";
-	
-    	}
-	
+    	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -7752,7 +7435,7 @@ function fire_ajax_submit_Article(){
 //			$.ajax({
 //				type: "POST",
 //				enctype: 'multipart/form-data',
-//				url:/* projectName+*/"/updateDocument",
+//				url:/* projectPath+*/"/updateDocument",
 //				data:data,
 //				beforeSend: function(xhr) {
 //                     xhr.setRequestHeader(header, token);
@@ -7798,7 +7481,7 @@ function fire_ajax_submit_Article(){
 //			$.ajax({
 //				type: "POST",
 //				enctype: 'multipart/form-data',
-//				url:/* projectName+*/"/updatePhet",
+//				url:/* projectPath+*/"/updatePhet",
 //				data:data,
 //				beforeSend: function(xhr) {
 //                     xhr.setRequestHeader(header, token);
@@ -7840,14 +7523,8 @@ function fire_ajax_submit_Article(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updatePhet";
 	
-    	}else{
-    		urlPassed= projectName+"/updatePhet";
-	
-    	}
+    	urlPassed= projectPath+"updatePhet";
 	
 			$.ajax({
 				type: "POST",
@@ -7897,14 +7574,9 @@ function fire_ajax_submit_Lesson(){
 		
 		var urlPassed;
 		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/updateLesson";
+    	urlPassed= projectPath+"updateLesson";
 	
-    	}else{
-    		urlPassed= projectName+"/updateLesson";
-	
-    	}
-	
+    
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -7952,7 +7624,7 @@ function fire_ajax_submit_Lesson(){
 //		$.ajax({
 //			type: "POST",
 //			enctype: 'multipart/form-data',
-//			url: /*projectName+*/"/updateLesson",
+//			url: /*projectPath+*/"/updateLesson",
 //			data:data,
 //			beforeSend: function(xhr) {
 //                 xhr.setRequestHeader(header, token);
@@ -7997,15 +7669,10 @@ function fire_ajax_submit_Lesson(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/addArticleFromUser";
 	
-    	}else{
-    		urlPassed= projectName+"/addArticleFromUser";
+    	urlPassed= projectPath+"addArticleFromUser";
 	
-    	}
-	
+    	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -8065,14 +7732,8 @@ function fire_ajax_submit_Lesson(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/addQuizFromUser";
 	
-    	}else{
-    		urlPassed= projectName+"/addQuizFromUser";
-	
-    	}
+    	urlPassed= projectPath+"addQuizFromUser";
 	
 			$.ajax({
 				type: "POST",
@@ -8133,15 +7794,10 @@ function addLesson(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var urlPassed;
-		
-		if(DeploymentType){								// Url Creation based on depolyment 
-			urlPassed= "/addLessonFromUser";
 	
-    	}else{
-    		urlPassed= projectName+"/addLessonFromUser";
+    	urlPassed= projectPath+"addLessonFromUser";
 	
-    	}
-	
+    	
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -8196,14 +7852,9 @@ function addPhet(){
 	
 	var urlPassed;
 	
-	if(DeploymentType){								// Url Creation based on depolyment 
-		urlPassed= "/addPhetFromUser";
+	urlPassed= projectPath+"addPhetFromUser";
 
-	}else{
-		urlPassed= projectName+"/addPhetFromUser";
-
-	}
-
+	
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
@@ -8262,15 +7913,10 @@ function addDocument(){
 	var header = $("meta[name='_csrf_header']").attr("content");
 	
 	var urlPassed;
+
+	urlPassed= projectPath+"addDocumentFromUser";
+
 	
-	if(DeploymentType){								// Url Creation based on depolyment 
-		urlPassed= "/addDocumentFromUser";
-
-	}else{
-		urlPassed= projectName+"/addDocumentFromUser";
-
-	}
-
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
@@ -8330,14 +7976,9 @@ function addConcept(){
 	
 	var urlPassed;
 	
-	if(DeploymentType){								// Url Creation based on depolyment 
-		urlPassed= "/addConceptFromUser";
+	urlPassed= projectPath+"addConceptFromUser";
 
-	}else{
-		urlPassed= projectName+"/addConceptFromUser";
-
-	}
-
+	
 		$.ajax({
 			type: "POST",
 			enctype: 'multipart/form-data',
@@ -8395,14 +8036,7 @@ function addVideo(){
 	var header = $("meta[name='_csrf_header']").attr("content");
 	
 	var urlPassed;
-	
-	if(DeploymentType){								// Url Creation based on depolyment 
-		urlPassed= "/addVideoFromUser";
-
-	}else{
-		urlPassed= projectName+"/addVideoFromUser";
-
-	}
+	urlPassed= projectPath+"addVideoFromUser";
 
 		$.ajax({
 			type: "POST",
@@ -8465,13 +8099,8 @@ function updateProfilePicture(){
 	
 	var urlPassed;
 	
-	if(DeploymentType){								// Url Creation based on depolyment 
-		urlPassed= "/updateProfilePic";
+	urlPassed= projectPath+"updateProfilePic";
 
-	}else{
-		urlPassed= projectName+"/updateProfilePic";
-
-	}
 
 		$.ajax({
 			type: "POST",
@@ -8527,13 +8156,7 @@ function fire_ajax_submit_Event(){
 	
 	var urlPassed;
 	
-	if(DeploymentType){								// Url Creation based on depolyment 
-		urlPassed= "/updateEvent";
-
-	}else{
-		urlPassed= projectName+"/updateEvent";
-
-	}
+	urlPassed= projectPath+"updateEvent";
 	
 	$.ajax({
 		type: "POST",

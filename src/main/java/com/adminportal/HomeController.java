@@ -499,21 +499,30 @@ public class HomeController {
 			return mv;
 		}
 
-		String token = UUID.randomUUID().toString();
-		usr.setToken(token);
+		try {
+			String token = UUID.randomUUID().toString();
+			usr.setToken(token);
 
-		userService.save(usr);
+			userService.save(usr);
 
-		String appUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		System.out.println(appUrl);
-		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, req.getLocale(), token, usr);
+			String appUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+			System.out.println(appUrl);
+			SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, req.getLocale(), token, usr);
 
-		mailSender.send(newEmail);
+			mailSender.send(newEmail);
 
-		mv.addObject("Success", "Link to reset password has been sent to your E-mail ID");
+			mv.addObject("Success", "Link to reset password has been sent to your E-mail ID");
 
-		mv.setViewName("forgetPassword");
-		return mv;
+			mv.setViewName("forgetPassword");
+			return mv;
+		} catch (MailException e) {
+			
+			e.printStackTrace();
+			mv.addObject("Error", "Technical Error");
+
+			mv.setViewName("forgetPassword");
+			return mv;
+		}
 
 	}
 

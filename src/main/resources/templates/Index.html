@@ -336,9 +336,6 @@
 	<div th:replace="common/header ::footer"></div>
 
 
-	<!--  COMMON CODE FOR LIBRARY ADDED -->
-	<div th:replace="common/header :: body-bottom-scripts"></div>
-
 	<!-- Modal  for previewing the Images -->
 	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -412,14 +409,15 @@
 	  </div>
 	</div>
 	
+		<!--  COMMON CODE FOR LIBRARY ADDED -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	
 	<script  th:inline="javascript">
 	
+	var projectPath='[(@{/})]';
+	
 	$(function(){
-		
-		var projectName="/schoolConnex";
-		var DeploymentType=0;   //   use 0 -> Production Level
-								//	 use 1 -> Inhouse Level code
-		
+							
 		$('.testimonialModal').click(function(){
 			var testi_id=$(this).attr('value');
 			
@@ -432,14 +430,8 @@
 				
 				var urlPassed;
 				
-				if(DeploymentType){								// Url Creation based on depolyment 
-					urlPassed= "/loadByTestimonialID";
+	        	urlPassed= projectPath+"loadByTestimonialID";
 			
-	        	}else{
-	        		urlPassed= projectName+"/loadByTestimonialID";
-			
-	        	}
-				
 				var token = $("meta[name='_csrf']").attr("content");
 				var header = $("meta[name='_csrf_header']").attr("content");
 				

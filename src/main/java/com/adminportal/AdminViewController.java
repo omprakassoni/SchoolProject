@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -787,8 +788,40 @@ public class AdminViewController {
 		statusApprove=userService.enableApproveTeacher(1, id);
 	
 		if(statusReg && statusApprove) {
-//			SimpleMailMessage emailSend=mailConstructor.confirmOnApproveTeacher(usrApprove);
-//			mailSender.send(emailSend);
+			try {
+				SimpleMailMessage emailSend=mailConstructor.confirmOnApproveTeacher(usrApprove);
+				mailSender.send(emailSend);
+			} catch (MailException e) {
+				
+				e.printStackTrace();
+				mv.addObject("status", "User Enabled Successfully");
+				List<User> local=new ArrayList<User>();
+				
+				List<User> usr= userService.findAll();
+				
+				for(User a:usr) {
+					List<UserRole> userRole=a.getUserRoles();
+					for(UserRole x:userRole) {
+						if(x.getRole().getRoleName().contentEquals("Teacher") && a.getRegistered()==0) {
+							local.add(a);
+						}
+					}
+				}
+					
+					if(!local.isEmpty()) {
+						mv.addObject("UserTeacher", local);
+						
+					}else {
+						mv.addObject("TeacherStatus","No Entries Present To Approve");
+					}
+				
+				
+				mv.setViewName("approveRejectTeacher");
+				
+			
+				return mv;
+			}
+			
 			mv.addObject("status", "User Enabled Successfully");
 		}else {
 			mv.addObject("status", "Please try Again");

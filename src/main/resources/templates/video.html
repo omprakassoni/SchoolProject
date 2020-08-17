@@ -431,7 +431,10 @@
      <!--  COMMON CODE FOR LIBRARY ADDED -->
 	<div th:replace="common/header :: body-bottom-scripts-Dashboard"></div>
 	
-	<script>
+	<script th:inline="javascript">
+
+	var projectPath='[(@{/})]';
+
 	$(document).ready(function() {
 		
 	    $("input[name$='videoType']").click(function() {
