@@ -180,16 +180,16 @@
 												<span th:each="subject:${Subject}">
 													<tr class="clickable-row">
 														
-														<td><span th:text="${subject.getSubName()}"></span></td>
-														<td><span th:with="classs=${subject.getSubClasMapp()}">
-																<span th:each="class:${classs}"> <span
-																	th:text="'Class '+${class.getStandard().getClassName()}"></span>
+														<td><span th:text="${subject.key.getSubName()}"></span></td>
+														<td>
+																<span th:each="class:${subject.value}"> 
+																<span th:text="'Class'+ ${class}" ></span>
 																	<br />
 															</span>
-														</span></td>
+														</td>
 					
 														<td><a class="btn spk-btn-sm detailSubject"
-															th:value="${subject.getSubId()}" id="detailSubject">Update</a>
+															th:value="${subject.key.getSubId()}" id="detailSubject">Update</a>
 														</td>
 					
 					
@@ -319,7 +319,7 @@
 						<div class="col-sm-6" style="font-size: 18px">
 							<div class="row ">
 
-								<input type="text" class="form-control" id="SubjectName"
+								<input type="text" class="form-control SubjectName" id="SubjectName"
 									value="">
 
 							</div>

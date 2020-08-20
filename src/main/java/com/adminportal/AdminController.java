@@ -18,8 +18,12 @@ import java.security.Provider.Service;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -215,7 +219,7 @@ public class AdminController {
 			userService.addUserToClass(usr, tempClass);											// pushing data into database 
 			mv.addObject("status", "Added Successfully");
 			}else {
-				mv.addObject("dataAvailable", "Class Already Exist");
+				mv.addObject("dataAvailable", "Class already exists");
 			}
 										
 
@@ -1011,6 +1015,9 @@ public class AdminController {
 		User localUser=userService.findByUsername(principal.getName());
 		
 		mv.addObject("LoggedUser",localUser);
+		
+		Map<Subject, List<Integer>>	SubjectEntry=new HashMap<Subject, List<Integer>>();
+		
 		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
 		
 		mv.addObject("classExist",classExist);
@@ -1018,7 +1025,17 @@ public class AdminController {
 		mv.setViewName("addSubject");										// setting view name
 		
 		List<Subject> subjectList=subjectService.findAll();
-		mv.addObject("Subject", subjectList);
+		for(Subject temp:subjectList) {
+			List<Integer> classWithSubject=new ArrayList<>();
+			for(SubjectClassMapping temp1:temp.getSubClasMapp()) {
+				classWithSubject.add(temp1.getStandard().getClassName());
+			}
+			Collections.sort(classWithSubject);
+			
+			SubjectEntry.put(temp, classWithSubject);
+		}
+		
+		mv.addObject("Subject", SubjectEntry);
 		
 		mv.addObject("viewActive","active");
 		return mv;
@@ -1031,6 +1048,7 @@ public class AdminController {
 			
 		int i=0;     
 		boolean subjectExist=false;
+		Map<Subject, List<Integer>>	SubjectEntry=new HashMap<Subject, List<Integer>>();
 		
 		User localUser=userService.findByUsername(principal.getName());
 		mv.addObject("LoggedUser",localUser);
@@ -1044,7 +1062,16 @@ public class AdminController {
 			mv.addObject("addActive","active");
 			
 			List<Subject> subjectList=subjectService.findAll();
-			mv.addObject("Subject", subjectList);
+			for(Subject temp:subjectList) {
+				List<Integer> classWithSubject=new ArrayList<>();
+				for(SubjectClassMapping temp1:temp.getSubClasMapp()) {
+					classWithSubject.add(temp1.getStandard().getClassName());
+				}
+				Collections.sort(classWithSubject);
+				
+				SubjectEntry.put(temp, classWithSubject);
+			}
+			mv.addObject("Subject", SubjectEntry);
 			
 			
 			mv.setViewName("addSubject");												// setting view name
@@ -1094,7 +1121,7 @@ public class AdminController {
 			
 		}else {
 	
-			mv.addObject("statusError", "Subject Exist");
+			mv.addObject("statusError", "Subject already exists");
 		}
 		
 		
@@ -1106,7 +1133,16 @@ public class AdminController {
 		mv.addObject("addActive","active");
 		
 		List<Subject> subjectList=subjectService.findAll();
-		mv.addObject("Subject", subjectList);
+		for(Subject temp:subjectList) {
+			List<Integer> classWithSubject=new ArrayList<>();
+			for(SubjectClassMapping temp1:temp.getSubClasMapp()) {
+				classWithSubject.add(temp1.getStandard().getClassName());
+			}
+			Collections.sort(classWithSubject);
+			
+			SubjectEntry.put(temp, classWithSubject);
+		}
+		mv.addObject("Subject", SubjectEntry);
 		
 		
 		mv.setViewName("addSubject");												// setting view name

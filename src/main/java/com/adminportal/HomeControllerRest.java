@@ -1021,18 +1021,29 @@ public class HomeControllerRest {
 			System.out.println(sub);
 			Subject subject=subjectService.findById(idsub);
 			
+			
+			if(!(data.get(size-1).length()>0)) {
+				msg.add("failure");
+				
+				return msg;
+			}
 			ArrayList<Subject> subjectTemp=(ArrayList<Subject>) subjectService.findAll();
 			for(Subject temp:subjectTemp) {
+				if(temp.getSubId()!=subject.getSubId()) {
 				if(data.get(size-1).equalsIgnoreCase(temp.getSubName())) {
 					subjectExist=true;
+				}
 				}
 			}
 			
 			if(!ServiceUtility.checkContainNumeralInString(data.get(size-1)) || subjectExist) {
 				msg.add("failure");
+				
 				return msg;
 				
 			}
+			
+			
 			
 			subjectService.updateSubjectName(data.get(size-1), idsub);
 				
@@ -1052,6 +1063,7 @@ public class HomeControllerRest {
 			
 		}else {
 			msg.add("failure");
+			System.out.println("vikashSOni");
 			return msg;
 			
 		}

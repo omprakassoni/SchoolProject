@@ -617,8 +617,8 @@ $(function(){
 	       			 
 	       			
 	       			$('#testimonialDesc').val(data["description"]);
-	       			$('#testimonialName').attr('value',data["name"]);
-	       			$('#testimonialOrg').attr('value',data["organization"]);
+	       			$('#testimonialName').val(data["name"]);
+	       			$('#testimonialOrg').val(data["organization"]);
 	       		
 				},
 				
@@ -674,8 +674,8 @@ $(function(){
 	       			 
 	       			
 	       			$('#eventDesc').val(data["description"]);
-	       			$('#eventHead').attr('value',data["headline"]);
-	       			$('#eventCoordName').attr('value',data["coordName"]);
+	       			$('#eventHead').val(data["headline"]);
+	       			$('#eventCoordName').val(data["coordName"]);
 	       			$('#startDate').val(data["dateToHappenStart"]);
 	       			$('#endDate').val(data["dateToHappenEnd"]);
 	       			$('#regStartDate').val(data["registStart"]);
@@ -3191,6 +3191,7 @@ $(function(){
 							"subId":subject_id
 					};
   					
+  					$('.SubjectName').val("");
   					$('#updateSubject').prop('disabled',false);
   					$('#Success').css({"display": "none"}); 
 	    			$('#Failure').css({"display": "none"});
@@ -3262,8 +3263,8 @@ $(function(){
 			       			 var len = data.length;
 			       			 
 			       			
-			       			$('#SubjectName').attr('value',data["subName"]);
-						  
+
+			       			$('.SubjectName').val(data["subName"]);
 			       		
 						},
 						
@@ -3349,7 +3350,7 @@ $(function(){
 	       				});
   					
   					dataSubject[i++]=$(this).val();
-  					dataSubject[i]=$('#SubjectName').val();
+  					dataSubject[i]=$('.SubjectName').val();
   					
   					var token = $("meta[name='_csrf']").attr("content");
   					var header = $("meta[name='_csrf_header']").attr("content");
@@ -3443,7 +3444,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#topicName').attr('value',data[0]);
+			       			$('#topicName').val(data[0]);
 			       		
 						},
 						
@@ -3557,7 +3558,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#remark').attr('value',data[0]);
+			       			$('#remark').val(data[0]);
 			       		
 						},
 						
@@ -3687,9 +3688,9 @@ $(function(){
 			       		 success: function (data){
 			       			 
 			       			if(data[1]=="Upload"){
-			       				$('#videosourceUpload').attr('value',data[0]);
+			       				$('#videosourceUpload').val(data[0]);
 			       			}else{
-			       				$('#videosource').attr('value',data[0]);
+			       				$('#videosource').val(data[0]);
 			       			}
 			       			
 			       			
@@ -3815,7 +3816,7 @@ $(function(){
   				       		 success: function (data){
   				       			
   				       			$('#conceptDesc').val(data[0]);
-  				       			$('#conceptHeadline').attr('value',data[1]);
+  				       			$('#conceptHeadline').val(data[1]);
   				       		
   							},
   							
@@ -3903,7 +3904,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#articlesource').attr('value',data[0]);
+			       			$('#articlesource').val(data[0]);
 			       		
 						},
 						
@@ -4010,7 +4011,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#documentsource').attr('value',data[0]);
+			       			$('#documentsource').val(data[0]);
 			       		
 						},
 						
@@ -4161,7 +4162,7 @@ $(function(){
 			        	 timeout: 600000,
 			       		 success: function (data){
 			       			
-			       			$('#phetsource').attr('value',data[0]);
+			       			$('#phetsource').val(data[0]);
 			       		
 						},
 						
