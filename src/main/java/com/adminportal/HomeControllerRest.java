@@ -1219,9 +1219,9 @@ public class HomeControllerRest {
 		
 		Path deletepreviousAnswer=Paths.get(previousAnswer);
 		
-		String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
+		String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getQuizQuestionId()+"/Question/";
 		
-		String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
+		String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getQuizQuestionId()+"/Answer/";
 		
 		String questiontemp=ServiceUtility.uploadFile(uploadQuestion, pathToUploadQuestion);
 		String answertemp=ServiceUtility.uploadFile(uploadAnswer, pathToUploadAnswer);
@@ -1265,7 +1265,7 @@ public class HomeControllerRest {
 			
 			Path deletepreviousAnswer=Paths.get(previousAnswer);
 			
-			String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Answer/";
+			String pathToUploadAnswer=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getQuizQuestionId()+"/Answer/";
 			
 			String answertemp=ServiceUtility.uploadFile(uploadAnswer, pathToUploadAnswer);
 			
@@ -1302,7 +1302,7 @@ public class HomeControllerRest {
 	
 			Path deletepreviousQuestion=Paths.get(previousQuestion);
 			
-			String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getRemark()+"/Question/";
+			String pathToUploadQuestion=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+tempQuiz.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+tempQuiz.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+tempQuiz.getTopic().getTopicId()+"/"+"Quiz/"+tempQuiz.getQuizQuestionId()+"/Question/";
 			
 			String questiontemp=ServiceUtility.uploadFile(uploadQuestion, pathToUploadQuestion);
 			
@@ -1381,7 +1381,7 @@ public class HomeControllerRest {
 			String previousPath=env.getProperty("spring.applicationexternalPath.name")+docuTemp.getUrl();
 			Path deletePreviousPath=Paths.get(previousPath);
 			
-			String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+docuTemp.getTopic().getTopicId()+"/"+"Document/";
+			String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+docuTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+docuTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+docuTemp.getTopic().getTopicId()+"/"+"Document/"+docuTemp.getDocumentId()+"/";
 			
 			String document=ServiceUtility.uploadFile(uploadQuestion, uploadDocument);
 			
@@ -1463,7 +1463,7 @@ public class HomeControllerRest {
 			String previousPath=env.getProperty("spring.applicationexternalPath.name")+conceptTemp.getUrl();
 			Path deletePreviousPath=Paths.get(previousPath);
 			
-			String uploadconceptImage=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+conceptTemp.getTopic().getTopicId()+"/"+"ConceptMap/";
+			String uploadconceptImage=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+conceptTemp.getTopic().getTopicId()+"/"+"ConceptMap/"+conceptTemp.getConcepMapid()+"/";
 			
 			String document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
 			
@@ -1711,7 +1711,7 @@ public class HomeControllerRest {
 		String previousPath=env.getProperty("spring.applicationexternalPath.name")+lessonTemp.getLessonPlan();
 		Path deletePreviousPath=Paths.get(previousPath);
 		
-		String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+lessonTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+lessonTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+lessonTemp.getTopic().getTopicId()+"/"+"Lessonplan/";
+		String uploadDocument=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+lessonTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+lessonTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+lessonTemp.getTopic().getTopicId()+"/"+"Lessonplan/"+lessonTemp.getLessonPlanId()+"/";
 		
 		String document=ServiceUtility.uploadFile(uploadLessonPlan, uploadDocument);
 		

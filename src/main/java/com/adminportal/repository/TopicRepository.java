@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.SubjectClassMapping;
 import com.adminportal.content.Topic;
@@ -47,5 +48,10 @@ public interface TopicRepository extends CrudRepository<Topic, Integer> {
 	@Modifying
 	@Query("update Topic set poster=?1 where topicId=?2")
 	int updateTopicPoster(String path,int topicId);
+	
+	@Modifying
+	@Query("delete from Topic U where U.topicId=?1")
+	@Transactional
+	void deleteTopic(int topicID);
 	
 }

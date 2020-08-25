@@ -104,5 +104,16 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 		
 		return lessonRepo.findAllByTopicAndStatus(topic, 1,"Lesson");
 	}
+	@Override
+	public int save(LessonPlan temp) {
+		lessonRepo.save(temp);
+		return 0;
+	}
+	@Override
+	public void deleteLessonPlan(LessonPlan lesson) {
+		// TODO Auto-generated method stub
+		
+		lessonRepo.deleteLesson(lesson.getLessonPlanId());
+	}
 
 }

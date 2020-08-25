@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.Testimonial;
 
@@ -17,5 +18,10 @@ public interface TestimonialRepository extends CrudRepository<Testimonial, Integ
 	@Modifying
 	@Query("update Testimonial set name=?1,description=?2,organization=?3 where testimonialId=?4")	// updating testimonial
 	int updateTestimonial(String name,String desc,String org,int id);
+	
+	@Modifying
+	@Query("delete from Testimonial U where U.testimonialId=?1")
+	@Transactional
+	void deleteTestimonial(int testiID);
 
 }

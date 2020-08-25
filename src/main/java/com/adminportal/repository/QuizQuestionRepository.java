@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.Phets;
@@ -53,6 +54,11 @@ public interface QuizQuestionRepository extends CrudRepository<QuizQuestion, Int
 	@Modifying
 	@Query("update QuizQuestion set answer=?1, dateModified=?2 where quizQuestionId=?3")	//updating Quiz Information
 	int updateQuizAnswer(String answer,Timestamp date,int quizId);
+	
+	@Modifying
+	@Query("delete from QuizQuestion U where U.quizQuestionId=?1")
+	@Transactional
+	void deleteQuiz(int quizID);
 	
 }
 

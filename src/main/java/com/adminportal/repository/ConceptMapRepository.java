@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.ConceptMap;
@@ -49,4 +50,9 @@ public interface ConceptMapRepository extends  CrudRepository<ConceptMap, Intege
 	@Modifying
 	@Query("update ConceptMap set description=?1,remark=?2,dateModified=?3 where concepMapid=?4")	// updating Concept-map  Information
 	int updateConceptMapDesc(String desc,String remark,Timestamp date,int id);
+	
+	@Modifying
+	@Query("delete from ConceptMap U where U.concepMapid=?1")
+	@Transactional
+	void deleteConcep(int conceptID);
 }

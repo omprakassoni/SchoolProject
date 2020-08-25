@@ -38,4 +38,8 @@ public interface DocumentExternalService {
 	
 	List<DocumentExternal> findAllByTopicAndStatus(Topic topic);
 	
+	int save(DocumentExternal temp);
+	
+	void deleteDocuemnt(DocumentExternal document);
+	
 }

@@ -40,9 +40,6 @@ public class TopicServiceimpl implements TopicService {
 	private TopicRepository topicRepo;
 	
 	
-	
-	
-	
 	@Override
 	public List<Topic> findBysubjectclassMapping(SubjectClassMapping local) {
 		System.out.println("vikash");
@@ -131,6 +128,11 @@ public class TopicServiceimpl implements TopicService {
 		}else {
 			return false;
 		}
+	}
+	@Override
+	public void deleteTopic(Topic topic) {
+		// TODO Auto-generated method stub
+		topicRepo.deleteTopic(topic.getTopicId());
 	}
 	
 	

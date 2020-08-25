@@ -125,4 +125,18 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		}
 	}
 
+	@Override
+	public int save(DocumentExternal temp) {
+		documentRepo.save(temp);
+		
+		return 0;
+	}
+
+	@Override
+	public void deleteDocuemnt(DocumentExternal document) {
+		// TODO Auto-generated method stub
+		documentRepo.deleteDocument(document.getDocumentId());
+		
+	}
+
 }

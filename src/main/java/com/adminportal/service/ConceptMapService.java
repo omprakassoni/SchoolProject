@@ -34,5 +34,9 @@ public interface ConceptMapService {
 	boolean EnableAcceptedByAdminConceptContent(int status,int id);
 	
 	List<ConceptMap> findAllByTopicAndStatus(Topic topic);
+	
+	int save(ConceptMap temp);
+	
+	void deleteConceptMap(ConceptMap concept);
 
 }

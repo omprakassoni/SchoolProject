@@ -67,5 +67,12 @@ public class TestimonialServiceImpl implements TestimonialService{
 		}
 	}
 
+	@Override
+	public void deleteTestimonail(Testimonial testi) {
+		// TODO Auto-generated method stub
+		testRepo.deleteTestimonial(testi.getTestimonialId());
+		
+	}
+
 
 }

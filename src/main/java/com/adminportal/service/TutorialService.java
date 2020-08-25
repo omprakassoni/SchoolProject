@@ -7,6 +7,7 @@ package com.adminportal.service;
 
 import java.util.List;
 
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.Topic;
 import com.adminportal.content.Tutorial;
 
@@ -24,4 +25,5 @@ public interface TutorialService {
 	
 	List<Tutorial> findAllByTopicAndStatus(Topic topic);
 
+	void deleteTutorial(Tutorial tutorial);
 }

@@ -421,41 +421,49 @@ public class RegistrationController {
 		
 		/***************** creating folder for Storing Teacher data *************************************/
 		
-		boolean path_creation=ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email+"/Document");
-		
-		
-		String pathtoUploadteacherData=env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email+"/Document";
-		
-		String documentLocal=ServiceUtility.uploadFile(uploadDocument, pathtoUploadteacherData);
-		
-		int indexToStart=documentLocal.indexOf("Media");
-		
-		String document=documentLocal.substring(indexToStart, documentLocal.length());
-		
-	
-		RoleDetail role=roleService.findByRoleName("Teacher");
-		
-		User usr=new User();
-		usr.setId(userService.countRow()+1);
-		usr.setEmail(email);
-		usr.setPassword(passwordEncrypt);
-		usr.setFname(fname);
-		usr.setLname(lname);
-		usr.setSex(gender);
-		usr.setDateAdded(ServiceUtility.getCurrentTime());
-		usr.setLastLogin(ServiceUtility.getCurrentTime());
-		usr.setRegistered(0);
-		usr.setApproveTeacherFlag(0);
-		usr.setDocument(document);
+		try {
+			boolean path_creation=ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email+"/Document");
+			
+			
+			String pathtoUploadteacherData=env.getProperty("spring.applicationexternalPath.name")+uploadTeacherDirectory+email+"/Document";
+			
+			String documentLocal=ServiceUtility.uploadFile(uploadDocument, pathtoUploadteacherData);
+			
+			int indexToStart=documentLocal.indexOf("Media");
+			
+			String document=documentLocal.substring(indexToStart, documentLocal.length());
+			
 
+			RoleDetail role=roleService.findByRoleName("Teacher");
+			
+			User usr=new User();
+			usr.setId(userService.countRow()+1);
+			usr.setEmail(email);
+			usr.setPassword(passwordEncrypt);
+			usr.setFname(fname);
+			usr.setLname(lname);
+			usr.setSex(gender);
+			usr.setDateAdded(ServiceUtility.getCurrentTime());
+			usr.setLastLogin(ServiceUtility.getCurrentTime());
+			usr.setRegistered(0);
+			usr.setApproveTeacherFlag(0);
+			usr.setDocument(document);
+
+			
+			Set<UserRole> userRoles=new HashSet<UserRole>();
+			userRoles.add(new UserRole(userRoleService.countRow()+1,usr, role));												
+			
+			
+			userService.createUser(usr, userRoles);										// persist user (Teacher)
+			
+			mv.addObject("registerDone", "yes");
+		} catch (Exception e) {
+			
+			mv.addObject("FailureT", "Please Try Again");
+			e.printStackTrace();
+		}
 		
-		Set<UserRole> userRoles=new HashSet<UserRole>();
-		userRoles.add(new UserRole(userRoleService.countRow()+1,usr, role));												
 		
-		
-		userService.createUser(usr, userRoles);										// persist user (Teacher)
-		
-		mv.addObject("registerDone", "yes");
 		ArrayList<Class> standard = (ArrayList<Class>) classService.findAll();
 
 		ArrayList<Subject> subject1 = (ArrayList<Subject>) subjectService.findAll();
@@ -484,7 +492,7 @@ public class RegistrationController {
 			eventTemp.add(eventData.get(0));
 			for (int i = 1; i < eventData.size(); i++) {
 				eventTemp.add(eventData.get(i));
-				if(i==3) {
+				if(i==2) {
 					break;
 				}
 			}

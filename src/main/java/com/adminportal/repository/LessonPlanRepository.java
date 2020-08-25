@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.DocumentExternal;
@@ -45,6 +46,11 @@ public interface LessonPlanRepository extends CrudRepository<LessonPlan, Integer
 	@Modifying
 	@Query("update LessonPlan set acceptedByAdmin=?1,status=?1,dateApproved=?2 where lessonPlanId=?3")
 	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
+	
+	@Modifying
+	@Query("delete from LessonPlan U where U.lessonPlanId=?1")
+	@Transactional
+	void deleteLesson(int lessonID);
 	
 }
 

@@ -7,6 +7,7 @@ package com.adminportal.service;
 
 import java.util.List;
 
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.Testimonial;
 
 public interface TestimonialService {
@@ -22,5 +23,7 @@ public interface TestimonialService {
 	Testimonial getbyId(int id);
 	
 	boolean updateTestimonial(String name,String desc,String org,int id);
+	
+	void deleteTestimonail(Testimonial testi);
 
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.LessonPlan;
@@ -45,6 +46,11 @@ public interface PhetsRepository extends CrudRepository<Phets, Integer>{
 	@Modifying
 	@Query("update Phets set acceptedByAdmin=?1,status=?1,dateApproved=?2 where phetId=?3")
 	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
+	
+	@Modifying
+	@Query("delete from Phets U where U.phetId=?1")
+	@Transactional
+	void deletePhet(int phetID);
 }
 
 

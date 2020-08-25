@@ -34,5 +34,7 @@ public interface ArticleExternalService {
 	boolean EnableAcceptedByAdminArticleContent(int status,int id);
 	
 	List<ArticleExternal> findAllByTopicAndStatus(Topic topic);
+	
+	int deleteArticle(ArticleExternal article);
 
 }

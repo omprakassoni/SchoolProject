@@ -158,6 +158,7 @@ public class ContributorController {
 				
 			}
 
+			int videoId=videoService.countRow()+1;
 			try {
 
 				Class localClass=classService.findByClassName(Integer.parseInt(className));
@@ -168,7 +169,7 @@ public class ContributorController {
 				User usr=userService.findByUsername(principal.getName());
 				
 				Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
-				videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+				videoMapping.add(new VideoExternal(videoId, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 				
 				userService.addUserToVideo(usr, videoMapping);							// persist Video Information
 				mv.addObject("statusAdd", "Added Successfully");
@@ -176,6 +177,9 @@ public class ContributorController {
 			} catch (Exception e) {
 				
 				e.printStackTrace();
+				
+				VideoExternal videoTemp=videoService.findById(videoId);
+				videoService.deleteVideo(videoTemp);
 				mv.addObject("failure", "Please Try Again Later");
 			}
 
@@ -242,17 +246,20 @@ public class ContributorController {
 				
 			}
 			
+			int videoId=videoService.countRow()+1;
 			try {
 				
-				int videoId=videoService.countRow()+1;
-				
-
 				Class localClass=classService.findByClassName(Integer.parseInt(className));
 				Subject localSubject=subjectService.findBysubName(subjectName);
 				SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 				Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
 				
 				User usr=userService.findByUsername(principal.getName());
+				
+				Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
+				videoMapping.add(new VideoExternal(videoId, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, "null", 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+				
+				userService.addUserToVideo(usr, videoMapping);							// persist Video Information
 				
 				String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Video/"+videoId+"/";  // path to save video
 				
@@ -265,19 +272,22 @@ public class ContributorController {
 				int indexToStart=path1.indexOf("Media");										// extracting proper Path from Actual path
 				String path=path1.substring(indexToStart, path1.length());
 				
+				VideoExternal videoTemp=videoService.findById(videoId);
+				videoTemp.setUrl(path);
+				videoService.save(videoTemp);
 				
-				Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
-				videoMapping.add(new VideoExternal(videoId, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
-				
-				userService.addUserToVideo(usr, videoMapping);							// persist Video Information
 				mv.addObject("statusAdd", "Added Successfully");
 				}else {
+					VideoExternal videoTemp=videoService.findById(videoId);
+					videoService.deleteVideo(videoTemp);
 					mv.addObject("failure", "Please Try Again Later");
 				}
 				
 			} catch (Exception e) {
 				
 				e.printStackTrace();
+				VideoExternal videoTemp=videoService.findById(videoId);
+				videoService.deleteVideo(videoTemp);
 				mv.addObject("failure", "Please Try Again Later");
 			}
 
@@ -356,6 +366,7 @@ public class ContributorController {
 				
 				return mv;
 			}
+			int quizId=quizService.countRow()+1;
 			try {
 			
 			Class localClass=classService.findByClassName(Integer.parseInt(className));
@@ -364,7 +375,14 @@ public class ContributorController {
 			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
 			
 			
-			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Quiz/"+remarks+"/";  // path to save question and answer
+			User usr=userService.findByUsername(principal.getName());
+			
+			Set<QuizQuestion> quizMapping=new HashSet<QuizQuestion>();
+			quizMapping.add(new QuizQuestion(quizId,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),"null","null",0,0,remarks,ServiceUtility.getCurrentTime(),localTopic,usr));
+			
+			userService.addUserToQuizQuestion(usr, quizMapping);   // persist Quiz details
+			
+			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Quiz/"+quizId+"/";  // path to save question and answer
 			boolean b=ServiceUtility.createFolder(createFolder);
 			
 			String CreateFolderQuestion=createFolder+"Question/";
@@ -386,21 +404,27 @@ public class ContributorController {
 				int indexToStart1=answerPath.indexOf("Media");
 				String pathAnswer=answerPath.substring(indexToStart1, answerPath.length());
 				
-				User usr=userService.findByUsername(principal.getName());
+				QuizQuestion quizTemp=quizService.findById(quizId);
+				quizTemp.setAnswer(pathAnswer);
+				quizTemp.setQuestion(pathQuestion);
 				
-				Set<QuizQuestion> quizMapping=new HashSet<QuizQuestion>();
-				quizMapping.add(new QuizQuestion(quizService.countRow()+1,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),pathQuestion,pathAnswer,0,0,remarks,ServiceUtility.getCurrentTime(),localTopic,usr));
+				quizService.save(quizTemp);
 				
-				userService.addUserToQuizQuestion(usr, quizMapping);   // persist Quiz details
+				
 				
 				mv.addObject("statusAdd", "Added Successfully");
 				
 				}else {
+					
+					QuizQuestion quizTemp=quizService.findById(quizId);
+					quizService.deleteQuiz(quizTemp);
 					mv.addObject("failure", " Try again Later");
 				}
 			} catch (Exception e) {
 				
 				e.printStackTrace();
+				QuizQuestion quizTemp=quizService.findById(quizId);
+				quizService.deleteQuiz(quizTemp);
 				
 				mv.addObject("failure", " Try again Later");
 				
@@ -463,32 +487,44 @@ public class ContributorController {
 			}
 			
 			
+			int conceptID=conceptService.countRow()+1;
 			try {
 				
 				Class localClass=classService.findByClassName(Integer.parseInt(className));
 				Subject localSubject=subjectService.findBysubName(subjectName);
 				SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 				Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+				
+				
+				User usr=userService.findByUsername(principal.getName());
+				
+				Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
+				conceptMapping.add(new ConceptMap(conceptID, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), "null", desc, 0,0, remark, localTopic, usr));
+				
+				userService.addUserToConceptMap(usr, conceptMapping);						// persist Concept-map
 
-				String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/ConceptMap/";  // path to store Concept-map
+				String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/ConceptMap/"+conceptID+"/";  // path to store Concept-map
+				
+				ServiceUtility.createFolder(createFolder);
 				
 				path1=ServiceUtility.uploadFile(conceptMapImage, createFolder);
 				
 				int indexToStart=path1.indexOf("Media");										// extracting proper Path from Actual path
 				String path=path1.substring(indexToStart, path1.length());
 				
+				ConceptMap concepTemp=conceptService.findByid(conceptID);
+				concepTemp.setUrl(path);
+				
+				conceptService.save(concepTemp);
+				
 
-				User usr=userService.findByUsername(principal.getName());
-				
-				Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
-				conceptMapping.add(new ConceptMap(conceptService.countRow()+1, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
-				
-				userService.addUserToConceptMap(usr, conceptMapping);						// persist Concept-map
 				mv.addObject("statusAdd", "Concept-Map Added Successfully");
 				
 			} catch (Exception e) {
 				
 				e.printStackTrace();
+				ConceptMap conceptTemp=conceptService.findByid(conceptID);
+				conceptService.deleteConceptMap(conceptTemp);
 				mv.addObject("failure", "Please Try Again");
 			}
 
@@ -568,32 +604,35 @@ public class ContributorController {
 				
 			}
 			
-			try {
+				int phetId=phetService.countRow()+1;
+				try {
 
-				Class localClass=classService.findByClassName(Integer.parseInt(className));
-				Subject localSubject=subjectService.findBysubName(subjectName);
-				SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-				Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
-				
-				
-				User usr=userService.findByUsername(principal.getName());				// retrive Logged In User
-				
-				
-				Set<Phets> phetMapping=new HashSet<Phets>();
-				phetMapping.add(new Phets(phetService.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+					Class localClass=classService.findByClassName(Integer.parseInt(className));
+					Subject localSubject=subjectService.findBysubName(subjectName);
+					SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+					Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
+					
+					
+					User usr=userService.findByUsername(principal.getName());				// retrive Logged In User
+					
+					
+					Set<Phets> phetMapping=new HashSet<Phets>();
+					phetMapping.add(new Phets(phetId, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
 
-				
-				userService.addUserToPhets(usr, phetMapping);							// persist Phet data 
-				mv.addObject("statusAdd", "Added Successfully");
-				
-				
-				} catch (Exception e) {
-				
-				e.printStackTrace();
-				mv.addObject("failure", "Please Try Again");
-				
-				
-				}
+					
+					userService.addUserToPhets(usr, phetMapping);							// persist Phet data 
+					mv.addObject("statusAdd", "Added Successfully");
+					
+					
+					} catch (Exception e) {
+					
+					e.printStackTrace();
+					Phets phetTemp=phetService.findByid(phetId);
+					phetService.deletePhet(phetTemp);
+					mv.addObject("failure", "Please Try Again");
+					
+					
+					}
 					
 			
 			
@@ -656,6 +695,7 @@ public class ContributorController {
 				return mv;
 			}
 			
+			int lessonId=lessonService.countRow()+1;
 			try {
 				
 				Class localClass=classService.findByClassName(Integer.parseInt(className));						
@@ -663,26 +703,37 @@ public class ContributorController {
 				SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
 				Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);
 				
-				String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Lessonplan/";  // path to store lesson Plan
+				
+				
+				User usr=userService.findByUsername(principal.getName());				// retrive logged in user
+				
+				Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
+				lessonMapping.add(new LessonPlan(lessonId, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), "null", 0, 0,ServiceUtility.getCurrentTime(), localTopic, usr));
+				
+				
+				userService.addUserToLessonplan(usr, lessonMapping);					// saving lessonPaln data
+				
+				String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Lessonplan/"+lessonId+"/";  // path to store lesson Plan
+				
+				ServiceUtility.createFolder(createFolder);
 				
 				path1=ServiceUtility.uploadFile(lesson, createFolder);					// uploading lesson plan to path given
 				
 				int indexToStart=path1.indexOf("Media");									// extract path starting from MEDIA to persist .
 				String path=path1.substring(indexToStart, path1.length());
 				
+				LessonPlan lessonTemp=lessonService.findById(lessonId);
+				lessonTemp.setLessonPlan(path);
 				
-				User usr=userService.findByUsername(principal.getName());				// retrive logged in user
+				lessonService.save(lessonTemp);
 				
-				Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
-				lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0, 0,ServiceUtility.getCurrentTime(), localTopic, usr));
-				
-				
-				userService.addUserToLessonplan(usr, lessonMapping);					// saving lessonPaln data
 				mv.addObject("statusAdd", "Added Successfully");
 				
 			} catch (Exception e) {
 			
 				e.printStackTrace();
+				LessonPlan lessonTemp=lessonService.findById(lessonId);
+				lessonService.deleteLessonPlan(lessonTemp);
 				mv.addObject("failure", "Please Try Again");
 				
 			}
@@ -749,34 +800,46 @@ public class ContributorController {
 				return mv;
 			}
 					
+			int documentId=documentService.countRow()+1;	
 			try {
 				
 				Class localClass=classService.findByClassName(Integer.parseInt(className));									// retrieving class modal
 				Subject localSubject=subjectService.findBysubName(subjectName);								// retrieving subject modal
 				SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject); // retrieving subject class mapping from class and subject
-				Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);			// retrieving topic from sucject class mapping
+				Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicName);	// retrieving topic from sucject class mapping
 				
-				String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Document/";	// PATH TO SAVE DOCUMENT UNDER TOPIC
+				
+				User usr=userService.findByUsername(principal.getName());						// retrieving the logged USer
+				
+				Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
+				documentMapping.add(new DocumentExternal(documentId, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, "null", 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+
+				userService.addUserToDocument(usr, documentMapping);					// saving document data into database.		
+				
+				String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+className+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Document/"+documentId+"/";	// PATH TO SAVE DOCUMENT UNDER TOPIC
+				
+				ServiceUtility.createFolder(createFolder);
 				
 				path1=ServiceUtility.uploadFile(document, createFolder);									// 	upload file to path mentioned
 				
 				int indexToStart=path1.indexOf("Media");														// extracting path starting from MEDIA to save in database
 				String path=path1.substring(indexToStart, path1.length());
 				
-				User usr=userService.findByUsername(principal.getName());						// retrieving the logged USer
+				DocumentExternal docuTemp=documentService.findByid(documentId);
+				docuTemp.setUrl(path);
 				
-				Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
-				documentMapping.add(new DocumentExternal(documentService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
-
-
-				userService.addUserToDocument(usr, documentMapping);					// saving document data into database.		
+				documentService.save(docuTemp);
+				
 				mv.addObject("statusAdd", "Document Added Successfully");
 				
 			} catch (Exception e) {
 				
 				e.printStackTrace();
+				DocumentExternal documentTemp=documentService.findByid(documentId);
+				documentService.deleteDocuemnt(documentTemp);
 				mv.addObject("failure", "Please Try Again");
 			}
+
 
 			
 			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();			// fetching out the available list of class from database.
@@ -824,6 +887,7 @@ public class ContributorController {
 				
 			}
 			
+			int articleId=articleService.countRow()+1;
 			try {
 			
 				Class localClass=classService.findByClassName(Integer.parseInt(className));									// fetching class tuple based on given data
@@ -833,13 +897,17 @@ public class ContributorController {
 				
 				User usr=userService.findByUsername(principal.getName());						// logged in user details.
 				Set<ArticleExternal> articlemapping=new HashSet<ArticleExternal>();
-				articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
+				articlemapping.add(new ArticleExternal(articleId, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
 				
 				userService.addUserToArticle(usr, articlemapping);								// saving the article information into database.
+				
 				mv.addObject("statusAdd", "Added Successfully");									// setting status for view(success)
+				
 			} catch (Exception e) {
 				
 				e.printStackTrace();
+				ArticleExternal tempArticle=articleService.findByid(articleId);
+				articleService.deleteArticle(tempArticle);
 				mv.addObject("failure", "Please try Again Later");								// setting status for view(failure)
 				
 			}

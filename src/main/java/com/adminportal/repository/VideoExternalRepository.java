@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.QuizQuestion;
@@ -45,6 +46,11 @@ public interface VideoExternalRepository extends CrudRepository<VideoExternal, I
 	@Modifying
 	@Query("update VideoExternal set acceptedByAdmin=?1,status=?1,dateApproved=?2 where videoId=?3")
 	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
+	
+	@Modifying
+	@Query("delete from VideoExternal U where U.videoId=?1")
+	@Transactional
+	void deleteVideo(int videoID);
 }
 
 

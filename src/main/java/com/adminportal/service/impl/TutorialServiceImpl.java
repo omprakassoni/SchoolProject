@@ -73,4 +73,10 @@ public class TutorialServiceImpl implements TutorialService{
 		return temp;
 	}
 
+	@Override
+	public void deleteTutorial(Tutorial tutorial) {
+		// TODO Auto-generated method stub
+		tutorialRepo.deleteTutorial(tutorial.getTutorialId());
+	}
+
 }

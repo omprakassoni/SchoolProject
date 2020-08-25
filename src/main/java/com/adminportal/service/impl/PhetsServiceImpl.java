@@ -114,4 +114,12 @@ public class PhetsServiceImpl implements PhetsService{
 		return phetRepo.findAllByTopicAndStatus(topic, 1,"Phets");
 	}
 
+	@Override
+	public void deletePhet(Phets phet) {
+		// TODO Auto-generated method stub
+		
+		phetRepo.deletePhet(phet.getPhetId());
+		
+	}
+
 }

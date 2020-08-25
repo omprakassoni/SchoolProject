@@ -1026,20 +1026,6 @@ public class HomeController {
 	}
 
 
-	@RequestMapping(path = "/eventsList/home", method = RequestMethod.GET)
-	public ModelAndView pathtoAdminDashboardEvent(ModelAndView mv) {
-		mv.setViewName("redirect:/home");
-		return mv;
-	}
-
-	// ------------------ MY MIND
-	// HYPERLINK***********************************************
-
-	@RequestMapping(path = "/my-mind", method = RequestMethod.GET)
-	public ModelAndView mindMapGet(ModelAndView mv) {
-		mv.setViewName("my-mind");
-		return mv;
-	}
 
 	/************************************** Testimonial Page *****************************************************/
 	

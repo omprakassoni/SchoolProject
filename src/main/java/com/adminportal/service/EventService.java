@@ -8,7 +8,10 @@ package com.adminportal.service;
 import java.sql.Date;
 import java.util.List;
 
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.Events;
+
+import antlr.debug.Event;
 
 public interface EventService {
 	
@@ -23,5 +26,5 @@ public interface EventService {
 	
 	boolean updateEvent(String head,String desc,Date startDate,Date enddate,Date regStart,Date regEnd,String coordName,String poster_Path,int id) throws Exception;
 	
-	
+	void deleteEvent(Events event);
 }

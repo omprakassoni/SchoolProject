@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.Events;
 
@@ -22,4 +23,10 @@ public interface EventsRepository extends JpaRepository<Events, Integer> {
 	@Modifying
 	@Query("update Events set headline=?1,description=?2,dateToHappenStart=?3,dateToHappenEnd=?4,registStart=?5,registEnd=?6,coordName=?7,potser_path=?8 where eventId=?9") // updating event information.
 	int updateEvent(String head,String desc,Date startDate,Date enddate,Date regStart,Date regEnd,String coordName,String poster_Path,int id);
+
+	@Modifying
+	@Query("delete from Events U where U.eventId=?1")
+	@Transactional
+	void deleteEvent(int eventID);
+
 }

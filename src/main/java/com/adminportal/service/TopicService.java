@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.DocumentExternal;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
@@ -42,6 +43,8 @@ public interface TopicService {
 	List<Topic> findBySubjectClassMppaing(List<SubjectClassMapping> tempSubjectClass);
 	
 	boolean updateTopicPoster(String path,int topicId);
+	
+	void deleteTopic(Topic topic);
 	
 	
 

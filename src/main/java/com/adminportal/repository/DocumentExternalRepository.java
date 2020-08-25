@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.ConceptMap;
@@ -50,6 +51,11 @@ public interface DocumentExternalRepository extends CrudRepository<DocumentExter
 	@Modifying
 	@Query("update DocumentExternal set description=?1 , source=?2, dateModified=?3 where documentId=?4")	//updating document Information
 	int updateDocumentDesc(String desc,String source,Timestamp date,int Id);
+	
+	@Modifying
+	@Query("delete from DocumentExternal U where U.documentId=?1")
+	@Transactional
+	void deleteDocument(int documentID);
 }
 
 

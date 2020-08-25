@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.QuizQuestion;
 import com.adminportal.content.Topic;
 import com.adminportal.content.VideoExternal;
@@ -34,5 +35,9 @@ public interface VideoExternalService {
 	boolean EnableAcceptedByAdminVideoContent(int status,int id);
 	
 	List<VideoExternal> findAllByTopicAndStatus(Topic topic);
+	
+	int save(VideoExternal temp);
+	
+	void deleteVideo(VideoExternal video);
 
 }

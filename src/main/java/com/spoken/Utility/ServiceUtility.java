@@ -36,6 +36,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.adminportal.HomeController;
 
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.util.Zip4jUtil;
+
 
 public class ServiceUtility {
 	
@@ -100,7 +103,6 @@ public class ServiceUtility {
 		for(MultipartFile file:uploadFile) {
 			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
 		
-			
 				Files.write(fileNameAndPath, file.getBytes());
 				System.out.println(fileNameAndPath.toString());
 				path=fileNameAndPath.toString();
@@ -109,6 +111,31 @@ public class ServiceUtility {
 		
 		return path;
 	}
+	
+//	public static String uploadZipFile(MultipartFile[] uploadFile,String pathToUpload) throws Exception{		// uploading file
+//		String path=null;	
+//		for(MultipartFile file:uploadFile) {
+//			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
+//				
+//				Files.write(fileNameAndPath, file.getBytes());
+//				System.out.println(fileNameAndPath.toString());
+//				path=fileNameAndPath.toString();
+//				
+//				new ZipFile(fileNameAndPath.toString()).extractAll(pathToUpload);
+//				File[] files = new File(pathToUpload).listFiles();
+//				for(File filetemp:files) {
+//					if(filetemp.isFile()) {
+//						if(filetemp.getName().endsWith(".html") || filetemp.getName().endsWith(".xhtml")) {
+//							path=pathToUpload+filetemp.getName();
+//							Files.delete(fileNameAndPath);
+//						}
+//					}
+//				}
+//			
+//			}
+//		
+//		return path;
+//	}
 	
 	public static String uploadVideoFile(MultipartFile file,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	

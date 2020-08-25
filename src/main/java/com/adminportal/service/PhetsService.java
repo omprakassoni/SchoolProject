@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
 import com.adminportal.content.Topic;
@@ -37,6 +38,8 @@ public interface PhetsService {
 	boolean EnableAcceptedByAdminPhetContent(int status,int id);
 	
 	List<Phets> findAllByTopicAndStatus(Topic topic);
+	
+	void deletePhet(Phets phet);
 
 
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.QuizQuestion;
@@ -46,5 +47,10 @@ public interface ArticleExternalRepository extends CrudRepository<ArticleExterna
 	@Modifying
 	@Query("update ArticleExternal set acceptedByAdmin=?1,status=?1,dateApproved=?2 where articleId=?3")
 	int EnableAcceptedByAdminContent(int status,Timestamp time,int id);
+	
+	@Modifying
+	@Query("delete from ArticleExternal U where U.articleId=?1")
+	@Transactional
+	void deleteArticle(int artcileID);
 
 }

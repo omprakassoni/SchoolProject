@@ -120,4 +120,20 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 		}
 	}
 
+
+	@Override
+	public int save(ConceptMap temp) {
+		
+		conceptRepo.save(temp);
+		return 0;
+	}
+
+
+	@Override
+	public void deleteConceptMap(ConceptMap concept) {
+		
+		conceptRepo.deleteConcep(concept.getConcepMapid());
+		
+	}
+
 }

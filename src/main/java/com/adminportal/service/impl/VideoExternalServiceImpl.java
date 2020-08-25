@@ -109,4 +109,17 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 		return videoRepo.findAllByTopicAndStatus(topic, 1,"Video");
 	}
 
+	@Override
+	public int save(VideoExternal temp) {
+		videoRepo.save(temp);
+		return 0;
+	}
+
+	@Override
+	public void deleteVideo(VideoExternal video) {
+		// TODO Auto-generated method stub
+		
+		videoRepo.deleteVideo(video.getVideoId());
+	}
+
 }

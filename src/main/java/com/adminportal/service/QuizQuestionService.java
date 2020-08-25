@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.adminportal.content.ArticleExternal;
+import com.adminportal.content.ConceptMap;
 import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
 import com.adminportal.content.Topic;
@@ -40,5 +41,9 @@ public interface QuizQuestionService {
 	boolean EnableAcceptedByAdminQuizContent(int status,int id);
 	
 	List<QuizQuestion> findAllByTopicAndStatus(Topic topic);
+	
+	int save(QuizQuestion temp);
+	
+	void deleteQuiz(QuizQuestion quiz);
 
 }

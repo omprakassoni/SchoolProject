@@ -136,4 +136,17 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		
 	}
 
+	@Override
+	public int save(QuizQuestion temp) {
+		quizRepo.save(temp);
+		return 0;
+	}
+
+	@Override
+	public void deleteQuiz(QuizQuestion quiz) {
+		// TODO Auto-generated method stub
+		quizRepo.deleteQuiz(quiz.getQuizQuestionId());
+		
+	}
+
 }
