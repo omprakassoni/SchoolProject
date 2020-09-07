@@ -460,7 +460,7 @@ public class ContributorController {
 			
 			mv.addObject("LoggedUser",localUser);
 			
-			if(!ServiceUtility.checkFileExtensionImage(conceptMapImage) && !ServiceUtility.checkFileExtensionHtml(conceptMapImage)) {    // check Image file
+			if(!ServiceUtility.checkFileExtensionImage(conceptMapImage) && !ServiceUtility.checkFileExtensionZip(conceptMapImage)) {    // check Image file
 				mv.addObject("fileError", "File must be a Image File or Html Page");
 				
 				ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();
@@ -507,7 +507,11 @@ public class ContributorController {
 				
 				ServiceUtility.createFolder(createFolder);
 				
-				path1=ServiceUtility.uploadFile(conceptMapImage, createFolder);
+				if(ServiceUtility.checkFileExtensionImage(conceptMapImage)) {
+					path1=ServiceUtility.uploadFile(conceptMapImage, createFolder);
+				}else {
+					path1=ServiceUtility.uploadZipFile(conceptMapImage, createFolder);
+				}
 				
 				int indexToStart=path1.indexOf("Media");										// extracting proper Path from Actual path
 				String path=path1.substring(indexToStart, path1.length());

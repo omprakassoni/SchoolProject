@@ -1530,7 +1530,7 @@ public class HomeControllerRest {
 		for(MultipartFile temp:conceptImage) {
 			
 			if(temp.getSize()>0) {
-			if(!ServiceUtility.checkFileExtensionImage(conceptImage) && !ServiceUtility.checkFileExtensionHtml(conceptImage) ) {
+			if(!ServiceUtility.checkFileExtensionImage(conceptImage) && !ServiceUtility.checkFileExtensionZip(conceptImage) ) {
 				msg.add("invalid-data");
 				return msg;
 			}else if(conceptImage[0].getSize()>fileSize) {
@@ -1561,7 +1561,14 @@ public class HomeControllerRest {
 			
 			String uploadconceptImage=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+conceptTemp.getTopic().getSubjectClassMapping().getStandard().getClassName()+"_"+conceptTemp.getTopic().getSubjectClassMapping().getSub().getSubId()+"/"+conceptTemp.getTopic().getTopicId()+"/"+"ConceptMap/"+conceptTemp.getConcepMapid()+"/";
 			
-			String document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
+			String document=null;
+			
+			if(ServiceUtility.checkFileExtensionImage(conceptImage)) {
+				document=ServiceUtility.uploadFile(conceptImage, uploadconceptImage);
+			}else {
+				document=ServiceUtility.uploadZipFile(conceptImage, uploadconceptImage);
+			}
+			
 			
 			int indexToStart=document.indexOf("Media");
 			String documentToUpload=document.substring(indexToStart, document.length());
@@ -2971,6 +2978,7 @@ public class HomeControllerRest {
 		return status;
 	}
 				
+	/************************** ----------------------------------- ******************************************/
 	
 	@PostMapping("/addConceptFromUser")
 	public @ResponseBody List<String> addConceptFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
@@ -2980,7 +2988,7 @@ public class HomeControllerRest {
 		List<String> status=new ArrayList<String>();
 		
 		
-		if(!ServiceUtility.checkFileExtensionImage(uploadDocument) && !ServiceUtility.checkFileExtensionHtml(uploadDocument)) {
+		if(!ServiceUtility.checkFileExtensionImage(uploadDocument) && !ServiceUtility.checkFileExtensionZip(uploadDocument)) {
 			
 			status.add("failure");
 			return status;

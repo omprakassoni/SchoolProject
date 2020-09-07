@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -112,30 +113,40 @@ public class ServiceUtility {
 		return path;
 	}
 	
-//	public static String uploadZipFile(MultipartFile[] uploadFile,String pathToUpload) throws Exception{		// uploading file
-//		String path=null;	
-//		for(MultipartFile file:uploadFile) {
-//			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
-//				
-//				Files.write(fileNameAndPath, file.getBytes());
-//				System.out.println(fileNameAndPath.toString());
-//				path=fileNameAndPath.toString();
-//				
-//				new ZipFile(fileNameAndPath.toString()).extractAll(pathToUpload);
-//				File[] files = new File(pathToUpload).listFiles();
-//				for(File filetemp:files) {
-//					if(filetemp.isFile()) {
-//						if(filetemp.getName().endsWith(".html") || filetemp.getName().endsWith(".xhtml")) {
-//							path=pathToUpload+filetemp.getName();
-//							Files.delete(fileNameAndPath);
-//						}
-//					}
-//				}
-//			
-//			}
-//		
-//		return path;
-//	}
+	public static String uploadZipFile(MultipartFile[] uploadFile,String pathToUpload) throws Exception{		// uploading file
+		String path=null;	
+		for(MultipartFile file:uploadFile) {
+			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
+				
+				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println(fileNameAndPath.toString());
+				path=fileNameAndPath.toString();
+				
+				
+				File[] files1 = new File(pathToUpload).listFiles();
+				for(File fileTemp:files1) {
+					if(fileTemp.isFile() && !(fileTemp.getName().endsWith("zip") || fileTemp.getName().endsWith("ZIP"))) {
+						fileTemp.delete();
+					}else if(fileTemp.isDirectory()) {
+						FileUtils.deleteDirectory(fileTemp);
+					}
+				}
+				new ZipFile(fileNameAndPath.toString()).extractAll(pathToUpload);
+				
+				File[] files2 = new File(pathToUpload).listFiles();
+				for(File filetemp:files2) {
+					if(filetemp.isFile()) {
+						if(filetemp.getName().endsWith(".html") || filetemp.getName().endsWith(".xhtml")) {
+							path=pathToUpload+filetemp.getName();
+							Files.delete(fileNameAndPath);
+						}
+					}
+				}
+			
+			}
+		
+		return path;
+	}
 	
 	public static String uploadVideoFile(MultipartFile file,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
@@ -195,10 +206,10 @@ public class ServiceUtility {
 		return true;
 	}
 	
-	public static boolean checkFileExtensionHtml(MultipartFile[] imageFile) {			// validate file against HTML Extension
+	public static boolean checkFileExtensionZip(MultipartFile[] imageFile) {			// validate file against HTML Extension
 		
 		for(MultipartFile temp:imageFile) {
-			if(!temp.getOriginalFilename().endsWith(".html") && !temp.getOriginalFilename().endsWith(".xhtml")) {
+			if(!temp.getOriginalFilename().endsWith(".zip") && !temp.getOriginalFilename().endsWith(".ZIP")) {
 				
 				return false;
 			}
