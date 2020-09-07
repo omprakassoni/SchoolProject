@@ -36,5 +36,9 @@ public interface ArticleExternalService {
 	List<ArticleExternal> findAllByTopicAndStatus(Topic topic);
 	
 	int deleteArticle(ArticleExternal article);
+	
+	int countTotalResource(Topic temp);
+	
+	int countTotalResource(List<Topic> temp);
 
 }

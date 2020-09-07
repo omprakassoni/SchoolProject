@@ -37,6 +37,9 @@ public class Subject {
 	@Column(name="sub_name",nullable = false)
 	private String subName;
 	
+	@Column(name="status",nullable = false ,columnDefinition = "bool default 1")
+	private boolean status;
+	
 	@Column(name="date_added",nullable = false)
 	private Timestamp dateAdded;
 	
@@ -86,6 +89,14 @@ public class Subject {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 	

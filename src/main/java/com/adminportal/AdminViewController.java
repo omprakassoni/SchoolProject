@@ -3,7 +3,10 @@ package com.adminportal;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +35,7 @@ import com.adminportal.content.LessonPlan;
 import com.adminportal.content.Phets;
 import com.adminportal.content.QuizQuestion;
 import com.adminportal.content.Subject;
+import com.adminportal.content.SubjectClassMapping;
 import com.adminportal.content.Testimonial;
 import com.adminportal.content.Topic;
 import com.adminportal.content.Tutorial;
@@ -116,6 +120,9 @@ public class AdminViewController {
 	@Autowired
 	private MailConstructor mailConstructor;
 	
+	@Autowired
+	private SubjectClassService subjectClassService;
+	
 /*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	@RequestMapping(value = "/admin/approve/userList",method = RequestMethod.GET)
@@ -132,15 +139,6 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/admin/deleteUser",method = RequestMethod.GET)
-	public ModelAndView userListEnableGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<User> usr= userService.findAll();
-	
-		mv.addObject("User", usr);
-		mv.setViewName("userList");
-		return mv;
-	}
 	
 	
 	@RequestMapping(value = "/admin/approve/deleteUser",method = RequestMethod.POST)
@@ -180,49 +178,122 @@ public class AdminViewController {
 	
 /*------------------------------------------SHOW SUBJECT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/admin/subjectList",method = RequestMethod.GET)
-	public ModelAndView subjectListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<Subject> subjectList=subjectService.findAll();
-		mv.addObject("Subject", subjectList);
-		
-		mv.setViewName("subjectList");
-
-		return mv;
-	}
 	
-	@RequestMapping(value="/admin/deleteSubject",method = RequestMethod.POST)
-	public ModelAndView subjectListPost(HttpServletRequest req,@RequestParam(name="radiocall") String subjectId,ModelAndView mv) {
+	@RequestMapping(value="/admin/addView/disableSubject",method = RequestMethod.POST)
+	public ModelAndView subjectListPost(Principal principal,@RequestParam(name="radioSubject") String subjectId,ModelAndView mv) {
 		
 		int id=Integer.parseInt(subjectId);
 		System.out.println(id);
+		Subject subTemp=null;
+		List<SubjectClassMapping> subjectClassTemp=null;
 		
-		subjectService.deleteById(id);
+		User localUser=userService.findByUsername(principal.getName());
 		
-		mv.addObject("status", "Subject Deleted Successfully");
+		mv.addObject("LoggedUser",localUser);
+		
+		try {
+			subTemp=subjectService.findById(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			mv.addObject("status", "Please Try Again");
+			Map<Subject, List<Integer>>	SubjectEntry=new HashMap<Subject, List<Integer>>();
+			
+			ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+			
+			mv.addObject("classExist",classExist);
+			
+			mv.setViewName("addSubject");										// setting view name
+			
+			List<Subject> subjectList=subjectService.findAll();
+			for(Subject temp:subjectList) {
+				List<Integer> classWithSubject=new ArrayList<>();
+				for(SubjectClassMapping temp1:temp.getSubClasMapp()) {
+					classWithSubject.add(temp1.getStandard().getClassName());
+				}
+				Collections.sort(classWithSubject);
+				
+				SubjectEntry.put(temp, classWithSubject);
+			}
+			
+			mv.addObject("Subject", SubjectEntry);
+			
+			mv.addObject("viewActive","active");
+			return mv;
+		}
+		
+		if(subTemp.isStatus()) {
+			subTemp.setStatus(false);
+			subjectService.save(subTemp);
+			
+			try {
+				subjectClassTemp=subjectClassService.getClassFromSubject(subTemp);
+				subjectClassService.updateSubjectinAllField(false, subTemp);
+				topicService.disableEnableAllByClassStandard(0, subjectClassTemp);
+				mv.addObject("status", "Subject Disabled Successfully");
+			} catch (Exception e) {
+				
+				subjectClassService.updateSubjectinAllField(true, subTemp);
+				topicService.disableEnableAllByClassStandard(1, subjectClassTemp);
+				subTemp.setStatus(true);
+				subjectService.save(subTemp);
+				mv.addObject("status", "Please Try Again");
+				e.printStackTrace();
+				
+			}
+			
+			
+		}else {
+			subTemp.setStatus(true);
+			subjectService.save(subTemp);
+			try {
+				subjectClassTemp=subjectClassService.getClassFromSubject(subTemp);
+				subjectClassService.updateSubjectinAllField(true, subTemp);
+				topicService.disableEnableAllByClassStandard(1, subjectClassTemp);
+				mv.addObject("status", "Subject Enabled Successfully");
+			} catch (Exception e) {
+				
+				subjectClassService.updateSubjectinAllField(false, subTemp);
+				topicService.disableEnableAllByClassStandard(0, subjectClassTemp);
+				subTemp.setStatus(false);
+				subjectService.save(subTemp);
+				mv.addObject("status", "Please Try Again");
+				e.printStackTrace();
+				
+			}
+			
+		}
+		
+		Map<Subject, List<Integer>>	SubjectEntry=new HashMap<Subject, List<Integer>>();
+		
+		ArrayList<Class> classExist=(ArrayList<Class>) classService.findAll();		// fetching out the available list of class from database.
+		
+		mv.addObject("classExist",classExist);
+		
+		mv.setViewName("addSubject");										// setting view name
 		
 		List<Subject> subjectList=subjectService.findAll();
-		mv.addObject("Subject", subjectList);
+		for(Subject temp:subjectList) {
+			List<Integer> classWithSubject=new ArrayList<>();
+			for(SubjectClassMapping temp1:temp.getSubClasMapp()) {
+				classWithSubject.add(temp1.getStandard().getClassName());
+			}
+			Collections.sort(classWithSubject);
+			
+			SubjectEntry.put(temp, classWithSubject);
+		}
 		
-		mv.setViewName("subjectList");
+		mv.addObject("Subject", SubjectEntry);
+		
+		mv.addObject("viewActive","active");
 		return mv;
+		
 	}
 	
 	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
 	
 	
 	/*------------------------------------------SHOW TOPIC_LIST (ADMIN MODULE)-----------------------------------------------------------------*/	
-	
-	@RequestMapping(value="/admin/topicList",method = RequestMethod.GET)
-	public ModelAndView topicListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<Topic> topicList=topicService.findAll();
-		
-		mv.addObject("Topic", topicList);
-		mv.setViewName("topicList");
-
-		return mv;
-	}
 	
 	
 	@RequestMapping(value="/admin/addView/deleteTopic",method = RequestMethod.POST)
@@ -268,23 +339,6 @@ public class AdminViewController {
 	/*------------------------------------------SHOW VIDEO_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	
-	@RequestMapping(value="/admin/videoList",method = RequestMethod.GET)
-	public ModelAndView videoListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<VideoExternal> videoListtemp=videoService.findAll();
-		List<VideoExternal> videoList=new ArrayList<VideoExternal>();
-		for(VideoExternal temp:videoListtemp) {
-			if(temp.getAcceptedByAdmin()==1) {
-				videoList.add(temp);
-			}
-		}
-	
-		mv.addObject("Video",videoList);
-		
-		mv.setViewName("videoList");
-
-		return mv;
-	}
 	
 	@RequestMapping(value="/admin/addView/deleteVideo",method = RequestMethod.POST)
 	public ModelAndView videoListPost(Principal principal,@RequestParam(name="radioVideo") String videoId,ModelAndView mv) {
@@ -338,25 +392,6 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW ARTICLE_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/admin/articleList",method = RequestMethod.GET)
-	public ModelAndView articleListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<ArticleExternal> articleListTemp=articleService.findAll();
-		List<ArticleExternal> articleList=new ArrayList<ArticleExternal>();
-		for(ArticleExternal temp:articleListTemp) {
-			if(temp.getAcceptedByAdmin()==1) {
-				articleList.add(temp);
-			}
-		}
-		
-	
-		mv.addObject("Article",articleList);
-		
-		mv.setViewName("articleList");
-
-		return mv;
-	}
-	
 	@RequestMapping(value="/admin/addView/deleteArticle",method = RequestMethod.POST)
 	public ModelAndView articleListPost(Principal principal,@RequestParam(name="radioArticle") String articleId,ModelAndView mv) {
 		
@@ -406,24 +441,6 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW DOCUMENT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/admin/documentList",method = RequestMethod.GET)
-	public ModelAndView documentListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<DocumentExternal> documentListTemp=documentService.findAll();
-		List<DocumentExternal> documentList=new ArrayList<DocumentExternal>();
-		for(DocumentExternal temp:documentListTemp) {
-			if(temp.getAcceptedByAdmin()==1) {
-				documentList.add(temp);
-			}
-		}
-		
-		mv.addObject("Document",documentList);
-		
-		mv.setViewName("documentList");
-
-		return mv;
-	}
-	
 
 	@RequestMapping(value="/admin/addView/deleteDocument",method = RequestMethod.POST)
 	public ModelAndView documentListPost(Principal principal,@RequestParam(name="radioDocument") String documentId,ModelAndView mv) {
@@ -472,23 +489,6 @@ public class AdminViewController {
 	/*----------------------------------------------------------END----------------------------------------------------------------------------*/
 	
 	/*------------------------------------------SHOW PHET_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
-	
-	@RequestMapping(value="/admin/phetsList",method = RequestMethod.GET)
-	public ModelAndView phetsListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<Phets> phetListTemp=phetService.findAll();
-		List<Phets> phetList=new ArrayList<Phets>();
-		for(Phets temp:phetListTemp) {
-			if(temp.getAcceptedByAdmin()==1) {
-				phetList.add(temp);
-			}
-		}
-		
-		mv.addObject("Phet",phetList);
-		
-		mv.setViewName("phetsList");
-		return mv;
-	}
 	
 	@RequestMapping(value="/admin/addView/deletePhet",method = RequestMethod.POST)
 	public ModelAndView phetsListPost(Principal principal,@RequestParam(name="radioPhet") String phetId,ModelAndView mv) {
@@ -540,22 +540,7 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW LESSONPLAN_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/admin/lessonPlanList",method = RequestMethod.GET)
-	public ModelAndView lessonPlanListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<LessonPlan> lessonListTemp=lessonService.findAll();
-		List<LessonPlan> lessonList=new ArrayList<LessonPlan>();
-		for(LessonPlan temp:lessonListTemp) {
-			if(temp.getAcceptedByAdmin()==1) {
-				lessonList.add(temp);
-			}
-		}
-	
-		mv.addObject("Lesson",lessonList);
-		mv.setViewName("lessonPlanList");
 
-		return mv;
-	}
 	
 	@RequestMapping(value="/admin/addView/deleteLesson",method = RequestMethod.POST)
 	public ModelAndView lessonPlanListPost(Principal principal,@RequestParam(name="radioLesson") String lessonId,ModelAndView mv) {
@@ -606,22 +591,7 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW QUIZ_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	@RequestMapping(value="/admin/quizList",method = RequestMethod.GET)
-	public ModelAndView quizListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		List<QuizQuestion> quizListTemp=quizService.findAll();
-		List<QuizQuestion> quizList=new ArrayList<QuizQuestion>();
-		for(QuizQuestion temp:quizListTemp) {
-			if(temp.getAcceptedByAdmin()==1) {
-				quizList.add(temp);
-			}
-		}
-		
-		mv.addObject("Quiz",quizList );
-		mv.setViewName("quizList");
 
-		return mv;
-	}
 	
 	@RequestMapping(value="/admin/addView/deleteQuiz",method = RequestMethod.POST)
 	public ModelAndView quizListPost(Principal principal,@RequestParam(name="radioQuiz") String quizId,ModelAndView mv) {
@@ -668,23 +638,6 @@ public class AdminViewController {
 
 /*-------------------------------------------CONCEPT-MAP---------------------------------------*/
 	
-	@RequestMapping(value="/admin/conceptList",method = RequestMethod.GET)
-	public ModelAndView ConceptListGet(HttpServletRequest req,ModelAndView mv) {
-		
-		
-		List<ConceptMap> ConceptMapListTemp=conceptService.findAll();
-		List<ConceptMap> ConceptMapList=new ArrayList<ConceptMap>();
-		for(ConceptMap temp:ConceptMapListTemp) {
-			if(temp.getAcceptedByAdmin()==1) {
-				ConceptMapList.add(temp);
-			}
-		}
-		
-		mv.addObject("ConceptMapList",ConceptMapList );
-		mv.setViewName("concepMapList");
-
-		return mv;
-	}
 	
 	
 	@RequestMapping(value="/admin/addView/deleteConcept",method = RequestMethod.POST)

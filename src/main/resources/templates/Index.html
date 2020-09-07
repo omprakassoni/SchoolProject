@@ -32,7 +32,9 @@
 	<select class="form-control c-select"  name="classSelected" id="inputClass">
   			<option>Select Class</option>
   			<span th:each="classValue: ${classfromDatabase}">
-				<option><span th:text="'Class '+${classValue.getClassName()}"></span></option>
+  				<div th:if="${classValue.isStatus()}">
+				<option><span  th:text="'Class '+${classValue.getClassName()}"></span></option>
+				</div>
 			</span>
 	</select>
 	</div>
@@ -40,7 +42,9 @@
 	<select class="form-control c-select" name="subjectSelected" id="subjectHome">
   			<option>Select Subject</option>
   			<span th:each="subjectValue: ${subjectfromDatabase}">
+  				<div th:if="${subjectValue.isStatus()}">
 				<option><span th:text="${subjectValue.getSubName()}"></span></option>
+				</div>
 			</span>
 	</select>
 	</div>

@@ -7,7 +7,10 @@
 package com.adminportal.service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.data.repository.query.Param;
 
 import com.adminportal.content.ArticleExternal;
 import com.adminportal.content.ConceptMap;
@@ -45,6 +48,8 @@ public interface TopicService {
 	boolean updateTopicPoster(String path,int topicId);
 	
 	void deleteTopic(Topic topic);
+	
+	int disableEnableAllByClassStandard(int status,List<SubjectClassMapping> temp); 
 	
 	
 

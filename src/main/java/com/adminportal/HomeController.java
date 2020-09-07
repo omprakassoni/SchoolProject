@@ -32,8 +32,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.Logger;
 import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.hibernate.annotations.Loader;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -160,7 +162,7 @@ public class HomeController {
 
 	@Autowired
 	private EventsRepository evenRepo;
-
+	
 	/*
 	 * @Autowired HttpServletRequest req;
 	 */
@@ -769,7 +771,7 @@ public class HomeController {
 
 		List<Topic> localTopic = new ArrayList<Topic>();
 		for (Topic temp : localTopictemp) {
-			if (temp.getStatus() == 1) {
+			if (temp.getStatus() == 1 && temp.getSubjectClassMapping().isStatus() && temp.getSubjectClassMapping().getSub().isStatus() && temp.getSubjectClassMapping().getStandard().isStatus()) {
 				localTopic.add(temp);
 			}
 		}

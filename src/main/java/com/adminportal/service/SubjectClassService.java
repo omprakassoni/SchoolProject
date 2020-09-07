@@ -6,6 +6,7 @@
 
 package com.adminportal.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,10 @@ public interface SubjectClassService {
 	int countRow();
 	
 	List<SubjectClassMapping> getClassFromSubject(Subject subTemp) throws Exception;
+	
+	int updateSubjectinAllField(boolean status,Subject sub);
+	
+	int updateClassinAllField(boolean status,Class clas);
 	
 	
 }

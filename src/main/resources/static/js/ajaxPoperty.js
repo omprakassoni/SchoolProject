@@ -44,6 +44,141 @@ $(function(){
 	});
 	
 	
+	/******************************** DISABLE/ENABLE CLASS ******************************************************/
+	
+	$('.enableClass').click(function(){
+		var class_value=$(this).attr('value');
+		
+		$('#Success').css({"display": "none"});
+		$('#Failure').css({"display": "none"});
+			
+		if(confirm('Are you sure you want to enable it? All associated content will also get enabled.')){
+			
+		var urlPassed= projectPath+"enableDisableClass";
+	
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		$.ajax({
+	  	type: "GET",
+    	contentType: "application/json",
+   		 url: urlPassed,
+   		 data: "class_id="+class_value,
+   		 beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		 },
+   		 dataType: 'json',
+   		 cache: false,
+    	 timeout: 600000,
+   		 success: function (data){
+   			 
+   			if(data){
+   				$('#'+class_value).addClass('fas fa-times-circle');
+   				$('#'+class_value).removeClass('fas fa-check-circle');
+   				$('#'+class_value).css({"color": "red"});
+   				$('#Success').css({"display": "block"});
+   	
+   			}else{
+   				$('#Failure').css({"display": "block"});
+   			}
+   			
+   		
+		},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+		}
+		
+	})
+		}
+	})
+	
+	
+	
+	$('.disableClass').click(function(){
+		var class_value=$(this).attr('value');
+		var totalResource;
+		
+		$('#Success').css({"display": "none"});
+		$('#Failure').css({"display": "none"});
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var urlPassedTemp= projectPath+"countResourceFromClass";
+		
+		$.ajax({
+		  	type: "GET",
+		  	async:false,
+	    	contentType: "application/json",
+	   		 url: urlPassedTemp,
+	   		 data: "classId="+class_value,
+	   		 beforeSend: function(xhr) {
+	             xhr.setRequestHeader(header, token);
+	   		 },
+	   		 dataType: 'json',
+	   		 cache: false,
+	    	 timeout: 600000,
+	   		 success: function (data){
+	   			 if(data>-1){
+	   				totalResource=data;
+	   			 }else{
+	   				 totalResource=0;
+	   			 }
+	   		
+	   			 
+	   		
+			},
+			
+			error : function(err){
+				console.log("not working. ERROR: "+JSON.stringify(err));
+			}
+			
+		})
+		
+		
+		
+		if(confirm('Are you sure you want to Disable it? All associated content will also get disabled.\nTotal Number of Resource will also be disabled :'+totalResource+'')){
+			
+		var urlPassed= projectPath+"enableDisableClass";
+	
+		$.ajax({
+	  	type: "GET",
+    	contentType: "application/json",
+   		 url: urlPassed,
+   		 data: "class_id="+class_value,
+   		 beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		 },
+   		 dataType: 'json',
+   		 cache: false,
+    	 timeout: 600000,
+   		 success: function (data){
+   			 
+   			if(data){
+   				
+   				$('#'+class_value).addClass('fas fa-check-circle');
+   				$('#'+class_value).removeClass('fas fa-times-circle');
+   				$('#'+class_value).css({"color": "green"});
+   				$('#Success').css({"display": "block"});
+   				
+   	
+   			}else{
+   				$('#Failure').css({"display": "block"});
+   			}
+   			
+   		
+		},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+		}
+		
+	})
+		}
+		
+	})
+	
 	/******************************** USER DETAILS UPDATE ******************************************************/
 	
 	$("#userDetailsUpdate").click(function(){
@@ -2559,6 +2694,60 @@ $(function(){
   				
   				
   				/* -----------------------------------radio button call to enable DELETE button -----------------------------*/
+  				
+  				$("input[name='radioSubject']").change(function(){
+  					
+  					$("#enableSubject").prop('disabled', true);
+  					$("#disableSubject").prop('disabled', true);
+  					
+  					var subject_id=$(this).val();
+  					
+  					var selectedSubject={
+  							"id":subject_id
+  					};
+  					
+  					var token = $("meta[name='_csrf']").attr("content");
+  					var header = $("meta[name='_csrf_header']").attr("content");
+  					
+  					var urlPassed;
+  					
+  					
+  		        	urlPassed= projectPath+"loadByValiditySubject";
+  				
+  		        	
+  					
+  					$.ajax({
+					  	type: "GET",
+			        	contentType: "application/json",
+			       		 url: urlPassed,
+			       		 data: selectedSubject,
+			       		 beforeSend: function(xhr) {
+	                         xhr.setRequestHeader(header, token);
+			       		 },
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       			 if(data){
+			       				$("#disableSubject").prop('disabled', false);
+			       			 }else{
+			       				$("#enableSubject").prop('disabled', false);
+			       			 }
+			       			
+			       			
+			       			
+			       		
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+					});
+  					
+  						
+  				})
+  				
   				
   				$("input[name='radiocall']").change(function(){
   					
@@ -6859,6 +7048,91 @@ $(window).on('load',function(){
 		$('#registerModal').modal('show');
 	}
 })
+
+
+function TotalResourceFromTopic(){
+	
+	var topic_id=$("input[name='radioTopic']:checked").val();
+	var urlPassed=projectPath+"countResourceFromTopic";
+	var status=false;
+	
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	$.ajax({
+	  	type: "GET",
+	  	async:false,
+    	contentType: "application/json",
+   		 url: urlPassed,
+   		 data: "topicId="+topic_id,
+   		 beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		 },
+   		 dataType: 'json',
+   		 cache: false,
+    	 timeout: 600000,
+   		 success: function (data){
+   			 
+   			if(confirm('Are you sure you want to Disable it? All associated content will also get disabled.\n Total Number of Resource will also be disabled :'+data+'')){
+   				status=true;
+   			}
+   			
+   		
+		},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+		}
+		
+	})
+	
+	return status;
+	
+	
+}
+
+function TotalResourceFromSubject(){
+	
+	var sub_id=$("input[name='radioSubject']:checked").val();
+	var urlPassed=projectPath+"countResourceFromSubject";
+	var status=false;
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	$.ajax({
+	  	type: "GET",
+	  	async:false,
+    	contentType: "application/json",
+   		 url: urlPassed,
+   		 data: "subId="+sub_id,
+   		 beforeSend: function(xhr) {
+             xhr.setRequestHeader(header, token);
+   		 },
+   		 dataType: 'json',
+   		 cache: false,
+    	 timeout: 600000,
+   		 success: function (data){
+   			 
+   			if(confirm('Are you sure you want to Disable it? All associated content will also get disabled.\n Total Number of Resource will also be disabled :'+data+'')){
+   				status= true;
+   			}
+   			
+   		
+		},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+		}
+		
+	})
+	
+	return status;
+	
+}
+
+
 
 // -----------------------------------------AJAX FUNCTION FOR TOPIC---------------------------------------------------------------------------
 

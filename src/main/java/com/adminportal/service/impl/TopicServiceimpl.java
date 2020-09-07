@@ -114,7 +114,7 @@ public class TopicServiceimpl implements TopicService {
 	@Override
 	public List<Topic> findBySubjectClassMppaing(List<SubjectClassMapping> tempSubjectClass) {
 		
-		return topicRepo.findAllByStandard((ArrayList<SubjectClassMapping>) tempSubjectClass);
+		return topicRepo.findAllByClassStandard((ArrayList<SubjectClassMapping>) tempSubjectClass);
 	}
 	
 	
@@ -133,6 +133,13 @@ public class TopicServiceimpl implements TopicService {
 	public void deleteTopic(Topic topic) {
 		// TODO Auto-generated method stub
 		topicRepo.deleteTopic(topic.getTopicId());
+	}
+	
+	@Override
+	@Transactional
+	public int disableEnableAllByClassStandard(int status, List<SubjectClassMapping> temp) {
+		// TODO Auto-generated method stub
+		return topicRepo.disableEnableAllByClassStandard(status, temp);
 	}
 	
 	

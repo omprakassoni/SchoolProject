@@ -31,6 +31,9 @@ public class SubjectClassMapping {
 	@Column(name="sub_class_id",nullable = false,updatable = false)
 	private int subClassId;
 	
+	@Column(name="status",nullable = false ,columnDefinition = "bool default 1")
+	private boolean status;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="sub_id")
 	private Subject sub;
@@ -86,6 +89,14 @@ public class SubjectClassMapping {
 
 	public void setTopic(Set<Topic> topic) {
 		this.topic = topic;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 	

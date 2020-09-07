@@ -31,7 +31,7 @@ public interface TopicRepository extends CrudRepository<Topic, Integer> {
 	ArrayList<Topic> findAllBysubjectClassMapping(ArrayList<SubjectClassMapping> temp);
 	
 	@Query("from Topic T where T.subjectClassMapping IN (:SubjectClass)")
-	ArrayList<Topic> findAllByStandard(@Param("SubjectClass")ArrayList<SubjectClassMapping> temp);
+	ArrayList<Topic> findAllByClassStandard(@Param("SubjectClass")ArrayList<SubjectClassMapping> temp);
 	
 	@Modifying
 	@Query("update Topic set description=?1, poster=?2 , topicName=?3,dateModified=?4 where topicId=?5")	//UPDATING TOPIC
@@ -53,5 +53,11 @@ public interface TopicRepository extends CrudRepository<Topic, Integer> {
 	@Query("delete from Topic U where U.topicId=?1")
 	@Transactional
 	void deleteTopic(int topicID);
+	
+	@Modifying
+	@Query("update Topic T set status=:valdisEna where T.subjectClassMapping IN (:SubjectClass)")
+	int disableEnableAllByClassStandard(@Param("valdisEna")int val,@Param("SubjectClass")List<SubjectClassMapping> temp);
+	
+
 	
 }

@@ -139,6 +139,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="spk-card-body">
+                            <div class="card-header">
+                                <div id="Success"
+										style="display: none; color: green; font-size: 16px; text-align: center">Changes Updated Successfully</div>
+								<div id="Failure"
+										style="display: none; color: green; font-size: 16px; text-align: center">Please Try Again</div>    
+                            	 </div>
                                 <div class="card-body">
                                 
                                     <form th:action="@{addClass}" method="post">
@@ -168,8 +174,10 @@
 
 								<ul class="list-group list-group-flush">
                                         <li th:each="classValue:${classExist}" class="list-group-item"><span> <label> <span
-												th:text="'Class ' +${classValue.getClassName()}"></span>
-												</label> <br />
+												th:text="'Class ' +${classValue.getClassName()}" style="padding-right:20px"></span>
+												</label> <span th:if="${classValue.isStatus()}"> <a class="disableClass" th:value="${classValue.getClassName()}" title="Click to Disable Class"><i class="fas fa-times-circle" th:id="${classValue.getClassName()}" style="color:red"></i></a></span>
+														<span th:unless="${classValue.isStatus()}"> <a class="enableClass" th:value="${classValue.getClassName()}" title="Click to Enable Class"><i class="fas fa-check-circle" th:id="${classValue.getClassName()}" style="color:green"></i> </a></span>
+												<br />
 												</span></li>
                                       </ul>                                       
                                        </div>

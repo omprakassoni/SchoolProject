@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.logging.Param;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -52,5 +53,11 @@ public interface ArticleExternalRepository extends CrudRepository<ArticleExterna
 	@Query("delete from ArticleExternal U where U.articleId=?1")
 	@Transactional
 	void deleteArticle(int artcileID);
+	
+	@Query("select count(articleId) from ArticleExternal where topic=?1")
+	int countTotalResource(Topic temp);
+	
+	@Query("select count(articleId) from ArticleExternal where topic  IN (:TopicList)")
+	int countTotalResource(@org.springframework.data.repository.query.Param("TopicList")List<Topic> temp);
 
 }

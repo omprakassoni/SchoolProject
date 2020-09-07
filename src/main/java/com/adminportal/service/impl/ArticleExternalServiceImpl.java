@@ -110,12 +110,24 @@ public class ArticleExternalServiceImpl implements ArticleExternalService{
 		
 		return articleRepo.findAllByTopicAndStatus(topic, 1,"Article");
 	}
+	
 	@Override
 	public int deleteArticle(ArticleExternal article) {
 		
 		articleRepo.deleteArticle(article.getArticleId());
 		
 		return 0;
+	}
+	
+	@Override
+	public int countTotalResource(Topic temp) {
+		// TODO Auto-generated method stub
+		return articleRepo.countTotalResource(temp);
+	}
+	@Override
+	public int countTotalResource(List<Topic> temp) {
+		// TODO Auto-generated method stub
+		return articleRepo.countTotalResource(temp);
 	}
 
 }

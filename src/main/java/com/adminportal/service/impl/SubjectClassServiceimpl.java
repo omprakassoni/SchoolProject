@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adminportal.content.Class;
 import com.adminportal.content.Subject;
@@ -78,6 +79,20 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 	public List<SubjectClassMapping> getClassFromSubject(Subject subTemp) {
 		
 		return subjectClassRepo.findBysub(subTemp);
+	}
+
+	@Override
+	@Transactional
+	public int updateSubjectinAllField(boolean status, Subject sub) {
+		
+		return subjectClassRepo.updateAllSubject(status, sub);
+	}
+
+	@Override
+	@Transactional
+	public int updateClassinAllField(boolean status, Class clas) {
+		// TODO Auto-generated method stub
+		return subjectClassRepo.updateAllClass(status, clas);
 	}
 
 }

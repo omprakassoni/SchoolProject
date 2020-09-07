@@ -164,6 +164,53 @@ public class HomeControllerRest {
 	@Autowired
 	private Environment env;
 	
+	@GetMapping("/countResourceFromTopic")
+	public @ResponseBody int countResourceFromTopic(int topicId){
+		
+		Topic tempTopic=topicService.findById(topicId);
+		int TotalResource=articleService.countTotalResource(tempTopic);
+		return TotalResource;
+		
+		
+	}
+	
+	@GetMapping("/countResourceFromSubject")
+	public @ResponseBody int countResourceFromSubject(int subId){
+		
+		try {
+			Subject subTemp=subjectService.findById(subId);
+			List<SubjectClassMapping> subClassMapp=subjectClassService.getClassFromSubject(subTemp);
+			List<Topic> tempTopic=topicService.findBySubjectClassMppaing(subClassMapp);
+			int totalResource=articleService.countTotalResource(tempTopic);
+			return totalResource;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+		
+		
+	}
+	
+	@GetMapping("/countResourceFromClass")
+	public @ResponseBody int countResourceFromClass(int classId){
+		
+		try {
+			Class classTemp=classService.findByClassName(classId);
+			List<SubjectClassMapping> subClassMapp=subjectClassService.getSubjectFromClass(classTemp);
+			List<Topic> tempTopic=topicService.findBySubjectClassMppaing(subClassMapp);
+			int totalResource=articleService.countTotalResource(tempTopic);
+			return totalResource;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+		
+	}
+	
 	/*------------------------------------UPDATING USER FIRST AND LAST NAME-------------------------------------*/
 	@GetMapping("/updateUserDetails")
 	public @ResponseBody boolean updateUserInfo(String fname,String lname,Principal principal){
@@ -177,6 +224,51 @@ public class HomeControllerRest {
 		}
 		
 		
+	}
+	
+	@GetMapping("/enableDisableClass")
+	public @ResponseBody boolean enableDisableClass(int class_id){
+		Class classTemp=null;
+		List<SubjectClassMapping> subjectClassMapping=null;
+		
+		try {
+			classTemp=classService.findByClassName(class_id);
+			subjectClassMapping=subjectClassService.getSubjectFromClass(classTemp);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		if(classTemp.isStatus()) {
+			classTemp.setStatus(false);
+			classService.save(classTemp);
+			subjectClassService.updateClassinAllField(false, classTemp);
+			topicService.disableEnableAllByClassStandard(0, subjectClassMapping);
+			return true;
+			
+		}else {
+			classTemp.setStatus(true);
+			classService.save(classTemp);
+			subjectClassService.updateClassinAllField(true, classTemp);
+			topicService.disableEnableAllByClassStandard(1, subjectClassMapping);
+			return true;
+		}
+		
+	}
+	
+	/*--------------------------------- VALIDITY CHECK AGANIST SUBJECT ****************************************/
+	@GetMapping("/loadByValiditySubject")
+	public @ResponseBody boolean loadByValiditySubject(String id) {
+		Subject tempSubject=null;
+
+		try {
+			tempSubject = subjectService.findById(Integer.parseInt(id));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tempSubject.isStatus();
 	}
 	
 	
@@ -512,8 +604,10 @@ public class HomeControllerRest {
 		List<SubjectClassMapping> temp=(ArrayList<SubjectClassMapping>) subjectClassService.getSubjectFromClass(tempClass);
 		
 		for(SubjectClassMapping s:temp) {
-			System.out.println(s.getSub().getSubName());
-			subjectName.add(s.getSub().getSubName());
+			if(s.getStandard().isStatus() && s.getSub().isStatus()) {
+				subjectName.add(s.getSub().getSubName());
+			}
+			
 		}
 		
 		Collections.sort(subjectName);
@@ -538,8 +632,9 @@ public class HomeControllerRest {
 		List<SubjectClassMapping> temp=(ArrayList<SubjectClassMapping>) subjectClassService.getClassFromSubject(tempSubject);
 		
 		for(SubjectClassMapping s:temp) {
-			System.out.println(s.getStandard().getClassName());
+			if(s.getStandard().isStatus() && s.getSub().isStatus()) {
 			subjectName.add(s.getStandard().getClassName());
+			}
 		}
 		
 		Collections.sort(subjectName);
@@ -573,6 +668,7 @@ public class HomeControllerRest {
 			SubjectClassMapping temp=subjectClassService.findBysubAndstandard(classTemp, subTemp);
 			List<Topic> topicLocal=topicService.findBysubjectclassMapping(temp);
 			for(Topic x:topicLocal) {
+				if(x.getStatus()==1 && x.getSubjectClassMapping().isStatus() && x.getSubjectClassMapping().getSub().isStatus() && x.getSubjectClassMapping().getStandard().isStatus())
 				topicName.put(x.getTopicId(),x.getTopicName());
 			}
 		}
