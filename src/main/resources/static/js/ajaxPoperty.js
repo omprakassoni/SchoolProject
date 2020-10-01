@@ -2175,7 +2175,7 @@ $(function(){
   					var urlPassed;
   					
   					
-  		        		urlPassed= projectPath+"loadByClassName";
+  		        		urlPassed= projectPath+"loadByClassNameHome";
   				
   		        	
   		

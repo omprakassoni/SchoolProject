@@ -27,7 +27,7 @@ import com.adminportal.domain.User;
 
 @Entity
 @Table(name="Subject")
-public class Subject {
+public class Subject implements Comparable<Subject>{
 	
 	
 	@Id
@@ -37,8 +37,8 @@ public class Subject {
 	@Column(name="sub_name",nullable = false)
 	private String subName;
 	
-	@Column(name="status",nullable = false ,columnDefinition = "bool default 1")
-	private boolean status;
+	@Column(name="status",nullable = false)
+	private boolean status=true;
 	
 	@Column(name="date_added",nullable = false)
 	private Timestamp dateAdded;
@@ -97,6 +97,12 @@ public class Subject {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	@Override
+	public int compareTo(Subject s1) {
+		
+		return this.subName.compareTo(s1.subName);
 	}
 	
 	

@@ -36,8 +36,8 @@ public class Class {
 	@Column(name="class_name",nullable = false)
 	private int className;
 	
-	@Column(name="status",nullable = false ,columnDefinition = "bool default 1")
-	private boolean status;
+	@Column(name="status",nullable = false)
+	private boolean status=true;
 	
 	@Column(name="date_added",nullable = false)
 	private Timestamp dateAdded;

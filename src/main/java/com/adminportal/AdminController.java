@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -1057,6 +1058,7 @@ public class AdminController {
 		mv.setViewName("addSubject");										// setting view name
 		
 		List<Subject> subjectList=subjectService.findAll();
+		
 		for(Subject temp:subjectList) {
 			List<Integer> classWithSubject=new ArrayList<>();
 			for(SubjectClassMapping temp1:temp.getSubClasMapp()) {
@@ -1065,9 +1067,13 @@ public class AdminController {
 			Collections.sort(classWithSubject);
 			
 			SubjectEntry.put(temp, classWithSubject);
+			
 		}
 		
-		mv.addObject("Subject", SubjectEntry);
+		TreeMap<Subject, List<Integer>> sortedSubjectEntry = new TreeMap<>();
+		sortedSubjectEntry.putAll(SubjectEntry);
+		
+		mv.addObject("Subject", sortedSubjectEntry);
 		
 		mv.addObject("viewActive","active");
 		return mv;
@@ -1103,7 +1109,10 @@ public class AdminController {
 				
 				SubjectEntry.put(temp, classWithSubject);
 			}
-			mv.addObject("Subject", SubjectEntry);
+			TreeMap<Subject, List<Integer>> sortedSubjectEntry = new TreeMap<>();
+			sortedSubjectEntry.putAll(SubjectEntry);
+			
+			mv.addObject("Subject", sortedSubjectEntry);
 			
 			
 			mv.setViewName("addSubject");												// setting view name
@@ -1174,7 +1183,10 @@ public class AdminController {
 			
 			SubjectEntry.put(temp, classWithSubject);
 		}
-		mv.addObject("Subject", SubjectEntry);
+		TreeMap<Subject, List<Integer>> sortedSubjectEntry = new TreeMap<>();
+		sortedSubjectEntry.putAll(SubjectEntry);
+		
+		mv.addObject("Subject", sortedSubjectEntry);
 		
 		
 		mv.setViewName("addSubject");												// setting view name

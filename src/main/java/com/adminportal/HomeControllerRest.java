@@ -177,10 +177,14 @@ public class HomeControllerRest {
 	@GetMapping("/countResourceFromSubject")
 	public @ResponseBody int countResourceFromSubject(int subId){
 		
+		List<Topic> tempTopic=null;
 		try {
 			Subject subTemp=subjectService.findById(subId);
 			List<SubjectClassMapping> subClassMapp=subjectClassService.getClassFromSubject(subTemp);
-			List<Topic> tempTopic=topicService.findBySubjectClassMppaing(subClassMapp);
+			if(!subClassMapp.isEmpty()) {
+				tempTopic=topicService.findBySubjectClassMppaing(subClassMapp);
+			}
+			
 			int totalResource=articleService.countTotalResource(tempTopic);
 			return totalResource;
 		} catch (Exception e) {
@@ -196,10 +200,14 @@ public class HomeControllerRest {
 	@GetMapping("/countResourceFromClass")
 	public @ResponseBody int countResourceFromClass(int classId){
 		
+		List<Topic> tempTopic=null;
+		List<SubjectClassMapping> subClassMapp=null;
 		try {
 			Class classTemp=classService.findByClassName(classId);
-			List<SubjectClassMapping> subClassMapp=subjectClassService.getSubjectFromClass(classTemp);
-			List<Topic> tempTopic=topicService.findBySubjectClassMppaing(subClassMapp);
+			subClassMapp=subjectClassService.getSubjectFromClass(classTemp);
+			if(!subClassMapp.isEmpty()) {
+				tempTopic=topicService.findBySubjectClassMppaing(subClassMapp);
+			}
 			int totalResource=articleService.countTotalResource(tempTopic);
 			return totalResource;
 		} catch (Exception e) {
@@ -244,14 +252,18 @@ public class HomeControllerRest {
 			classTemp.setStatus(false);
 			classService.save(classTemp);
 			subjectClassService.updateClassinAllField(false, classTemp);
-			topicService.disableEnableAllByClassStandard(0, subjectClassMapping);
+			if(!subjectClassMapping.isEmpty()) {
+				topicService.disableEnableAllByClassStandard(0, subjectClassMapping);
+			}
 			return true;
 			
 		}else {
 			classTemp.setStatus(true);
 			classService.save(classTemp);
 			subjectClassService.updateClassinAllField(true, classTemp);
-			topicService.disableEnableAllByClassStandard(1, subjectClassMapping);
+			if(!subjectClassMapping.isEmpty()) {
+				topicService.disableEnableAllByClassStandard(1, subjectClassMapping);
+			}
 			return true;
 		}
 		
@@ -604,6 +616,29 @@ public class HomeControllerRest {
 		List<SubjectClassMapping> temp=(ArrayList<SubjectClassMapping>) subjectClassService.getSubjectFromClass(tempClass);
 		
 		for(SubjectClassMapping s:temp) {
+			
+			subjectName.add(s.getSub().getSubName());
+			
+		}
+		
+		Collections.sort(subjectName);
+		
+		return subjectName;
+		
+	}
+	
+	@PostMapping("/loadByClassNameHome")
+	public @ResponseBody List<String> loadByClassNameHome(@Valid @RequestBody Class classSelected ) throws Exception{
+		
+		List<String> subjectName=new ArrayList<String>();
+		
+		Class tempClass=classService.findByClassName(classSelected.getClassName());
+		
+		System.out.println(tempClass.getClass_id());
+		
+		List<SubjectClassMapping> temp=(ArrayList<SubjectClassMapping>) subjectClassService.getSubjectFromClass(tempClass);
+		
+		for(SubjectClassMapping s:temp) {
 			if(s.getStandard().isStatus() && s.getSub().isStatus()) {
 				subjectName.add(s.getSub().getSubName());
 			}
@@ -642,6 +677,7 @@ public class HomeControllerRest {
 		return subjectName;
 		
 	}
+	
 	
 	
 	@GetMapping("/loadByTopicName")

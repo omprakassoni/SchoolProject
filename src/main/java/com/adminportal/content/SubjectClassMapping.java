@@ -31,8 +31,8 @@ public class SubjectClassMapping {
 	@Column(name="sub_class_id",nullable = false,updatable = false)
 	private int subClassId;
 	
-	@Column(name="status",nullable = false ,columnDefinition = "bool default 1")
-	private boolean status;
+	@Column(name="status",nullable = false)
+	private boolean status=true;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="sub_id")

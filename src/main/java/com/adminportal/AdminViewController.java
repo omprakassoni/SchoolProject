@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -216,7 +217,10 @@ public class AdminViewController {
 				SubjectEntry.put(temp, classWithSubject);
 			}
 			
-			mv.addObject("Subject", SubjectEntry);
+			TreeMap<Subject, List<Integer>> sortedSubjectEntry = new TreeMap<>();
+			sortedSubjectEntry.putAll(SubjectEntry);
+			
+			mv.addObject("Subject", sortedSubjectEntry);
 			
 			mv.addObject("viewActive","active");
 			return mv;
@@ -229,12 +233,16 @@ public class AdminViewController {
 			try {
 				subjectClassTemp=subjectClassService.getClassFromSubject(subTemp);
 				subjectClassService.updateSubjectinAllField(false, subTemp);
-				topicService.disableEnableAllByClassStandard(0, subjectClassTemp);
+				if(!subjectClassTemp.isEmpty()) {
+					topicService.disableEnableAllByClassStandard(0, subjectClassTemp);
+				}
 				mv.addObject("status", "Subject Disabled Successfully");
 			} catch (Exception e) {
 				
 				subjectClassService.updateSubjectinAllField(true, subTemp);
-				topicService.disableEnableAllByClassStandard(1, subjectClassTemp);
+				if(!subjectClassTemp.isEmpty()) {
+					topicService.disableEnableAllByClassStandard(1, subjectClassTemp);
+				}
 				subTemp.setStatus(true);
 				subjectService.save(subTemp);
 				mv.addObject("status", "Please Try Again");
@@ -249,12 +257,16 @@ public class AdminViewController {
 			try {
 				subjectClassTemp=subjectClassService.getClassFromSubject(subTemp);
 				subjectClassService.updateSubjectinAllField(true, subTemp);
-				topicService.disableEnableAllByClassStandard(1, subjectClassTemp);
+				if(!subjectClassTemp.isEmpty()) {
+					topicService.disableEnableAllByClassStandard(1, subjectClassTemp);
+				}
 				mv.addObject("status", "Subject Enabled Successfully");
 			} catch (Exception e) {
 				
 				subjectClassService.updateSubjectinAllField(false, subTemp);
-				topicService.disableEnableAllByClassStandard(0, subjectClassTemp);
+				if(!subjectClassTemp.isEmpty()) {
+					topicService.disableEnableAllByClassStandard(0, subjectClassTemp);
+				}
 				subTemp.setStatus(false);
 				subjectService.save(subTemp);
 				mv.addObject("status", "Please Try Again");
@@ -283,7 +295,10 @@ public class AdminViewController {
 			SubjectEntry.put(temp, classWithSubject);
 		}
 		
-		mv.addObject("Subject", SubjectEntry);
+		TreeMap<Subject, List<Integer>> sortedSubjectEntry = new TreeMap<>();
+		sortedSubjectEntry.putAll(SubjectEntry);
+		
+		mv.addObject("Subject", sortedSubjectEntry);
 		
 		mv.addObject("viewActive","active");
 		return mv;
