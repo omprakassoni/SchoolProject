@@ -14,6 +14,6 @@ public interface RoleDetailService {
 	
 	int countRow();
 	
-	void save(RoleDetail role);
+	RoleDetail save(RoleDetail role);
 
 }

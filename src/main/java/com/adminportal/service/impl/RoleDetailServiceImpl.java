@@ -38,8 +38,8 @@ public class RoleDetailServiceImpl implements RoleDetailService {
 
 
 	@Override
-	public void save(RoleDetail role) {
-		roleRepo.save(role);
+	public RoleDetail save(RoleDetail role) {
+		  return roleRepo.save(role);
 		
 	}
 
