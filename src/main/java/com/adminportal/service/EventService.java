@@ -16,7 +16,7 @@ import antlr.debug.Event;
 public interface EventService {
 	
 	int getCount();
-	void save(Events temp);
+	Events save(Events temp);
 	
 	List<Events> findAll();
 
