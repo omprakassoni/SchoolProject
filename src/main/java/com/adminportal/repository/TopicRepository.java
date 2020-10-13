@@ -55,6 +55,11 @@ public interface TopicRepository extends CrudRepository<Topic, Integer> {
 	void deleteTopic(int topicID);
 	
 	@Modifying
+	@Transactional
+	@Query("update Topic set dateModified=?1 where topicId=?2")
+	int updateRecentmodificationDate(Timestamp date,int topicId);
+	
+	@Modifying
 	@Query("update Topic T set status=:valdisEna where T.subjectClassMapping IN (:SubjectClass)")
 	int disableEnableAllByClassStandard(@Param("valdisEna")int val,@Param("SubjectClass")List<SubjectClassMapping> temp);
 	

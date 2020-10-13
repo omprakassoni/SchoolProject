@@ -28,9 +28,11 @@ import com.adminportal.content.Tutorial;
 import com.adminportal.content.VideoExternal;
 import com.adminportal.domain.User;
 import com.adminportal.domain.UserRole;
+import com.adminportal.repository.TopicRepository;
 import com.adminportal.repository.UserRepository;
 import com.adminportal.repository.UserRoleRepository;
 import com.adminportal.service.UserService;
+import com.spoken.Utility.ServiceUtility;
 
 
 
@@ -43,6 +45,9 @@ public class UserServiceimpl implements UserService {
 	
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+	
+	@Autowired
+	private TopicRepository topicRepo;
 	
 	
 	@Override
@@ -133,6 +138,10 @@ public class UserServiceimpl implements UserService {
 		usr.getArticleExternal().addAll(article);
 		userRepository.save(usr);
 		
+		for(ArticleExternal temp:article) {
+			topicRepo.updateRecentmodificationDate(ServiceUtility.getCurrentTime(),temp.getTopic().getTopicId());
+		}
+		
 		return null;
 	}
 
@@ -142,6 +151,10 @@ public class UserServiceimpl implements UserService {
 	
 		usr.getDocumentExternal().addAll(document);
 		userRepository.save(usr);
+		
+		for(DocumentExternal temp:document) {
+			topicRepo.updateRecentmodificationDate(ServiceUtility.getCurrentTime(),temp.getTopic().getTopicId());
+		}
 		return null;
 	}
 
@@ -151,6 +164,10 @@ public class UserServiceimpl implements UserService {
 		
 		usr.getLessonPlan().addAll(lesson);
 		userRepository.save(usr);
+		
+		for(LessonPlan temp:lesson) {
+			topicRepo.updateRecentmodificationDate(ServiceUtility.getCurrentTime(),temp.getTopic().getTopicId());
+		}
 		return null;
 	}
 
@@ -160,6 +177,10 @@ public class UserServiceimpl implements UserService {
 	
 		usr.getPhet().addAll(phet);
 		userRepository.save(usr);
+		
+		for(Phets temp:phet) {
+			topicRepo.updateRecentmodificationDate(ServiceUtility.getCurrentTime(),temp.getTopic().getTopicId());
+		}
 		return null;
 	}
 
@@ -169,6 +190,10 @@ public class UserServiceimpl implements UserService {
 		
 		usr.getQuiz().addAll(quiz);
 		userRepository.save(usr);
+		
+		for(QuizQuestion temp:quiz) {
+			topicRepo.updateRecentmodificationDate(ServiceUtility.getCurrentTime(),temp.getTopic().getTopicId());
+		}
 		return null;
 	}
 
@@ -178,6 +203,10 @@ public class UserServiceimpl implements UserService {
 		
 		usr.getVideoExternal().addAll(video);
 		userRepository.save(usr);
+		
+		for(VideoExternal temp:video) {
+			topicRepo.updateRecentmodificationDate(ServiceUtility.getCurrentTime(),temp.getTopic().getTopicId());
+		}
 		return null;
 	}
 
@@ -232,6 +261,10 @@ public class UserServiceimpl implements UserService {
 	public User addUserToTutorial(User usr, Set<Tutorial> tutorial) {
 		usr.getTutorial().addAll(tutorial);
 		userRepository.save(usr);
+		
+		for(Tutorial temp:tutorial) {
+			topicRepo.updateRecentmodificationDate(ServiceUtility.getCurrentTime(),temp.getTopic().getTopicId());
+		}
 		return null;
 	}
 
