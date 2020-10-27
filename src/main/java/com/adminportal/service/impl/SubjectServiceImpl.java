@@ -36,6 +36,11 @@ import com.adminportal.repository.TopicRepository;
 import com.adminportal.repository.VideoExternalRepository;
 import com.adminportal.service.SubjectService;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.SubjectService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class SubjectServiceImpl implements SubjectService{
 
@@ -67,6 +72,9 @@ public class SubjectServiceImpl implements SubjectService{
 	@Autowired
 	private VideoExternalRepository videoRepo;
 	
+	/**
+	 * @see com.adminportal.service.SubjectService#findBySubjectName(String subjectName)
+	 */
 	@Override
 	public Subject findBySubjectName(String subjectName) {
 		
@@ -75,6 +83,9 @@ public class SubjectServiceImpl implements SubjectService{
 		return localSubject;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectService#findAll()
+	 */
 	@Override
 	public List<Subject> findAll() {
 		
@@ -82,6 +93,9 @@ public class SubjectServiceImpl implements SubjectService{
 		return local;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectService#findBysubName(String sub)
+	 */
 	@Override
 	public Subject findBysubName(String sub) {
 		
@@ -89,151 +103,10 @@ public class SubjectServiceImpl implements SubjectService{
 		return localSubject;
 	}
 
-	@Override
-	public void deleteById(int id) {
-		
-		Optional<Subject> localsubject=subjectRepo.findById(id);
-		Subject tempsub=localsubject.get();
-		ArrayList<SubjectClassMapping> temp=subjectClassRepo.findBysub(tempsub);
-		
-		
-		for(SubjectClassMapping a:temp) {
-			System.out.println(a);
-		}
-		
-		ArrayList<Topic> tempTopic=getAllTopicBySubjectClassMapping(temp);
-		
-		for(Topic a:tempTopic) {
-			System.out.println(a);
-		}
-		
-		List<ArticleExternal> tempArticle=getAllArticleByTopic(tempTopic);
-		
-		for(ArticleExternal a:tempArticle) {
-			System.out.println(a);
-		}
-		
-		List<DocumentExternal> tempDocument=getAllDocumentByTopic(tempTopic);
-		for(DocumentExternal a:tempDocument) {
-			System.out.println(a);
-		}
-		
-		List<VideoExternal> tempVideo=getAllVideoByTopic(tempTopic);
-		for(VideoExternal a:tempVideo) {
-			System.out.println(a);
-		}
-		
-		List<Phets> tempPhets=getAllPhetsByTopic(tempTopic);
-		for(Phets a:tempPhets) {
-			System.out.println(a);
-		}
-		
-		List<QuizQuestion> tempQuiz=getAllQuizByTopic(tempTopic);
-		for(QuizQuestion a:tempQuiz) {
-			System.out.println(a);
-		}
-		
-		List<LessonPlan> tempLesson=getAllLessonByTopic(tempTopic);
-		for(LessonPlan a:tempLesson) {
-			System.out.println(a);
-		}
-		// need to delegate for deletion operation
-		
-	}
-
-	@Override
-	public ArrayList<Topic> getAllTopicBySubjectClassMapping(ArrayList<SubjectClassMapping> subClass) {
-		
-		ArrayList<Topic> topic=new ArrayList<Topic>();
-		
-		for(SubjectClassMapping t:subClass) {
-			if(topicRepo.existsBysubjectClassMapping(t)) {
-				ArrayList<Topic> local=(ArrayList<Topic>) topicRepo.findBysubjectClassMapping(t);
-				topic.addAll(local);
-			}
-		}
-		return topic;
-	}
-
-	@Override
-	public ArrayList<ArticleExternal> getAllArticleByTopic(ArrayList<Topic> topic) {
 	
-		ArrayList<ArticleExternal> article=new ArrayList<ArticleExternal>();
-		
-		for(Topic tp:topic) {
-			
-			ArrayList<ArticleExternal> local=articleRepo.findAllBytopicAndType(tp, "Article");
-			article.addAll(local);
-			
-		}
-		return article;
-	}
-
-	@Override
-	public ArrayList<DocumentExternal> getAllDocumentByTopic(ArrayList<Topic> topic) {
-	ArrayList<DocumentExternal> document=new ArrayList<DocumentExternal>();
-		
-		for(Topic tp:topic) {
-			
-			ArrayList<DocumentExternal> local=documentRepo.findAllBytopicAndType(tp, "Document");
-			document.addAll(local);
-			
-		}
-		return document;
-	}
-
-	@Override
-	public ArrayList<VideoExternal> getAllVideoByTopic(ArrayList<Topic> topic) {
-	ArrayList<VideoExternal> video=new ArrayList<VideoExternal>();
-		
-		for(Topic tp:topic) {
-			
-			ArrayList<VideoExternal> local=videoRepo.findAllBytopicAndType(tp, "Video");
-			video.addAll(local);
-			
-		}
-		return video;
-	}
-
-	@Override
-	public ArrayList<QuizQuestion> getAllQuizByTopic(ArrayList<Topic> topic) {
-	ArrayList<QuizQuestion> quiz=new ArrayList<QuizQuestion>();
-		
-		for(Topic tp:topic) {
-			
-			ArrayList<QuizQuestion> local=quizRepo.findAllBytopicAndType(tp, "Quiz");
-			quiz.addAll(local);
-			
-		}
-		return quiz;
-	}
-
-	@Override
-	public ArrayList<LessonPlan> getAllLessonByTopic(ArrayList<Topic> topic) {
-	ArrayList<LessonPlan> lesson=new ArrayList<LessonPlan>();
-		
-		for(Topic tp:topic) {
-			
-			ArrayList<LessonPlan> local=lessonRepo.findAllBytopicAndType(tp, "Lesson");
-			lesson.addAll(local);
-			
-		}
-		return lesson;
-	}
-
-	@Override
-	public ArrayList<Phets> getAllPhetsByTopic(ArrayList<Topic> topic) {
-	ArrayList<Phets> phet=new ArrayList<Phets>();
-		
-		for(Topic tp:topic) {
-			
-			ArrayList<Phets> local=phetRepo.findAllBytopicAndType(tp, "Phets");
-			phet.addAll(local);
-			
-		}
-		return phet;
-	}
-
+	/**
+	 * @see com.adminportal.service.SubjectService#findById(int id)
+	 */
 	@Override
 	public Subject findById(int id) {
 		
@@ -245,12 +118,18 @@ public class SubjectServiceImpl implements SubjectService{
 		return localSub;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
 		return (int) subjectRepo.count();
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectService#save(Subject sub)
+	 */
 	@Override
 	public Subject save(Subject sub) {
 		
@@ -258,6 +137,9 @@ public class SubjectServiceImpl implements SubjectService{
 		return subj;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectService#updateSubjectName(String subName, int subId)
+	 */
 	@Override
 	@Transactional
 	public boolean updateSubjectName(String subName, int subId) {

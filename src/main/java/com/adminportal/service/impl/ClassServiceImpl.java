@@ -15,12 +15,20 @@ import com.adminportal.content.Class;
 import com.adminportal.repository.ClassRepository;
 import com.adminportal.service.ClassService;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.ClassService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class ClassServiceImpl implements ClassService{
 	
 	@Autowired
 	private ClassRepository classRepo;
 
+	/**
+	 *  @see com.adminportal.service.ClassService#findByClassName(int className)
+	 */
 	@Override
 	public Class findByClassName(int className) {
 		
@@ -28,7 +36,11 @@ public class ClassServiceImpl implements ClassService{
 		
 		return localClass;
 	}
-
+	
+	
+	/**
+	 *  @see com.adminportal.service.ClassService#findAll()
+	 */
 	@Override
 	public List<Class> findAll() {
 		
@@ -37,6 +49,9 @@ public class ClassServiceImpl implements ClassService{
 		return local;
 	}
 
+	/**
+	 *  @see com.adminportal.service.ClassService#save(Class temp)
+	 */
 	@Override
 	public Class save(Class temp) {
 		
@@ -45,6 +60,9 @@ public class ClassServiceImpl implements ClassService{
 		return local;
 	}
 
+	/**
+	 *  @see com.adminportal.service.ClassService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		

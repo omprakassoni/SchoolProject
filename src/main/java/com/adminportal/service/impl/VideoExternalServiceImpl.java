@@ -21,18 +21,29 @@ import com.adminportal.repository.VideoExternalRepository;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.VideoExternalService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class VideoExternalServiceImpl implements VideoExternalService{
 	
 	@Autowired
 	private VideoExternalRepository videoRepo;
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#findAll()
+	 */
 	@Override
 	public List<VideoExternal> findAll() {
 		
 		return videoRepo.findAllBytype("Video");
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#deleteVideoById(int id)
+	 */
 	@Override
 	public void deleteVideoById(int id) {
 		Optional<VideoExternal> local=videoRepo.findById(id);
@@ -40,13 +51,20 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 		videoRepo.deleteById(temp.getVideoId());
 		
 	}
+	
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#findById(int id)
+	 */
 	@Override
 	public VideoExternal findById(int id) {
 		Optional<VideoExternal> video=videoRepo.findById(id);
 		return video.get();
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#updateVideo(String desc, String source, String url, Timestamp date, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateVideo(String desc, String source, String url, Timestamp date, int id) {
@@ -59,6 +77,9 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#countRow() 
+	 */
 	@Override
 	public int countRow() {
 		
@@ -66,6 +87,9 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 	}
 
 	
+	/**
+	 * @see com.adminportal.service.VideoExternalService#EnableVideoContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableVideoContent(int status, int id) {
@@ -78,6 +102,9 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 	
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#findAllByTopic(Topic topic)
+	 */
 	@Override
 	public List<VideoExternal> findAllByTopic(Topic topic) {
 		
@@ -86,12 +113,18 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 		return localVideo;
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#findALlByUser(User usr)
+	 */
 	@Override
 	public List<VideoExternal> findALlByUser(User usr) {
 		
 		return videoRepo.findAllByuser(usr,"Video");
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#EnableAcceptedByAdminVideoContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableAcceptedByAdminVideoContent(int status, int id) {
@@ -103,18 +136,27 @@ public class VideoExternalServiceImpl implements VideoExternalService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#findAllByTopicAndStatus(Topic topic)
+	 */
 	@Override
 	public List<VideoExternal> findAllByTopicAndStatus(Topic topic) {
 		
 		return videoRepo.findAllByTopicAndStatus(topic, 1,"Video");
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#save(VideoExternal temp)
+	 */
 	@Override
 	public int save(VideoExternal temp) {
 		videoRepo.save(temp);
 		return 0;
 	}
 
+	/**
+	 * @see com.adminportal.service.VideoExternalService#deleteVideo(VideoExternal video)
+	 */
 	@Override
 	public void deleteVideo(VideoExternal video) {
 		// TODO Auto-generated method stub

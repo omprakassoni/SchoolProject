@@ -6,13 +6,36 @@
 
 package com.spoken.Utility;
 
+/**
+ * A Utility class to take data of subjectClass Object on ajax call
+ * @author om Prakash
+ *
+ */
 public class SubjectAjaxQueryResolver {
-	
+	/**
+	 * A Unique Id 
+	 */
 	int id;
+	/**
+	 * Subject NAme
+	 */
 	String subName;
+	/**
+	 * Class Name
+	 */
 	String className;
+	
+	/**
+	 * Default Constructor
+	 */
 	public SubjectAjaxQueryResolver() {}
 	
+	/**
+	 * Parameterized Constructor
+	 * @param id A unique Id
+	 * @param subName name of subject
+	 * @param className name of Class
+	 */
 	public SubjectAjaxQueryResolver(int id, String subName, String className) {
 		super();
 		this.id = id;

@@ -20,15 +20,25 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+/**
+ * This class Stores different Role in system.
+ * @author om
+ *
+ */
 @Entity
 @Table(name="role_details")
 public class RoleDetail {
 	
-	
+	/**
+	 * A unique ID
+	 */
 	@Id
 	@Column(name = "role_id", nullable = false,updatable = false)
 	private int roleId;
 	
+	/**
+	 * RoleNAme 
+	 */
 	@Column(nullable = false)
 	private String roleName;
 	

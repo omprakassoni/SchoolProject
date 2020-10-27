@@ -17,18 +17,29 @@ import com.adminportal.content.Events;
 import com.adminportal.repository.EventsRepository;
 import com.adminportal.service.EventService;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.EventService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class EventServiceImpl implements EventService{
 
 	@Autowired
 	EventsRepository eventRepo;
 	
+	/**
+	 * @see com.adminportal.service.EventService#getCount()
+	 */
 	@Override
 	public int getCount() {
 		
 		return (int) eventRepo.count();
 	}
 
+	/**
+	 * @see com.adminportal.service.EventService#save(Events temp)
+	 */
 	@Override
 	public Events save(Events temp) {
 		
@@ -36,24 +47,36 @@ public class EventServiceImpl implements EventService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.EventService#findAll()
+	 */
 	@Override
 	public List<Events> findAll() {
 		
 		return (List<Events>) eventRepo.findAll();
 	}
 
+	/**
+	 * @see com.adminportal.service.EventService#getAllEventdata()
+	 */
 	@Override
 	public List<Events> getAllEventdata() {
 		
 		return eventRepo.getAllEvent();
 	}
 
+	/**
+	 * @see com.adminportal.service.EventService#getbyid(int id)
+	 */
 	@Override
 	public Events getbyid(int id) {
 		Optional<Events> local=eventRepo.findById(id);
 		return local.get();
 	}
 
+	/**
+	 * @see com.adminportal.service.EventService#updateEvent(String head,String desc,Date startDate,Date enddate,Date regStart,Date regEnd,String coordName,String poster_Path,int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateEvent(String head,String desc,Date startDate,Date enddate,Date regStart,Date regEnd,String coordName,String poster_Path,int id) {
@@ -65,6 +88,9 @@ public class EventServiceImpl implements EventService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.EventService#deleteEvent(Events event)
+	 */
 	@Override
 	public void deleteEvent(Events event) {
 		

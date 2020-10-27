@@ -25,18 +25,29 @@ import com.adminportal.domain.User;
 import com.adminportal.repository.CommentRepository;
 import com.adminportal.service.CommentService;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.CommentService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private CommentRepository comRepo;
 	
+	/**
+	 * @see com.adminportal.service.CommentService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
 		return (int) comRepo.count();
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#getCommentByVideoId(VideoExternal video)
+	 */
 	@Override
 	public List<Comment> getCommentByVideoId(VideoExternal video) {
 		
@@ -45,6 +56,9 @@ public class CommentServiceImpl implements CommentService {
 		return com;
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#addReplyComment(Comment comment, Set<CommentReply> commentReply)
+	 */
 	@Override
 	public Comment addReplyComment(Comment comment, Set<CommentReply> commentReply) {
 			
@@ -54,12 +68,18 @@ public class CommentServiceImpl implements CommentService {
 		return null;
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#findById(int id)
+	 */
 	@Override
 	public Comment findById(int id) {
 		Optional<Comment> local=comRepo.findById(id);
 		return local.get();
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#getCommentByArticleId(ArticleExternal article)
+	 */
 	@Override
 	public List<Comment> getCommentByArticleId(ArticleExternal article) {
 		
@@ -67,6 +87,9 @@ public class CommentServiceImpl implements CommentService {
 		return com;
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#getCommentByQuizId(QuizQuestion quiz)
+	 */
 	@Override
 	public List<Comment> getCommentByQuizId(QuizQuestion quiz) {
 		
@@ -74,6 +97,9 @@ public class CommentServiceImpl implements CommentService {
 		return com;
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#getCommentByDocumentId(DocumentExternal document)
+	 */
 	@Override
 	public List<Comment> getCommentByDocumentId(DocumentExternal document) {
 		
@@ -81,6 +107,9 @@ public class CommentServiceImpl implements CommentService {
 		return com;
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#getCommentByPhetId(Phets phet)
+	 */
 	@Override
 	public List<Comment> getCommentByPhetId(Phets phet) {
 		
@@ -88,6 +117,9 @@ public class CommentServiceImpl implements CommentService {
 		return com;
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#getCommentByLessonId(LessonPlan lesson)
+	 */
 	@Override
 	public List<Comment> getCommentByLessonId(LessonPlan lesson) {
 		
@@ -95,6 +127,9 @@ public class CommentServiceImpl implements CommentService {
 		return com;
 	}
 
+	/**
+	 * @see com.adminportal.service.CommentService#getCommentByConceptMap(ConceptMap conceptMap)
+	 */
 	@Override
 	public List<Comment> getCommentByConceptMap(ConceptMap conceptMap) {
 		

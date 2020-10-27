@@ -21,30 +21,55 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.adminportal.domain.User;
-
+/**
+ * This class Represent Entity which stores Video Resource data
+ * @author om
+ *
+ */
 @Entity
 @Table(name="content")
 public class VideoExternal {
 	
+	/**
+	 * A unique ID representing single Video Resource
+	 */
 	@Id
 	@Column(name="content_id",nullable = false,updatable = false)
 	private int videoId;
 	
+	/**
+	 * Resource Type like article,Phet etc
+	 */
 	@Column(name="type",nullable = false)
 	private String type;
 	
+	/**
+	 * Date on which resource added
+	 */
 	@Column(name="date_added",updatable = false,nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Date on which resource Modified
+	 */
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 	
+	/**
+	 * A long description On Video
+	 */
 	@Column(name="description",length = 10000)
 	private String description;
 	
+	/**
+	 * Name of Reference from where video is being used. 
+	 */
 	@Column(name="source")
 	private String source;
 	
+	/**
+	 * A proper Url of video
+	 */
 	@Column(name="url")
 	private String url;
 	
@@ -54,6 +79,9 @@ public class VideoExternal {
 	@Column(name="acceptedByAdmin",nullable = false)
 	private int acceptedByAdmin;
 	
+	/**
+	 * Date on which resource got approved from admin
+	 */
 	@Column(name="date_approved")
 	private Timestamp dateApproved;
 	

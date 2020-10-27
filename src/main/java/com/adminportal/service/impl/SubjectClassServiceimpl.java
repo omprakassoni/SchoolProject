@@ -21,6 +21,11 @@ import com.adminportal.repository.SubjectClassMappingRepository;
 import com.adminportal.repository.SubjectRepository;
 import com.adminportal.service.SubjectClassService;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.SubjectClassService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class SubjectClassServiceimpl implements SubjectClassService{
 	
@@ -30,6 +35,9 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 	@Autowired
 	private SubjectClassMappingRepository subjectClassRepo;
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#createSubjectClass(Subject sub, Set<SubjectClassMapping> subClass)
+	 */
 	@Override
 	public Subject createSubjectClass(Subject sub, Set<SubjectClassMapping> subClass) throws Exception{
 		
@@ -39,6 +47,9 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 		return sub1;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#createTopic(Topic topic, SubjectClassMapping subjectClassmapping)
+	 */
 	@Override
 	public Subject createTopic(Topic topic, SubjectClassMapping subjectClassmapping) throws Exception {
 		
@@ -48,6 +59,9 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 		return null;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#getSubjectFromClass(Class classTemp)
+	 */
 	@Override
 	public List<SubjectClassMapping> getSubjectFromClass(Class classTemp) {
 		
@@ -56,6 +70,9 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 		return localSubjectClass;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#findBysubAndstandard(Class tempClass, Subject subject)
+	 */
 	@Override
 	public SubjectClassMapping findBysubAndstandard(Class tempClass, Subject subject) {
 		
@@ -63,24 +80,36 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 		return localSubjectClass;
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
 		return (int) subjectClassRepo.count();
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#getClassFromMapping(Class classTemp)
+	 */
 	@Override
 	public List<SubjectClassMapping> getClassFromMapping(Class classTemp) {
 		
 		return subjectClassRepo.findBystandard(classTemp);
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#getClassFromSubject(Subject subTemp)
+	 */
 	@Override
 	public List<SubjectClassMapping> getClassFromSubject(Subject subTemp) {
 		
 		return subjectClassRepo.findBysub(subTemp);
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#updateSubjectinAllField(boolean status, Subject sub)
+	 */
 	@Override
 	@Transactional
 	public int updateSubjectinAllField(boolean status, Subject sub) {
@@ -88,6 +117,9 @@ public class SubjectClassServiceimpl implements SubjectClassService{
 		return subjectClassRepo.updateAllSubject(status, sub);
 	}
 
+	/**
+	 * @see com.adminportal.service.SubjectClassService#updateClassinAllField(boolean status, Class clas)
+	 */
 	@Override
 	@Transactional
 	public int updateClassinAllField(boolean status, Class clas) {

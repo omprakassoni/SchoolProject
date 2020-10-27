@@ -39,20 +39,45 @@ import com.adminportal.HomeController;
 
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.util.Zip4jUtil;
-
+/**
+ * This class contains various utility function like creating password using Encoding scheme, getting current time, Checking extension for various format
+ * Supported in application, Create various folder in application, Uploading file etc.
+ * @author om prakash
+ *
+ */
 
 public class ServiceUtility {
 	
+	/**
+	 *  This is External path where all the resources related to application resides.
+	 */
 	static String mediaPath="/var/school_data/";
+	
+	/**
+	 * This is used to create encoded password using text hashing.
+	 */
 	private static final String SALT="salt";
+	
+	/**
+	 * This is starting path for all the resources adding with external path.
+	 */
 	private static String uploadDirectory="Media/content/";
 	
 	
+	/**
+	 * This method create random password.
+	 * @return object to BCryptPasswordEncoder class.
+	 */
 	public static BCryptPasswordEncoder passwordEncoder() {										// password encoding
 		
 		return new BCryptPasswordEncoder(12,new SecureRandom(SALT.getBytes()));
 	}
 	
+	
+	/**
+	 * This method is used to get current time.
+	 * @return object to TimeStamp class
+	 */
 	public static Timestamp getCurrentTime() {								// Current Date
 		
 		Date date=new Date();
@@ -62,6 +87,11 @@ public class ServiceUtility {
 		return st;
 	}
 	
+	/**
+	 * This method return number of days which is difference of current date and given date as a parameter.
+	 * @param date Timestamp object  
+	 * @return String object containing number of days as value.
+	 */
 	public static String daysDifference(Timestamp date) {						// days Difference Between 2 date(current - given)
 		
 		Timestamp presentdate=getCurrentTime();
@@ -73,7 +103,14 @@ public class ServiceUtility {
 	}
 	
 	
-	 
+	/**
+	 * This method creates folder related to topic created in application based on given input in string format of various classes like Classname, Subject and Topic. 
+	 * @param className String value containing ClassName
+	 * @param subject	String value containing Subject ID
+	 * @param topicName String value containing TopicName ID
+	 * @return boolean value denoting true for Successful and false for failure.
+	 * @throws Exception
+	 */
 	public static boolean createclassSubjectFolder(String className,String subject,String topicName) throws Exception{  // creating folder for topic
 		
 		boolean status=true;
@@ -90,6 +127,11 @@ public class ServiceUtility {
 		return status;
 	}
 	
+	/**
+	 * This method is used to create folder using the path given as input parameter
+	 * @param path path to upload file
+	 * @return boolean value denoting true for Successful and false for failure.
+	 */
 	public static boolean createFolder(String path) {					// check for existence of path
 		boolean status=false;
 		if(!new File(path).exists()) {
@@ -99,6 +141,13 @@ public class ServiceUtility {
 		
 	}
 	
+	/**
+	 * This method is used to upload file in specified path given as input.
+	 * @param uploadFile Array of MultipartFile Object to upload multiple file
+	 * @param pathToUpload A String formatted path where file to be uploaded.
+	 * @return relative path where file is uploaded or null if failed.
+	 * @throws Exception
+	 */
 	public static String uploadFile(MultipartFile[] uploadFile,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
 		for(MultipartFile file:uploadFile) {
@@ -113,6 +162,13 @@ public class ServiceUtility {
 		return path;
 	}
 	
+	/**
+	 * Upload Zip formatted file in specified path given as input
+	 * @param uploadFile Array of MultipartFile Object to upload multiple file
+	 * @param pathToUpload A String formatted path where file to be uploaded.
+	 * @return  relative path where file is uploaded or null if failed.
+	 * @throws Exception
+	 */
 	public static String uploadZipFile(MultipartFile[] uploadFile,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
 		for(MultipartFile file:uploadFile) {
@@ -148,6 +204,13 @@ public class ServiceUtility {
 		return path;
 	}
 	
+	/**
+	 * Upload video file formatted in specified path given as argument.
+	 * @param file  MultipartFile Object to upload file
+	 * @param pathToUpload A String formatted path where file to be uploaded.
+	 * @return relative path where file is uploaded or null if failed.
+	 * @throws Exception
+	 */
 	public static String uploadVideoFile(MultipartFile file,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
 		
@@ -162,6 +225,11 @@ public class ServiceUtility {
 		return path;
 	}
 	
+	/**
+	 * Checks whether file extension is pdf irrespective of case or not?
+	 * @param pdfFile Array of MutipartFile object with source file.
+	 * @return validity against pdf file extension.
+	 */
 	public static boolean checkFileExtensionPDF(MultipartFile[] pdfFile) {				// validate file against PDF extension
 		
 		for(MultipartFile temp:pdfFile) {
@@ -172,6 +240,11 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	/**
+	 * Checks whether file extension is pdf irrespective of case or not?
+	 * @param pdfFile MutipartFile object with source file.
+	 * @return validity against pdf file extension.
+	 */
 	public static boolean checkFileExtensiononeFilePDF(MultipartFile pdfFile) {				// validate file against PDF extension
 		
 		
@@ -182,7 +255,11 @@ public class ServiceUtility {
 		return true;
 	}
 	
-	
+	/**
+	 * Checks whether file extension is jpg/jpeg/png irrespective of case or not?
+	 * @param imageFile Array of MutipartFile object with source file.
+	 * @return validity against image file extension.
+	 */
 	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {			// validate file against Image Extension
 		
 		for(MultipartFile temp:imageFile) {
@@ -195,6 +272,12 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	
+	/**
+	 * checks whether file extension is mp4/mov irrespective of case or not ?
+	 * @param videoFile MutipartFile object with source file.
+	 * @return validity against video file extension.
+	 */
 	public static boolean checkFileExtensionVideo(MultipartFile videoFile) {			// validate file against Image Extension
 		
 		
@@ -206,9 +289,14 @@ public class ServiceUtility {
 		return true;
 	}
 	
-	public static boolean checkFileExtensionZip(MultipartFile[] imageFile) {			// validate file against HTML Extension
+	/**
+	 * checks whether file extension is zip irrespective of case or not ?
+	 * @param zipFile Array of MutipartFile object with source file.
+	 * @return validity against Zip file extension.
+	 */
+	public static boolean checkFileExtensionZip(MultipartFile[] zipFile) {			// validate file against HTML Extension
 		
-		for(MultipartFile temp:imageFile) {
+		for(MultipartFile temp:zipFile) {
 			if(!temp.getOriginalFilename().endsWith(".zip") && !temp.getOriginalFilename().endsWith(".ZIP")) {
 				
 				return false;
@@ -218,7 +306,10 @@ public class ServiceUtility {
 	}
 	
 	
-	
+	/**
+	 * Returns current directory
+	 * @return String value of currentpath.
+	 */
 	public static String presentDirectory() {
 		Path currentRelativePath = Paths.get("");
 		String currentpath = currentRelativePath.toAbsolutePath().toString();
@@ -226,6 +317,11 @@ public class ServiceUtility {
 		
 	}
 	
+	/**
+	 * Checks whether email is in proper format or not?
+	 * @param email String value of email
+	 * @return boolean value representing validity against Email Checks.
+	 */
 	public static boolean checkEmailValidity(String email) {
 
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
@@ -240,6 +336,11 @@ public class ServiceUtility {
         return pat.matcher(email).matches(); 
 	}
 	
+	/**
+	 * Checks whether number exist in string or not?
+	 * @param input String value
+	 * @return boolean value true for no Number in String else false.
+	 */
 	public static boolean checkContainNumeralInString(String input) {
 		for(int i=0 ; i<input.length();i++) {
 			if(input.charAt(i)=='0' || input.charAt(i)=='1' || input.charAt(i)=='2' || input.charAt(i)=='3' ||
@@ -251,6 +352,12 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	/**
+	 * this method is used for convert String in date object
+	 * @param date String value representing date value.
+	 * @return date object having parsed date value from input 
+	 * @throws ParseException
+	 */
 	public static java.sql.Date convertStringToDate(String date) throws ParseException{
 		SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date dateUtil=sd1.parse(date);

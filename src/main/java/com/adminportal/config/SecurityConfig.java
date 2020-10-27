@@ -27,6 +27,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.adminportal.service.impl.UserSecurityService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * This class Configures Spring security in project
+ * @author om prakash
+ *
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
@@ -42,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return ServiceUtility.passwordEncoder();
 	}
 	
+	/**
+	 * All url matchers don't want to get authenticated before use.
+	 */
 	private static final String[] PUBLIC_MATCHERS = {
 			"/css/**",
 			"/js/**",
@@ -111,6 +119,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 	};
 	
+	/**
+	 * ALl Url made especially under Contributor Role
+	 */
 	public static final String[] CONTRIBUTOR_URL= {
 			"/conVideo/**",
 			"/conDocument/**",
@@ -122,6 +133,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/conView/**"
 	};
 	
+	/**
+	 * This method configure security in project like login, authentication, authorization etc.
+	 */
 	@Override
 	protected void configure(HttpSecurity http)throws Exception{
 		

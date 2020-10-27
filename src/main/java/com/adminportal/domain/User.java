@@ -49,57 +49,109 @@ import com.adminportal.content.Class;
 import com.adminportal.content.Subject;
 import com.adminportal.content.Topic;;
 
-
+/**
+ * User Object to Store User information in Database
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name="user_details")
 public class User implements UserDetails{
 	
+	/**
+	 * A unique ID
+	 */
 	@Id
 	@Column(name = "user_id", nullable = false,updatable = false)
 	private int id;
 	
+	/**
+	 * Email of User
+	 */
 	@Column(name = "email", nullable = false,updatable = false)
 	private String email;
 	
+	/**
+	 * Password of User's Account
+	 */
 	@Column(name="password" ,nullable = false)
 	private String password;
 	
+	/**
+	 * Gender of User
+	 */
 	@Column(nullable = false,updatable = false)
 	private String sex;
 	
+	/**
+	 * First name of User
+	 */
 	@Column(name = "first_name", nullable = false)
 	private String fname;
 	
+	/**
+	 * Last Name of User
+	 */
 	@Column(name = "last_name", nullable = false)
 	private String lname;
 
-	
+	/**
+	 * Path to User'ID
+	 */
 	@Column(name="document_path")
 	private String document;
 	
+	/**
+	 * User's School Name
+	 */
 	@Column(name="School_name")
 	private String schoolName;
 	
+	/**
+	 * User's School Address
+	 */
 	@Column(name="School_address")
 	private String schoolAddress;
 	
+	/**
+	 * User's School Pincode
+	 */
 	@Column(name="pincode")
 	private int pincode;
+	
+	/**
+	 * Date user added to this application
+	 */
 	@Column(name="date_added",nullable = false,updatable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * User's Last activity
+	 */
 	@Column(name="last_login",nullable = false)
 	private Timestamp lastLogin;
 	
+	/**
+	 * User's Date of Birth
+	 */
 	@Column(name="dob")
 	private Date dateOfBirth;
 	
+	/**
+	 * Visibility on application
+	 */
 	@Column (name="isvalid",nullable = false )
 	private int Registered;
 	
+	/**
+	 * Used for password retrieval
+	 */
 	@Column(name="token")
 	private String token;
 	
+	/**
+	 * Path of profile pciture of User
+	 */
 	@Column(name="profilePic")
 	private String profilePic;
 	

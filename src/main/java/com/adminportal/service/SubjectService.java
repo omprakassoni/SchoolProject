@@ -19,37 +19,62 @@ import com.adminportal.content.Subject;
 import com.adminportal.content.SubjectClassMapping;
 import com.adminportal.content.Topic;
 import com.adminportal.content.VideoExternal;
-
+/**
+ * This interface has all the method declaration related to Subject database operation
+ * @author om prakash
+ *
+ */
 public interface SubjectService {
 	
+	/**
+	 * Find Subject object given subject's subject name as input parameter from database
+	 * @param subjectName subject name
+	 * @return Subject object
+	 * @throws Exception
+	 */
 	Subject findBySubjectName(String subjectName) throws Exception;
 	
+	/**
+	 * List out all the subject object from database
+	 * @return list of subject object
+	 */
 	List<Subject> findAll();
 	
+	/**
+	 * Find Subject object given subject's subject name as input parameter from database
+	 * @param sub Subject name
+	 * @return Subject object
+	 * @throws Exception
+	 */
 	Subject findBysubName(String sub) throws Exception;
 	
-	void deleteById(int id);
-	
-	ArrayList<Topic> getAllTopicBySubjectClassMapping(ArrayList<SubjectClassMapping> subClass);
-	
-	ArrayList<ArticleExternal> getAllArticleByTopic(ArrayList<Topic> topic);
-	
-	ArrayList<DocumentExternal> getAllDocumentByTopic(ArrayList<Topic> topic);
-	
-	ArrayList<VideoExternal> getAllVideoByTopic(ArrayList<Topic> topic);
-	
-	ArrayList<QuizQuestion> getAllQuizByTopic(ArrayList<Topic> topic);
-	
-	ArrayList<LessonPlan> getAllLessonByTopic(ArrayList<Topic> topic);
-	
-	ArrayList<Phets> getAllPhetsByTopic(ArrayList<Topic> topic);
-	
+	/**
+	 * Find Subject object given subject ID from database
+	 * @param id subject ID
+	 * @return Subject Object
+	 * @throws Exception
+	 */
 	Subject findById(int id) throws Exception;
 	
+	/**
+	 * Count total number of subject record from the database
+	 * @return integer
+	 */
 	int countRow();
 	
+	/**
+	 * Persist Subject object into database
+	 * @param sub subject object
+	 * @return subject object
+	 */
 	Subject save(Subject sub);
 	
+	/**
+	 * Update Subject's subject name given Subject ID
+	 * @param subName subject name to be set
+	 * @param subId Subject ID
+	 * @return boolean value based on successful operation or not ?
+	 */
 	boolean updateSubjectName(String subName,int subId);
 
 }

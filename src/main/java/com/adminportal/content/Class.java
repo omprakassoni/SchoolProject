@@ -23,22 +23,37 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.adminportal.domain.User;
-
+/**
+ * This class Represent Entity which stores Class data
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name="Class")
 public class Class {
 	
-	
+	/**
+	 * A unique ID representing single Class
+	 */
 	@Id
 	@Column(nullable = false,updatable = false)
 	private int class_id;
 	
+	/**
+	 * Name of class like 1,2 etc
+	 */
 	@Column(name="class_name",nullable = false)
 	private int className;
 	
+	/**
+	 * Visibility
+	 */
 	@Column(name="status",nullable = false)
 	private boolean status=true;
 	
+	/**
+	 * date on which class is being added.
+	 */
 	@Column(name="date_added",nullable = false)
 	private Timestamp dateAdded;
 	

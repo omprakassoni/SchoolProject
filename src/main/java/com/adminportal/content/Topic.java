@@ -25,27 +25,49 @@ import javax.persistence.TableGenerator;
 
 import com.adminportal.domain.User;
 
+/**
+ * This class Represent Entity which stores Topic data
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name="Topic")
 public class Topic {
 	
-	
+	/**
+	 * A unique ID of Topic
+	 */
 	@Id
 	@Column(name="topic_id",updatable = false)
 	private int topicId;
 	
+	/**
+	 * Name of Topic
+	 */
 	@Column(name="topic_name",nullable = false)
 	private String topicName;
 	
+	/**
+	 * Path of poster
+	 */
 	@Column(name="poster",nullable = false)
 	private String poster;
 	
+	/**
+	 * A long description
+	 */
 	@Column(name="description",nullable = false,length = 5000)
 	private String description;
 	
+	/**
+	 * date on which topic is added.
+	 */
 	@Column(name="date_added",updatable = false,nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * date on which topic is modified
+	 */
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 	

@@ -22,23 +22,43 @@ import javax.persistence.Table;
 
 import com.adminportal.domain.User;
 
+/**
+ * This class Represent Entity which stores LessonPlan Resource data
+ * @author om Prakash
+ *
+ */
 @Entity
 @Table(name="content")
 public class LessonPlan {
 
+	/**
+	 * A unique ID representing single LessonPlan Resource
+	 */
 	@Id
 	@Column(name="content_id",nullable = false,updatable = false)
 	private int lessonPlanId;
 	
+	/**
+	 * Resource Type like article,Phet etc
+	 */
 	@Column(name="type",nullable = false)
 	private String type;
 	
+	/**
+	 * Date on which resource added
+	 */
 	@Column(name="date_added",updatable = false,nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Date on which resource is modified
+	 */
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 	
+	/**
+	 * Path to save LessonPlan Document
+	 */
 	@Column(name="lesson_plan")
 	private String lessonPlan;
 	
@@ -48,6 +68,9 @@ public class LessonPlan {
 	@Column(name="acceptedByAdmin",nullable = false)
 	private int acceptedByAdmin;
 	
+	/**
+	 * date on which resource got approved.
+	 */
 	@Column(name="date_approved")
 	private Timestamp dateApproved;
 

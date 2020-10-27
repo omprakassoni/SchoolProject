@@ -22,29 +22,56 @@ import javax.persistence.Table;
 
 import com.adminportal.domain.User;
 
+/**
+ * This class Represent Entity which stores Phet Resource data
+ * @author om Prakash
+ *
+ */
 @Entity
 @Table(name="content")
 public class Phets {
 
+	/**
+	 * A unique ID representing single Phet Resource
+	 */
 	@Id
 	@Column(name="content_id",nullable = false,updatable = false)
 	private int phetId;
 	
+	/**
+	 * Resource Type like article,Phet etc
+	 */
 	@Column(name="type",nullable = false)
 	private String type;
 	
+	/**
+	 * Date on which resource added
+	 */
 	@Column(name="date_added",updatable = false,nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Date on which resource is modified
+	 */
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 
+
+	/**
+	 * A long description of resource
+	 */
 	@Column(name="description",length = 10000)
 	private String description;
 	
+	/**
+	 * A reference from where resource is used
+	 */
 	@Column(name="source")
 	private String source;
 	
+	/**
+	 * A proper link of resource
+	 */
 	@Column(name="url")
 	private String url;
 	
@@ -54,6 +81,9 @@ public class Phets {
 	@Column(name="acceptedByAdmin",nullable = false)
 	private int acceptedByAdmin;
 	
+	/**
+	 * date on which resource got approved.
+	 */
 	@Column(name="date_approved")
 	private Timestamp dateApproved;
 	

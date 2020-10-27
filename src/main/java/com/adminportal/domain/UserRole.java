@@ -17,11 +17,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+/**
+ * This class is to map User with different Role  
+ * @author om Prakash
+ *
+ */
 @Entity
 @Table(name="user_role")
 public class UserRole {
 	
-	
+	/**
+	 * A unique ID
+	 */
 	@Id
 	@Column(nullable = false,updatable = false)
 	private int userRoleId;

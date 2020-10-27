@@ -8,6 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.adminportal.content.ContactForm;
 
+/**
+ * This Interface Extend CrudRepository to handle all database operation related to Contact Form
+ * @author om prakash
+ *
+ */
 public interface ContactFormRepository extends CrudRepository<ContactForm, Integer>{
 	
 	

@@ -4,40 +4,70 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 
-
+/**
+ * Utility class to Display user detail on dashboard
+ * @author om Prakash
+ *
+ */
 public class LoadUserLearner {
-	
+	/**
+	 * User Id 
+	 */
 	private int id;
 	
-
+	/**
+	 * Email of User
+	 */
 	private String email;
 	
-
+	/**
+	 * Gender of user
+	 */
 	private String sex;
 	
-
+	/**
+	 * First name of user
+	 */
 	private String fname;
 	
-	
+	/**
+	 * Last name of User
+	 */
 	private String lname;
 
+	/**
+	 * Path to resource attached with User
+	 */
 	private String document;
 	
-	
+	/**
+	 * Schoolname to which user enrolled
+	 */
 	private String schoolName;
 	
-
+	/**
+	 * School Address to which user enrolled
+	 */
 	private String schoolAddress;
 	
-
+	/**
+	 * Pincode of User's School
+	 */
 	private int pincode;
 	
+	/**
+	 * Date on which user Registered
+	 */
 	private Timestamp dateAdded;
 	
-	
+	/**
+	 * date and time of User's last activity
+	 */
 	private Timestamp lastLogin;
 	
-
+	/**
+	 * date of user's date of Birth
+	 */
 	private Date dateOfBirth;
 
 

@@ -22,27 +22,49 @@ import javax.persistence.Table;
 
 import com.adminportal.domain.User;
 
+/**
+ * This class Represent Entity which stores Quiz Resource data
+ * @author om Prakash
+ *
+ */
 @Entity
 @Table(name="content")
 public class QuizQuestion {
 
-		
+	/**
+	 * A unique ID representing single Quiz Resource
+	 */	
 	@Id
 	@Column(name="content_id",nullable = false,updatable = false)
 	private int quizQuestionId;
 	
+	/**
+	 * Resource Type like article,Phet etc
+	 */
 	@Column(name="type",nullable = false)
 	private String type;
 	
+	/**
+	 * Date on which resource added
+	 */
 	@Column(name="date_added",updatable = false,nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Date on which resource is modified
+	 */
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 	
+	/**
+	 * Path to store Question_Paper
+	 */
 	@Column(name="question_path")
 	private String question;
 	
+	/**
+	 * Path to store Answer_paper
+	 */
 	@Column(name="answer_path")
 	private String answer;
 	
@@ -52,9 +74,16 @@ public class QuizQuestion {
 	@Column(name="acceptedByAdmin",nullable = false)
 	private int acceptedByAdmin;
 	
+
+	/**
+	 * A description of resource
+	 */
 	@Column(name="remarks")
 	private String remark;
 	
+	/**
+	 * date on which resource got approved.
+	 */
 	@Column(name="date_approved")
 	private Timestamp dateApproved;
 	

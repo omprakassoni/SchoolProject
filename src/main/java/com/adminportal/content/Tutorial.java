@@ -15,20 +15,37 @@ import javax.persistence.Table;
 
 import com.adminportal.domain.User;
 
+/**
+ * This class Represent Entity which stores Tutorial data
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name = "Tutorial")
 public class Tutorial {
 	
+	/**
+	 * A unique ID represent Tutorial
+	 */
 	@Id
 	@Column(updatable = false,nullable = false)
 	private int tutorialId;
 	
+	/**
+	 * Spoken Foss ID
+	 */
 	@Column(nullable = false)
 	private int stfossId;
 	
+	/**
+	 * spoken Langauge ID
+	 */
 	@Column(nullable = false)
 	private int stlanguageId;
 
+	/**
+	 * Spoken Video Id
+	 */
 	@Column(nullable = false)
 	private int stVideoId;
 	

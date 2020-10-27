@@ -25,21 +25,34 @@ import javax.persistence.TableGenerator;
 
 import com.adminportal.domain.User;
 
+/**
+ * This class Represent Entity which stores Subjecr data
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name="Subject")
 public class Subject implements Comparable<Subject>{
 	
-	
+	/**
+	 * A unique ID of subject
+	 */
 	@Id
 	@Column(nullable = false,updatable = false)
 	private int subId;
 	
+	/**
+	 * Subject Name
+	 */
 	@Column(name="sub_name",nullable = false)
 	private String subName;
 	
 	@Column(name="status",nullable = false)
 	private boolean status=true;
 	
+	/**
+	 * date on which subject is added.
+	 */
 	@Column(name="date_added",nullable = false)
 	private Timestamp dateAdded;
 	

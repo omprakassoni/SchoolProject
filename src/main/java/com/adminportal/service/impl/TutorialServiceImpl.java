@@ -18,12 +18,20 @@ import com.adminportal.content.Tutorial;
 import com.adminportal.repository.TutorialRepository;
 import com.adminportal.service.TutorialService;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.TutorialService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class TutorialServiceImpl implements TutorialService{
 
 	@Autowired
 	TutorialRepository tutorialRepo;
 	
+	/**
+	 * @see com.adminportal.service.TutorialService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
@@ -32,6 +40,9 @@ public class TutorialServiceImpl implements TutorialService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.TutorialService#getAllTutorial()
+	 */
 	@Override
 	public List<Tutorial> getAllTutorial() {
 		
@@ -39,6 +50,9 @@ public class TutorialServiceImpl implements TutorialService{
 		return temp;
 	}
 
+	/**
+	 * @see com.adminportal.service.TutorialService#getAllTutorialByTopic(Topic topic)
+	 */
 	@Override
 	public List<Tutorial> getAllTutorialByTopic(Topic topic) {
 		
@@ -47,6 +61,9 @@ public class TutorialServiceImpl implements TutorialService{
 		return temp;
 	}
 
+	/**
+	 * @see com.adminportal.service.TutorialService#enableDisableTutorial(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean enableDisableTutorial(int status, int id) {
@@ -59,6 +76,9 @@ public class TutorialServiceImpl implements TutorialService{
 		return false;
 	}
 
+	/**
+	 * @see com.adminportal.service.TutorialService#getById(int tutorialID)
+	 */
 	@Override
 	public Tutorial getById(int tutorialID) {
 		
@@ -66,6 +86,9 @@ public class TutorialServiceImpl implements TutorialService{
 		return local.get();
 	}
 
+	/**
+	 * @see com.adminportal.service.TutorialService#findAllByTopicAndStatus(Topic topic)
+	 */
 	@Override
 	public List<Tutorial> findAllByTopicAndStatus(Topic topic) {
 		
@@ -73,6 +96,9 @@ public class TutorialServiceImpl implements TutorialService{
 		return temp;
 	}
 
+	/**
+	 * @see com.adminportal.service.TutorialService#deleteTutorial(Tutorial tutorial)
+	 */
 	@Override
 	public void deleteTutorial(Tutorial tutorial) {
 		// TODO Auto-generated method stub

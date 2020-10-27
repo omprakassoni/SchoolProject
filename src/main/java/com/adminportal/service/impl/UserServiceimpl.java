@@ -34,9 +34,11 @@ import com.adminportal.repository.UserRoleRepository;
 import com.adminportal.service.UserService;
 import com.spoken.Utility.ServiceUtility;
 
-
-
-
+/**
+ * Default implementation of the {@link com.adminportal.service.UserService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class UserServiceimpl implements UserService {
 
@@ -49,14 +51,18 @@ public class UserServiceimpl implements UserService {
 	@Autowired
 	private TopicRepository topicRepo;
 	
-	
+	/**
+	 * @see com.adminportal.service.UserService#save(User)
+	 */
 	@Override
 	public User save(User user) {
 		
 		return userRepository.save(user);
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#createUser(User, Set)
+	 */
 	@Override
 	public User createUser(User user, Set<UserRole> userRoles) throws Exception {
 		
@@ -67,6 +73,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#existsByUser(String, String)
+	 */
 	@Override
 	public User existsByUser(String username, String password) {
 		
@@ -76,6 +85,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#findAll()
+	 */
 	@Override
 	public List<User> findAll() {
 		
@@ -85,6 +97,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#findById(int)
+	 */
 	@Override
 	public User findById(int id) {
 		
@@ -96,6 +111,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#deleteById(int id)
+	 */
 	@Override
 	public void deleteById(int id) {
 		
@@ -111,6 +129,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#disableEnableUser(int isvalid, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean disableEnableUser(int isvalid, int id) {
@@ -126,6 +147,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#existByEmail(String Email) 
+	 */
 	@Override
 	public boolean existByEmail(String Email) {
 		
@@ -133,6 +157,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#addUserToArticle(User usr, Set<ArticleExternal> article)
+	 */
 	@Override
 	public User addUserToArticle(User usr, Set<ArticleExternal> article) {
 		usr.getArticleExternal().addAll(article);
@@ -146,6 +173,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#addUserToDocument(User usr, Set<DocumentExternal> document)
+	 */
 	@Override
 	public User addUserToDocument(User usr, Set<DocumentExternal> document) {
 	
@@ -159,6 +189,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService# addUserToLessonplan(User usr, Set<LessonPlan> lesson)
+	 */
 	@Override
 	public User addUserToLessonplan(User usr, Set<LessonPlan> lesson) {
 		
@@ -172,6 +205,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#addUserToPhets(User usr, Set<Phets> phet)
+	 */
 	@Override
 	public User addUserToPhets(User usr, Set<Phets> phet) {
 	
@@ -185,6 +221,9 @@ public class UserServiceimpl implements UserService {
 	}
 
 
+	/**
+	 * @see com.adminportal.service.UserService#addUserToQuizQuestion(User usr, Set<QuizQuestion> quiz)
+	 */
 	@Override
 	public User addUserToQuizQuestion(User usr, Set<QuizQuestion> quiz) {
 		
@@ -197,7 +236,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#addUserToVideo(User usr, Set<VideoExternal> video)
+	 */
 	@Override
 	public User addUserToVideo(User usr, Set<VideoExternal> video) {
 		
@@ -210,7 +251,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#findByUsername(String username)
+	 */
 	@Override
 	public User findByUsername(String username) {
 		
@@ -218,7 +261,9 @@ public class UserServiceimpl implements UserService {
 		return userRepository.findByemail(username);
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#addUserToComment(User usr, Set<Comment> comment)
+	 */
 	@Override
 	public User addUserToComment(User usr, Set<Comment> comment) {
 		
@@ -228,7 +273,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#addUserToCommentReply(User usr, Set<CommentReply> comReply)
+	 */
 	@Override
 	public User addUserToCommentReply(User usr, Set<CommentReply> comReply) {
 		usr.getCommentReply().addAll(comReply);
@@ -236,7 +283,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#updateUserPassword(String password, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateUserPassword(String password, int id) {
@@ -248,7 +297,9 @@ public class UserServiceimpl implements UserService {
 		
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#addUserToConceptMap(User usr, Set<ConceptMap> concept)
+	 */
 	@Override
 	public User addUserToConceptMap(User usr, Set<ConceptMap> concept) {
 		usr.getConceptMap().addAll(concept);
@@ -256,7 +307,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#addUserToTutorial(User usr, Set<Tutorial> tutorial)
+	 */
 	@Override
 	public User addUserToTutorial(User usr, Set<Tutorial> tutorial) {
 		usr.getTutorial().addAll(tutorial);
@@ -268,7 +321,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#findByToken(String token)
+	 */
 	@Override
 	public User findByToken(String token) {
 		
@@ -276,14 +331,18 @@ public class UserServiceimpl implements UserService {
 		return temp;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
 		return (int) userRepository.count();
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#addUserToClass(User usr, Class clas)
+	 */
 	@Override
 	public User addUserToClass(User usr, Class clas) {
 		
@@ -292,7 +351,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#adduserToSubject(User usr, Subject sub)
+	 */
 	@Override
 	public User adduserToSubject(User usr, Subject sub) {
 		
@@ -301,7 +362,9 @@ public class UserServiceimpl implements UserService {
 		return null;
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#enableApproveTeacher(int isvalid, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean enableApproveTeacher(int isvalid, int id) {
@@ -315,7 +378,9 @@ public class UserServiceimpl implements UserService {
 		}
 	}
 
-
+	/**
+	 * @see com.adminportal.service.UserService#updateUserDetails(String fname, String lname, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateUserDetails(String fname, String lname, int id) {

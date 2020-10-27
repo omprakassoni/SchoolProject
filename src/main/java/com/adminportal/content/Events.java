@@ -15,45 +15,86 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * This class Represent Entity which stores Event data
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name = "Event")
 public class Events {
 	
+	/**
+	 * A unique ID of event
+	 */
 	@Id
 	@Column(nullable = false,updatable = false)
 	private int eventId;
 	
+	/**
+	 * String based Description
+	 */
 	@Column(nullable = false)
 	private String headline;
 	
+	/**
+	 * Name of Coordinator
+	 */
 	@Column(nullable = false)
 	private String coordName;
 	
+	/**
+	 * A long description about Event
+	 */
 	@Column(nullable = false,length = 10000)
 	@Length(max = 10000)
 	private String description;
 	
+	/**
+	 * Date on which Event added
+	 */
 	@Column(nullable = false,updatable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Start date of event
+	 */
 	@Column(nullable = false)
 	private Date dateToHappenStart;
 	
+	/**
+	 * end date of event
+	 */
 	@Column(nullable = false)
 	private Date dateToHappenEnd;
 	
+	/**
+	 * Start date of Registration
+	 */
 	@Column(nullable = false)
 	private Date registStart;
 	
+	/**
+	 * End date of Registration
+	 */
 	@Column(nullable = false)
 	private Date registEnd;
 	
+	/**
+	 * Path of poster 
+	 */
 	@Column(nullable = false)
 	private String potser_path;
 	
+	/**
+	 * Mode of event like,  virtual etc
+	 */
 	@Column(nullable = false)
 	private String mode;
 	
+	/**
+	 * Location
+	 */
 	@Column(nullable = false)
 	private String location;
 	

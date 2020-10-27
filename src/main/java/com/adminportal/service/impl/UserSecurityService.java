@@ -10,12 +10,20 @@ import org.springframework.stereotype.Service;
 import com.adminportal.domain.User;
 import com.adminportal.repository.UserRepository;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.org.springframework.security.core.userdetails.UserDetailsService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class UserSecurityService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepo;
 
+	/**
+	 * @see com.adminportal.service.org.springframework.security.core.userdetails.UserDetailsService# loadUserByUsername(String username)
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		

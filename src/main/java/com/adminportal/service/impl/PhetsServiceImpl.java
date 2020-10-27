@@ -22,6 +22,11 @@ import com.adminportal.repository.PhetsRepository;
 import com.adminportal.service.PhetsService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.PhetsService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class PhetsServiceImpl implements PhetsService{
 	
@@ -29,12 +34,18 @@ public class PhetsServiceImpl implements PhetsService{
 	@Autowired
 	private PhetsRepository phetRepo;
 	
+	/**
+	 * @see com.adminportal.service.PhetsService#findAll()
+	 */
 	@Override
 	public List<Phets> findAll() {
 		
 		return phetRepo.findAllBytype("Phets");
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#deletePhetById(int id)
+	 */
 	@Override
 	public void deletePhetById(int id) {
 		Optional<Phets> local=phetRepo.findById(id);
@@ -43,6 +54,9 @@ public class PhetsServiceImpl implements PhetsService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#findByid(int id)
+	 */
 	@Override
 	public Phets findByid(int id) {
 		Optional<Phets> local=phetRepo.findById(id);
@@ -50,7 +64,9 @@ public class PhetsServiceImpl implements PhetsService{
 	}
 
 
-
+	/**
+	 * @see com.adminportal.service.PhetsService#updatePhet(String source, String url, Timestamp date, String desc, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updatePhet(String source, String url, Timestamp date, String desc, int id) {
@@ -64,12 +80,18 @@ public class PhetsServiceImpl implements PhetsService{
 
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
 		return (int) phetRepo.count();
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#EnablePhetContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnablePhetContent(int status, int id) {
@@ -82,6 +104,9 @@ public class PhetsServiceImpl implements PhetsService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#findAllByTopic(Topic topic) 
+	 */
 	@Override
 	public List<Phets> findAllByTopic(Topic topic) {
 		
@@ -90,12 +115,18 @@ public class PhetsServiceImpl implements PhetsService{
 		return localPhets;
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#findALlByUser(User usr)
+	 */
 	@Override
 	public List<Phets> findALlByUser(User usr) {
 		
 		return phetRepo.findAllByuser(usr,"Phets");
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#EnableAcceptedByAdminPhetContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableAcceptedByAdminPhetContent(int status, int id) {
@@ -107,13 +138,19 @@ public class PhetsServiceImpl implements PhetsService{
 			return false;
 		}
 	}
-
+	
+	/**
+	 * @see com.adminportal.service.PhetsService#findAllByTopicAndStatus(Topic topic)
+	 */
 	@Override
 	public List<Phets> findAllByTopicAndStatus(Topic topic) {
 		
 		return phetRepo.findAllByTopicAndStatus(topic, 1,"Phets");
 	}
 
+	/**
+	 * @see com.adminportal.service.PhetsService#deletePhet(Phets phet)
+	 */
 	@Override
 	public void deletePhet(Phets phet) {
 		// TODO Auto-generated method stub

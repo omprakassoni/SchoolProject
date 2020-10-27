@@ -6,17 +6,45 @@
  */
 
 package com.spoken.Utility;
-
+/**
+ * A Utility class to store information of Tutorial referencing SPoken Tutorial
+ * @author om Prakash
+ *
+ */
 public class TutorialList {
-
+	/**
+	 * A unique Id 
+	 */
 	int tutorialId;
-
+	
+	/**
+	 * Path to Video 
+	 */
 	String video_url;
+	/**
+	 * Path to video THumbnail
+	 */
 	String thumbnail_path;
+	/**
+	 * outline of tutorial
+	 */
 	String outline;
+	/**
+	 * Name of tutorial
+	 */
 	String tut_name;
+	/**
+	 * Name of Topic under which tutorial is added.
+	 */
 	String topicNAme;
+	/**
+	 * NAme of User who added this tutorial.
+	 */
 	String contributedBy;
+	
+	/**
+	 * Visibility of Tutorial in application.
+	 */
 	int status;
 	
 	public String getVideo_url() {

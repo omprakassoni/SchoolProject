@@ -21,17 +21,29 @@ import com.adminportal.domain.User;
 import com.adminportal.repository.LessonPlanRepository;
 import com.adminportal.service.LessonPlanService;
 import com.spoken.Utility.ServiceUtility;
-
+/**
+ * Default implementation of the {@link com.adminportal.service.LessonPlanService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class LessonPlanServiceImpl implements LessonPlanService{
 
 	@Autowired
 	private LessonPlanRepository lessonRepo;
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#findAll()
+	 */
 	@Override
 	public List<LessonPlan> findAll() {
 	
 		return lessonRepo.findAllBytype("Lesson");
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#deleteLessonById(int id)
+	 */
 	@Override
 	public void deleteLessonById(int id) {
 		Optional<LessonPlan> local=lessonRepo.findById(id);
@@ -39,12 +51,19 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 		lessonRepo.deleteById(temp.getLessonPlanId());
 		
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#countRow()
+	 */
 	@Override
 	public int countRow() {
 	
 		return (int) lessonRepo.count();
 	}
 	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#EnableLessonPlanContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableLessonPlanContent(int status, int id) {
@@ -57,6 +76,10 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 		}
 		
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#findById(int id)
+	 */
 	@Override
 	public LessonPlan findById(int id) {
 		
@@ -64,6 +87,10 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 		
 		return lesson.get();
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#findAllByTopic(Topic topic)
+	 */
 	@Override
 	public List<LessonPlan> findAllByTopic(Topic topic) {
 		
@@ -71,12 +98,19 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 	
 		return localLesson;
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#findALlByUser(User usr)
+	 */
 	@Override
 	public List<LessonPlan> findALlByUser(User usr) {
 		
 		return lessonRepo.findAllByuser(usr,"Lesson");
 	}
 	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#updateLessonPlan(Timestamp dat, String lessonPath, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateLessonPlan(Timestamp dat, String lessonPath, int id) {
@@ -89,6 +123,10 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 		
 		
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#EnableAcceptedByAdminLessonPlanContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableAcceptedByAdminLessonPlanContent(int status, int id) {
@@ -99,16 +137,28 @@ public class LessonPlanServiceImpl implements LessonPlanService{
 			return false;
 		}
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#findAllByTopicAndStatus(Topic topic)
+	 */
 	@Override
 	public List<LessonPlan> findAllByTopicAndStatus(Topic topic) {
 		
 		return lessonRepo.findAllByTopicAndStatus(topic, 1,"Lesson");
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#save(LessonPlan temp)
+	 */
 	@Override
 	public int save(LessonPlan temp) {
 		lessonRepo.save(temp);
 		return 0;
 	}
+	
+	/**
+	 * @see com.adminportal.service.LessonPlanService#deleteLessonPlan(LessonPlan lesson)
+	 */
 	@Override
 	public void deleteLessonPlan(LessonPlan lesson) {
 		// TODO Auto-generated method stub

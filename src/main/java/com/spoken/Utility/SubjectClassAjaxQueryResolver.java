@@ -6,10 +6,20 @@
 
 package com.spoken.Utility;
 
+/**
+ * A SubjectClass Class to resolve ajax dependency
+ * @author om Prakash
+ *
+ */
 public class SubjectClassAjaxQueryResolver {
-	
+	/**
+	 * Classname 
+	 */
 	private int className;
 	
+	/**
+	 * Name of Subject
+	 */
 	private String subject;
 
 	public int getClassName() {

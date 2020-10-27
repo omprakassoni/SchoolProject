@@ -25,18 +25,31 @@ import javax.persistence.Table;
 
 import com.adminportal.domain.User;
 
-
+/**
+ * This class Represent Entity which stores Comment made in system under various resources
+ * @author om Prakash
+ *
+ */
 @Entity
 @Table(name="comment")
 public class Comment {
 
+	/**
+	 * A unique ID representing single Comment
+	 */
 	@Id
 	@Column(name="comment_id",nullable = false,updatable = false)
 	private int commentid;
 	
+	/**
+	 * DAte on which comment is made
+	 */
 	@Column(name="date_added",nullable = false,updatable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Actual Comment
+	 */
 	@Column(name="comment",nullable = false)
 	private String comment;
 	

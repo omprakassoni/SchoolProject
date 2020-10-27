@@ -5,11 +5,23 @@
  */
 
 package com.spoken.Utility;
-
+/**
+ * Utility class to update password of user
+ * @author om Prakash
+ *
+ */
 public class passwordUpdateAjaxQueryResolver {
-	
+	/**
+	 * A new password given by User to be updated.
+	 */
 	String password;
+	
+	/**
+	 * User current Password.
+	 */
 	String currentPassword;
+	
+	
 	public String getCurrentPassword() {
 		return currentPassword;
 	}

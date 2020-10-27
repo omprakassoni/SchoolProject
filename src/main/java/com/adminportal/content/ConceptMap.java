@@ -21,30 +21,56 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.adminportal.domain.User;
-
+/**
+ * This class Represent Entity which stores ConceptMap Resource data
+ * @author om Prakash
+ *
+ */
 @Entity
 @Table(name="content")
 public class ConceptMap {
 	
+	/**
+	 * A unique ID representing single ConceptMap Resource
+	 */
 	@Id
 	@Column(name="content_id",nullable = false,updatable = false)
 	private int concepMapid;
 	
+	/**
+	 * Resource Type like article,Phet etc
+	 */
 	@Column(name="type",nullable = false)
 	private String type;
 	
+	/**
+	 * Date on which resource added
+	 */
 	@Column(name="date_added",updatable = false,nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Date on which resource is modified
+	 */
 	@Column(name="date_modified",nullable = false)
 	private Timestamp dateModified;
 	
+	/**
+	 * A proper link of resource
+	 */
 	@Column(name="url")
 	private String url;
 	
+
+	/**
+	 * A long description of resource
+	 */
 	@Column(name="description",length = 10000)
 	private String description;
 	
+	/**
+	 * date on which resource got approved.
+	 */
 	@Column(name="date_approved")
 	private Timestamp dateApproved;
 	

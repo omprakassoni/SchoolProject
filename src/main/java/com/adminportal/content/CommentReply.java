@@ -18,18 +18,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.adminportal.domain.User;
-
+/**
+ * This class Represent Entity which stores CommentReply
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name="Comment_Reply")
 public class CommentReply {
 
+	/**
+	 * A unique ID representing single CommentReply
+	 */
 	@Id
 	@Column(name="com_reply_Id",nullable = false,updatable = false)
 	private int commentReplyId;
 	
+	/**
+	 * Actual Reply to Comment
+	 */
 	@Column(name = "comment",nullable = false)
 	private String commentReply;
 	
+	/**
+	 * Date on which reply is made.
+	 */
 	@Column(name = "date_added",nullable = false,updatable = false)
 	private Timestamp dateAdded;
 	

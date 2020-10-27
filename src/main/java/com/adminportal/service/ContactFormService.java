@@ -9,8 +9,17 @@ import java.util.List;
 
 import com.adminportal.content.ContactForm;
 
+/**
+ * This interface has all the method declaration related to ContactForm database operation
+ * @author om prakash
+ *
+ */
 public interface ContactFormService {
 	
+	/**
+	 * List out All the received query from database
+	 * @return List of ContactForm object
+	 */
 	List<ContactForm> getAllMessages();  // fetching list of message (entire)
 
 }

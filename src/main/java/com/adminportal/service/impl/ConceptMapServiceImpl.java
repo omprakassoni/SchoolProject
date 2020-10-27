@@ -20,13 +20,20 @@ import com.adminportal.domain.User;
 import com.adminportal.repository.ConceptMapRepository;
 import com.adminportal.service.ConceptMapService;
 import com.spoken.Utility.ServiceUtility;
-
+/**
+ * Default implementation of the {@link com.adminportal.service.ConceptMapService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class ConceptMapServiceImpl implements ConceptMapService{
 
 	@Autowired
 	ConceptMapRepository conceptRepo;
 	
+	/**
+	 * @see com.adminportal.service.ConceptMapService#findAll()
+	 */
 	@Override
 	public List<ConceptMap> findAll() {
 		
@@ -34,14 +41,19 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 		return conceptRepo.findAllBytype("ConceptMap");
 	}
 
-
+	/**
+	 * @see com.adminportal.service.ConceptMapService#findByid(int id)
+	 */
 	@Override
 	public ConceptMap findByid(int id) {
 		
 		Optional<ConceptMap> temp=conceptRepo.findById(id);
 		return temp.get();
 	}
-
+	
+	/**
+	 * @see com.adminportal.service.ConceptMapService#updateConcept(String desc, String url, String remark, Timestamp date, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateConcept(String desc, String url, String remark, Timestamp date, int id) {
@@ -52,13 +64,19 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 			return false;
 		}
 	}
-
+	
+	/**
+	 * @see com.adminportal.service.ConceptMapService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
 		return (int) conceptRepo.count();
 	}
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#EnableConceptContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableConceptContent(int status, int id) {
@@ -72,6 +90,9 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#findAllByTopic(Topic topic)
+	 */
 	@Override
 	public List<ConceptMap> findAllByTopic(Topic topic) {
 		
@@ -80,6 +101,9 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 		return localConcept;
 	}
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#findALlByUser(User usr)
+	 */
 	@Override
 	public List<ConceptMap> findALlByUser(User usr) {
 		List<ConceptMap> localConcept=conceptRepo.findAllByuser(usr, "ConceptMap");
@@ -87,6 +111,9 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 	}
 
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#EnableAcceptedByAdminConceptContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableAcceptedByAdminConceptContent(int status, int id) {
@@ -102,6 +129,9 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 	}
 
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#findAllByTopicAndStatus(Topic topic)
+	 */
 	@Override
 	public List<ConceptMap> findAllByTopicAndStatus(Topic topic) {
 		
@@ -109,6 +139,9 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 	}
 
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#updateConceptDesc(String desc, String remark, Timestamp date, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateConceptDesc(String desc, String remark, Timestamp date, int id) {
@@ -121,6 +154,9 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 	}
 
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#save(ConceptMap temp)
+	 */
 	@Override
 	public int save(ConceptMap temp) {
 		
@@ -129,6 +165,9 @@ public class ConceptMapServiceImpl implements ConceptMapService{
 	}
 
 
+	/**
+	 * @see com.adminportal.service.ConceptMapService#deleteConceptMap(ConceptMap concept)
+	 */
 	@Override
 	public void deleteConceptMap(ConceptMap concept) {
 		

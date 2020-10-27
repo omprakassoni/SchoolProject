@@ -15,23 +15,43 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * This class Represent Entity which stores All the Queries made to the web application
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name = "contact_Form")
 public class ContactForm {
 
+	/**
+	 * A unique Id represent Entity
+	 */
 	@Id
 	@Column(updatable = false,nullable = false)
 	private int contactId;
 	
+	/**
+	 * name of person
+	 */
 	@Column(updatable = false,nullable = false)
 	private String name;
 	
+	/**
+	 * email of person 
+	 */
 	@Column(updatable = false,nullable = false)
 	private String email;
 	
+	/**
+	 * A long Description
+	 */
 	@Column(updatable = false,nullable = false,length = 10000)
 	private String message;
 	
+	/**
+	 * date on which query is made
+	 */
 	@Column(updatable = false,nullable = false)
 	Timestamp dataAdded;
 

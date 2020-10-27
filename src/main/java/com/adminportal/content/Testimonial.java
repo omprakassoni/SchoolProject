@@ -14,30 +14,56 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * This class Represent Entity which stores Testimonial Data
+ * @author om Prakash
+ *
+ */
 @Entity
 @Table(name = "Testimonial")
 public class Testimonial {
 	
+	/**
+	 * A unique ID of Testimonial
+	 */
 	@Id
 	@Column(nullable = false,updatable = false)
 	private int testimonialId;
 	
+	/**
+	 * Name of person
+	 */
 	@Column(nullable = false)
 	private String name;
 	
+	/**
+	 * Organization of Person
+	 */
 	@Column(nullable = false)
 	private String organization;
 	
+	/**
+	 * A long Description
+	 */
 	@Column(nullable = false)
 	@Length(max = 10000)
 	private String description;
 	
+	/**
+	 * Date on which testimonial added
+	 */
 	@Column(nullable = false,updatable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * Path of Video file
+	 */
 	@Column
 	private String videoPath;
 	
+	/**
+	 * Path of file data
+	 */
 	@Column
 	private String filePath;
 	

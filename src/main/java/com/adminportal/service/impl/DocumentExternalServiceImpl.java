@@ -22,18 +22,29 @@ import com.adminportal.repository.DocumentExternalRepository;
 import com.adminportal.service.DocumentExternalService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.DocumentExternalService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class DocumentExternalServiceImpl implements DocumentExternalService{
 	
 	@Autowired
 	private DocumentExternalRepository documentRepo;
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#findAll()
+	 */
 	@Override
 	public List<DocumentExternal> findAll() {
 		
 		return documentRepo.findAllBytype("Document");
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#deleteDocumentById(int id)
+	 */
 	@Override
 	public void deleteDocumentById(int id) {
 		Optional<DocumentExternal> local=documentRepo.findById(id);
@@ -42,12 +53,18 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#findByid(int id)
+	 */
 	@Override
 	public DocumentExternal findByid(int id) {
 		Optional<DocumentExternal> local=documentRepo.findById(id);
 		return local.get();
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#updateDocument(String desc, String source, String url, Timestamp date, int Id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateDocument(String desc, String source, String url, Timestamp date, int Id) {
@@ -63,12 +80,18 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		
 		return (int) documentRepo.count();
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#EnableDocumentContent(int status, int id) 
+	 */
 	@Override
 	@Transactional
 	public boolean EnableDocumentContent(int status, int id) {
@@ -82,6 +105,9 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#findAllByTopic(Topic topic)
+	 */
 	@Override
 	public List<DocumentExternal> findAllByTopic(Topic topic) {
 		
@@ -90,12 +116,18 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		return localDocument;
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#findALlByUser(User usr)
+	 */
 	@Override
 	public List<DocumentExternal> findALlByUser(User usr) {
 		
 		return documentRepo.findAllByuser(usr,"Document");
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#EnableAcceptedByAdminDocumentContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableAcceptedByAdminDocumentContent(int status, int id) {
@@ -107,12 +139,18 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#findAllByTopicAndStatus(Topic topic)
+	 */
 	@Override
 	public List<DocumentExternal> findAllByTopicAndStatus(Topic topic) {
 	
 		return documentRepo.findAllByTopicAndStatus(topic, 1,"Document");
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#updateDocumentDesc(String desc, String source, Timestamp date, int Id)
+	 */
 	@Override
 	@Transactional
 	public boolean updateDocumentDesc(String desc, String source, Timestamp date, int Id) {
@@ -125,6 +163,9 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#save(DocumentExternal temp)
+	 */
 	@Override
 	public int save(DocumentExternal temp) {
 		documentRepo.save(temp);
@@ -132,6 +173,9 @@ public class DocumentExternalServiceImpl implements DocumentExternalService{
 		return 0;
 	}
 
+	/**
+	 * @see com.adminportal.service.DocumentExternalService#deleteDocuemnt(DocumentExternal document)
+	 */
 	@Override
 	public void deleteDocuemnt(DocumentExternal document) {
 		// TODO Auto-generated method stub

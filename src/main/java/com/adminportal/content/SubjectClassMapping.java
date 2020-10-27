@@ -22,6 +22,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+/**
+ * This class Represent Entity which stores SubjecTClass data
+ * @author om prakash
+ *
+ */
 @Entity
 @Table(name="subject_class_mapping")
 public class SubjectClassMapping {

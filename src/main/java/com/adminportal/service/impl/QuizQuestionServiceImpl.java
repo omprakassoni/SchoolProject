@@ -22,18 +22,29 @@ import com.adminportal.repository.QuizQuestionRepository;
 import com.adminportal.service.QuizQuestionService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * Default implementation of the {@link com.adminportal.service.QuizQuestionService} interface.  
+ * @author om prakash
+ *
+ */
 @Service
 public class QuizQuestionServiceImpl implements QuizQuestionService{
 	
 	@Autowired
 	private QuizQuestionRepository quizRepo;
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#findAll()
+	 */
 	@Override
 	public List<QuizQuestion> findAll() {
 		
 		return (List<QuizQuestion>) quizRepo.findAllBytype("Quiz");
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#deleteQuizById(int id)
+	 */
 	@Override
 	public void deleteQuizById(int id) {
 		Optional<QuizQuestion> local=quizRepo.findById(id);
@@ -42,6 +53,9 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#findById(int id)
+	 */
 	@Override
 	public QuizQuestion findById(int id) {
 			
@@ -50,6 +64,9 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		return local.get();
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#updateQuiz(String question, String answer, Timestamp date, int quizId)
+	 */
 	@Override
 	@Transactional
 	public boolean updateQuiz(String question, String answer, Timestamp date, int quizId) {
@@ -63,12 +80,18 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#countRow()
+	 */
 	@Override
 	public int countRow() {
 		return (int) quizRepo.count();
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#EnableQuizContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableQuizContent(int status, int id) {
@@ -81,6 +104,9 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#findAllByTopic(Topic topic)
+	 */
 	@Override
 	public List<QuizQuestion> findAllByTopic(Topic topic) {
 		List<QuizQuestion> localQuiz=quizRepo.findAllBytopicAndType(topic, "Quiz");
@@ -88,12 +114,18 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		return localQuiz;
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#findALlByUser(User usr)
+	 */
 	@Override
 	public List<QuizQuestion> findALlByUser(User usr) {
 		
 		return quizRepo.findAllByuser(usr,"Quiz");
 	}
-
+	
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#EnableAcceptedByAdminQuizContent(int status, int id)
+	 */
 	@Override
 	@Transactional
 	public boolean EnableAcceptedByAdminQuizContent(int status, int id) {
@@ -106,12 +138,18 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		}
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#findAllByTopicAndStatus(Topic topic)
+	 */
 	@Override
 	public List<QuizQuestion> findAllByTopicAndStatus(Topic topic) {
 		
 		return quizRepo.findAllByTopicAndStatus(topic, 1,"Quiz");
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#updateQuizQuestion(String question, Timestamp date, int quizId)
+	 */
 	@Override
 	@Transactional
 	public boolean updateQuizQuestion(String question, Timestamp date, int quizId) {
@@ -124,6 +162,9 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#updateQuizAnswer(String answer, Timestamp date, int quizId)
+	 */
 	@Override
 	@Transactional
 	public boolean updateQuizAnswer(String answer, Timestamp date, int quizId) {
@@ -136,12 +177,18 @@ public class QuizQuestionServiceImpl implements QuizQuestionService{
 		
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#save(QuizQuestion temp)
+	 */
 	@Override
 	public int save(QuizQuestion temp) {
 		quizRepo.save(temp);
 		return 0;
 	}
 
+	/**
+	 * @see com.adminportal.service.QuizQuestionService#deleteQuiz(QuizQuestion quiz)
+	 */
 	@Override
 	public void deleteQuiz(QuizQuestion quiz) {
 		// TODO Auto-generated method stub
