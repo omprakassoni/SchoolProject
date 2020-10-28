@@ -98,12 +98,29 @@ import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 
+/**
+ * This Controller Class handles generic redirecting of url
+ * @author om prakash
+ *
+ */
 @Controller
 public class HomeController {
 
+	/**
+	 * Path to save resources
+	 */
 	public static final String uploadDirectory = "Media/content/"; // Path to save resources
+	/**
+	 * path to save Teacher Document
+	 */
 	public static final String uploadTeacherDirectory = "Media/User/"; // path to save teacher Document
+	/**
+	 * Path to save event's image
+	 */
 	public static final String uploadEvent="Media/Event/";             // path to sabe event images
+	/**
+	 * Path to save Testimonial data
+	 */
 	public static final String uploadTestimonial="Media/Testimonial/";
 
 	@Autowired
@@ -171,6 +188,13 @@ public class HomeController {
 	 * PAGE-------------------------------------------------
 	 */
 
+	/**
+	 * Redirect to Homepage of application
+	 * @param headers Map Object
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping("/")
 	public ModelAndView home(@RequestHeader Map<String ,String> headers,ModelAndView mv,Principal principal) {
 		
@@ -227,6 +251,12 @@ public class HomeController {
 		return mv;
 	}
 	
+	/**
+	 * Redirect to About-us page in application
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/About-Us", method = RequestMethod.GET)
 	public ModelAndView aboutUsSection(ModelAndView mv, Principal principal) {
 		
@@ -248,6 +278,12 @@ public class HomeController {
 	 * dASHBOARD FOR CONTRIBUTOR
 	 ********************************************/
 
+	/**
+	 * redirect to Dashboard of User
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/dashBoard", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoard(ModelAndView mv, Principal principal) {
 
@@ -260,6 +296,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * 
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/conVideo", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardVideo(ModelAndView mv, Principal principal) {
 
@@ -274,6 +316,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Redirect Teacher user to add Concept Map page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/conConceptMap", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardConceptMap(ModelAndView mv, Principal principal) {
 
@@ -289,6 +337,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Redirect Teacher user to add Quiz page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/conQuiz", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardQuiz(ModelAndView mv, Principal principal) {
 
@@ -303,6 +357,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Redirect Teacher user to add Article page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/conArticle", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardArticle(ModelAndView mv, Principal principal) {
 
@@ -317,6 +377,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Redirect Teacher user to add LessonPlan page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/conLessonPlan", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardLessonPlan(ModelAndView mv, Principal principal) {
 
@@ -331,6 +397,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Redirect Teacher user to add Document page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */ 
 	@RequestMapping(value = "/conDocument", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardDocument(ModelAndView mv, Principal principal) {
 
@@ -345,6 +417,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Redirect Teacher user to add Phet page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return
+	 */
 	@RequestMapping(value = "/conPhet", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardPhet(ModelAndView mv, Principal principal) {
 
@@ -359,6 +437,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Redirect Teacher user to view all his/her added resources
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/conView", method = RequestMethod.GET)
 	public ModelAndView contributorDashBoardStatus(ModelAndView mv, Principal principal) {
 
@@ -424,6 +508,12 @@ public class HomeController {
 
 //------------------------------------------LOGIN HYPERLINK--------------------------------------------------------------------
 
+	/**
+	 * redirect to Login Page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping("/Login")
 	public ModelAndView login(ModelAndView mv,Principal principal) {
 		
@@ -451,6 +541,12 @@ public class HomeController {
 
 //------------------------------------------- FORGET PASSWORD --------------------------------------------------------
 
+	/**
+	 * redirect to forget password page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping("/forgetPassword")
 	public ModelAndView forgetPasswordGet(ModelAndView mv,Principal principal) {
 		
@@ -475,6 +571,13 @@ public class HomeController {
 
 	/*------------------- FORGET PASSWORD TAKIN REQUEST FROM VIEW -----------------------------------------*/
 
+	/**
+	 * Generate Random token for user to change password
+	 * @param req HttpServletRequest object
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
 	public ModelAndView forgetPasswordPost(HttpServletRequest req, ModelAndView mv,Principal principal) {
 		
@@ -530,6 +633,13 @@ public class HomeController {
 
 	/*--------------------------- LINK TO WHICH USER WILL SET NEW PASSWORD ----------------------------------*/
 
+	/**
+	 * redirects to change password page
+	 * @param token Random string
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/reset", method = RequestMethod.GET)
 	public ModelAndView resetPasswordGet(ModelAndView mv, @RequestParam("token") String token,Principal principal) {
 		
@@ -562,6 +672,13 @@ public class HomeController {
 
 	/*---------------------------- PERSISTING NEW PASSWORD OF USER ----------------------------------*/
 
+	/**
+	 * redirect to reset password for user
+	 * @param req HttpServletRequest object
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	public ModelAndView resetPasswordPost(ModelAndView mv, HttpServletRequest req,Principal principal) {
 
@@ -614,6 +731,12 @@ public class HomeController {
 
 //-----------------------------------------------SIGNUP HYPERLINK------------------------------------------------------------------	
 
+	/**
+	 * redirect to User Registration page
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping("/Signup")
 	public ModelAndView signup(ModelAndView mv,Principal principal) {
 		
@@ -653,6 +776,12 @@ public class HomeController {
 	 * mv.addObject("current", page); mv.setViewName("events"); return mv; }
 	 */
 	
+	/**
+	 * redirect to view all the event data
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/eventsList")
 	public ModelAndView viewEvent(ModelAndView mv,Principal principal) {
 
@@ -693,6 +822,16 @@ public class HomeController {
 
 	// COURSES PAGE BASED ON SELECTION OF CLASS AND SUBJECT
 
+	/**
+	 * Redirect to course Page based on class, subject and topic name
+	 * @param req HttpServletRequest object
+	 * @param subject subject name
+	 * @param classSelected class name
+	 * @param topicSelected topic name
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public ModelAndView viewCoursesAvailable(HttpServletRequest req,
 			@RequestParam(name = "subjectSelected") String subject,
@@ -799,6 +938,12 @@ public class HomeController {
 	 * CONTENT PAGE BASED ON CLASS SUBJECT AND TOPIC-------------------------------
 	 */
 
+	/**
+	 * Shows Spoken Tutorial Content based on Topic ID
+	 * @param topicId Topic ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/contentTutorial/{topicId}", method = RequestMethod.GET)
 	public ModelAndView viewTutorialOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
 
@@ -850,6 +995,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Shows Link Content based on Topic ID
+	 * @param topicId Topic ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/contentLink/{topicId}", method = RequestMethod.GET)
 	public ModelAndView viewLinksOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
 
@@ -896,6 +1047,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Shows LessonPlan Content based on Topic ID
+	 * @param topicId Topic ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/contentLesson/{topicId}", method = RequestMethod.GET)
 	public ModelAndView viewLessonPlanlOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
 
@@ -929,6 +1086,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Shows Phet Content based on Topic ID
+	 * @param topicId Topic ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/contentPhet/{topicId}", method = RequestMethod.GET)
 	public ModelAndView viewPhetOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
 
@@ -962,6 +1125,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Shows Quiz Content based on Topic ID
+	 * @param topicId Topic ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/contentQuiz/{topicId}", method = RequestMethod.GET)
 	public ModelAndView viewQuizOnTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
 
@@ -994,6 +1163,12 @@ public class HomeController {
 		return mv;
 	}
 
+	/**
+	 * Shows ConceptMap Content based on Topic ID
+	 * @param topicId Topic ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/contentConcept/{topicId}", method = RequestMethod.GET)
 	public ModelAndView viewContentonTopic(@PathVariable("topicId") int topicId, ModelAndView mv) {
 
@@ -1030,7 +1205,12 @@ public class HomeController {
 
 
 	/************************************** Testimonial Page *****************************************************/
-	
+	/**
+	 * redirect to Testimonial Page 
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "testimonials", method = RequestMethod.GET)
 	public ModelAndView testimonialPage(ModelAndView mv,Principal principal) {
 		
@@ -1065,7 +1245,11 @@ public class HomeController {
 		return mv;
 	}
 	
-	
+	/**
+	 * redirect to logout Page
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/logout-success" ,method = RequestMethod.GET)
 	public ModelAndView logout(ModelAndView mv) {
 		
@@ -1074,6 +1258,11 @@ public class HomeController {
 		
 	}
 	
+	/**
+	 * redirect to forbidden error page
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/accessDenied" ,method = RequestMethod.GET)
 	public ModelAndView accessDenied(ModelAndView mv) {
 		
@@ -1082,6 +1271,13 @@ public class HomeController {
 		
 	}
 	
+	/**
+	 * redirect page to display courses based on Class name
+	 * @param classId name of class in integer
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/topicOnClass/{classID}", method = RequestMethod.GET)
 	public ModelAndView viewTopicOnClass(@PathVariable("classID") int classId, ModelAndView mv,Principal principal) {
 
@@ -1127,6 +1323,13 @@ public class HomeController {
 		return mv;
 	}
 	
+	/**
+	 * redirect page to display courses based on subject name
+	 * @param SubName name of subject
+	 * @param mv ModelAndView object
+	 * @param principal Principal object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(path = "/topicOnSubject/{subName}", method = RequestMethod.GET)
 	public ModelAndView viewTopicOnSubject(@PathVariable("subName") String SubName, ModelAndView mv,Principal principal) {
 		Subject localSubject;

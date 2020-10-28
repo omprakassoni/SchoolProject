@@ -47,14 +47,37 @@ import com.adminportal.service.UserService;
 import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * This Controller add all the resources from Teacher Role's User
+ * @author om prakash
+ *
+ */
 @Controller
 public class ContributorController {
 	
+	/**
+	 * path to store resources
+	 */
 	public static final String uploadDirectory="Media/content/";  /* path to which content will get stored */
+	/**
+	 * Path to store Event data
+	 */
 	public static final String uploadEvent="Media/Event/";
+	/**
+	 * SIze of Video file
+	 */
 	public static final long videoSize=50*1024*1024;                     // 50 MB vidoe File max
+	/**
+	 * SIze of normal file
+	 */
 	public static final long fileSize=10*1024*1024;                      // 10 MB max file   max
+	/**
+	 * Path to store Testimonial data
+	 */
 	public static final String uploadTestimonial="Media/Testimonial/";
+	/**
+	 * Duration of Video
+	 */
 	public static final long videoDuration=300000000L;
 	
 	@Autowired
@@ -109,6 +132,13 @@ public class ContributorController {
 	private Environment env;
 	
 	
+	/**
+	 * add video resource to app (iframe data) from Teacher's Role
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Video into database
 		@RequestMapping(value="/conVideo/addVideo",method = RequestMethod.POST)
 		public ModelAndView addVideoGetPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
@@ -196,7 +226,14 @@ public class ContributorController {
 			
 		}
 		
-		
+		/**
+		 * add Video resource to app from Teacher's Role
+		 * @param video video file to be added
+		 * @param req HttpServletRequest object
+		 * @param principal A principal object
+		 * @param mv ModelAndView object
+		 * @return ModelAndView object
+		 */
 		@RequestMapping(value="/conVideo/addVideoUpload",method = RequestMethod.POST)
 		public ModelAndView addVideoUploadPost(@RequestParam(name="videoUpload") MultipartFile video,HttpServletRequest req,Principal principal,ModelAndView mv) {
 			
@@ -306,7 +343,15 @@ public class ContributorController {
 		}
 		
 		/*----------------------------------------------------------END----------------------------------------------------------------------------*/
-
+		/**
+		 * add Quiz data to app from Teacher's Role
+		 * @param req HttpServletRequest object
+		 * @param question question file to be added
+		 * @param answer answer file to be added
+		 * @param principal A principal object
+		 * @param mv ModelAndView object
+		 * @return ModelAndView object
+		 */
 		// method to add Quiz into database
 		@RequestMapping(value="/conQuiz/addQuiz",method = RequestMethod.POST)
 		public ModelAndView addQuizPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] question,Principal principal,@RequestParam(name="Answer")MultipartFile[] answer,ModelAndView mv) {
@@ -444,7 +489,14 @@ public class ContributorController {
 			
 		}
 		
-		
+		/**
+		 * add conceptMap data to app from Teacher's Role
+		 * @param req HttpServletRequest object
+		 * @param conceptMapImage file to be added
+		 * @param principal A principal object
+		 * @param mv ModelAndView object
+		 * @return ModelAndView object
+		 */
 		// method to add Concept -MAp into database
 		@RequestMapping(value = "/conConceptMap/addConceptMap",method = RequestMethod.POST)
 		public ModelAndView addConceptMapPost(HttpServletRequest req,Principal principal,@RequestParam(name="conceptMapImage")MultipartFile[] conceptMapImage,ModelAndView mv) {
@@ -542,7 +594,13 @@ public class ContributorController {
 			return mv;
 		}
 		
-		
+		/**
+		 * Add phet resource to app from Teacher's Role
+		 * @param req HttpServletRequest object
+		 * @param principal A principal object
+		 * @param mv ModelAndView object
+		 * @return ModelAndView object
+		 */
 		// method to add Phets into database
 		@RequestMapping(value="/conPhet/addPhets",method = RequestMethod.POST)
 		public ModelAndView addPhetsPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
@@ -654,7 +712,14 @@ public class ContributorController {
 			return mv;
 		}
 		
-		
+		/**
+		 * adds Lesson resource to app from Teacher's Role
+		 * @param req HttpServletRequest object
+		 * @param lesson file to be added
+		 * @param principal A principal object
+		 * @param mv ModelAndView object
+		 * @return ModelAndView object
+		 */
 		// method to add Lesson Plan into database
 		@RequestMapping(value="/conLessonPlan/addLessonPlan",method = RequestMethod.POST)
 		public ModelAndView addLessonPlanPost(HttpServletRequest req,@RequestParam(name="lesson") MultipartFile[] lesson,Principal principal,ModelAndView mv) {
@@ -759,6 +824,15 @@ public class ContributorController {
 			
 		}
 		
+
+		/**
+		 * Adds Document resource to app from Teacher's Role
+		 * @param req HttpServletRequest object
+		 * @param document File to be uploaded
+		 * @param principal A principal object
+		 * @param mv ModelAndView object
+		 * @return ModelAndView object
+		 */
 		// method to add Document into database
 		@RequestMapping(value="/conDocument/addDocument",method = RequestMethod.POST)
 		public ModelAndView addDocumentPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] document,Principal principal,ModelAndView mv) {
@@ -862,7 +936,13 @@ public class ContributorController {
 		
 		
 		// method to add Article entry into database
-		
+		/**
+		 * Adds Article resource to app from Teacher's Role
+		 * @param req HttpServletRequest object
+		 * @param principal A principal object
+		 * @param mv ModelAndView object
+		 * @return ModelAndView object
+		 */
 		@RequestMapping(value="/conArticle/addArticle",method = RequestMethod.POST)
 		public ModelAndView addArtcilePost(HttpServletRequest req,Principal principal,ModelAndView mv) {
 			

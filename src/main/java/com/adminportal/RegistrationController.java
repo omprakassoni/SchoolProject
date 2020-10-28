@@ -43,10 +43,21 @@ import com.adminportal.service.UserRoleService;
 import com.adminportal.service.UserService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * Registration controller to register user under various role
+ * @author om Prakash
+ *
+ */
 @Controller
 public class RegistrationController {
 	
+	/**
+	 * path to save user data
+	 */
 	public static final String uploadTeacherDirectory="Media/User/";  /* path to which teachers document will get stored */
+	/**
+	 * Maximum file size of user document
+	 */
 	public static final long fileSize=10*1024*1024; 
 	
 	@Autowired
@@ -76,6 +87,14 @@ public class RegistrationController {
 /*------------------------------------------Registration Task Method (LEARNER)-----------------------------------------------------------------*/
 	
 	
+	/**
+	 * Registers User under Learner Role
+	 * @param req HttpServletRequest object
+	 * @param mv ModelAndView object
+	 * @param principal principal object
+	 * @return ModelAndView object
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/newUserL", method = RequestMethod.POST )
 	public ModelAndView addNewUserLearner(HttpServletRequest req,ModelAndView mv,Principal principal) throws Exception {
 		String email=req.getParameter("email");
@@ -230,6 +249,14 @@ public class RegistrationController {
 	/*------------------------------------------Registration Task Method (PARENT)-----------------------------------------------------------------*/	
 	
 	
+	/**
+	 * Registers User under Parent Role
+	 * @param req HttpServletRequest object
+	 * @param mv ModelAndView object
+	 * @param principal principal object
+	 * @return ModelAndView object
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/newUserP", method = RequestMethod.POST )
 	public ModelAndView addNewUserParent(HttpServletRequest req,ModelAndView mv,Principal principal) throws Exception {
 		
@@ -348,7 +375,15 @@ public class RegistrationController {
 	/*------------------------------------------------------END-------------------------------------------------------------------------------------*/
 	/*------------------------------------------Registration Task Method (TEACHER)-----------------------------------------------------------------*/
 	
-	
+	/**
+	 * Registers User under Teacher Role
+	 * @param principal principal object
+	 * @param uploadDocument Document of user to be uploaded
+	 * @param req HttpServletRequest object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/newUserT", method = RequestMethod.POST )
 	public ModelAndView addNewUserTeacher(Principal principal,@RequestParam("txtTeacherDocument") MultipartFile[] uploadDocument,HttpServletRequest req,ModelAndView mv) throws Exception {
 		

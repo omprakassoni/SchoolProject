@@ -62,10 +62,22 @@ import com.adminportal.service.VideoExternalService;
 import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 
+/**
+ * This Controller makes changes in resource attributes done by Admin role based USer
+ * @author om prakash
+ * 
+ */
 @Controller
 public class AdminViewController {
 	
+	/**
+	 * Path to store resource
+	 */
 	public static final String uploadDirectory="Media/content/";
+	
+	/**
+	 * path to store Teacher's role user data
+	 */
 	public static final String uploadTeacherDirectory="Media/Teacher/";
 
 	
@@ -126,6 +138,12 @@ public class AdminViewController {
 	
 /*------------------------------------------SHOW USER_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * redirect admin user to view all the user list
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/userList",method = RequestMethod.GET)
 	public ModelAndView userListGet(Principal principal,ModelAndView mv) {
 		
@@ -141,7 +159,13 @@ public class AdminViewController {
 	}
 	
 	
-	
+	/**
+	 * Enable/Disable User By Admin User
+	 * @param principal principal Object
+	 * @param userId User ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/deleteUser",method = RequestMethod.POST)
 	public ModelAndView userListPost(Principal principal,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
 		
@@ -179,7 +203,13 @@ public class AdminViewController {
 	
 /*------------------------------------------SHOW SUBJECT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
-	
+	/**
+	 * Enable/Disable Subject By Admin User
+	 * @param principal principal Object
+	 * @param subjectId subject ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/disableSubject",method = RequestMethod.POST)
 	public ModelAndView subjectListPost(Principal principal,@RequestParam(name="radioSubject") String subjectId,ModelAndView mv) {
 		
@@ -310,7 +340,13 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW TOPIC_LIST (ADMIN MODULE)-----------------------------------------------------------------*/	
 	
-	
+	/**
+	 * Enable/Disable Topic Resource By Admin User
+	 * @param principal principal Object
+	 * @param topicId topic ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deleteTopic",method = RequestMethod.POST)
 	public ModelAndView topicListPost(Principal principal,@RequestParam(name="radioTopic") String topicId,ModelAndView mv) {
 		
@@ -354,7 +390,13 @@ public class AdminViewController {
 	/*------------------------------------------SHOW VIDEO_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	
-	
+	/**
+	 * Enable/Disable Video Resource By Admin User
+	 * @param principal principal Object
+	 * @param videoId Video ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deleteVideo",method = RequestMethod.POST)
 	public ModelAndView videoListPost(Principal principal,@RequestParam(name="radioVideo") String videoId,ModelAndView mv) {
 		
@@ -407,6 +449,13 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW ARTICLE_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * Enable/Disable article Resource By Admin User
+	 * @param principal principal Object
+	 * @param articleId article ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deleteArticle",method = RequestMethod.POST)
 	public ModelAndView articleListPost(Principal principal,@RequestParam(name="radioArticle") String articleId,ModelAndView mv) {
 		
@@ -457,6 +506,13 @@ public class AdminViewController {
 	/*------------------------------------------SHOW DOCUMENT_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 
+	/**
+	 * Enable/Disable Document Resource By Admin User
+	 * @param principal principal Object
+	 * @param documentId Document ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deleteDocument",method = RequestMethod.POST)
 	public ModelAndView documentListPost(Principal principal,@RequestParam(name="radioDocument") String documentId,ModelAndView mv) {
 		
@@ -505,6 +561,13 @@ public class AdminViewController {
 	
 	/*------------------------------------------SHOW PHET_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * Enable/Disable Phet Resource By Admin User
+	 * @param principal principal Object
+	 * @param phetId Phet ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deletePhet",method = RequestMethod.POST)
 	public ModelAndView phetsListPost(Principal principal,@RequestParam(name="radioPhet") String phetId,ModelAndView mv) {
 
@@ -556,7 +619,13 @@ public class AdminViewController {
 	/*------------------------------------------SHOW LESSONPLAN_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 
-	
+	/**
+	 * Enable/Disable LessonPlan Resource By Admin User
+	 * @param principal principal Object
+	 * @param lessonId lessonPlan ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deleteLesson",method = RequestMethod.POST)
 	public ModelAndView lessonPlanListPost(Principal principal,@RequestParam(name="radioLesson") String lessonId,ModelAndView mv) {
 		
@@ -607,7 +676,13 @@ public class AdminViewController {
 	/*------------------------------------------SHOW QUIZ_LIST (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 
-	
+	/**
+	 * Enable/Disable Quiz Resource By Admin User
+	 * @param principal principal Object
+	 * @param quizId Quiz ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deleteQuiz",method = RequestMethod.POST)
 	public ModelAndView quizListPost(Principal principal,@RequestParam(name="radioQuiz") String quizId,ModelAndView mv) {
 		
@@ -654,7 +729,13 @@ public class AdminViewController {
 /*-------------------------------------------CONCEPT-MAP---------------------------------------*/
 	
 	
-	
+	/**
+	 * Enable/Disable ConcepMap Resource By Admin User
+	 * @param principal principal Object
+	 * @param conceptId conceptMap ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/deleteConcept",method = RequestMethod.POST)
 	public ModelAndView conceptListPost(Principal principal,@RequestParam(name="radioConcept") String conceptId,ModelAndView mv) {
 		
@@ -706,6 +787,12 @@ public class AdminViewController {
 
 /*-----------------------------------------------START OF APPROVING/REJECT TECAHER---------------------------------------------------------------------*/
 
+	/**
+	 * redirect admin user to approve reject Teacher page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectTeacher")
 	public ModelAndView teacherAprovementGet(Principal principal,ModelAndView mv) {
 
@@ -739,6 +826,13 @@ public class AdminViewController {
 		return mv;
 	}
 	
+	/**
+	 * Accept User's Teacher Role By Admin User
+	 * @param principal principal Object
+	 * @param userId User ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveTeacher",method =RequestMethod.POST)
 	public ModelAndView approveTeacherPost(Principal principal,@RequestParam(name="radiocall") String userId, ModelAndView mv) {
 		
@@ -831,6 +925,12 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT VIDEO---------------------------------------------------------------------*/
 
 
+	/**
+	 * redirect admin user to approve Reject Video page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectVideo")
 	public ModelAndView videoApprovementGet(Principal principal, ModelAndView mv) {
 		
@@ -861,6 +961,13 @@ public class AdminViewController {
 		return mv;
 	}
 	
+	/**
+	 * Accept Video Resource By Admin User
+	 * @param principal principal Object
+	 * @param userId Video ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/EnableVideo",method = RequestMethod.POST)
 	public ModelAndView enbaleVideoPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		int id=Integer.parseInt(userId);
@@ -906,7 +1013,12 @@ public class AdminViewController {
 
 /*-----------------------------------------------START OF APPROVING/REJECT DOCUMENT---------------------------------------------------------------------*/
 	
-	
+	/**
+	 * redirects admin User to approveReject Document Page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectDocument")
 	public ModelAndView documentApprovementGet(Principal principal, ModelAndView mv) {
 		
@@ -936,6 +1048,13 @@ public class AdminViewController {
 		return mv;
 	}
 	
+	/**
+	 * Accept Document Resource By Admin User
+	 * @param principal principal Object
+	 * @param userId Document ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/EnableDocument",method = RequestMethod.POST)
 	public ModelAndView enbaleDocumentPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
@@ -984,7 +1103,12 @@ public class AdminViewController {
 	/*-----------------------------------------------START OF APPROVING/REJECT ARTICLE---------------------------------------------------------------------*/
 	
 	
-	
+	/**
+	 * redirects admin user to ApproveReject Article page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectArticle")
 	public ModelAndView articleApprovementGet(Principal principal, ModelAndView mv) {
 		
@@ -1014,6 +1138,13 @@ public class AdminViewController {
 	}
 	
 	
+	/**
+	 * Accept Article Resource By Admin User
+	 * @param principal principal Object
+	 * @param userId Article ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/EnableArticle",method = RequestMethod.POST)
 	public ModelAndView enbaleArticlePost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
@@ -1056,7 +1187,12 @@ public class AdminViewController {
 	
 	/*-----------------------------------------------START OF APPROVING/REJECT PHETS---------------------------------------------------------------------*/
 	
-	
+	/**
+	 * redirects admin user to ApproveReject Phet Page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectPhets")
 	public ModelAndView phetApprovementGet(Principal principal, ModelAndView mv) {
 
@@ -1087,7 +1223,13 @@ public class AdminViewController {
 	}
 	
 	
-	
+	/**
+	 * Accept Phet Resource By Admin User
+	 * @param principal principal Object
+	 * @param userId Phet ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/EnablePhet",method = RequestMethod.POST)
 	public ModelAndView enbalePhetPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
@@ -1131,7 +1273,12 @@ public class AdminViewController {
 	
 	/*-----------------------------------------------START OF APPROVING/REJECT QUIZ---------------------------------------------------------------------*/
 	
-	
+	/**
+	 * redirects Admin User to ApproveReject Quiz Page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectQuiz")
 	public ModelAndView quizApprovementGet(Principal principal, ModelAndView mv) {
 
@@ -1161,7 +1308,13 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	
+	/**
+	 * Accept Quiz Resource By Admin User
+	 * @param principal principal Object
+	 * @param userId Quiz ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/EnableQuiz",method = RequestMethod.POST)
 	public ModelAndView enbaleQuizPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
@@ -1205,7 +1358,12 @@ public class AdminViewController {
 	
 	/*-----------------------------------------------START OF APPROVING/REJECT LESSON---------------------------------------------------------------------*/
 	
-	
+	/**
+	 * redirects admin User to ApproveReject Lesson Page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectLesson")
 	public ModelAndView lessonApprovementGet(Principal principal, ModelAndView mv) {
 
@@ -1234,7 +1392,13 @@ public class AdminViewController {
 		return mv;
 	}
 	
-	
+	/**
+	 * Accept LessonPlan Resource By Admin User
+	 * @param principal principal Object
+	 * @param userId LessonPlan ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/EnableLesson",method = RequestMethod.POST)
 	public ModelAndView enbaleLessonPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
@@ -1276,6 +1440,12 @@ public class AdminViewController {
 	
 	/*----------------------------------- APPROVE REJECT CONCEPTS-MAP ------------------------------------------------*/
 	
+	/**
+	 * redirects Admin User to ApproveReject Concept Map Page
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/approveRejectConcept")
 	public ModelAndView conceptApprovementGet(Principal principal, ModelAndView mv) {
 		
@@ -1303,6 +1473,13 @@ public class AdminViewController {
 		return mv;
 	}
 	
+	/**
+	 * Accept ConcepMap Resource By Admin User
+	 * @param principal principal Object
+	 * @param userId ConceptMap ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/EnableConcept",method = RequestMethod.POST)
 	public ModelAndView enbaleConceptPost(Principal principal,@RequestParam(name="selectionRadio") String userId, ModelAndView mv) {
 		
@@ -1342,6 +1519,12 @@ public class AdminViewController {
 		}
 	/***********************************************************************************************************************/
 	
+	/**
+	 * redirects admin user to view all the Testimonial data exist in application
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/testimonialList",method = RequestMethod.GET)
 	public ModelAndView testimonialList(Principal principal,ModelAndView mv) {
 		
@@ -1365,6 +1548,12 @@ public class AdminViewController {
 		
 	}
 	
+	/**
+	 * Redirects Admin user to view all the Event data exist in application.
+	 * @param principal principal Object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve/eventList",method = RequestMethod.GET)
 	public ModelAndView eventList(Principal principal,ModelAndView mv) {
 
@@ -1435,6 +1624,14 @@ public class AdminViewController {
 		
 	}
 	
+	/**
+	 * Changes Tutorial's attributes value in database
+	 * @param principal principal object
+	 * @param req HttpServletRequest
+	 * @param tutorialId Tutorial Resource ID
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/disableEnableTutorial",method = RequestMethod.POST)
 	public ModelAndView enableDisableTutorialListPost(Principal principal,HttpServletRequest req,@RequestParam(name="radioTutorial") String tutorialId,ModelAndView mv) {
 		

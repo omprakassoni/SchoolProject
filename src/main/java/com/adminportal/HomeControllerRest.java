@@ -96,14 +96,35 @@ import com.spoken.Utility.passwordUpdateAjaxQueryResolver;
 
 import antlr.debug.Event;
 
+/**
+ * This rest controller handles all the ajax call made in application.
+ * @author om prakash
+ *
+ */
 @RestController
 public class HomeControllerRest {
 	
+	/**
+	 * path to save resource
+	 */
 	public static String uploadDirectory="Media/content/";
+	/**
+	 * path to save Event Data
+	 */
 	public static final String uploadEvent="Media/Event/";
+	/**
+	 * Maximum file Size
+	 */
 	public static final long fileSize=10*1024*1024; 
+	
+	/**
+	 * Maximum video file Size
+	 */
 	public static final long videoSize=50*1024*1024; 
 	
+	/**
+	 * 
+	 */
 	public static String deleteDirectory="";
 		
 	@Autowired
@@ -164,6 +185,11 @@ public class HomeControllerRest {
 	@Autowired
 	private Environment env;
 	
+	/**
+	 * Get method to Count number of resource added inside a particular topic
+	 * @param topicId Topic ID
+	 * @return number of resource
+	 */
 	@GetMapping("/countResourceFromTopic")
 	public @ResponseBody int countResourceFromTopic(int topicId){
 		
@@ -174,6 +200,11 @@ public class HomeControllerRest {
 		
 	}
 	
+	/**
+	 * Get method to Count number of resource added inside a particular topic based on subject name
+	 * @param subId subject ID
+	 * @return number of resource
+	 */
 	@GetMapping("/countResourceFromSubject")
 	public @ResponseBody int countResourceFromSubject(int subId){
 		
@@ -197,6 +228,11 @@ public class HomeControllerRest {
 		
 	}
 	
+	/**
+	 * Get method to Count number of resource added inside a particular topic based on Class name
+	 * @param classId class ID
+	 * @return number of resource
+	 */
 	@GetMapping("/countResourceFromClass")
 	public @ResponseBody int countResourceFromClass(int classId){
 		
@@ -220,6 +256,13 @@ public class HomeControllerRest {
 	}
 	
 	/*------------------------------------UPDATING USER FIRST AND LAST NAME-------------------------------------*/
+	/**
+	 * Get method to update User Details
+	 * @param fname first name of user to be updated
+	 * @param lname last name of the user to be updated
+	 * @param principal Principal Object
+	 * @return Boolean value based on successful or failure of operation ?
+	 */
 	@GetMapping("/updateUserDetails")
 	public @ResponseBody boolean updateUserInfo(String fname,String lname,Principal principal){
 		
@@ -234,6 +277,11 @@ public class HomeControllerRest {
 		
 	}
 	
+	/**
+	 * Enable/Disable Class given Class ID
+	 * @param class_id Class Id
+	 * @return Boolean value based on successful or failure of operation ?
+	 */
 	@GetMapping("/enableDisableClass")
 	public @ResponseBody boolean enableDisableClass(int class_id){
 		Class classTemp=null;
@@ -270,6 +318,11 @@ public class HomeControllerRest {
 	}
 	
 	/*--------------------------------- VALIDITY CHECK AGANIST SUBJECT ****************************************/
+	/**
+	 * Check status value for subject data
+	 * @param id subject ID
+	 * @return status value of subject
+	 */
 	@GetMapping("/loadByValiditySubject")
 	public @ResponseBody boolean loadByValiditySubject(String id) {
 		Subject tempSubject=null;
@@ -285,6 +338,11 @@ public class HomeControllerRest {
 	
 	
 	/*--------------------------------------TAKING CONTACT FORM DATA FROM INDEX PAGE ------------------------------------------------------*/
+	/**
+	 * Post method to add User Query Form
+	 * @param contactData ContactForm object 
+	 * @return success or failure in List 
+	 */
 	@PostMapping("/addContactForm")
 	public @ResponseBody List<String> addContactData(@Valid @RequestBody ContactForm contactData){
 		List<String> status=new ArrayList<String>();
@@ -320,6 +378,11 @@ public class HomeControllerRest {
 	
 	/*---------------------------------------------LOADING DATA INTO MODAL FROM TESTIMIONIAL ID -----------------------------------------------*/
 	
+	/**
+	 * Post method to load Testimonial data 
+	 * @param localdata Testimonial object
+	 * @return Testimonial object
+	 */
 	@PostMapping("/loadByTestimonialID")
 	public @ResponseBody Testimonial loadByTestimonial(@Valid @RequestBody Testimonial localdata) {
 		
@@ -329,6 +392,11 @@ public class HomeControllerRest {
 		
 	}
 	
+	/**
+	 * Post method to load event data
+	 * @param localdata Events object
+	 * @return Events Object
+	 */
 	@PostMapping("/loadByEventID")
 	public @ResponseBody Events loadByevent(@Valid @RequestBody Events localdata) {
 		
@@ -338,6 +406,11 @@ public class HomeControllerRest {
 		
 	}
 	
+	/**
+	 * Post method to update testimonial data
+	 * @param localdata Testimonial object
+	 * @return success or failure in List
+	 */
 	@PostMapping("/updateTestimonial")
 	public @ResponseBody List<String> updateTestimonial(@Valid @RequestBody Testimonial localdata){
 		
@@ -385,7 +458,20 @@ public class HomeControllerRest {
 	}
 	
 	
-	
+	/**
+	 * Update Event Data
+	 * @param uploadPoster file to be updated
+	 * @param corrdName Coordinator name
+	 * @param eventHead Headline
+	 * @param eventDesc Description
+	 * @param eventId Event ID
+	 * @param starttemp Start date
+	 * @param endtemp End date
+	 * @param regStarttemp registration start date
+	 * @param regEndtemp registration end date
+	 * @return success or failure in List
+	 * @throws Exception
+	 */
 	@PostMapping("/updateEvent")
 	public @ResponseBody List<String> updateEvent(@RequestParam("poster") MultipartFile[] uploadPoster,@RequestParam("eventCoordName") String corrdName,@RequestParam("eventHead") String eventHead,@RequestParam("eventDesc") String eventDesc,@RequestParam("eventId") String eventId,
 													@RequestParam("startDate")	String starttemp,
@@ -548,6 +634,12 @@ public class HomeControllerRest {
 	
 	
 	/********************************************** UPDATE PASSWORD ***************************************************************/
+	/**
+	 * Post method to update user password
+	 * @param localpass passwordUpdateAjaxQueryResolver object
+	 * @param principal Principal object
+	 * @return success or failure in List
+	 */
 	@PostMapping("/updatePassword")
 	public @ResponseBody List<String> updateUserPassword(@Valid @RequestBody passwordUpdateAjaxQueryResolver localpass,Principal principal){
 		List<String> status=new ArrayList<String>();
@@ -582,6 +674,11 @@ public class HomeControllerRest {
 
 	
 	/*------------------------------------------------VALIDATE EMAIL---------------------------------------------------------------*/
+	/**
+	 * Validate Email
+	 * @param email Email in list
+	 * @return success or failure in List
+	 */
 	@PostMapping("/validateEmail")
 	public @ResponseBody List<String> validateNewEmail(@Valid @RequestBody List<String> email){
 		List<String> status=new ArrayList<String>();
@@ -604,6 +701,12 @@ public class HomeControllerRest {
 	
 /*--------------------------------------------------LOAD BY CLASS NAME----------------------------------------------------------------------*/
 
+	/**
+	 * Load Subject given class name
+	 * @param classSelected Class object
+	 * @return set of string
+	 * @throws Exception
+	 */
 	@PostMapping("/loadByClassName")
 	public @ResponseBody List<String> loadByClassName(@Valid @RequestBody Class classSelected ) throws Exception{
 		
@@ -627,6 +730,12 @@ public class HomeControllerRest {
 		
 	}
 	
+	/**
+	 * Load Subject given class name on homepage
+	 * @param classSelected Class object
+	 * @return set String
+	 * @throws Exception
+	 */
 	@PostMapping("/loadByClassNameHome")
 	public @ResponseBody List<String> loadByClassNameHome(@Valid @RequestBody Class classSelected ) throws Exception{
 		
@@ -655,6 +764,12 @@ public class HomeControllerRest {
 	
 	/*------------------------------------- LOAD CLASS BY SUBJECT NAME------------------------------------------------------*/
 	
+	/**
+	 * Return class name based on Subject Name
+	 * @param subjectSelected subject object
+	 * @return set string
+	 * @throws Exception
+	 */
 	@PostMapping("/loadBySubjectName")
 	public @ResponseBody List<Integer> loadBySubjectName(@Valid @RequestBody Subject subjectSelected) throws Exception{
 		
@@ -679,7 +794,13 @@ public class HomeControllerRest {
 	}
 	
 	
-	
+	/**
+	 * returns all the topic name based on class and subject on homepage
+	 * @param subName subject name
+	 * @param className class name
+	 * @return set of topic name
+	 * @throws Exception
+	 */
 	@GetMapping("/loadByTopicName")
 	public @ResponseBody HashMap<Integer,String> loadByTopicName(@Valid String subName,int className ) throws Exception{
 		HashMap<Integer,String> topicName=new HashMap<>();
@@ -718,6 +839,12 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------LOAD BY CLASS NAME AND SUBJECT NAME----------------------------------------------------------------------*/
 	
+	/**
+	 * return topic name based on class and subject
+	 * @param subjectClassSelected SubjectClassAjaxQueryResolver object
+	 * @return set of topic
+	 * @throws Exception
+	 */
 	@PostMapping("/loadByClassnameAndSubject")
 	public @ResponseBody List<String> loadByClassnameAndSubject(@Valid @RequestBody SubjectClassAjaxQueryResolver subjectClassSelected) throws Exception{
 		List<String> topicName=new ArrayList<String>();
@@ -752,6 +879,11 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------LOADING USER DETIAILS----------------------------------------------------------------------*/
 	
+	/**
+	 * returns USer data
+	 * @param usr User object
+	 * @return LoadUserLearner object
+	 */
 	@PostMapping("/loadByUser")
 	public LoadUserLearner loadByUser(@Valid @RequestBody User usr){
 	
@@ -775,7 +907,11 @@ public class HomeControllerRest {
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------LOAD BY VALIDITY OF USER----------------------------------------------------------------------*/
-	
+	/**
+	 * returns user validity
+	 * @param usr User object
+	 * @return User registered value
+	 */
 	@PostMapping("/loadByValidity")
 	public List<Integer> loadByValidity(@Valid @RequestBody User usr){
 		List<Integer> data=new ArrayList<Integer>();
@@ -786,6 +922,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * returns topic validity
+	 * @param topic topic object
+	 * @return topic status value
+	 */
 	@PostMapping("/loadByValidityTopic")
 	public List<Integer> loadByValidityTopic(@Valid @RequestBody Topic topic){
 		List<Integer> data=new ArrayList<Integer>();
@@ -796,6 +937,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * return phet validity
+	 * @param phet phet object
+	 * @return phet status value
+	 */
 	@PostMapping("/loadByValidityPhet")
 	public List<Integer> loadByValidityPhet(@Valid @RequestBody Phets phet){
 		List<Integer> data=new ArrayList<Integer>();
@@ -806,6 +952,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * return Document validity
+	 * @param document document object
+	 * @return document status value
+	 */
 	@PostMapping("/loadByValidityDocument")
 	public List<Integer> loadByValidityDocument(@Valid @RequestBody DocumentExternal document){
 		List<Integer> data=new ArrayList<Integer>();
@@ -816,6 +967,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * return Lesson validity
+	 * @param lesson Lesson object
+	 * @return lesson status value
+	 */
 	@PostMapping("/loadByValidityLesson")
 	public List<Integer> loadByValidityLesson(@Valid @RequestBody LessonPlan lesson){
 		List<Integer> data=new ArrayList<Integer>();
@@ -826,6 +982,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * return Article validity
+	 * @param article article object
+	 * @return article status value
+	 */
 	@PostMapping("/loadByValidityArticle")
 	public List<Integer> loadByValidityArticle(@Valid @RequestBody ArticleExternal article){
 		List<Integer> data=new ArrayList<Integer>();
@@ -836,6 +997,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * return QuizQuestion validity
+	 * @param quiz QuizQuestion object
+	 * @return QuizQuestion status value
+	 */
 	@PostMapping("/loadByValidityQuiz")
 	public List<Integer> loadByValidityQuiz(@Valid @RequestBody QuizQuestion quiz){
 		List<Integer> data=new ArrayList<Integer>();
@@ -846,7 +1012,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
-	
+	/**
+	 * return VideoExternal validity
+	 * @param video VideoExternal object
+	 * @return VideoExternal status value
+	 */
 	@PostMapping("/loadByValidityVideo")
 	public List<Integer> loadByValidityVideo(@Valid @RequestBody VideoExternal video){
 		List<Integer> data=new ArrayList<Integer>();
@@ -857,6 +1027,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * return ConceptMap validity
+	 * @param concept ConceptMap object
+	 * @return ConceptMap status value
+	 */
 	@PostMapping("/loadByValidityConcept")
 	public List<Integer> loadByValidityConcept(@Valid @RequestBody ConceptMap concept){
 		List<Integer> data=new ArrayList<Integer>();
@@ -867,6 +1042,11 @@ public class HomeControllerRest {
 		return data;
 	}
 	
+	/**
+	 * return Tutorial validity
+	 * @param tutorial Tutorial object
+	 * @return Tutorial status value
+	 */
 	@PostMapping("/loadByValidityTutorial")
 	public List<Integer> loadByValidityTutorial(@Valid @RequestBody Tutorial tutorial){
 		List<Integer> data=new ArrayList<Integer>();
@@ -880,6 +1060,12 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------LOAD BY SUBJECT----------------------------------------------------------------------*/
 	
+	/**
+	 * return subject data 
+	 * @param sub Subject object
+	 * @return SubjectAjaxQueryResolver object
+	 * @throws Exception
+	 */
 	@PostMapping("/loadBySubject")
 	public SubjectAjaxQueryResolver loadBySubject(@Valid @RequestBody Subject sub)throws Exception {
 		
@@ -893,7 +1079,11 @@ public class HomeControllerRest {
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------LOAD BY CLASS NAME----------------------------------------------------------------------*/
-		
+	
+	/**
+	 * returns class value
+	 * @return set of class value
+	 */
 	@PostMapping("/loadByClass")
 	public List<Integer> loadByClass() {
 		List< Integer> local=new ArrayList<Integer>();
@@ -910,6 +1100,12 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------LOAD BY SUBJECT CLASS----------------------------------------------------------------------*/
 	
+	/**
+	 * returns class name based on Subject object
+	 * @param sub Subject object
+	 * @return set of class value
+	 * @throws Exception
+	 */
 	@PostMapping("/loadBySubjectClass")
 	public Set<Integer> loadBySubjectClass(@Valid @RequestBody Subject sub) throws Exception{
 		Set<Integer> subName= new HashSet<Integer>();
@@ -926,7 +1122,11 @@ public class HomeControllerRest {
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------LOADING TOPIC DETAILS----------------------------------------------------------------------*/
-	
+	/**
+	 * returns topic name based on Topic Object
+	 * @param topic Topic object
+	 * @return set of String (topic name)
+	 */
 	@PostMapping("/loadByTopic")
 	public List<String> loadByTopicTopicName(@Valid @RequestBody Topic topic) {
 		
@@ -941,7 +1141,11 @@ public class HomeControllerRest {
 	
 
 	
-	
+	/**
+	 * returns description based on Topic Object
+	 * @param topic Topic object
+	 * @return set of String (description)
+	 */
 	@PostMapping("/loadByTopicDesc")
 	public List<String> loadByTopicDesc(@Valid @RequestBody Topic topic) {
 	
@@ -959,7 +1163,11 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------LOADING QUIZ DETAILS----------------------------------------------------------------------*/
 	
-	
+	/**
+	 * returns remark based on QuizQuestion Object
+	 * @param quiz QuizQuestion object
+	 * @return set of String (remark)
+	 */
 	@PostMapping("/loadByQuizQuestionID")
 	public List<String> loadByQuizQuestionId(@Valid @RequestBody QuizQuestion quiz){
 		
@@ -976,6 +1184,11 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOAD ----------------------------------------------------------------------*/
 	/*--------------------------------------------------LOADING VIDEO DETAILS----------------------------------------------------------------------*/
 	
+	/**
+	 * returns description based on VideoExternal Object
+	 * @param video VideoExternal object
+	 * @return set of String (description)
+	 */
 	@PostMapping("/loadByVideoID")
 	public List<String> loadByVideoID(@Valid @RequestBody VideoExternal video){
 		
@@ -995,7 +1208,11 @@ public class HomeControllerRest {
 	}
 	
 
-	
+	/**
+	 * returns source based on VideoExternal Object
+	 * @param video VideoExternal object
+	 * @return set of String (source)
+	 */
 	@PostMapping("/loadByVideoIDSource")
 	public List<String> loadByVideoIDSource(@Valid @RequestBody VideoExternal video){
 		
@@ -1013,7 +1230,11 @@ public class HomeControllerRest {
 		
 		return videodata;
 	}
-	
+	/**
+	 * returns url based on VideoExternal Object
+	 * @param video VideoExternal object
+	 * @return set of String (url)
+	 */
 	@PostMapping("/loadByVideoIDUrl")
 	public List<String> loadByVideoIDUrl(@Valid @RequestBody VideoExternal video){
 		
@@ -1029,7 +1250,11 @@ public class HomeControllerRest {
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	/***************************************** LOADING CONCEPT-MAP DETAILS ********************************************************/
 	
-	
+	/**
+	 * returns Description and remark based on ConceptMap Object
+	 * @param concept ConceptMap object
+	 * @return set of String (Description and remark)
+	 */
 	@PostMapping("/loadByConceptID")
 	public List<String> loadByConceptID(@Valid @RequestBody ConceptMap concept){
 		
@@ -1046,7 +1271,11 @@ public class HomeControllerRest {
 	/****************************************************END****************************************************************************/
 	
 	/*--------------------------------------------------LOADING ARTICLE DETAILS----------------------------------------------------------------------*/
-	
+	/**
+	 * returns source based on ArticleExternal Object
+	 * @param article ArticleExternal object
+	 * @return set of String (source)
+	 */
 	@PostMapping("/loadByArtcileID")
 	public List<String> loadByArtcileID(@Valid @RequestBody ArticleExternal article){
 		
@@ -1060,7 +1289,11 @@ public class HomeControllerRest {
 	}
 	
 	
-	
+	/**
+	 * returns Description based on ArticleExternal Object
+	 * @param article ArticleExternal object
+	 * @return set of String (Description)
+	 */
 	@PostMapping("/loadByArtcileIDDesc")
 	public List<String> loadByArtcileIDDesc(@Valid @RequestBody ArticleExternal article){
 		
@@ -1077,6 +1310,11 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------LOADING DOCUMENT DETAILS----------------------------------------------------------------------*/
 	
+	/**
+	 * returns source based on DocumentExternal Object
+	 * @param document DocumentExternal object
+	 * @return set of String (source)
+	 */
 	@PostMapping("/loadByDocumentID")
 	public List<String> loadByDocumentID(@Valid @RequestBody DocumentExternal document){
 		
@@ -1090,7 +1328,11 @@ public class HomeControllerRest {
 	}	/*--------------------------------------------------LOAD ----------------------------------------------------------------------*/
 	
 
-	
+	/**
+	 * returns Description based on DocumentExternal Object
+	 * @param document DocumentExternal object
+	 * @return set of String (Description)
+	 */
 	@PostMapping("/loadByDocumentIDDesc")
 	public List<String> loadByDocumentIDDesc(@Valid @RequestBody DocumentExternal document){
 		
@@ -1108,7 +1350,11 @@ public class HomeControllerRest {
 	/*--------------------------------------------------LOADING PHET DETAILS----------------------------------------------------------------------*/
 	
 	
-	
+	/**
+	 * returns source based on Phets Object
+	 * @param phet Phets object
+	 * @return list of string (source) 
+	 */
 	@PostMapping("/loadByphetID")
 	public List<String> loadByphetID(@Valid @RequestBody Phets phet){
 		
@@ -1122,7 +1368,11 @@ public class HomeControllerRest {
 	}
 	
 
-	
+	/**
+	 * returns description based on Phets Object
+	 * @param phet Phets object
+	 * @return list of string (Description)
+	 */
 	@PostMapping("/loadByphetIDDesc")
 	public List<String> loadByphetIDDesc(@Valid @RequestBody Phets phet){
 		
@@ -1139,6 +1389,12 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------UPDATING SUBJECT----------------------------------------------------------------------*/
 	
+	/**
+	 * update Subject resource
+	 * @param data data in list
+	 * @return Success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/updateSubject")
 	public List<String> updateSubject(@Valid @RequestBody List<String> data) throws Exception {
 		int index=0;
@@ -1207,6 +1463,15 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------UPDATING TOPIC----------------------------------------------------------------------*/
 	
+	/**
+	 * Update Topic resource
+	 * @param uploadfiles Image file to be updated
+	 * @param desc description to be updated
+	 * @param TopicID Topic ID
+	 * @param topicName topic name to be updated
+	 * @return Success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/updateTopic")
 	public @ResponseBody List<String> updateTopic(@RequestParam("posterQ") MultipartFile[] uploadfiles, @RequestParam("topicDesc") String desc, @RequestParam("TopicId") String TopicID, @RequestParam("TopicName") String topicName) throws Exception{
 		List<String> msg=new ArrayList<String>();
@@ -1298,7 +1563,14 @@ public class HomeControllerRest {
 		
 		
 	
-	
+	/**
+	 * updated Quiz resource
+	 * @param uploadQuestion question file
+	 * @param uploadAnswer answer file
+	 * @param quizID QuizQuestion ID
+	 * @return Success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/updateQuiz")
 	public @ResponseBody List<String> updateQuiz(@RequestParam("question") MultipartFile[] uploadQuestion, @RequestParam("answer") MultipartFile[] uploadAnswer, @RequestParam("quizId") String quizID) throws Exception{
 		List<String> msg=new ArrayList<String>();
@@ -1475,7 +1747,15 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------UPDATING DOCUMENT----------------------------------------------------------------------*/
 	
-	
+	/**
+	 * Update Document resource
+	 * @param uploadQuestion file to be updated
+	 * @param dSource source to be updated
+	 * @param documentId DocuemntExternal ID
+	 * @param desc description to be updated
+	 * @return Success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/updateDocument")
 	public @ResponseBody List<String> updateDocument(@RequestParam("document") MultipartFile[] uploadQuestion,@RequestParam("documentsource") String dSource,@RequestParam("documentId") String documentId,@RequestParam("documentDesc") String desc) throws Exception{
 		List<String> msg=new ArrayList<String>();
@@ -1556,7 +1836,15 @@ public class HomeControllerRest {
 	/*------------------------------------------------------------END--------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------UPDATING CONCEPT-MAP-------------------------------------------------------------*/
-	
+	/**
+	 * Update Concept map resource
+	 * @param conceptImage Image to be updated
+	 * @param desc Description to be updated
+	 * @param conceptId ConceptMap ID
+	 * @param remark remark to be updated
+	 * @return Success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/updateConcept")
 	public @ResponseBody List<String> updateConcept(@RequestParam("conceptImage") MultipartFile[] conceptImage,@RequestParam("conceptDesc") String desc,@RequestParam("conceptId") String conceptId,@RequestParam("conceptHeadline") String remark) throws Exception{
 		List<String> msg=new ArrayList<String>();
@@ -1648,7 +1936,14 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------UPDATING VIDEO----------------------------------------------------------------------*/
 	
-	
+	/**
+	 * Update Video resource
+	 * @param VSource source to be updated
+	 * @param videoId VideoExternal ID
+	 * @param desc description to set
+	 * @param url Url of video
+	 * @return success or failure in list
+	 */
 	@PostMapping("/updateVideo")
 	public @ResponseBody List<String> updateVideo(@RequestParam("videosource") String VSource,@RequestParam("videoId") String videoId,@RequestParam("videoDesc") String desc,@RequestParam("videourl") String url){
 		List<String> msg=new ArrayList<String>();
@@ -1705,7 +2000,14 @@ public class HomeControllerRest {
 		}
 	}
 	
-	
+	/**
+	 * Update Video resource
+	 * @param VSource source to be updated
+	 * @param videoId VideoExternal ID
+	 * @param desc description to set
+	 * @param videourl Video file to be set
+	 * @return Success or failue in list
+	 */
 	@PostMapping("/updateVideoUpload")
 	public @ResponseBody List<String> updateVideoUpload(@RequestParam("videosource") String VSource,@RequestParam("videoId") String videoId,@RequestParam("videoDesc") String desc,@RequestParam("videourl") MultipartFile videourl){
 		List<String> msg=new ArrayList<String>();
@@ -1775,6 +2077,14 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------UPDATING PHETS----------------------------------------------------------------------*/	
 	
+	/**
+	 * Update Phet resource
+	 * @param PSource source to be updated
+	 * @param phetId Phets ID
+	 * @param desc description to be set
+	 * @param url Url path to be updated
+	 * @return Success or failue in list
+	 */
 	@PostMapping("/updatePhet")
 	public @ResponseBody List<String> updatePhet(@RequestParam("phetsource") String PSource,@RequestParam("phetId") String phetId,@RequestParam("phetDesc") String desc,@RequestParam("phetUrl") String url){
 		List<String> msg=new ArrayList<String>();
@@ -1830,7 +2140,13 @@ public class HomeControllerRest {
 	/*------------------------------------------------------------END------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------UPDATING Lesson Plan----------------------------------------------------------------------*/
-	
+	/**
+	 * Update LessonPlan Object
+	 * @param uploadLessonPlan File to be updated
+	 * @param documentId LessonPlan ID
+	 * @return Success or failue in list
+	 * @throws Exception
+	 */
 	@PostMapping("/updateLesson")
 	public @ResponseBody List<String> updateLesson(@RequestParam("lessonPlan") MultipartFile[] uploadLessonPlan,@RequestParam("lessonId") String documentId) throws Exception{
 		List<String> msg=new ArrayList<String>();
@@ -1888,6 +2204,14 @@ public class HomeControllerRest {
 	
 	/*--------------------------------------------------UPDATING ARTICLE----------------------------------------------------------------------*/
 	
+	/**
+	 * Update Article object
+	 * @param ASource source to be updated
+	 * @param articleId Article ID
+	 * @param desc description to be updated
+	 * @param url Url path to be set
+	 * @return Success or failue in list
+	 */
 	@PostMapping("/updateArticle")
 	public @ResponseBody List<String> updateArticle(@RequestParam("articlesource") String ASource,@RequestParam("artcileId") String articleId,@RequestParam("articleDesc") String desc,@RequestParam("articleurl") String url){
 	List<String> msg=new ArrayList<String>();
@@ -1934,7 +2258,11 @@ public class HomeControllerRest {
 	
 	
 	/*---------------------------------------------------------COMMENT SECTION FOR VIDEO---------------------------------------------------------*/
-	
+	/**
+	 * return comment based on video resource
+	 * @param video VideoExternal object
+	 * @return list of CommentAjaxQueryResolver object
+	 */
 	@PostMapping("/loadByVideoComment")
 	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnVideo(@Valid @RequestBody VideoExternal video) {
 		
@@ -1957,7 +2285,13 @@ public class HomeControllerRest {
 		return temp;
 	}
 	
-	
+	/**
+	 * save comment based on Video
+	 * @param principal Principal object
+	 * @param data CommentReplyAjaxQueryResolver object
+	 * @return success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/uploadCommentOnVideo")
 	public List<String> uploadCommentonVideo(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
@@ -2018,7 +2352,11 @@ public class HomeControllerRest {
 	
 	/*----------------------------------------------COLLECTION OF REPLY ON COMMENT--------------------------------------------------------------*/
 	
-	
+	/**
+	 * return reply on Comment object
+	 * @param coment Comment object
+	 * @return list of CommentAjaxQueryResolver
+	 */
 	@PostMapping("/loadReplyOnComment")
 	public List<CommentAjaxQueryResolver> fetchReplyOnComment(@Valid @RequestBody Comment coment){
 		List<CommentAjaxQueryResolver> replyOnComment=new ArrayList<CommentAjaxQueryResolver>();
@@ -2041,7 +2379,11 @@ public class HomeControllerRest {
 	
 	
 	/*---------------------------------------------------------COMMENT SECTION FOR ARTICLE---------------------------------------------------------*/
-	
+	/**
+	 * returns set of comment based on ArticleExternal object
+	 * @param article ArticleExternal object
+	 * @return list of CommentAjaxQueryResolver
+	 */
 	@PostMapping("/loadByArticleComment")
 	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnArtcile(@Valid @RequestBody ArticleExternal article) {
 		
@@ -2064,7 +2406,13 @@ public class HomeControllerRest {
 		return temp;
 	}
 	
-	
+	/**
+	 * save comment reply on comment (Article)
+	 * @param principal Principal object
+	 * @param data CommentReplyAjaxQueryResolver object
+	 * @return success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/uploadCommentOnArticle")
 	public List<String> uploadCommentonArtcile(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
@@ -2150,6 +2498,11 @@ public class HomeControllerRest {
 	
 	/*---------------------------------------------------------COMMENT SECTION FOR DOCUMENT---------------------------------------------------------*/
 	
+	/**
+	 * return set of comment based on DocumentExternal object
+	 * @param document DocumentExternal object
+	 * @return list of CommentAjaxQueryResolver
+	 */
 	@PostMapping("/loadByDocumentComment")
 	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnDocument(@Valid @RequestBody DocumentExternal document) {
 		System.out.println(document.getDocumentId());
@@ -2173,6 +2526,13 @@ public class HomeControllerRest {
 		return temp;
 	}
 	
+	/**
+	 * save comment reply on comment (document)
+	 * @param principal Principal object
+	 * @param data CommentReplyAjaxQueryResolver object
+	 * @return success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/uploadCommentOnDocument")
 	public List<String> uploadCommentonDocument(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
@@ -2237,7 +2597,11 @@ public class HomeControllerRest {
 	/*---------------------------------------------------------COMMENT SECTION FOR QUIZ---------------------------------------------------------*/
 	
 	
-	
+	/**
+	 * return comment based on QuizQuestion object
+	 * @param quiz QuizQuestion object
+	 * @return list of CommentAjaxQueryResolver
+	 */
 	@PostMapping("/loadByQuizComment")
 	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnQuiz(@Valid @RequestBody QuizQuestion quiz) {
 		
@@ -2260,7 +2624,13 @@ public class HomeControllerRest {
 		return temp;
 	}
 	
-	
+	/**
+	 * save comment reply on comment 
+	 * @param principal Principal object
+	 * @param data CommentReplyAjaxQueryResolver
+	 * @return success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/uploadCommentOnQuiz")
 	public List<String> uploadCommentonQuiz(Principal principal,@Valid @RequestBody  CommentReplyAjaxQueryResolver data) throws Exception {
 		
@@ -2341,6 +2711,11 @@ public class HomeControllerRest {
 	
 	/*---------------------------------------------------------COMMENT SECTION FOR PHET---------------------------------------------------------*/
 	
+	/**
+	 * return comment object based on Phet object
+	 * @param phet phets Object
+	 * @return list of CommentAjaxQueryResolver
+	 */
 	@PostMapping("/loadByPhetComment")
 	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnPhet(@Valid @RequestBody Phets phet) {
 		
@@ -2363,7 +2738,13 @@ public class HomeControllerRest {
 		return temp;
 	}
 	
-	
+	/**
+	 * Save comment on Phet resource
+	 * @param principal Principal object
+	 * @param data CommentReplyAjaxQueryResolver
+	 * @return success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/uploadCommentOnPhet")
 	public List<String> uploadCommentonPhet(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
@@ -2444,6 +2825,11 @@ public class HomeControllerRest {
 	
 	/**************************************** COMMENT SECTION FOR CONCEPTS-MAP********************************************/
 	
+	/**
+	 * returns Comment made on ConceptMap object
+	 * @param conceptMap ConceptMap object
+	 * @return list of CommentAjaxQueryResolver
+	 */
 	@PostMapping("/loadByConceptComment")
 	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnLesson(@Valid @RequestBody ConceptMap conceptMap) {
 		
@@ -2466,6 +2852,13 @@ public class HomeControllerRest {
 		return temp;
 	}
 	
+	/**
+	 * Save comment reply on Concept resource
+	 * @param principal Principal object
+	 * @param data CommentReplyAjaxQueryResolver object
+	 * @return success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/uploadCommentOnConcept")
 	public List<String> uploadCommentonConcept(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
@@ -2526,7 +2919,11 @@ public class HomeControllerRest {
 	
 	/*---------------------------------------------------------COMMENT SECTION FOR LESSON---------------------------------------------------------*/
 	
-	
+	/**
+	 * return all the comment made on LessonPlan object
+	 * @param lesson LessonPlan object
+	 * @return list of CommentAjaxQueryResolver
+	 */
 	@PostMapping("/loadByLessonComment")
 	public @ResponseBody List<CommentAjaxQueryResolver> fetchCommentOnLesson(@Valid @RequestBody LessonPlan lesson) {
 		
@@ -2551,7 +2948,13 @@ public class HomeControllerRest {
 	
 	
 	
-	
+	/**
+	 * Save comment on Lesson resource
+	 * @param principal Principal object
+	 * @param data CommentReplyAjaxQueryResolver object
+	 * @return success or failure in list
+	 * @throws Exception
+	 */
 	@PostMapping("/uploadCommentOnLesson")
 	public List<String> uploadCommentonLesson(Principal principal,@Valid @RequestBody CommentReplyAjaxQueryResolver data) throws Exception {
 		
@@ -2630,455 +3033,462 @@ public class HomeControllerRest {
 }
 	
 	
-	@PostMapping("/addArticleFromUser")
-	public @ResponseBody List<String> addArticleFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("url") String url){
-		List<String> status=new ArrayList<String>();
-		
-		if(!url.startsWith("http")) {												// validation against proper Url given against artcile file.
-			
-			status.add("failure");
-			
-			return status;
-			
-		}
-		
-		
-		try {
-			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-			Subject localSubject=subjectService.findBysubName(subSelected);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
-			
-			
-			
-			User usr=userService.findByUsername(principal.getName());
-			Set<ArticleExternal> articlemapping=new HashSet<ArticleExternal>();
-			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
-			
-
-
-			userService.addUserToArticle(usr, articlemapping);
-			status.add("Success");
-		} catch (Exception e) {
-			
-			status.add("failure");
-		}
-		
-		
-		
-		return status;
-	}
-	
-	@PostMapping("/addPhetFromUser")
-	public @ResponseBody List<String> addPhetFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("phet") String phet){
-		
-		List<String> status=new ArrayList<String>();
-		String phetPath=null;
-		
-		try {
-			if(phet.length()>0) {
-				
-				if(!phet.startsWith("<iframe")) {
-					status.add("failure");
-					return status;
-					
-				}
-				try {
-					int indexOfSrc=phet.indexOf("src");
-					int lastIndexOfSrc =phet.indexOf(' ', indexOfSrc);
-					String temp=phet.substring(indexOfSrc, lastIndexOfSrc);
-					int ind=temp.indexOf('=');
-					String urlUpload1=temp.substring(ind+2, temp.length()-1);
-					phetPath=urlUpload1;
-				
-				}catch(Exception e) {
-					status.add("failure");
-					e.printStackTrace();
-					return status;
-				}
-				
-			}else {
-				
-				status.add("failure");
-				return status;
-				
-				
-			}
-			
-
-			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-			Subject localSubject=subjectService.findBysubName(subSelected);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
-			
-			
-			User usr=userService.findByUsername(principal.getName());
-			
-			
-			Set<Phets> phetMapping=new HashSet<Phets>();
-			phetMapping.add(new Phets(phetServcie.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
-
-			
-			userService.addUserToPhets(usr, phetMapping);
-			status.add("Success");
-			
-		} catch (Exception e) {
-			
-			status.add("failure");
-			System.out.println("baby");
-		}
-		
-		
-		
-		return status;
-	}
-	
-	@PostMapping("/addVideoFromUser")
-	public @ResponseBody List<String> addVideoFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("url") String url){
-		List<String> status=new ArrayList<String>();
-		
-		String videourl=null;
-	
-		
-		try {
-			if(url.length()>0) {
-				
-				if(!url.startsWith("<iframe")) {
-					status.add("failure");
-					return status;
-					
-				}
-				try {
-					int indexOfSrc=url.indexOf("src");
-					int lastIndexOfSrc =url.indexOf(' ', indexOfSrc);
-					String temp=url.substring(indexOfSrc, lastIndexOfSrc);
-					int ind=temp.indexOf('=');
-					String urlUpload1=temp.substring(ind+2, temp.length()-1);
-					videourl=urlUpload1;
-				
-				}catch(Exception e) {
-					status.add("failure");
-					e.printStackTrace();
-					return status;
-				}
-				
-			}else {
-				
-				status.add("failure");
-				return status;
-				
-			}
-			
-
-			
-
-			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-			Subject localSubject=subjectService.findBysubName(subSelected);
-			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
-			
-			
-			
-			User usr=userService.findByUsername(principal.getName());
-			
-			Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
-			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
-			
-
-			
-			userService.addUserToVideo(usr, videoMapping);
-			status.add("Success");
-			
-		} catch (Exception e) {
-			
-			status.add("failure");
-			e.printStackTrace();
-		}
-		
-		
-		
-	
-		
-		
-		
-		return status;
-	}
-	
-	@PostMapping("/addLessonFromUser")
-	public @ResponseBody List<String> addLessonFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("lesson") MultipartFile[] uploadLessonPlan) throws Exception{
-		
-		List<String> status=new ArrayList<String>();
-		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadLessonPlan)) {
-			
-			status.add("failure");
-			return status;
-			
-		}
-		
-		if(uploadLessonPlan[0].getSize()>fileSize) {
-			
-			status.add("failure");
-			return status;
-			
-		}
-		
-		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-		Subject localSubject=subjectService.findBysubName(subSelected);
-		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
-		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Lessonplan/";
-		
-		try {
-			String path1=ServiceUtility.uploadFile(uploadLessonPlan, createFolder);
-			
-			int indexToStart=path1.indexOf("Media");
-			String path=path1.substring(indexToStart, path1.length());
-			
-			User usr=userService.findByUsername(principal.getName());
-			
-			Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
-			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
-			
-			
-			userService.addUserToLessonplan(usr, lessonMapping);
-			status.add("Success");
-			
-		} catch (Exception e) {
-			
-			status.add("failure");
-		}
-		
-		
-		
-		
-		return status;
-	}
-	
-	@PostMapping("/addQuizFromUser")
-	public @ResponseBody List<String> addQuizFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("remarks") String remark,@RequestParam("Question") MultipartFile[] uploadQuestion,
-										   @RequestParam("Answer") MultipartFile[] uploadAnswer) throws Exception{
-		
-		List<String> status=new ArrayList<String>();
-		
-		String questionPath=null;
-		String answerPath=null;
-		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadAnswer)) {
-			System.out.println("file error");
-			status.add("failure");
-			return status;
-			
-		}
-		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
-			
-			status.add("failure");
-			return status;
-		}
-		
-		if(uploadAnswer[0].getSize()>fileSize || uploadQuestion[0].getSize()>fileSize) {
-			
-			status.add("failure");
-			return status;
-		}
-		
-		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-		Subject localSubject=subjectService.findBysubName(subSelected);
-		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
-		
-		
-		try {
-			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Quiz/"+remark+"/";
-			boolean b=ServiceUtility.createFolder(createFolder);
-			
-			String CreateFolderQuestion=createFolder+"Question/";
-			String CreateFolderAnswer=createFolder+"Answer/";
-			
-			boolean ques=ServiceUtility.createFolder(CreateFolderQuestion);
-			boolean ans=ServiceUtility.createFolder(CreateFolderAnswer);
-			
-			if(ques && ans) {
-			
-			questionPath=ServiceUtility.uploadFile(uploadQuestion, CreateFolderQuestion);
-			answerPath=ServiceUtility.uploadFile(uploadAnswer, CreateFolderAnswer);
-			
-			
-			int indexToStart=questionPath.indexOf("Media");
-			String pathQuestion=questionPath.substring(indexToStart, questionPath.length());
-			
-			int indexToStart1=answerPath.indexOf("Media");
-			String pathAnswer=answerPath.substring(indexToStart1, answerPath.length());
-			
-
-			
-			User usr=userService.findByUsername(principal.getName());
-			
-			
-			
-
-			
-			Set<QuizQuestion> quizMapping=new HashSet<QuizQuestion>();
-			quizMapping.add(new QuizQuestion(quizService.countRow()+1,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),pathQuestion,pathAnswer,0,0,remark,ServiceUtility.getCurrentTime(),localTopic,usr));
-			
-			
-			
-			userService.addUserToQuizQuestion(usr, quizMapping);
-			
-			status.add("Success");
-			
-			}else {
-				System.out.println("status error");
-				status.add("failure");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			status.add("failure");
-			
-		}
-		
-		
-		
-		return status;
-	}
-	
-	@PostMapping("/addDocumentFromUser")
-	public @ResponseBody List<String> addDocumentFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("Question") MultipartFile[] uploadDocument) throws Exception{
-		
-		List<String> status=new ArrayList<String>();
-		
-		if(!ServiceUtility.checkFileExtensionPDF(uploadDocument) && !ServiceUtility.checkFileExtensionImage(uploadDocument)) {
-			
-			status.add("failure");
-			System.out.println("fail-document");
-			return status;
-			
-		}
-		
-		if(uploadDocument[0].getSize()>fileSize) {
-			
-			status.add("failure");
-			return status;
-			
-		}
-		
-		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-		Subject localSubject=subjectService.findBysubName(subSelected);
-		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
-		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Document/";
-		
-		
-		try {
-			String path1=ServiceUtility.uploadFile(uploadDocument, createFolder);
-			
-			
-			
-			int indexToStart=path1.indexOf("Media");
-			String path=path1.substring(indexToStart, path1.length());
-			
-
-			User usr=userService.findByUsername(principal.getName());
-			
-			Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
-			documentMapping.add(new DocumentExternal(docuService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
-
-
-			userService.addUserToDocument(usr, documentMapping);
-			status.add("Success");
-			
-		} catch (Exception e) {
-			
-			status.add("failure");
-			e.printStackTrace();
-			
-		}
-		
-		
-		
-		return status;
-	}
-				
-	/************************** ----------------------------------- ******************************************/
-	
-	@PostMapping("/addConceptFromUser")
-	public @ResponseBody List<String> addConceptFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
-										   @RequestParam("topicSelected") String topicSelected,Principal principal,
-										   @RequestParam("descriptionConceptMap") String desc,@RequestParam("headlineConceptMap") String remark,@RequestParam("conceptMapImage") MultipartFile[] uploadDocument) throws Exception{
-		
-		List<String> status=new ArrayList<String>();
-		
-		
-		if(!ServiceUtility.checkFileExtensionImage(uploadDocument) && !ServiceUtility.checkFileExtensionZip(uploadDocument)) {
-			
-			status.add("failure");
-			return status;
-			
-		}
-		
-		if(uploadDocument[0].getSize()>fileSize) {
-			
-			status.add("failure");
-			return status;
-		}
-		
-		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
-		Subject localSubject=subjectService.findBysubName(subSelected);
-		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
-		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
-		
-		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/ConceptMap/";
-		
-		
-		try {
-			String path1=ServiceUtility.uploadFile(uploadDocument, createFolder);
-			
-			
-			
-			int indexToStart=path1.indexOf("Media");
-			String path=path1.substring(indexToStart, path1.length());
-			
-
-			
-			User usr=userService.findByUsername(principal.getName());
-			
-			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
-			conceptMapping.add(new ConceptMap(concepMapService.countRow()+1, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
-			
-			userService.addUserToConceptMap(usr, conceptMapping);
-			status.add("Success");
-			
-		} catch (Exception e) {
-			
-			status.add("failure");
-			System.out.println("this is failure point");
-			
-		}
-		
-		
-		
-		return status;
-	}
+//	@PostMapping("/addArticleFromUser")
+//	public @ResponseBody List<String> addArticleFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+//										   @RequestParam("topicSelected") String topicSelected,Principal principal,
+//										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("url") String url){
+//		List<String> status=new ArrayList<String>();
+//		
+//		if(!url.startsWith("http")) {												// validation against proper Url given against artcile file.
+//			
+//			status.add("failure");
+//			
+//			return status;
+//			
+//		}
+//		
+//		
+//		try {
+//			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+//			Subject localSubject=subjectService.findBysubName(subSelected);
+//			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+//			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+//			
+//			
+//			
+//			User usr=userService.findByUsername(principal.getName());
+//			Set<ArticleExternal> articlemapping=new HashSet<ArticleExternal>();
+//			articlemapping.add(new ArticleExternal(articleService.countRow()+1, "Article", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, url, 0,0,  ServiceUtility.getCurrentTime(), localTopic, usr));
+//			
+//
+//
+//			userService.addUserToArticle(usr, articlemapping);
+//			status.add("Success");
+//		} catch (Exception e) {
+//			
+//			status.add("failure");
+//		}
+//		
+//		
+//		
+//		return status;
+//	}
+//	
+//	@PostMapping("/addPhetFromUser")
+//	public @ResponseBody List<String> addPhetFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+//										   @RequestParam("topicSelected") String topicSelected,Principal principal,
+//										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("phet") String phet){
+//		
+//		List<String> status=new ArrayList<String>();
+//		String phetPath=null;
+//		
+//		try {
+//			if(phet.length()>0) {
+//				
+//				if(!phet.startsWith("<iframe")) {
+//					status.add("failure");
+//					return status;
+//					
+//				}
+//				try {
+//					int indexOfSrc=phet.indexOf("src");
+//					int lastIndexOfSrc =phet.indexOf(' ', indexOfSrc);
+//					String temp=phet.substring(indexOfSrc, lastIndexOfSrc);
+//					int ind=temp.indexOf('=');
+//					String urlUpload1=temp.substring(ind+2, temp.length()-1);
+//					phetPath=urlUpload1;
+//				
+//				}catch(Exception e) {
+//					status.add("failure");
+//					e.printStackTrace();
+//					return status;
+//				}
+//				
+//			}else {
+//				
+//				status.add("failure");
+//				return status;
+//				
+//				
+//			}
+//			
+//
+//			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+//			Subject localSubject=subjectService.findBysubName(subSelected);
+//			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+//			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+//			
+//			
+//			User usr=userService.findByUsername(principal.getName());
+//			
+//			
+//			Set<Phets> phetMapping=new HashSet<Phets>();
+//			phetMapping.add(new Phets(phetServcie.countRow()+1, "Phets", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, phetPath, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+//
+//			
+//			userService.addUserToPhets(usr, phetMapping);
+//			status.add("Success");
+//			
+//		} catch (Exception e) {
+//			
+//			status.add("failure");
+//			System.out.println("baby");
+//		}
+//		
+//		
+//		
+//		return status;
+//	}
+//	
+//	@PostMapping("/addVideoFromUser")
+//	public @ResponseBody List<String> addVideoFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+//										   @RequestParam("topicSelected") String topicSelected,Principal principal,
+//										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("url") String url){
+//		List<String> status=new ArrayList<String>();
+//		
+//		String videourl=null;
+//	
+//		
+//		try {
+//			if(url.length()>0) {
+//				
+//				if(!url.startsWith("<iframe")) {
+//					status.add("failure");
+//					return status;
+//					
+//				}
+//				try {
+//					int indexOfSrc=url.indexOf("src");
+//					int lastIndexOfSrc =url.indexOf(' ', indexOfSrc);
+//					String temp=url.substring(indexOfSrc, lastIndexOfSrc);
+//					int ind=temp.indexOf('=');
+//					String urlUpload1=temp.substring(ind+2, temp.length()-1);
+//					videourl=urlUpload1;
+//				
+//				}catch(Exception e) {
+//					status.add("failure");
+//					e.printStackTrace();
+//					return status;
+//				}
+//				
+//			}else {
+//				
+//				status.add("failure");
+//				return status;
+//				
+//			}
+//			
+//
+//			
+//
+//			Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+//			Subject localSubject=subjectService.findBysubName(subSelected);
+//			SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+//			Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+//			
+//			
+//			
+//			User usr=userService.findByUsername(principal.getName());
+//			
+//			Set<VideoExternal> videoMapping=new HashSet<VideoExternal>();
+//			videoMapping.add(new VideoExternal(videoService.countRow()+1, "Video", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, videourl, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+//			
+//
+//			
+//			userService.addUserToVideo(usr, videoMapping);
+//			status.add("Success");
+//			
+//		} catch (Exception e) {
+//			
+//			status.add("failure");
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//	
+//		
+//		
+//		
+//		return status;
+//	}
+//	
+//	@PostMapping("/addLessonFromUser")
+//	public @ResponseBody List<String> addLessonFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+//										   @RequestParam("topicSelected") String topicSelected,Principal principal,
+//										   @RequestParam("lesson") MultipartFile[] uploadLessonPlan) throws Exception{
+//		
+//		List<String> status=new ArrayList<String>();
+//		
+//		if(!ServiceUtility.checkFileExtensionPDF(uploadLessonPlan)) {
+//			
+//			status.add("failure");
+//			return status;
+//			
+//		}
+//		
+//		if(uploadLessonPlan[0].getSize()>fileSize) {
+//			
+//			status.add("failure");
+//			return status;
+//			
+//		}
+//		
+//		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+//		Subject localSubject=subjectService.findBysubName(subSelected);
+//		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+//		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+//		
+//		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Lessonplan/";
+//		
+//		try {
+//			String path1=ServiceUtility.uploadFile(uploadLessonPlan, createFolder);
+//			
+//			int indexToStart=path1.indexOf("Media");
+//			String path=path1.substring(indexToStart, path1.length());
+//			
+//			User usr=userService.findByUsername(principal.getName());
+//			
+//			Set<LessonPlan> lessonMapping=new HashSet<LessonPlan>();
+//			lessonMapping.add(new LessonPlan(lessonService.countRow()+1, "Lesson", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+//			
+//			
+//			userService.addUserToLessonplan(usr, lessonMapping);
+//			status.add("Success");
+//			
+//		} catch (Exception e) {
+//			
+//			status.add("failure");
+//		}
+//		
+//		
+//		
+//		
+//		return status;
+//	}
+//	
+//	@PostMapping("/addQuizFromUser")
+//	public @ResponseBody List<String> addQuizFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+//										   @RequestParam("topicSelected") String topicSelected,Principal principal,
+//										   @RequestParam("remarks") String remark,@RequestParam("Question") MultipartFile[] uploadQuestion,
+//										   @RequestParam("Answer") MultipartFile[] uploadAnswer) throws Exception{
+//		
+//		List<String> status=new ArrayList<String>();
+//		
+//		String questionPath=null;
+//		String answerPath=null;
+//		
+//		if(!ServiceUtility.checkFileExtensionPDF(uploadAnswer)) {
+//			System.out.println("file error");
+//			status.add("failure");
+//			return status;
+//			
+//		}
+//		
+//		if(!ServiceUtility.checkFileExtensionPDF(uploadQuestion)) {
+//			
+//			status.add("failure");
+//			return status;
+//		}
+//		
+//		if(uploadAnswer[0].getSize()>fileSize || uploadQuestion[0].getSize()>fileSize) {
+//			
+//			status.add("failure");
+//			return status;
+//		}
+//		
+//		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+//		Subject localSubject=subjectService.findBysubName(subSelected);
+//		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+//		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+//		
+//		
+//		try {
+//			String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Quiz/"+remark+"/";
+//			boolean b=ServiceUtility.createFolder(createFolder);
+//			
+//			String CreateFolderQuestion=createFolder+"Question/";
+//			String CreateFolderAnswer=createFolder+"Answer/";
+//			
+//			boolean ques=ServiceUtility.createFolder(CreateFolderQuestion);
+//			boolean ans=ServiceUtility.createFolder(CreateFolderAnswer);
+//			
+//			if(ques && ans) {
+//			
+//			questionPath=ServiceUtility.uploadFile(uploadQuestion, CreateFolderQuestion);
+//			answerPath=ServiceUtility.uploadFile(uploadAnswer, CreateFolderAnswer);
+//			
+//			
+//			int indexToStart=questionPath.indexOf("Media");
+//			String pathQuestion=questionPath.substring(indexToStart, questionPath.length());
+//			
+//			int indexToStart1=answerPath.indexOf("Media");
+//			String pathAnswer=answerPath.substring(indexToStart1, answerPath.length());
+//			
+//
+//			
+//			User usr=userService.findByUsername(principal.getName());
+//			
+//			
+//			
+//
+//			
+//			Set<QuizQuestion> quizMapping=new HashSet<QuizQuestion>();
+//			quizMapping.add(new QuizQuestion(quizService.countRow()+1,"Quiz",ServiceUtility.getCurrentTime(),ServiceUtility.getCurrentTime(),pathQuestion,pathAnswer,0,0,remark,ServiceUtility.getCurrentTime(),localTopic,usr));
+//			
+//			
+//			
+//			userService.addUserToQuizQuestion(usr, quizMapping);
+//			
+//			status.add("Success");
+//			
+//			}else {
+//				System.out.println("status error");
+//				status.add("failure");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			status.add("failure");
+//			
+//		}
+//		
+//		
+//		
+//		return status;
+//	}
+//	
+//	@PostMapping("/addDocumentFromUser")
+//	public @ResponseBody List<String> addDocumentFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+//										   @RequestParam("topicSelected") String topicSelected,Principal principal,
+//										   @RequestParam("description") String desc,@RequestParam("source") String source,@RequestParam("Question") MultipartFile[] uploadDocument) throws Exception{
+//		
+//		List<String> status=new ArrayList<String>();
+//		
+//		if(!ServiceUtility.checkFileExtensionPDF(uploadDocument) && !ServiceUtility.checkFileExtensionImage(uploadDocument)) {
+//			
+//			status.add("failure");
+//			System.out.println("fail-document");
+//			return status;
+//			
+//		}
+//		
+//		if(uploadDocument[0].getSize()>fileSize) {
+//			
+//			status.add("failure");
+//			return status;
+//			
+//		}
+//		
+//		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+//		Subject localSubject=subjectService.findBysubName(subSelected);
+//		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+//		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+//		
+//		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/Document/";
+//		
+//		
+//		try {
+//			String path1=ServiceUtility.uploadFile(uploadDocument, createFolder);
+//			
+//			
+//			
+//			int indexToStart=path1.indexOf("Media");
+//			String path=path1.substring(indexToStart, path1.length());
+//			
+//
+//			User usr=userService.findByUsername(principal.getName());
+//			
+//			Set<DocumentExternal> documentMapping=new HashSet<DocumentExternal>();
+//			documentMapping.add(new DocumentExternal(docuService.countRow()+1, "Document", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), desc, source, path, 0,0, ServiceUtility.getCurrentTime(), localTopic, usr));
+//
+//
+//			userService.addUserToDocument(usr, documentMapping);
+//			status.add("Success");
+//			
+//		} catch (Exception e) {
+//			
+//			status.add("failure");
+//			e.printStackTrace();
+//			
+//		}
+//		
+//		
+//		
+//		return status;
+//	}
+//				
+//	/************************** ----------------------------------- ******************************************/
+//	
+//	@PostMapping("/addConceptFromUser")
+//	public @ResponseBody List<String> addConceptFromUser(@RequestParam("classSelected") String classSelected,@RequestParam("subjectSelected") String subSelected,
+//										   @RequestParam("topicSelected") String topicSelected,Principal principal,
+//										   @RequestParam("descriptionConceptMap") String desc,@RequestParam("headlineConceptMap") String remark,@RequestParam("conceptMapImage") MultipartFile[] uploadDocument) throws Exception{
+//		
+//		List<String> status=new ArrayList<String>();
+//		
+//		
+//		if(!ServiceUtility.checkFileExtensionImage(uploadDocument) && !ServiceUtility.checkFileExtensionZip(uploadDocument)) {
+//			
+//			status.add("failure");
+//			return status;
+//			
+//		}
+//		
+//		if(uploadDocument[0].getSize()>fileSize) {
+//			
+//			status.add("failure");
+//			return status;
+//		}
+//		
+//		Class localClass=classService.findByClassName(Integer.parseInt(classSelected));
+//		Subject localSubject=subjectService.findBysubName(subSelected);
+//		SubjectClassMapping localSubjectClass=subjectClassService.findBysubAndstandard( localClass,localSubject);
+//		Topic localTopic=topicService.findBysubjectClassMappingAndtopicName(localSubjectClass, topicSelected);
+//		
+//		String createFolder=env.getProperty("spring.applicationexternalPath.name")+uploadDirectory+localClass.getClassName()+"_"+localSubject.getSubId()+"/"+localTopic.getTopicId()+"/ConceptMap/";
+//		
+//		
+//		try {
+//			String path1=ServiceUtility.uploadFile(uploadDocument, createFolder);
+//			
+//			
+//			
+//			int indexToStart=path1.indexOf("Media");
+//			String path=path1.substring(indexToStart, path1.length());
+//			
+//
+//			
+//			User usr=userService.findByUsername(principal.getName());
+//			
+//			Set<ConceptMap> conceptMapping=new HashSet<ConceptMap>();
+//			conceptMapping.add(new ConceptMap(concepMapService.countRow()+1, "ConceptMap", ServiceUtility.getCurrentTime(), ServiceUtility.getCurrentTime(), path, desc, 0,0, remark, localTopic, usr));
+//			
+//			userService.addUserToConceptMap(usr, conceptMapping);
+//			status.add("Success");
+//			
+//		} catch (Exception e) {
+//			
+//			status.add("failure");
+//			System.out.println("this is failure point");
+//			
+//		}
+//		
+//		
+//		
+//		return status;
+//	}
 	
 	/*---------------------------------------------------------------END----------------------------------------------------------------------------*/
 
 	/*----------------- UPDATE PROFILE PICTURE ----------------------------------*/
 	
+	/**
+	 * update  USer profile picture
+	 * @param uploadPhoto Image file to be updated
+	 * @param principal Principal object
+	 * @return ok or failure
+	 * @throws Exception
+	 */
 	@PostMapping("/updateProfilePic")
 	public @ResponseBody String updateProfilePic(@RequestParam("profilePicture") MultipartFile[] uploadPhoto,Principal principal) throws Exception{
 	

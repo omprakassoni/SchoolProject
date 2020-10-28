@@ -28,6 +28,11 @@ import com.adminportal.service.UserRoleService;
 import com.adminportal.service.UserService;
 import com.spoken.Utility.ServiceUtility;
 
+/**
+ * Stating point of launching application
+ * @author om prakash
+ *
+ */
 @SpringBootApplication
 public class AdminPortalSchoolProjectApplication extends SpringBootServletInitializer implements CommandLineRunner  {
 	
@@ -41,6 +46,7 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	private Environment env;
 	
 	
+	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		
@@ -48,6 +54,10 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	}
 	
 
+	/**
+	 * First method to run once application starts
+	 * @param args argument to be passed
+	 */
 	public static void main(String[] args) {
 		new java.io.File(HomeController.uploadDirectory).mkdir();
 		new java.io.File(HomeController.uploadTeacherDirectory).mkdir();
@@ -56,7 +66,9 @@ public class AdminPortalSchoolProjectApplication extends SpringBootServletInitia
 	
 	
 
-
+	/**
+	 * method runs after main method once when application starts
+	 */
 	@Override
 	public void run(String... args) throws Exception {
 		

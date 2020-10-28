@@ -86,16 +86,39 @@ import com.spoken.Utility.ServiceUtility;
 import com.spoken.Utility.TutorialList;
 import com.xuggle.xuggler.IContainer;
 
-
+/**
+ * This Controller class Takes care of all the operation done by admin User
+ * @author om prakash
+ *
+ */
 /* Annotation used to declare class to accept url passed from view  */
 @Controller
 public class AdminController {
 	
+	/**
+	 * Path to store resources
+	 */
 	public static final String uploadDirectory="Media/content/";  /* path to which content will get stored */
+	/**
+	 * Path to store Event data
+	 */
 	public static final String uploadEvent="Media/Event/";
+	/**
+	 * size of Video file
+	 */
 	public static final long videoSize=50*1024*1024;                     // 50 MB vidoe File max
+	
+	/**
+	 * SIze of normal file
+	 */
 	public static final long fileSize=10*1024*1024;                      // 10 MB max file   max
+	/**
+	 * Path to store Testimonial data
+	 */
 	public static final String uploadTestimonial="Media/Testimonial/";
+	/**
+	 * Duration of Video
+	 */
 	public static final long videoDuration=300000000L;
 	
 	@Autowired
@@ -150,6 +173,12 @@ public class AdminController {
 	private Environment env;
 	
 
+	/**
+	 * Redirects to Admin Homepage where admin add various resources to app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return  ModelAndView object
+	 */
 	/* url to redirect page to homepage of Admin Module */
 	
 	@RequestMapping(value = "/admin/addView",method = RequestMethod.GET)
@@ -164,6 +193,12 @@ public class AdminController {
 		return mv;
 	}
 	
+	/**
+	 * Redirects to Admin approve page where admin approve various resources 
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return  ModelAndView object
+	 */
 	@RequestMapping(value = "/admin/approve",method = RequestMethod.GET)
 	public ModelAndView adminHomeAprove(Principal principal,ModelAndView mv) {
 		
@@ -181,6 +216,12 @@ public class AdminController {
 	
 	// method to redirect addClass View 
 	
+	/**
+	 * redirects Admin to Add Class Page
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/addClass", method = RequestMethod.GET)
 	public ModelAndView addClassget(Principal principal,ModelAndView mv) {
 		
@@ -198,6 +239,14 @@ public class AdminController {
 	
 	// method to add Class entry into database
 	
+	/**
+	 * Add class name to the application based on received input parameter
+	 * @param req HttpServletRequest object
+	 * @param classSelected name of class in integer
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/addClass", method = RequestMethod.POST)
 	public ModelAndView addClassPost(HttpServletRequest req,@RequestParam(name="classSelected") int classSelected ,Principal principal, ModelAndView mv) {
 			
@@ -245,6 +294,12 @@ public class AdminController {
 	
 	// method to redirect addArticle View 
 	
+	/**
+	 * redirects admin to add article page
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/addArticle",method = RequestMethod.GET)
 	public ModelAndView addArtcileGet(Principal principal,ModelAndView mv) {
 		
@@ -274,6 +329,13 @@ public class AdminController {
 	
 	// method to add Article entry into database
 	
+	/**
+	 * Adds Article resource to app
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/addArticle",method = RequestMethod.POST)
 	public ModelAndView addArtcilePost(HttpServletRequest req,Principal principal,ModelAndView mv) {
 		
@@ -374,6 +436,12 @@ public class AdminController {
 	
 	// method to redirect addDocument View 
 	
+	/**
+	 * redirects admin to add Document resource in app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/addDocument",method = RequestMethod.GET)
 	public ModelAndView addDocumentGet(Principal principal,ModelAndView mv) {
 	
@@ -403,6 +471,14 @@ public class AdminController {
 	}
 	
 	
+	/**
+	 * Adds Document resource to app
+	 * @param req HttpServletRequest object
+	 * @param document File to be uploaded
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Document into database
 	@RequestMapping(value="/admin/addView/addDocument",method = RequestMethod.POST)
 	public ModelAndView addDocumentPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] document,Principal principal,ModelAndView mv) {
@@ -542,6 +618,12 @@ public class AdminController {
 	
 	/*------------------------------------------ADD LESSON PLAN (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * redirects admin to add Lesson resource to app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addLessonPlan View 
 	@RequestMapping(value="/admin/addView/addLessonPlan",method = RequestMethod.GET)
 	public ModelAndView addLessonPlanGet(Principal principal,ModelAndView mv) {
@@ -570,6 +652,14 @@ public class AdminController {
 		
 	}
 	
+	/**
+	 * adds Lesson resource to app
+	 * @param req HttpServletRequest object
+	 * @param lesson file to be added
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Lesson Plan into database
 	@RequestMapping(value="/admin/addView/addLessonPlan",method = RequestMethod.POST)
 	public ModelAndView addLessonPlanPost(HttpServletRequest req,@RequestParam(name="lesson") MultipartFile[] lesson,Principal principal,ModelAndView mv) {
@@ -715,6 +805,12 @@ public class AdminController {
 	
 	/*------------------------------------------ADD PHET (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * redirects admin to Add phet resource to app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addPhets View 
 	@RequestMapping(value="/admin/addView/addPhets",method = RequestMethod.GET)
 	public ModelAndView addPhetsGet(Principal principal,ModelAndView mv) {
@@ -744,6 +840,13 @@ public class AdminController {
 	
 	}
 	
+	/**
+	 * Add phet resource to app
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Phets into database
 	@RequestMapping(value="/admin/addView/addPhets",method = RequestMethod.POST)
 	public ModelAndView addPhetsPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
@@ -896,6 +999,15 @@ public class AdminController {
 	
 	/*------------------------------------------ADD TOPIC (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * add topic to app
+	 * @param poster file to be added
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 * @throws Exception
+	 */
 	// method to add Topic into database
 	@Transactional
 	@RequestMapping(value="/admin/addView/addTopic",method=RequestMethod.POST)
@@ -1016,6 +1128,12 @@ public class AdminController {
 		return mv;
 	}
 	
+	/**
+	 * redirects admin to add Topic to app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// redirect to addTopic View
 	@RequestMapping(value="/admin/addView/addTopic",method=RequestMethod.GET)
 	public ModelAndView addTopicGet(Principal principal,ModelAndView mv) {
@@ -1041,6 +1159,12 @@ public class AdminController {
 	/*------------------------------------------ADD SUBJECT (ADMIN MODULE)-----------------------------------------------------------------*/
 	
 	
+	/**
+	 * redirects admin to add subject to app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addSubject View 
 	@RequestMapping(value="/admin/addView/addSubject", method=RequestMethod.GET)
 	public ModelAndView addSubjectGet(Principal principal,ModelAndView mv) {
@@ -1080,6 +1204,14 @@ public class AdminController {
 	}
 	
 	
+	/**
+	 * add subject to app
+	 * @param req HttpServletRequest object
+	 * @param selectedSubject subject name 
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Subject into database
 	@RequestMapping(value="/admin/addView/addSubject", method=RequestMethod.POST)
 	public ModelAndView addSubjectPost(HttpServletRequest req,@RequestParam(name="SelectedSubject") String selectedSubject,Principal principal,ModelAndView mv) {
@@ -1197,6 +1329,12 @@ public class AdminController {
 	
 	/*------------------------------------------ADD VIDEO (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * redirects admin to add video resource page
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addVideo View 
 	@RequestMapping(value="/admin/addView/addVideo",method = RequestMethod.GET)
 	public ModelAndView addVideoGet(Principal principal,ModelAndView mv) {
@@ -1224,6 +1362,13 @@ public class AdminController {
 		
 	}
 	
+	/**
+	 * add video resource to app (iframe data) 
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Video into database
 	@RequestMapping(value="/admin/addView/addVideo",method = RequestMethod.POST)
 	public ModelAndView addVideoGetPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
@@ -1337,6 +1482,14 @@ public class AdminController {
 	}
 	
 	
+	/**
+	 * add Video resource to app
+	 * @param video video file to be added
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/addVideoUpload",method = RequestMethod.POST)
 	public ModelAndView addVideoUploadPost(@RequestParam(name="videoUpload") MultipartFile video,HttpServletRequest req,Principal principal,ModelAndView mv) {
 		
@@ -1484,6 +1637,12 @@ public class AdminController {
 	
 	/*------------------------------------------ADD QUIZ (ADMIN MODULE)-----------------------------------------------------------------*/
 	
+	/**
+	 * redirects admin to add quiz page
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addQuiz View 
 	@RequestMapping(value="/admin/addView/addQuiz",method = RequestMethod.GET)
 	public ModelAndView addQuizGet(Principal principal,ModelAndView mv) {
@@ -1512,6 +1671,15 @@ public class AdminController {
 		
 	}
 	
+	/**
+	 * add Quiz data to app
+	 * @param req HttpServletRequest object
+	 * @param question question file to be added
+	 * @param answer answer file to be added
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Quiz into database
 	@RequestMapping(value="/admin/addView/addQuiz",method = RequestMethod.POST)
 	public ModelAndView addQuizPost(HttpServletRequest req,@RequestParam(name="Question")MultipartFile[] question,Principal principal,@RequestParam(name="Answer")MultipartFile[] answer,ModelAndView mv) {
@@ -1697,6 +1865,12 @@ public class AdminController {
 	}
 	/**********************************************************************************************/
 	
+	/**
+	 * redirects admin to add ConceptMap page
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addConcept-map View 
 	@RequestMapping(value = "/admin/addView/addConceptMap",method = RequestMethod.GET)
 	public ModelAndView addConceptMapGet(Principal principal,ModelAndView mv) {
@@ -1723,6 +1897,14 @@ public class AdminController {
 		return mv;
 	}
 	
+	/**
+	 * add conceptMap data to app
+	 * @param req HttpServletRequest object
+	 * @param conceptMapImage file to be added
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Concept -MAp into database
 	@RequestMapping(value = "/admin/addView/addConceptMap",method = RequestMethod.POST)
 	public ModelAndView addConceptMapPost(HttpServletRequest req,Principal principal,@RequestParam(name="conceptMapImage")MultipartFile[] conceptMapImage,ModelAndView mv) {
@@ -1860,6 +2042,12 @@ public class AdminController {
 	/**************************************** ADDING TUTORIAL  ********************************************************************************/
 	// method to redirect addTutorial View 
 	
+	/**
+	 * redirects admin to add tutorial data to app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	@RequestMapping(value="/admin/addView/addTutorial",method = RequestMethod.GET)
 	public ModelAndView addTutorialGet(Principal principal,ModelAndView mv) {
 		
@@ -1908,6 +2096,13 @@ public class AdminController {
 		
 	}
 	
+	/**
+	 * add Tutorial data to add (Spoken tutorial content)
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Tutorial into database
 	@RequestMapping(value = "/admin/addView/addTutorial",method = RequestMethod.POST)
 	public ModelAndView addTutorialPost(HttpServletRequest req,Principal principal,ModelAndView mv) {
@@ -2032,6 +2227,12 @@ public class AdminController {
 	
 	/*******************************************************************************************************************************************/
 
+	/**
+	 * redirect admin to add testimonial page 
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addTestimonial View 
 	@RequestMapping(value = "/admin/addView/addTestimonial",method = RequestMethod.GET)
 	public ModelAndView addTestimonialGet(Principal principal,ModelAndView mv) {
@@ -2050,7 +2251,13 @@ public class AdminController {
 		
 	}
 	
-	
+	/**
+	 * Add Testimonial data to app
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add Testimonial into database
 	@RequestMapping(value = "/admin/addView/addTestimonial",method = RequestMethod.POST)
 	public ModelAndView addTestimonialPost(HttpServletRequest req,ModelAndView mv,Principal principal) {
@@ -2099,6 +2306,15 @@ public class AdminController {
 
 	}
 	
+	/**
+	 * Add video file to app
+	 * @param video Video file to be added
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/admin/addView/addVideoTestimonial",method = RequestMethod.POST)
 	public ModelAndView addVideoTestimonialPost(@RequestParam(name="videoTesti") MultipartFile video ,HttpServletRequest req,ModelAndView mv,Principal principal) throws Exception {
 		
@@ -2251,6 +2467,12 @@ public class AdminController {
 	
 	
 	
+	/**
+	 * redirects admin to add Event data to app
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to redirect addEvent View 
 	@RequestMapping(value = "/admin/addView/addEvent",method = RequestMethod.GET)
 	public ModelAndView addEventGet(Principal principal,ModelAndView mv) {
@@ -2267,6 +2489,14 @@ public class AdminController {
 
 	}
 	
+	/**
+	 * add Event data to app
+	 * @param poster file to be added
+	 * @param req HttpServletRequest object
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	// method to add event into database
 	@RequestMapping(value = "/admin/addView/addEvent",method = RequestMethod.POST)
 	public ModelAndView addEventPost(@RequestParam("poster") MultipartFile[] poster,HttpServletRequest req,ModelAndView mv,Principal principal) {
@@ -2463,6 +2693,12 @@ public class AdminController {
 	}
 	
 	
+	/**
+	 * redirect admin to view all the queries made by user
+	 * @param principal A principal object
+	 * @param mv ModelAndView object
+	 * @return ModelAndView object
+	 */
 	//method to redirect page to Message of User
 	@RequestMapping(value = "/admin/approve/contactInformation",method = RequestMethod.GET)
 	public ModelAndView getUserMessageget(Principal principal,ModelAndView mv) {
