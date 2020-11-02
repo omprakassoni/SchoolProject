@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.adminportal.config"},{"l":"com.adminportal.content"},{"l":"com.adminportal.domain"},{"l":"com.adminportal.repository"},{"l":"com.adminportal.service.impl"},{"l":"com.spoken.Utility"}]

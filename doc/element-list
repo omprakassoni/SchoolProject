@@ -1,0 +1,8 @@
+com.adminportal
+com.adminportal.config
+com.adminportal.content
+com.adminportal.domain
+com.adminportal.repository
+com.adminportal.service
+com.adminportal.service.impl
+com.spoken.Utility
